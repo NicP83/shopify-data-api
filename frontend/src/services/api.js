@@ -67,6 +67,16 @@ const api = {
   },
 
   getInventoryLocations: () => apiClient.get('/inventory/locations'),
+
+  // Chat
+  sendChatMessage: (message, conversationHistory = []) => {
+    return apiClient.post('/chat/message', {
+      message,
+      conversationHistory
+    })
+  },
+
+  getChatStatus: () => apiClient.get('/chat/status'),
 }
 
 export default api

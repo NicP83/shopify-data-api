@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Dashboard from './pages/Dashboard'
 import ProductSearch from './pages/ProductSearch'
+import ChatAgent from './pages/ChatAgent'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<ProductSearch />} />
-            <Route path="/chat" element={<div className="text-center py-20 text-gray-500">AI Chat Agent - Coming Soon</div>} />
+            <Route path="/chat" element={<ChatAgent />} />
             <Route path="/analytics" element={<div className="text-center py-20 text-gray-500">Analytics Dashboard - Coming Soon</div>} />
             <Route path="/market-intel" element={<div className="text-center py-20 text-gray-500">Market Intelligence - Coming Soon</div>} />
           </Routes>

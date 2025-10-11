@@ -48,8 +48,6 @@ public class CustomerService {
                     verifiedEmail
                     taxExempt
                     tags
-                    ordersCount
-                    totalSpent
                     defaultAddress {
                       address1
                       address2
@@ -102,9 +100,6 @@ public class CustomerService {
                 verifiedEmail
                 taxExempt
                 tags
-                ordersCount
-                totalSpent
-                lifetimeDuration
                 defaultAddress {
                   id
                   firstName
@@ -178,8 +173,6 @@ public class CustomerService {
                     lastName
                     phone
                     createdAt
-                    ordersCount
-                    totalSpent
                     state
                   }
                 }

@@ -46,8 +46,6 @@ public class InventoryService {
                           title
                           sku
                           inventoryQuantity
-                          inventoryPolicy
-                          inventoryManagement
                           inventoryItem {
                             id
                             tracked
@@ -55,7 +53,10 @@ public class InventoryService {
                               edges {
                                 node {
                                   id
-                                  available
+                                  quantities(names: ["available"]) {
+                                    name
+                                    quantity
+                                  }
                                   location {
                                     id
                                     name
@@ -104,8 +105,6 @@ public class InventoryService {
                       title
                       sku
                       inventoryQuantity
-                      inventoryPolicy
-                      inventoryManagement
                       inventoryItem {
                         id
                         tracked
@@ -113,8 +112,10 @@ public class InventoryService {
                           edges {
                             node {
                               id
-                              available
-                              incoming
+                              quantities(names: ["available", "incoming"]) {
+                                name
+                                quantity
+                              }
                               location {
                                 id
                                 name

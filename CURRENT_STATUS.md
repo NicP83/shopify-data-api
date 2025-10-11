@@ -1,8 +1,8 @@
 # Current Project Status
 
 **Last Updated:** 2025-10-11
-**Version:** WORKING3
-**Status:** Deployed to Railway - React Frontend + All Backend APIs
+**Version:** WORKING4 (v0.2.0-chatbot-basic)
+**Status:** Deployed to Railway - React Frontend + All Backend APIs + AI Chat Agent
 
 ## Quick Summary
 
@@ -73,9 +73,35 @@ curl "http://localhost:8080/api/products/search?q=title:Gundam&first=5"
 - Complete order details including line items, shipping address
 - Financial status: PAID, Fulfillment status: FULFILLED
 
-## New Features in WORKING3 ✨
+## New Features in WORKING4 ✨
 
-### React Frontend - Phase 1 Complete
+### AI Chat Agent - Basic Implementation (v0.2.0-chatbot-basic)
+
+**Feature:** Conversational AI assistant powered by Anthropic Claude for customer support and product discovery.
+
+**What's Working:**
+- Claude API integration (claude-3-5-sonnet-20241022)
+- Chat endpoint: `POST /api/chat/message`
+- Conversation history support
+- CORS fixed for Railway production
+- AI configuration API endpoints
+- Settings UI for model/temperature/tokens
+- External system prompt file
+
+**Known Issues:**
+- Tool use not implemented (AI simulates product search)
+- System prompt is hardcoded (not UI-configurable)
+- No chatbot configuration UI
+
+**Next:** Full configuration system + Claude tool use for actual product search
+
+**See:** [AI_CHAT_AGENT_STATUS.md](AI_CHAT_AGENT_STATUS.md) for complete details
+
+---
+
+## Previous Features
+
+### React Frontend - Phase 1 Complete (WORKING3)
 
 **Feature:** Complete React-based user interface for the Customer Service Hub with product search functionality.
 
@@ -411,10 +437,11 @@ curl "http://localhost:8080/api/orders?first=5"
 - **All Features:** ✅ Complete
 
 ### Next Phase
-- **Current Checkpoint:** WORKING3 (React Frontend - Phase 1 Complete)
-- **Next Milestone:** WORKING4 (AI Chat Agent - Phase 2)
-- **See:** `DEVELOPMENT_ROADMAP.md` for detailed plan
+- **Current Checkpoint:** WORKING4 (AI Chat Agent - Basic Implementation)
+- **Version Tag:** v0.2.0-chatbot-basic
+- **Next Milestone:** v0.3.0 (Full Chatbot Configuration + Tool Use)
+- **See:** `AI_CHAT_AGENT_STATUS.md` for detailed implementation plan
 
 ---
 
-**Status:** Phase 1 complete! All 13 backend endpoints fully functional, React frontend deployed with product search interface. Dashboard, navigation, and product detail features working. Ready for Phase 2: AI Chat Agent.
+**Status:** WORKING4 complete! All 13 backend endpoints fully functional, React frontend with product search, AI chat agent with Claude integration. Known issues: tool use not implemented, prompts hardcoded. Next: Full configuration system + Claude tool use for actual product search.

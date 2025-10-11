@@ -10,10 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import jakarta.annotation.PostConstruct;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -31,21 +36,50 @@ public class ChatAgentService {
     @Value("${anthropic.model:claude-3-5-sonnet-20241022}")
     private String anthropicModel;
 
+    @Value("${anthropic.max-tokens:1024}")
+    private int maxTokens;
+
+    @Value("${anthropic.temperature:0.7}")
+    private double temperature;
+
+    @Value("${anthropic.system-prompt-file:classpath:prompts/system-prompt.txt}")
+    private String systemPromptFile;
+
     private final WebClient webClient;
     private final ProductService productService;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
+    private final ResourceLoader resourceLoader;
+    private String systemPromptTemplate;
 
     @Autowired
     public ChatAgentService(WebClient.Builder webClientBuilder,
                            ProductService productService,
+                           ResourceLoader resourceLoader,
                            @Value("${shopify.shop.url}") String shopUrl) {
         this.webClient = webClientBuilder
                 .baseUrl("https://api.anthropic.com/v1")
                 .build();
         this.productService = productService;
+        this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
+    }
+
+    @PostConstruct
+    public void loadSystemPrompt() {
+        try {
+            Resource resource = resourceLoader.getResource(systemPromptFile);
+            systemPromptTemplate = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            logger.info("Loaded system prompt from: {}", systemPromptFile);
+        } catch (IOException e) {
+            logger.error("Failed to load system prompt file: {}", e.getMessage());
+            // Fall back to default prompt
+            systemPromptTemplate = """
+                    You are a helpful sales and customer support assistant for an online Gundam model kit store.
+                    Store URL: {SHOP_URL}
+                    """;
+        }
     }
 
     /**
@@ -69,7 +103,8 @@ public class ChatAgentService {
         // Create the request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", anthropicModel);
-        requestBody.put("max_tokens", 1024);
+        requestBody.put("max_tokens", maxTokens);
+        requestBody.put("temperature", temperature);
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
@@ -93,27 +128,43 @@ public class ChatAgentService {
      * Build system prompt that defines the AI's role and capabilities
      */
     private String buildSystemPrompt() {
-        return """
-                You are a helpful sales and customer support assistant for an online Gundam model kit store.
-                Your role is to help customers find products, answer questions, and assist with purchases.
+        // Replace placeholders in the template with actual values
+        return systemPromptTemplate.replace("{SHOP_URL}", shopUrl);
+    }
 
-                You have access to the store's product catalog and can search for products by name or description.
-                When customers ask about products, you should:
-                1. Search for relevant products
-                2. Describe the products in detail
-                3. Provide pricing information
-                4. Generate direct "Add to Cart" links that customers can click
+    /**
+     * Get the system prompt template (for configuration UI)
+     */
+    public String getSystemPromptTemplate() {
+        return systemPromptTemplate;
+    }
 
-                Store URL: %s
+    // Getters and setters for runtime configuration
+    public int getMaxTokens() {
+        return maxTokens;
+    }
 
-                When mentioning products, always provide:
-                - Product name and SKU
-                - Price
-                - A direct cart link in this format: https://%s/cart/VARIANT_ID:1
+    public void setMaxTokens(int maxTokens) {
+        this.maxTokens = maxTokens;
+        logger.info("Max tokens updated to: {}", maxTokens);
+    }
 
-                Be friendly, enthusiastic about Gundam models, and help customers make informed decisions.
-                If you don't have information about a specific product, be honest and suggest searching the catalog.
-                """.formatted(shopUrl, shopUrl);
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+        logger.info("Temperature updated to: {}", temperature);
+    }
+
+    public String getAnthropicModel() {
+        return anthropicModel;
+    }
+
+    public void setAnthropicModel(String model) {
+        this.anthropicModel = model;
+        logger.info("Model updated to: {}", model);
     }
 
     /**

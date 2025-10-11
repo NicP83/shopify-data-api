@@ -3,6 +3,7 @@ import Navigation from './components/Navigation'
 import Dashboard from './pages/Dashboard'
 import ProductSearch from './pages/ProductSearch'
 import ChatAgent from './pages/ChatAgent'
+import Settings from './pages/Settings'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<ProductSearch />} />
             <Route path="/chat" element={<ChatAgent />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/analytics" element={<div className="text-center py-20 text-gray-500">Analytics Dashboard - Coming Soon</div>} />
             <Route path="/market-intel" element={<div className="text-center py-20 text-gray-500">Market Intelligence - Coming Soon</div>} />
           </Routes>

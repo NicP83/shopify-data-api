@@ -44,6 +44,16 @@ shopify:
     max-retries: ${SHOPIFY_MAX_RETRIES:3}
     initial-backoff-ms: ${SHOPIFY_INITIAL_BACKOFF:1000}
 
+# AI Chat Configuration
+anthropic:
+  api:
+    key: ${ANTHROPIC_API_KEY:}
+    version: ${ANTHROPIC_API_VERSION:2023-06-01}
+  model: ${ANTHROPIC_MODEL:claude-3-5-sonnet-20241022}
+  max-tokens: ${ANTHROPIC_MAX_TOKENS:1024}
+  temperature: ${ANTHROPIC_TEMPERATURE:0.7}
+  system-prompt-file: ${ANTHROPIC_SYSTEM_PROMPT_FILE:classpath:prompts/system-prompt.txt}
+
 # Logging Configuration
 logging:
   level:

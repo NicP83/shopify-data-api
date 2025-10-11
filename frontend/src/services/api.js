@@ -77,6 +77,15 @@ const api = {
   },
 
   getChatStatus: () => apiClient.get('/chat/status'),
+
+  // Configuration
+  getAIConfig: () => apiClient.get('/config/ai'),
+
+  updateAIConfig: (config) => apiClient.put('/config/ai', config),
+
+  getSystemPrompt: () => apiClient.get('/config/prompt'),
+
+  getAvailableModels: () => apiClient.get('/config/models'),
 }
 
 export default api

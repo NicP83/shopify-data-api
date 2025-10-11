@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/chat")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
 public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);

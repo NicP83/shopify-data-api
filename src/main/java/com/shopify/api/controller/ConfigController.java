@@ -1,6 +1,8 @@
 package com.shopify.api.controller;
 
+import com.shopify.api.model.ChatbotConfig;
 import com.shopify.api.service.ChatAgentService;
+import com.shopify.api.service.ChatbotConfigService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,12 @@ public class ConfigController {
     private static final Logger logger = LoggerFactory.getLogger(ConfigController.class);
 
     private final ChatAgentService chatAgentService;
+    private final ChatbotConfigService chatbotConfigService;
 
     @Autowired
-    public ConfigController(ChatAgentService chatAgentService) {
+    public ConfigController(ChatAgentService chatAgentService, ChatbotConfigService chatbotConfigService) {
         this.chatAgentService = chatAgentService;
+        this.chatbotConfigService = chatbotConfigService;
     }
 
     /**
@@ -95,7 +99,7 @@ public class ConfigController {
     }
 
     /**
-     * Get current system prompt template
+     * Get current system prompt (dynamically generated from configuration)
      * GET /api/config/prompt
      */
     @GetMapping("/prompt")
@@ -103,9 +107,9 @@ public class ConfigController {
         logger.info("Fetching system prompt");
 
         Map<String, Object> response = new HashMap<>();
-        response.put("prompt", chatAgentService.getSystemPromptTemplate());
-        response.put("editable", false); // Currently read-only
-        response.put("message", "System prompt is loaded from file. Edit src/main/resources/prompts/system-prompt.txt to change.");
+        response.put("prompt", chatAgentService.getGeneratedSystemPrompt());
+        response.put("editable", true);
+        response.put("message", "System prompt is dynamically generated from chatbot configuration. Edit configuration to change.");
 
         return ResponseEntity.ok(response);
     }
@@ -127,6 +131,82 @@ public class ConfigController {
             "claude-3-haiku-20240307"
         });
         response.put("current", chatAgentService.getAnthropicModel());
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Get chatbot configuration
+     * GET /api/config/chatbot
+     */
+    @GetMapping("/chatbot")
+    public ResponseEntity<ChatbotConfig> getChatbotConfig() {
+        logger.info("Fetching chatbot configuration");
+        return ResponseEntity.ok(chatbotConfigService.getConfig());
+    }
+
+    /**
+     * Update chatbot configuration (runtime only, not persisted)
+     * PUT /api/config/chatbot
+     */
+    @PutMapping("/chatbot")
+    public ResponseEntity<Map<String, Object>> updateChatbotConfig(@RequestBody ChatbotConfig config) {
+        logger.info("Updating chatbot configuration");
+
+        try {
+            chatbotConfigService.updateConfig(config);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("config", chatbotConfigService.getConfig());
+            response.put("message", "Chatbot configuration updated successfully (runtime only)");
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            logger.error("Error updating chatbot configuration: {}", e.getMessage());
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to update chatbot configuration");
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    /**
+     * Reset chatbot configuration to defaults
+     * POST /api/config/chatbot/reset
+     */
+    @PostMapping("/chatbot/reset")
+    public ResponseEntity<Map<String, Object>> resetChatbotConfig() {
+        logger.info("Resetting chatbot configuration to defaults");
+
+        try {
+            chatbotConfigService.resetToDefaults();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("config", chatbotConfigService.getConfig());
+            response.put("message", "Chatbot configuration reset to defaults");
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            logger.error("Error resetting chatbot configuration: {}", e.getMessage());
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to reset chatbot configuration");
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    /**
+     * Preview system prompt generated from current configuration
+     * GET /api/config/chatbot/preview-prompt
+     */
+    @GetMapping("/chatbot/preview-prompt")
+    public ResponseEntity<Map<String, Object>> previewSystemPrompt() {
+        logger.info("Previewing system prompt");
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("prompt", chatAgentService.getGeneratedSystemPrompt());
+        response.put("config", chatbotConfigService.getConfig());
+        response.put("message", "This is the system prompt that will be sent to Claude API based on current configuration");
 
         return ResponseEntity.ok(response);
     }

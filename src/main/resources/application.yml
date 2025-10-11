@@ -54,6 +54,35 @@ anthropic:
   temperature: ${ANTHROPIC_TEMPERATURE:0.7}
   system-prompt-file: ${ANTHROPIC_SYSTEM_PROMPT_FILE:classpath:prompts/system-prompt.txt}
 
+# Chatbot Configuration
+chatbot:
+  # Store Identity
+  store:
+    name: ${CHATBOT_STORE_NAME:Hearn's Hobbies}
+    description: ${CHATBOT_STORE_DESCRIPTION:An online hobby store specializing in model kits and hobby supplies}
+    categories: ${CHATBOT_STORE_CATEGORIES:model kits, hobby paints, tools, crafting supplies, model accessories}
+
+  # Behavior Rules
+  behavior:
+    scope-instructions: ${CHATBOT_SCOPE_INSTRUCTIONS:We specialize in hobby and model building supplies including Gundam model kits, scale models, hobby paints, tools, and accessories for model enthusiasts.}
+    out-of-scope-response: ${CHATBOT_OUT_OF_SCOPE:I specialize in hobby supplies and model kits. While I don't have information about that specific item, I'd be happy to help you find model kits, paints, or hobby tools from our catalog!}
+    require-search: ${CHATBOT_REQUIRE_SEARCH:true}
+
+  # Tool Configuration
+  tools:
+    enable-product-search: ${CHATBOT_ENABLE_SEARCH:true}
+    max-search-results: ${CHATBOT_MAX_RESULTS:5}
+
+  # Response Style
+  response:
+    tone: ${CHATBOT_TONE:friendly}
+    include-cart-links: ${CHATBOT_INCLUDE_CART_LINKS:true}
+    show-prices: ${CHATBOT_SHOW_PRICES:true}
+    show-skus: ${CHATBOT_SHOW_SKUS:true}
+
+  # Advanced
+  custom-instructions: ${CHATBOT_CUSTOM_INSTRUCTIONS:}
+
 # Logging Configuration
 logging:
   level:

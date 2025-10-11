@@ -2,6 +2,7 @@ package com.shopify.api.service;
 
 import com.shopify.api.model.ChatMessage;
 import com.shopify.api.model.ChatRequest;
+import com.shopify.api.model.ChatbotConfig;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -47,6 +48,7 @@ public class ChatAgentService {
 
     private final WebClient webClient;
     private final ProductService productService;
+    private final ChatbotConfigService chatbotConfigService;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
@@ -55,12 +57,14 @@ public class ChatAgentService {
     @Autowired
     public ChatAgentService(WebClient.Builder webClientBuilder,
                            ProductService productService,
+                           ChatbotConfigService chatbotConfigService,
                            ResourceLoader resourceLoader,
-                           @Value("${shopify.shop.url}") String shopUrl) {
+                           @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
                 .baseUrl("https://api.anthropic.com/v1")
                 .build();
         this.productService = productService;
+        this.chatbotConfigService = chatbotConfigService;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -84,6 +88,7 @@ public class ChatAgentService {
 
     /**
      * Process a chat message and return AI response
+     * Supports Claude tool use for product search
      */
     public Mono<ChatMessage> processChat(ChatRequest chatRequest) {
         logger.info("Processing chat message: {}", chatRequest.getMessage());
@@ -100,6 +105,20 @@ public class ChatAgentService {
         // Build the messages array for Claude API
         ArrayNode messages = buildMessagesArray(chatRequest);
 
+        // Call Claude API with tool support
+        return callClaudeWithTools(systemPrompt, messages, 0);
+    }
+
+    /**
+     * Call Claude API with tool support (recursive for multi-turn conversations)
+     * maxIterations prevents infinite loops
+     */
+    private Mono<ChatMessage> callClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration) {
+        if (iteration >= 5) {
+            logger.warn("Max tool use iterations reached");
+            return Mono.just(new ChatMessage("assistant", "I apologize, but I'm having trouble completing your request. Please try rephrasing."));
+        }
+
         // Create the request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", anthropicModel);
@@ -107,6 +126,12 @@ public class ChatAgentService {
         requestBody.put("temperature", temperature);
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
+
+        // Add tools array if product search is enabled
+        ChatbotConfig config = chatbotConfigService.getConfig();
+        if (config.isEnableProductSearch()) {
+            requestBody.set("tools", buildToolsArray(config));
+        }
 
         // Call Claude API
         return webClient.post()
@@ -117,7 +142,7 @@ public class ChatAgentService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .map(this::extractAssistantMessage)
+                .flatMap(response -> handleClaudeResponse(response, systemPrompt, messages, iteration))
                 .onErrorResume(error -> {
                     logger.error("Error calling Claude API: {}", error.getMessage());
                     return Mono.just(createErrorResponse());
@@ -125,18 +150,203 @@ public class ChatAgentService {
     }
 
     /**
-     * Build system prompt that defines the AI's role and capabilities
+     * Handle Claude API response - either extract message or handle tool use
      */
-    private String buildSystemPrompt() {
-        // Replace placeholders in the template with actual values
-        return systemPromptTemplate.replace("{SHOP_URL}", shopUrl);
+    private Mono<ChatMessage> handleClaudeResponse(JsonNode response, String systemPrompt, ArrayNode messages, int iteration) {
+        try {
+            String stopReason = response.get("stop_reason").asText();
+            JsonNode content = response.get("content");
+
+            if ("tool_use".equals(stopReason) && content != null && content.isArray()) {
+                // Claude wants to use a tool
+                logger.info("Claude requested tool use");
+                return handleToolUseAndContinue(response, systemPrompt, messages, iteration);
+            } else {
+                // Regular text response
+                return Mono.just(extractAssistantMessage(response));
+            }
+        } catch (Exception e) {
+            logger.error("Error handling Claude response: {}", e.getMessage());
+            return Mono.just(createErrorResponse());
+        }
     }
 
     /**
-     * Get the system prompt template (for configuration UI)
+     * Execute tool calls and continue conversation with results
      */
-    public String getSystemPromptTemplate() {
-        return systemPromptTemplate;
+    private Mono<ChatMessage> handleToolUseAndContinue(JsonNode response, String systemPrompt, ArrayNode messages, int iteration) {
+        try {
+            // Add assistant's response with tool_use to messages
+            ObjectNode assistantMessage = objectMapper.createObjectNode();
+            assistantMessage.put("role", "assistant");
+            assistantMessage.set("content", response.get("content"));
+            messages.add(assistantMessage);
+
+            // Execute all tool calls and build tool results
+            JsonNode content = response.get("content");
+            ArrayNode toolResults = objectMapper.createArrayNode();
+
+            for (JsonNode block : content) {
+                if ("tool_use".equals(block.get("type").asText())) {
+                    String toolName = block.get("name").asText();
+                    String toolUseId = block.get("id").asText();
+                    JsonNode toolInput = block.get("input");
+
+                    logger.info("Executing tool: {} with input: {}", toolName, toolInput);
+
+                    // Execute the tool
+                    String toolResult = executeToolCall(toolName, toolInput);
+
+                    // Build tool_result block
+                    ObjectNode toolResultBlock = objectMapper.createObjectNode();
+                    toolResultBlock.put("type", "tool_result");
+                    toolResultBlock.put("tool_use_id", toolUseId);
+                    toolResultBlock.put("content", toolResult);
+                    toolResults.add(toolResultBlock);
+                }
+            }
+
+            // Add user message with tool results
+            ObjectNode userMessage = objectMapper.createObjectNode();
+            userMessage.put("role", "user");
+            userMessage.set("content", toolResults);
+            messages.add(userMessage);
+
+            // Continue conversation with tool results
+            return callClaudeWithTools(systemPrompt, messages, iteration + 1);
+
+        } catch (Exception e) {
+            logger.error("Error handling tool use: {}", e.getMessage());
+            return Mono.just(createErrorResponse());
+        }
+    }
+
+    /**
+     * Execute a tool call and return results
+     */
+    private String executeToolCall(String toolName, JsonNode input) {
+        try {
+            if ("search_products".equals(toolName)) {
+                String query = input.get("query").asText();
+                int maxResults = chatbotConfigService.getConfig().getMaxSearchResults();
+
+                logger.info("Searching products with query: {} (max: {})", query, maxResults);
+
+                // Search products using ProductService
+                Map<String, Object> results = productService.searchProducts(query, maxResults);
+
+                // Format results for Claude
+                return objectMapper.writeValueAsString(results.get("data"));
+            }
+
+            return "Unknown tool: " + toolName;
+
+        } catch (Exception e) {
+            logger.error("Error executing tool {}: {}", toolName, e.getMessage());
+            return "Error executing search: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Build tools array for Claude API
+     */
+    private ArrayNode buildToolsArray(ChatbotConfig config) {
+        ArrayNode tools = objectMapper.createArrayNode();
+
+        // Define search_products tool
+        ObjectNode searchTool = objectMapper.createObjectNode();
+        searchTool.put("name", "search_products");
+        searchTool.put("description", "Search the product catalog to find items matching a query. " +
+                "Use this to find specific products, check availability, get prices, or browse categories. " +
+                "Returns product details including title, description, price, SKU, variants, and image URL.");
+
+        // Define input schema
+        ObjectNode inputSchema = objectMapper.createObjectNode();
+        inputSchema.put("type", "object");
+
+        ObjectNode properties = objectMapper.createObjectNode();
+        ObjectNode queryProperty = objectMapper.createObjectNode();
+        queryProperty.put("type", "string");
+        queryProperty.put("description", "Search query to find products (searches title, description, tags, vendor)");
+        properties.set("query", queryProperty);
+
+        inputSchema.set("properties", properties);
+        ArrayNode required = objectMapper.createArrayNode();
+        required.add("query");
+        inputSchema.set("required", required);
+
+        searchTool.set("input_schema", inputSchema);
+        tools.add(searchTool);
+
+        return tools;
+    }
+
+    /**
+     * Build system prompt that defines the AI's role and capabilities
+     * Dynamically generates prompt from ChatbotConfig
+     */
+    private String buildSystemPrompt() {
+        ChatbotConfig config = chatbotConfigService.getConfig();
+
+        StringBuilder prompt = new StringBuilder();
+
+        // Identity
+        prompt.append("You are a helpful sales and customer support assistant for ");
+        prompt.append(config.getStoreName());
+        prompt.append(", ");
+        prompt.append(config.getStoreDescription());
+        prompt.append(".\n\n");
+
+        // Store URL
+        prompt.append("Store URL: https://").append(shopUrl).append("\n\n");
+
+        // What we sell
+        prompt.append("WHAT WE SELL:\n");
+        prompt.append("We sell: ").append(config.getStoreCategories()).append("\n");
+        prompt.append(config.getScopeInstructions()).append("\n\n");
+
+        // Rules
+        prompt.append("IMPORTANT RULES:\n");
+        if (config.isRequireSearchBeforeRecommendation()) {
+            prompt.append("- ALWAYS search the catalog before recommending products\n");
+        }
+        prompt.append("- ONLY recommend products found in our catalog\n");
+        prompt.append("- When we don't carry something: ").append(config.getOutOfScopeResponse()).append("\n\n");
+
+        // Tools (if enabled)
+        if (config.isEnableProductSearch()) {
+            prompt.append("AVAILABLE TOOLS:\n");
+            prompt.append("You can search products by calling the search_products function.\n");
+            prompt.append("Search returns up to ").append(config.getMaxSearchResults()).append(" results.\n\n");
+        }
+
+        // Response style
+        prompt.append("RESPONSE STYLE:\n");
+        prompt.append("- Tone: ").append(config.getToneOfVoice()).append("\n");
+        if (config.isIncludeCartLinks()) {
+            prompt.append("- Generate 'Add to Cart' links: https://").append(shopUrl).append("/cart/{VARIANT_ID}:1\n");
+        }
+        if (config.isShowPrices()) {
+            prompt.append("- Always include product prices\n");
+        }
+        if (config.isShowSkus()) {
+            prompt.append("- Include SKU information\n");
+        }
+
+        // Custom instructions
+        if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
+            prompt.append("\nADDITIONAL INSTRUCTIONS:\n");
+            prompt.append(config.getCustomInstructions()).append("\n");
+        }
+
+        return prompt.toString();
+    }
+
+    /**
+     * Get the currently generated system prompt (for preview/debugging)
+     */
+    public String getGeneratedSystemPrompt() {
+        return buildSystemPrompt();
     }
 
     // Getters and setters for runtime configuration
@@ -194,13 +404,24 @@ public class ChatAgentService {
 
     /**
      * Extract assistant message from Claude API response
+     * Handles both text-only and mixed content responses
      */
     private ChatMessage extractAssistantMessage(JsonNode response) {
         try {
             JsonNode content = response.get("content");
             if (content != null && content.isArray() && content.size() > 0) {
-                String text = content.get(0).get("text").asText();
-                return new ChatMessage("assistant", text);
+                // Build response from all text blocks
+                StringBuilder fullText = new StringBuilder();
+                for (JsonNode block : content) {
+                    if ("text".equals(block.get("type").asText())) {
+                        String text = block.get("text").asText();
+                        fullText.append(text);
+                    }
+                }
+
+                if (fullText.length() > 0) {
+                    return new ChatMessage("assistant", fullText.toString());
+                }
             }
             return createErrorResponse();
         } catch (Exception e) {

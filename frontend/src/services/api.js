@@ -86,6 +86,15 @@ const api = {
   getSystemPrompt: () => apiClient.get('/config/prompt'),
 
   getAvailableModels: () => apiClient.get('/config/models'),
+
+  // Chatbot Configuration
+  getChatbotConfig: () => apiClient.get('/config/chatbot'),
+
+  updateChatbotConfig: (config) => apiClient.put('/config/chatbot', config),
+
+  resetChatbotConfig: () => apiClient.post('/config/chatbot/reset'),
+
+  previewSystemPrompt: () => apiClient.get('/config/chatbot/preview-prompt'),
 }
 
 export default api

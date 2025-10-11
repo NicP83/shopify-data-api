@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: shopify-data-api
+
+  # Database Configuration (Railway PostgreSQL)
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/shopify_data}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: ${SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+# Server Configuration
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Shopify Configuration
+shopify:
+  # Your Shopify store URL (e.g., mystore.myshopify.com)
+  shop-url: ${SHOPIFY_SHOP_URL}
+  # Your Shopify Admin API Access Token
+  access-token: ${SHOPIFY_ACCESS_TOKEN}
+  # API Version (update quarterly as Shopify releases new versions)
+  api-version: ${SHOPIFY_API_VERSION:2025-01}
+  # GraphQL endpoint will be: https://{shop-url}/admin/api/{api-version}/graphql.json
+
+  # Rate Limiting Configuration
+  rate-limit:
+    # Max points per second (adjust based on your Shopify plan)
+    # Basic: 100, Advanced: 200, Plus: 1000, Enterprise: 2000
+    max-points-per-second: ${SHOPIFY_MAX_POINTS:100}
+    # Retry configuration
+    max-retries: ${SHOPIFY_MAX_RETRIES:3}
+    initial-backoff-ms: ${SHOPIFY_INITIAL_BACKOFF:1000}
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.shopify.api: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"

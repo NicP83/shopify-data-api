@@ -10,6 +10,7 @@ function ProductSearch() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [includeArchived, setIncludeArchived] = useState(false)
 
   const handleSearch = async (query) => {
     if (!query.trim()) {
@@ -21,7 +22,7 @@ function ProductSearch() {
     setError(null)
 
     try {
-      const response = await api.searchProducts(query, 20)
+      const response = await api.searchProducts(query, 20, includeArchived)
 
       if (response.data.success && response.data.data) {
         const edges = response.data.data.products?.edges || []
@@ -65,6 +66,19 @@ function ProductSearch() {
         onSearch={handleSearch}
         loading={loading}
       />
+
+      <div className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          id="includeArchived"
+          checked={includeArchived}
+          onChange={(e) => setIncludeArchived(e.target.checked)}
+          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+        />
+        <label htmlFor="includeArchived" className="text-sm text-gray-700 cursor-pointer select-none">
+          Include archived products
+        </label>
+      </div>
 
       {error && (
         <div className="card bg-red-50 border border-red-200 text-red-700">

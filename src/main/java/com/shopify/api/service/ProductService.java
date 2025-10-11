@@ -164,7 +164,22 @@ public class ProductService {
      * @return Search results
      */
     public Map<String, Object> searchProducts(String searchQuery, int first) {
-        logger.info("Searching products with query: {}", searchQuery);
+        return searchProducts(searchQuery, first, false);
+    }
+
+    /**
+     * Search products by title, body, tags, vendor with optional archived filter
+     * @param searchQuery The search query
+     * @param first Number of results
+     * @param includeArchived Whether to include archived products
+     * @return Search results
+     */
+    public Map<String, Object> searchProducts(String searchQuery, int first, boolean includeArchived) {
+        logger.info("Searching products with query: '{}', includeArchived: {}", searchQuery, includeArchived);
+
+        // Build advanced Shopify query syntax
+        String shopifyQuery = buildAdvancedSearchQuery(searchQuery, includeArchived);
+        logger.debug("Built Shopify query: {}", shopifyQuery);
 
         String query = String.format("""
             {
@@ -201,7 +216,7 @@ public class ProductService {
                 }
               }
             }
-            """, Math.min(first, 250), searchQuery);
+            """, Math.min(first, 250), shopifyQuery);
 
         GraphQLResponse response = graphQLClient.executeQuery(query);
 
@@ -212,5 +227,33 @@ public class ProductService {
         }
 
         return response.getData();
+    }
+
+    /**
+     * Build advanced Shopify search query with multi-field search and status filtering
+     * @param userQuery The user's search query
+     * @param includeArchived Whether to include archived products
+     * @return Formatted Shopify query string
+     */
+    private String buildAdvancedSearchQuery(String userQuery, boolean includeArchived) {
+        // Escape special characters for Shopify query syntax
+        String escapedQuery = userQuery.replace("\"", "\\\"");
+
+        // Build multi-field search query
+        // Searches: title, body (description), tags, and vendor
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("(");
+        queryBuilder.append("title:*").append(escapedQuery).append("*");
+        queryBuilder.append(" OR body:*").append(escapedQuery).append("*");
+        queryBuilder.append(" OR tag:").append(escapedQuery);
+        queryBuilder.append(" OR vendor:*").append(escapedQuery).append("*");
+        queryBuilder.append(")");
+
+        // Add status filter if not including archived
+        if (!includeArchived) {
+            queryBuilder.append(" AND status:active");
+        }
+
+        return queryBuilder.toString();
     }
 }

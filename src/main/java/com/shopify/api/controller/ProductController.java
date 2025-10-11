@@ -76,21 +76,23 @@ public class ProductController {
 
     /**
      * GET /api/products/search
-     * Search products by query
+     * Search products by query with multi-field search (title, body, tags, vendor)
      *
      * @param q Search query
      * @param first Number of results (default: 20)
+     * @param includeArchived Whether to include archived products (default: false)
      * @return Search results
      */
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<Map<String, Object>>> searchProducts(
             @RequestParam String q,
-            @RequestParam(defaultValue = "20") int first) {
+            @RequestParam(defaultValue = "20") int first,
+            @RequestParam(defaultValue = "false") boolean includeArchived) {
 
-        logger.info("GET /api/products/search - query: {}, first: {}", q, first);
+        logger.info("GET /api/products/search - query: {}, first: {}, includeArchived: {}", q, first, includeArchived);
 
         try {
-            Map<String, Object> results = productService.searchProducts(q, first);
+            Map<String, Object> results = productService.searchProducts(q, first, includeArchived);
             return ResponseEntity.ok(ApiResponse.success(results));
         } catch (Exception e) {
             logger.error("Error searching products", e);

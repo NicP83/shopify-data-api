@@ -23,9 +23,9 @@ const api = {
 
   getProductById: (id) => apiClient.get(`/products/${id}`),
 
-  searchProducts: (query, first = 20) => {
+  searchProducts: (query, first = 20, includeArchived = false) => {
     return apiClient.get('/products/search', {
-      params: { q: query, first }
+      params: { q: query, first, includeArchived }
     })
   },
 

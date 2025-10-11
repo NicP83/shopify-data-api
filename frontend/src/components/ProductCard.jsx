@@ -7,7 +7,7 @@ function ProductCard({ product, onClick }) {
   const statusColors = {
     ACTIVE: 'bg-green-100 text-green-800',
     DRAFT: 'bg-yellow-100 text-yellow-800',
-    ARCHIVED: 'bg-gray-100 text-gray-800',
+    ARCHIVED: 'bg-red-100 text-red-800',
   }
 
   return (

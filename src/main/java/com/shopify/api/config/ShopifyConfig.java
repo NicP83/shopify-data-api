@@ -43,6 +43,41 @@ public class ShopifyConfig {
     }
 
     /**
+     * Constructs the storefront product URL
+     * Format: https://{shop-url}/products/{handle}
+     * @param handle Product handle (URL-friendly identifier)
+     * @return Full product URL
+     */
+    public String getProductUrl(String handle) {
+        return String.format("https://%s/products/%s", shopUrl, handle);
+    }
+
+    /**
+     * Constructs a cart permalink URL for adding a product to cart
+     * Format: https://{shop-url}/cart/{variant-id}:{quantity}
+     * @param variantId The product variant ID (numeric part only, e.g., "6585417925")
+     * @param quantity Quantity to add to cart
+     * @return Cart permalink URL
+     */
+    public String getAddToCartUrl(String variantId, int quantity) {
+        // Extract numeric ID from GraphQL ID format (gid://shopify/ProductVariant/6585417925)
+        String numericId = variantId;
+        if (variantId.contains("/")) {
+            numericId = variantId.substring(variantId.lastIndexOf("/") + 1);
+        }
+        return String.format("https://%s/cart/%s:%d", shopUrl, numericId, quantity);
+    }
+
+    /**
+     * Constructs a cart permalink URL for adding a product to cart (default quantity of 1)
+     * @param variantId The product variant ID
+     * @return Cart permalink URL
+     */
+    public String getAddToCartUrl(String variantId) {
+        return getAddToCartUrl(variantId, 1);
+    }
+
+    /**
      * Rate limiting configuration nested class
      */
     @Data

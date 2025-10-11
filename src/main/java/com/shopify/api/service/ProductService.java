@@ -41,6 +41,7 @@ public class ProductService {
                     title
                     description
                     handle
+                    onlineStoreUrl
                     status
                     vendor
                     productType
@@ -103,6 +104,7 @@ public class ProductService {
                 description
                 descriptionHtml
                 handle
+                onlineStoreUrl
                 status
                 vendor
                 productType
@@ -173,6 +175,7 @@ public class ProductService {
                     title
                     description
                     handle
+                    onlineStoreUrl
                     status
                     vendor
                     productType

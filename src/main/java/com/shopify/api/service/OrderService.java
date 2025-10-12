@@ -241,4 +241,59 @@ public class OrderService {
 
         return response.getData();
     }
+
+    /**
+     * Get orders within a date range for analytics
+     * @param startDate Start date (ISO format: 2024-10-01T00:00:00Z)
+     * @param endDate End date (ISO format: 2024-10-08T00:00:00Z)
+     * @return Orders with sales, freight, and discount data
+     */
+    public Map<String, Object> getOrdersByDateRange(String startDate, String endDate) {
+        logger.info("Fetching orders between {} and {}", startDate, endDate);
+
+        String dateQuery = String.format("created_at:>='%s' AND created_at<'%s'", startDate, endDate);
+
+        String query = String.format("""
+            {
+              orders(first: 250, query: "%s") {
+                edges {
+                  node {
+                    id
+                    name
+                    createdAt
+                    totalPriceSet {
+                      shopMoney {
+                        amount
+                        currencyCode
+                      }
+                    }
+                    totalShippingPriceSet {
+                      shopMoney {
+                        amount
+                      }
+                    }
+                    totalDiscountsSet {
+                      shopMoney {
+                        amount
+                      }
+                    }
+                  }
+                }
+                pageInfo {
+                  hasNextPage
+                }
+              }
+            }
+            """, dateQuery);
+
+        GraphQLResponse response = graphQLClient.executeQuery(query);
+
+        if (response.hasErrors()) {
+            logger.error("Error fetching orders by date range: {}", response.getErrors());
+            throw new RuntimeException("Failed to fetch orders by date range: " +
+                    response.getErrors().get(0).getMessage());
+        }
+
+        return response.getData();
+    }
 }

@@ -34,16 +34,16 @@ function Dashboard() {
       description: 'Sales and customer support automation',
       icon: '💬',
       path: '/chat',
-      status: 'Coming Soon',
-      color: 'bg-yellow-100 text-yellow-800'
+      status: 'Active',
+      color: 'bg-green-100 text-green-800'
     },
     {
       title: 'Analytics Dashboard',
       description: 'Business insights and reporting',
       icon: '📊',
       path: '/analytics',
-      status: 'Coming Soon',
-      color: 'bg-yellow-100 text-yellow-800'
+      status: 'Active',
+      color: 'bg-green-100 text-green-800'
     },
     {
       title: 'Market Intelligence',

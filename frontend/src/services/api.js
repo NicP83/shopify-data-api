@@ -95,6 +95,15 @@ const api = {
   resetChatbotConfig: () => apiClient.post('/config/chatbot/reset'),
 
   previewSystemPrompt: () => apiClient.get('/config/chatbot/preview-prompt'),
+
+  // Analytics
+  getSalesAnalytics: (period = '7d') => {
+    return apiClient.get('/analytics/sales', {
+      params: { period }
+    })
+  },
+
+  getAllSalesAnalytics: () => apiClient.get('/analytics/sales/all'),
 }
 
 export default api

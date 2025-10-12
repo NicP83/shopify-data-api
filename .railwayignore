@@ -1,0 +1,23 @@
+# Frontend files (not needed for backend deployment)
+frontend/node_modules/
+frontend/.npm-cache/
+frontend/dist/
+frontend/build/
+
+# Development files
+.git/
+.github/
+*.md
+LICENSE
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Test files
+src/test/
+
+# Local environment
+.env.local
+.env.*.local

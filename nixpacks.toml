@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ['maven', 'jdk17']
+
+[phases.install]
+cmds = ['mvn clean install -DskipTests -Dmaven.test.skip=true']
+
+[phases.build]
+cmds = ['mvn package -DskipTests -Dmaven.test.skip=true spring-boot:repackage']
+
+[start]
+cmd = 'java -Dserver.port=$PORT -jar target/*.jar'
+
+[variables]
+MAVEN_OPTS = '-Xmx2048m -XX:MaxMetaspaceSize=512m'

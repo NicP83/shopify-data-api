@@ -157,16 +157,24 @@ public class ChatAgentService {
             String stopReason = response.get("stop_reason").asText();
             JsonNode content = response.get("content");
 
+            logger.debug("Claude response - stop_reason: {}, content blocks: {}",
+                stopReason, content != null && content.isArray() ? content.size() : 0);
+
             if ("tool_use".equals(stopReason) && content != null && content.isArray()) {
                 // Claude wants to use a tool
-                logger.info("Claude requested tool use");
+                logger.info("Claude requested tool use - processing tool calls");
                 return handleToolUseAndContinue(response, systemPrompt, messages, iteration);
-            } else {
+            } else if ("end_turn".equals(stopReason)) {
                 // Regular text response
+                logger.debug("Claude completed turn - extracting assistant message");
+                return Mono.just(extractAssistantMessage(response));
+            } else {
+                // Unexpected stop reason
+                logger.warn("Unexpected stop_reason from Claude: {}", stopReason);
                 return Mono.just(extractAssistantMessage(response));
             }
         } catch (Exception e) {
-            logger.error("Error handling Claude response: {}", e.getMessage());
+            logger.error("Error handling Claude response: {}", e.getMessage(), e);
             return Mono.just(createErrorResponse());
         }
     }
@@ -230,20 +238,31 @@ public class ChatAgentService {
                 String query = input.get("query").asText();
                 int maxResults = chatbotConfigService.getConfig().getMaxSearchResults();
 
-                logger.info("Searching products with query: {} (max: {})", query, maxResults);
+                logger.info("=== EXECUTING TOOL: search_products ===");
+                logger.info("Query: '{}', Max Results: {}", query, maxResults);
 
                 // Search products using ProductService
                 Map<String, Object> results = productService.searchProducts(query, maxResults);
 
+                // Log results summary
+                Object dataObj = results.get("data");
+                logger.info("Search completed - Results type: {}", dataObj != null ? dataObj.getClass().getSimpleName() : "null");
+
                 // Format results for Claude
-                return objectMapper.writeValueAsString(results.get("data"));
+                String jsonResult = objectMapper.writeValueAsString(dataObj);
+                logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
+
+                return jsonResult;
             }
 
+            logger.warn("Unknown tool requested: {}", toolName);
             return "Unknown tool: " + toolName;
 
         } catch (Exception e) {
-            logger.error("Error executing tool {}: {}", toolName, e.getMessage());
-            return "Error executing search: " + e.getMessage();
+            logger.error("Error executing tool {}: {}", toolName, e.getMessage(), e);
+            String errorMsg = "Error executing search: " + e.getMessage();
+            logger.error("Returning error to Claude: {}", errorMsg);
+            return errorMsg;
         }
     }
 
@@ -300,44 +319,70 @@ public class ChatAgentService {
         // Store URL
         prompt.append("Store URL: https://").append(shopUrl).append("\n\n");
 
+        // Tools FIRST - Make it crystal clear how to use them
+        if (config.isEnableProductSearch()) {
+            prompt.append("=== YOUR PRIMARY TOOL ===\n");
+            prompt.append("You have access to a search_products function that searches our product catalog.\n");
+            prompt.append("Search returns up to ").append(config.getMaxSearchResults()).append(" results with:\n");
+            prompt.append("- Product title, description, and handle\n");
+            prompt.append("- Price and SKU information\n");
+            prompt.append("- Variant IDs for generating cart links\n");
+            prompt.append("- Image URLs\n\n");
+
+            prompt.append("WHEN TO USE search_products:\n");
+            prompt.append("- User asks about ANY product (\"do you have...\", \"I need...\", \"show me...\")\n");
+            prompt.append("- User asks for recommendations\n");
+            prompt.append("- User asks about pricing or availability\n");
+            prompt.append("- BEFORE making ANY product recommendation\n\n");
+
+            prompt.append("HOW TO USE search_products:\n");
+            prompt.append("1. Extract key terms from user's question (e.g., \"white paint\" -> query: \"white paint\")\n");
+            prompt.append("2. Call search_products with the query\n");
+            prompt.append("3. Wait for results\n");
+            prompt.append("4. Present products from search results ONLY\n\n");
+
+            prompt.append("EXAMPLE:\n");
+            prompt.append("User: \"I need white acrylic paint\"\n");
+            prompt.append("You: [Call search_products with query=\"white acrylic paint\"]\n");
+            prompt.append("You: [Receive results and present them]\n\n");
+        }
+
         // What we sell
-        prompt.append("WHAT WE SELL:\n");
+        prompt.append("=== WHAT WE SELL ===\n");
         prompt.append("We sell: ").append(config.getStoreCategories()).append("\n");
         prompt.append(config.getScopeInstructions()).append("\n\n");
 
         // Rules
-        prompt.append("IMPORTANT RULES:\n");
+        prompt.append("=== IMPORTANT RULES ===\n");
         if (config.isRequireSearchBeforeRecommendation()) {
-            prompt.append("- ALWAYS search the catalog before recommending products\n");
+            prompt.append("1. ALWAYS use search_products BEFORE recommending any product\n");
+            prompt.append("2. NEVER guess or make up product names - search first\n");
         }
-        prompt.append("- ONLY recommend products found in our catalog\n");
-        prompt.append("- When we don't carry something: ").append(config.getOutOfScopeResponse()).append("\n\n");
-
-        // Tools (if enabled)
-        if (config.isEnableProductSearch()) {
-            prompt.append("AVAILABLE TOOLS:\n");
-            prompt.append("You can search products by calling the search_products function.\n");
-            prompt.append("Search returns up to ").append(config.getMaxSearchResults()).append(" results.\n\n");
-        }
+        prompt.append("3. ONLY recommend products found in search results\n");
+        prompt.append("4. When we don't carry something: ").append(config.getOutOfScopeResponse()).append("\n\n");
 
         // Response style
-        prompt.append("RESPONSE STYLE:\n");
+        prompt.append("=== RESPONSE STYLE ===\n");
         prompt.append("- Tone: ").append(config.getToneOfVoice()).append("\n");
         if (config.isIncludeCartLinks()) {
             prompt.append("- Generate 'Add to Cart' links: https://").append(shopUrl).append("/cart/{VARIANT_ID}:1\n");
+            prompt.append("  (Replace {VARIANT_ID} with actual variant ID from search results)\n");
         }
         if (config.isShowPrices()) {
-            prompt.append("- Always include product prices\n");
+            prompt.append("- Always include product prices from search results\n");
         }
         if (config.isShowSkus()) {
-            prompt.append("- Include SKU information\n");
+            prompt.append("- Include SKU information from search results\n");
         }
+        prompt.append("\n");
 
         // Custom instructions
         if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
-            prompt.append("\nADDITIONAL INSTRUCTIONS:\n");
-            prompt.append(config.getCustomInstructions()).append("\n");
+            prompt.append("=== ADDITIONAL INSTRUCTIONS ===\n");
+            prompt.append(config.getCustomInstructions()).append("\n\n");
         }
+
+        prompt.append("Remember: USE search_products for ANY product-related question!");
 
         return prompt.toString();
     }

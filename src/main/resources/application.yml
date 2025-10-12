@@ -71,7 +71,7 @@ chatbot:
   # Tool Configuration
   tools:
     enable-product-search: ${CHATBOT_ENABLE_SEARCH:true}
-    max-search-results: ${CHATBOT_MAX_RESULTS:5}
+    max-search-results: ${CHATBOT_MAX_RESULTS:10}
 
   # Response Style
   response:

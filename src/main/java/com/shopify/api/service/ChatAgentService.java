@@ -369,6 +369,12 @@ public class ChatAgentService {
             prompt.append("User: \"I need white acrylic paint\"\n");
             prompt.append("You: [Call search_products with query=\"white acrylic paint\"]\n");
             prompt.append("You: [Receive results and present them]\n\n");
+
+            prompt.append("SHOWING MORE RESULTS:\n");
+            prompt.append("- If user asks for \"more results\" or \"show me more\", call search_products again\n");
+            prompt.append("- You can search with the same query or refine it based on user feedback\n");
+            prompt.append("- Inform user: \"Here are ").append(config.getMaxSearchResults()).append(" more results...\"\n");
+            prompt.append("- Consider asking if they want to narrow down the search\n\n");
         }
 
         // What we sell

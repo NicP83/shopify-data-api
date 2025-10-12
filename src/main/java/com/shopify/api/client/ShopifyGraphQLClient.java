@@ -102,6 +102,54 @@ public class ShopifyGraphQLClient {
     }
 
     /**
+     * Execute a GraphQL query reactively (non-blocking)
+     * @param request The GraphQL request with query and variables
+     * @return Mono<GraphQLResponse> containing data or errors
+     */
+    public Mono<GraphQLResponse> executeQueryReactive(GraphQLRequest request) {
+        logger.info("Executing Shopify GraphQL query (reactive)");
+        logger.debug("Query: {}", request.getQuery());
+
+        // Wait if necessary to respect rate limits
+        rateLimiter.waitIfNecessary(DEFAULT_QUERY_COST);
+
+        return webClient.post()
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(GraphQLResponse.class)
+                .retryWhen(Retry.backoff(
+                        shopifyConfig.getRateLimit().getMaxRetries(),
+                        Duration.ofMillis(shopifyConfig.getRateLimit().getInitialBackoffMs())
+                ).filter(this::isRetryableError))
+                .doOnNext(response -> {
+                    // Record actual query cost if available
+                    Integer actualCost = response.getQueryCost();
+                    if (actualCost != null) {
+                        rateLimiter.recordActualCost(actualCost);
+                    }
+
+                    if (response.hasErrors()) {
+                        logger.error("GraphQL query returned errors: {}", response.getErrors());
+                    } else {
+                        logger.info("GraphQL query executed successfully");
+                    }
+                })
+                .onErrorResume(throwable -> {
+                    logger.error("Error executing GraphQL query", throwable);
+                    return Mono.just(createErrorResponse(throwable));
+                });
+    }
+
+    /**
+     * Execute a GraphQL query reactively (non-blocking)
+     * @param query The GraphQL query string
+     * @return Mono<GraphQLResponse> containing data or errors
+     */
+    public Mono<GraphQLResponse> executeQueryReactive(String query) {
+        return executeQueryReactive(new GraphQLRequest(query));
+    }
+
+    /**
      * Determine if an error is retryable
      */
     private boolean isRetryableError(Throwable throwable) {

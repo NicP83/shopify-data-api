@@ -190,9 +190,12 @@ public class ChatAgentService {
             assistantMessage.set("content", response.get("content"));
             messages.add(assistantMessage);
 
-            // Execute all tool calls and build tool results
+            // Execute all tool calls reactively and build tool results
             JsonNode content = response.get("content");
             ArrayNode toolResults = objectMapper.createArrayNode();
+
+            // Collect all tool calls that need to be executed
+            List<Mono<ObjectNode>> toolCallMonos = new java.util.ArrayList<>();
 
             for (JsonNode block : content) {
                 if ("tool_use".equals(block.get("type").asText())) {
@@ -202,26 +205,37 @@ public class ChatAgentService {
 
                     logger.info("Executing tool: {} with input: {}", toolName, toolInput);
 
-                    // Execute the tool
-                    String toolResult = executeToolCall(toolName, toolInput);
+                    // Execute the tool reactively and map to tool_result block
+                    Mono<ObjectNode> toolResultMono = executeToolCallReactive(toolName, toolInput)
+                            .map(toolResult -> {
+                                // Build tool_result block
+                                ObjectNode toolResultBlock = objectMapper.createObjectNode();
+                                toolResultBlock.put("type", "tool_result");
+                                toolResultBlock.put("tool_use_id", toolUseId);
+                                toolResultBlock.put("content", toolResult);
+                                return toolResultBlock;
+                            });
 
-                    // Build tool_result block
-                    ObjectNode toolResultBlock = objectMapper.createObjectNode();
-                    toolResultBlock.put("type", "tool_result");
-                    toolResultBlock.put("tool_use_id", toolUseId);
-                    toolResultBlock.put("content", toolResult);
-                    toolResults.add(toolResultBlock);
+                    toolCallMonos.add(toolResultMono);
                 }
             }
 
-            // Add user message with tool results
-            ObjectNode userMessage = objectMapper.createObjectNode();
-            userMessage.put("role", "user");
-            userMessage.set("content", toolResults);
-            messages.add(userMessage);
+            // Execute all tool calls and combine results
+            return Mono.zip(toolCallMonos, results -> {
+                for (Object result : results) {
+                    toolResults.add((ObjectNode) result);
+                }
+                return toolResults;
+            }).flatMap(completedToolResults -> {
+                // Add user message with tool results
+                ObjectNode userMessage = objectMapper.createObjectNode();
+                userMessage.put("role", "user");
+                userMessage.set("content", completedToolResults);
+                messages.add(userMessage);
 
-            // Continue conversation with tool results
-            return callClaudeWithTools(systemPrompt, messages, iteration + 1);
+                // Continue conversation with tool results
+                return callClaudeWithTools(systemPrompt, messages, iteration + 1);
+            });
 
         } catch (Exception e) {
             logger.error("Error handling tool use: {}", e.getMessage());
@@ -230,9 +244,9 @@ public class ChatAgentService {
     }
 
     /**
-     * Execute a tool call and return results
+     * Execute a tool call reactively and return results
      */
-    private String executeToolCall(String toolName, JsonNode input) {
+    private Mono<String> executeToolCallReactive(String toolName, JsonNode input) {
         try {
             if ("search_products".equals(toolName)) {
                 String query = input.get("query").asText();
@@ -241,28 +255,38 @@ public class ChatAgentService {
                 logger.info("=== EXECUTING TOOL: search_products ===");
                 logger.info("Query: '{}', Max Results: {}", query, maxResults);
 
-                // Search products using ProductService
-                Map<String, Object> results = productService.searchProducts(query, maxResults);
+                // Search products using ProductService reactively
+                return productService.searchProductsReactive(query, maxResults)
+                        .map(results -> {
+                            try {
+                                // Log results summary
+                                logger.info("Search completed - Results type: {}",
+                                    results != null ? results.getClass().getSimpleName() : "null");
 
-                // Log results summary
-                Object dataObj = results.get("data");
-                logger.info("Search completed - Results type: {}", dataObj != null ? dataObj.getClass().getSimpleName() : "null");
+                                // Format results for Claude
+                                String jsonResult = objectMapper.writeValueAsString(results);
+                                logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
 
-                // Format results for Claude
-                String jsonResult = objectMapper.writeValueAsString(dataObj);
-                logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
-
-                return jsonResult;
+                                return jsonResult;
+                            } catch (Exception e) {
+                                logger.error("Error formatting search results: {}", e.getMessage(), e);
+                                return "Error formatting results: " + e.getMessage();
+                            }
+                        })
+                        .onErrorResume(e -> {
+                            logger.error("Error executing tool {}: {}", toolName, e.getMessage(), e);
+                            String errorMsg = "Error executing search: " + e.getMessage();
+                            logger.error("Returning error to Claude: {}", errorMsg);
+                            return Mono.just(errorMsg);
+                        });
             }
 
             logger.warn("Unknown tool requested: {}", toolName);
-            return "Unknown tool: " + toolName;
+            return Mono.just("Unknown tool: " + toolName);
 
         } catch (Exception e) {
-            logger.error("Error executing tool {}: {}", toolName, e.getMessage(), e);
-            String errorMsg = "Error executing search: " + e.getMessage();
-            logger.error("Returning error to Claude: {}", errorMsg);
-            return errorMsg;
+            logger.error("Error in executeToolCallReactive {}: {}", toolName, e.getMessage(), e);
+            return Mono.just("Error: " + e.getMessage());
         }
     }
 

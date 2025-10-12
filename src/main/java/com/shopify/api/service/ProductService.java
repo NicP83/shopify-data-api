@@ -5,6 +5,7 @@ import com.shopify.api.model.GraphQLResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -227,6 +228,78 @@ public class ProductService {
         }
 
         return response.getData();
+    }
+
+    /**
+     * Search products reactively (non-blocking) - for use in reactive contexts
+     * @param searchQuery The search query
+     * @param first Number of results
+     * @return Mono of search results
+     */
+    public Mono<Map<String, Object>> searchProductsReactive(String searchQuery, int first) {
+        return searchProductsReactive(searchQuery, first, false);
+    }
+
+    /**
+     * Search products reactively (non-blocking) - for use in reactive contexts
+     * @param searchQuery The search query
+     * @param first Number of results
+     * @param includeArchived Whether to include archived products
+     * @return Mono of search results
+     */
+    public Mono<Map<String, Object>> searchProductsReactive(String searchQuery, int first, boolean includeArchived) {
+        logger.info("Searching products (reactive) with query: '{}', includeArchived: {}", searchQuery, includeArchived);
+
+        // Build advanced Shopify query syntax
+        String shopifyQuery = buildAdvancedSearchQuery(searchQuery, includeArchived);
+        logger.debug("Built Shopify query: {}", shopifyQuery);
+
+        String query = String.format("""
+            {
+              products(first: %d, query: "%s") {
+                edges {
+                  node {
+                    id
+                    title
+                    description
+                    handle
+                    onlineStoreUrl
+                    status
+                    vendor
+                    productType
+                    tags
+                    variants(first: 5) {
+                      edges {
+                        node {
+                          id
+                          title
+                          sku
+                          price
+                        }
+                      }
+                    }
+                    images(first: 1) {
+                      edges {
+                        node {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """, Math.min(first, 250), shopifyQuery);
+
+        return graphQLClient.executeQueryReactive(query)
+                .map(response -> {
+                    if (response.hasErrors()) {
+                        logger.error("Error searching products: {}", response.getErrors());
+                        throw new RuntimeException("Failed to search products: " +
+                                response.getErrors().get(0).getMessage());
+                    }
+                    return response.getData();
+                });
     }
 
     /**

@@ -250,9 +250,11 @@ public class OrderService {
      * @return Orders with sales, freight, and discount data
      */
     public Map<String, Object> getOrdersByDateRange(String startDate, String endDate) {
-        logger.info("Fetching orders between {} and {}", startDate, endDate);
+        // Use simple date format that Shopify accepts (yyyy-MM-dd)
+        // Use >= and <= to be inclusive of both start and end dates
+        String dateQuery = String.format("created_at:>=%s AND created_at:<=%s", startDate, endDate);
 
-        String dateQuery = String.format("created_at:>='%s' AND created_at<'%s'", startDate, endDate);
+        logger.info("Fetching orders between {} and {} with query: {}", startDate, endDate, dateQuery);
 
         List<Map<String, Object>> allEdges = new java.util.ArrayList<>();
         String cursor = null;

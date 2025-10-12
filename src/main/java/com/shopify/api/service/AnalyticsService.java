@@ -19,7 +19,8 @@ import java.util.*;
 public class AnalyticsService {
 
     private static final Logger logger = LoggerFactory.getLogger(AnalyticsService.class);
-    private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private static final DateTimeFormatter SHOPIFY_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final ZoneId STORE_TIMEZONE = ZoneId.of("Australia/Sydney");
 
     private final OrderService orderService;
 
@@ -35,15 +36,18 @@ public class AnalyticsService {
     public SalesAnalytics getSalesAnalytics(String period) {
         logger.info("Calculating sales analytics for period: {}", period);
 
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
-        LocalDateTime periodStart = calculatePeriodStart(now, period);
+        // Use Australian timezone for date calculations
+        LocalDateTime now = LocalDateTime.now(STORE_TIMEZONE);
+        // Set to end of current day to include all of today's orders
+        LocalDateTime periodEnd = now.toLocalDate().atTime(23, 59, 59);
+        LocalDateTime periodStart = calculatePeriodStart(periodEnd, period);
 
         // Current period
-        SalesAnalytics analytics = calculatePeriodAnalytics(period, periodStart, now);
+        SalesAnalytics analytics = calculatePeriodAnalytics(period, periodStart, periodEnd);
 
         // Previous year same period
-        LocalDateTime previousYearEnd = periodStart.minusYears(1).plusDays(1);
-        LocalDateTime previousYearStart = calculatePeriodStart(previousYearEnd, period);
+        LocalDateTime previousYearEnd = periodEnd.minusYears(1);
+        LocalDateTime previousYearStart = periodStart.minusYears(1);
         SalesAnalytics previousYearAnalytics = calculatePeriodAnalytics(
             period + " (last year)",
             previousYearStart,
@@ -87,9 +91,12 @@ public class AnalyticsService {
         SalesAnalytics analytics = new SalesAnalytics(period, start, end);
 
         try {
-            // Format dates for Shopify API
-            String startDateStr = start.format(ISO_FORMATTER);
-            String endDateStr = end.format(ISO_FORMATTER);
+            // Format dates for Shopify API (simple date format: yyyy-MM-dd)
+            String startDateStr = start.toLocalDate().format(SHOPIFY_DATE_FORMATTER);
+            String endDateStr = end.toLocalDate().format(SHOPIFY_DATE_FORMATTER);
+
+            logger.info("Fetching orders for period {} from {} to {} (Australian timezone)",
+                period, startDateStr, endDateStr);
 
             // Fetch orders for the period
             Map<String, Object> ordersData = orderService.getOrdersByDateRange(startDateStr, endDateStr);
@@ -160,7 +167,18 @@ public class AnalyticsService {
                     analytics.setOrderCount(orderCount);
                     analytics.setCurrencyCode(currencyCode);
                     analytics.calculateAverageSale();
+
+                    logger.info("Analytics calculated for period {}: {} orders, Total Sales: {} {}, Avg Sale: {} {}, Freight: {} {}, Discounts: {} {}",
+                        period, orderCount,
+                        totalSales, currencyCode,
+                        analytics.getAverageSale(), currencyCode,
+                        totalFreight, currencyCode,
+                        totalDiscounts, currencyCode);
+                } else {
+                    logger.warn("No orders found for period {} ({} to {})", period, startDateStr, endDateStr);
                 }
+            } else {
+                logger.warn("No orders data returned for period {}", period);
             }
         } catch (Exception e) {
             logger.error("Error calculating analytics for period {}: {}", period, e.getMessage(), e);
@@ -172,17 +190,21 @@ public class AnalyticsService {
 
     /**
      * Calculate the start date for a given period
+     * Returns start of day for the beginning of the period
      */
     private LocalDateTime calculatePeriodStart(LocalDateTime end, String period) {
-        return switch (period.toLowerCase()) {
-            case "1d" -> end.minusDays(1);
-            case "7d" -> end.minusDays(7);
-            case "30d" -> end.minusDays(30);
-            case "90d" -> end.minusDays(90);
+        int days = switch (period.toLowerCase()) {
+            case "1d" -> 1;
+            case "7d" -> 7;
+            case "30d" -> 30;
+            case "90d" -> 90;
             default -> {
                 logger.warn("Unknown period: {}, defaulting to 7d", period);
-                yield end.minusDays(7);
+                yield 7;
             }
         };
+
+        // Go back the specified number of days and start at beginning of that day
+        return end.minusDays(days).toLocalDate().atStartOfDay();
     }
 }

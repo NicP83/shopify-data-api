@@ -244,6 +244,7 @@ public class OrderService {
 
     /**
      * Get orders within a date range for analytics
+     * Automatically handles pagination to fetch all orders in the date range
      * @param startDate Start date (ISO format: 2024-10-01T00:00:00Z)
      * @param endDate End date (ISO format: 2024-10-08T00:00:00Z)
      * @return Orders with sales, freight, and discount data
@@ -253,47 +254,92 @@ public class OrderService {
 
         String dateQuery = String.format("created_at:>='%s' AND created_at<'%s'", startDate, endDate);
 
-        String query = String.format("""
-            {
-              orders(first: 250, query: "%s") {
-                edges {
-                  node {
-                    id
-                    name
-                    createdAt
-                    totalPriceSet {
-                      shopMoney {
-                        amount
-                        currencyCode
+        List<Map<String, Object>> allEdges = new java.util.ArrayList<>();
+        String cursor = null;
+        boolean hasNextPage = true;
+        int pageCount = 0;
+
+        // Fetch all pages of orders
+        while (hasNextPage && pageCount < 20) { // Max 20 pages = 5000 orders safety limit
+            pageCount++;
+            String cursorParam = cursor != null ? String.format(", after: \"%s\"", cursor) : "";
+
+            String query = String.format("""
+                {
+                  orders(first: 250, query: "%s"%s) {
+                    edges {
+                      cursor
+                      node {
+                        id
+                        name
+                        createdAt
+                        totalPriceSet {
+                          shopMoney {
+                            amount
+                            currencyCode
+                          }
+                        }
+                        totalShippingPriceSet {
+                          shopMoney {
+                            amount
+                            currencyCode
+                          }
+                        }
+                        totalDiscountsSet {
+                          shopMoney {
+                            amount
+                            currencyCode
+                          }
+                        }
                       }
                     }
-                    totalShippingPriceSet {
-                      shopMoney {
-                        amount
-                      }
-                    }
-                    totalDiscountsSet {
-                      shopMoney {
-                        amount
-                      }
+                    pageInfo {
+                      hasNextPage
+                      endCursor
                     }
                   }
                 }
-                pageInfo {
-                  hasNextPage
-                }
-              }
+                """, dateQuery, cursorParam);
+
+            GraphQLResponse response = graphQLClient.executeQuery(query);
+
+            if (response.hasErrors()) {
+                logger.error("Error fetching orders by date range (page {}): {}", pageCount, response.getErrors());
+                throw new RuntimeException("Failed to fetch orders by date range: " +
+                        response.getErrors().get(0).getMessage());
             }
-            """, dateQuery);
 
-        GraphQLResponse response = graphQLClient.executeQuery(query);
+            Map<String, Object> data = response.getData();
+            if (data != null && data.containsKey("orders")) {
+                Map<String, Object> ordersResponse = (Map<String, Object>) data.get("orders");
+                List<Map<String, Object>> edges = (List<Map<String, Object>>) ordersResponse.get("edges");
 
-        if (response.hasErrors()) {
-            logger.error("Error fetching orders by date range: {}", response.getErrors());
-            throw new RuntimeException("Failed to fetch orders by date range: " +
-                    response.getErrors().get(0).getMessage());
+                if (edges != null && !edges.isEmpty()) {
+                    allEdges.addAll(edges);
+                    logger.info("Fetched page {} with {} orders", pageCount, edges.size());
+                }
+
+                // Check if there are more pages
+                Map<String, Object> pageInfo = (Map<String, Object>) ordersResponse.get("pageInfo");
+                if (pageInfo != null) {
+                    hasNextPage = (Boolean) pageInfo.getOrDefault("hasNextPage", false);
+                    cursor = (String) pageInfo.get("endCursor");
+                } else {
+                    hasNextPage = false;
+                }
+            } else {
+                hasNextPage = false;
+            }
         }
 
-        return response.getData();
+        logger.info("Total orders fetched for date range: {} (across {} pages)", allEdges.size(), pageCount);
+
+        // Return data in same format as before
+        Map<String, Object> result = new java.util.HashMap<>();
+        Map<String, Object> orders = new java.util.HashMap<>();
+        orders.put("edges", allEdges);
+        result.put("orders", orders);
+
+        return result;
     }
 }

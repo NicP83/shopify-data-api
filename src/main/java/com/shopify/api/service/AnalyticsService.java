@@ -104,7 +104,7 @@ public class AnalyticsService {
                     BigDecimal totalFreight = BigDecimal.ZERO;
                     BigDecimal totalDiscounts = BigDecimal.ZERO;
                     int orderCount = 0;
-                    String currencyCode = "USD";
+                    String currencyCode = "AUD"; // Default to AUD for Australian store
 
                     for (Map<String, Object> edge : edges) {
                         Map<String, Object> node = (Map<String, Object>) edge.get("node");
@@ -115,8 +115,14 @@ public class AnalyticsService {
                             Map<String, Object> shopMoney = (Map<String, Object>) totalPriceSet.get("shopMoney");
                             if (shopMoney != null) {
                                 String amount = (String) shopMoney.get("amount");
-                                totalSales = totalSales.add(new BigDecimal(amount));
-                                currencyCode = (String) shopMoney.get("currencyCode");
+                                if (amount != null && !amount.isEmpty()) {
+                                    totalSales = totalSales.add(new BigDecimal(amount));
+                                }
+                                // Update currency code from actual order data
+                                String orderCurrency = (String) shopMoney.get("currencyCode");
+                                if (orderCurrency != null && !orderCurrency.isEmpty()) {
+                                    currencyCode = orderCurrency;
+                                }
                             }
                         }
 
@@ -126,7 +132,9 @@ public class AnalyticsService {
                             Map<String, Object> shopMoney = (Map<String, Object>) shippingPriceSet.get("shopMoney");
                             if (shopMoney != null) {
                                 String amount = (String) shopMoney.get("amount");
-                                totalFreight = totalFreight.add(new BigDecimal(amount));
+                                if (amount != null && !amount.isEmpty()) {
+                                    totalFreight = totalFreight.add(new BigDecimal(amount));
+                                }
                             }
                         }
 
@@ -136,7 +144,9 @@ public class AnalyticsService {
                             Map<String, Object> shopMoney = (Map<String, Object>) discountsSet.get("shopMoney");
                             if (shopMoney != null) {
                                 String amount = (String) shopMoney.get("amount");
-                                totalDiscounts = totalDiscounts.add(new BigDecimal(amount));
+                                if (amount != null && !amount.isEmpty()) {
+                                    totalDiscounts = totalDiscounts.add(new BigDecimal(amount));
+                                }
                             }
                         }
 

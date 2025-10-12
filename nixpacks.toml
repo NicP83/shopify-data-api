@@ -2,10 +2,10 @@
 nixPkgs = ['maven', 'jdk17']
 
 [phases.install]
-cmds = ['mvn clean install -DskipTests -Dmaven.test.skip=true']
+cmds = ['mvn clean install -DskipTests']
 
 [phases.build]
-cmds = ['mvn package -DskipTests -Dmaven.test.skip=true spring-boot:repackage']
+cmds = ['mvn clean package -DskipTests']
 
 [start]
 cmd = 'java -Dserver.port=$PORT -jar target/*.jar'

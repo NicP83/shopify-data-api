@@ -235,10 +235,7 @@ function Analytics() {
                 title="Total In-Store Sales"
                 value={currentData.totalSales || 0}
                 currency="$"
-                comparisonData={currentData.yoyChange ? {
-                  percentage: currentData.yoyChange,
-                  direction: currentData.yoyChange >= 0 ? 'up' : 'down'
-                } : null}
+                comparisonData={currentData.yearOverYearComparison}
                 icon="💰"
                 type="sales"
               />

@@ -83,6 +83,16 @@ chatbot:
   # Advanced
   custom-instructions: ${CHATBOT_CUSTOM_INSTRUCTIONS:}
 
+# CRS MCP Configuration (In-Store ERP System)
+crs:
+  mcp:
+    # MCP Server URL
+    url: ${CRS_MCP_URL:https://web-production-2534.up.railway.app/mcp}
+    # Enable/disable CRS integration
+    enabled: ${CRS_MCP_ENABLED:true}
+    # Timeout for MCP requests (milliseconds)
+    timeout-ms: ${CRS_MCP_TIMEOUT:10000}
+
 # Logging Configuration
 logging:
   level:

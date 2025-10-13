@@ -3,10 +3,12 @@ package com.shopify.api.controller;
 import com.shopify.api.model.ApiResponse;
 import com.shopify.api.model.SalesAnalytics;
 import com.shopify.api.service.AnalyticsService;
+import com.shopify.api.service.CRSAnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -21,9 +23,12 @@ public class AnalyticsController {
     private static final Logger logger = LoggerFactory.getLogger(AnalyticsController.class);
 
     private final AnalyticsService analyticsService;
+    private final CRSAnalyticsService crsAnalyticsService;
 
-    public AnalyticsController(AnalyticsService analyticsService) {
+    public AnalyticsController(AnalyticsService analyticsService,
+                              CRSAnalyticsService crsAnalyticsService) {
         this.analyticsService = analyticsService;
+        this.crsAnalyticsService = crsAnalyticsService;
     }
 
     /**
@@ -75,6 +80,55 @@ public class AnalyticsController {
             return ResponseEntity.internalServerError()
                     .body(ApiResponse.error("Failed to fetch sales analytics", e.getMessage()));
         }
+    }
+
+    /**
+     * GET /api/analytics/instore/sales
+     * Get in-store sales analytics from CRS for a specific period
+     *
+     * @param period Time period: "1d", "7d", "30d", or "90d"
+     * @return In-store sales analytics with YoY comparison
+     */
+    @GetMapping("/instore/sales")
+    public Mono<ResponseEntity<ApiResponse<SalesAnalytics>>> getInstoreSalesAnalytics(
+            @RequestParam(defaultValue = "7d") String period) {
+
+        logger.info("GET /api/analytics/instore/sales - period: {}", period);
+
+        // Validate period parameter
+        if (!isValidPeriod(period)) {
+            return Mono.just(ResponseEntity.badRequest()
+                .body(ApiResponse.error("Invalid period",
+                    "Period must be one of: 1d, 7d, 30d, 90d")));
+        }
+
+        return crsAnalyticsService.getSalesAnalytics(period)
+                .map(analytics -> ResponseEntity.ok(ApiResponse.success(analytics)))
+                .onErrorResume(e -> {
+                    logger.error("Error fetching in-store sales analytics for period {}", period, e);
+                    return Mono.just(ResponseEntity.internalServerError()
+                            .body(ApiResponse.error("Failed to fetch in-store sales analytics", e.getMessage())));
+                });
+    }
+
+    /**
+     * GET /api/analytics/instore/sales/all
+     * Get in-store sales analytics from CRS for all periods (1d, 7d, 30d, 90d)
+     *
+     * @return Map of period -> analytics for all periods
+     */
+    @GetMapping("/instore/sales/all")
+    public Mono<ResponseEntity<ApiResponse<Map<String, SalesAnalytics>>>> getAllInstoreSalesAnalytics() {
+
+        logger.info("GET /api/analytics/instore/sales/all");
+
+        return crsAnalyticsService.getAllSalesAnalytics()
+                .map(allAnalytics -> ResponseEntity.ok(ApiResponse.success(allAnalytics)))
+                .onErrorResume(e -> {
+                    logger.error("Error fetching all in-store sales analytics", e);
+                    return Mono.just(ResponseEntity.internalServerError()
+                            .body(ApiResponse.error("Failed to fetch in-store sales analytics", e.getMessage())));
+                });
     }
 
     /**

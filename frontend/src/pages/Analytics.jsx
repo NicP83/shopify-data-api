@@ -4,9 +4,13 @@ import AnalyticsCard from '../components/AnalyticsCard'
 
 function Analytics() {
   const [analyticsData, setAnalyticsData] = useState(null)
+  const [instoreData, setInstoreData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [instoreLoading, setInstoreLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [instoreError, setInstoreError] = useState(null)
   const [selectedPeriod, setSelectedPeriod] = useState('7d')
+  const [selectedTab, setSelectedTab] = useState('online') // 'online' or 'instore'
 
   const periods = [
     { id: '1d', label: '1 Day', icon: '📅' },
@@ -15,8 +19,14 @@ function Analytics() {
     { id: '90d', label: '90 Days', icon: '📉' }
   ]
 
+  const tabs = [
+    { id: 'online', label: 'Online Sales', icon: '🛒' },
+    { id: 'instore', label: 'In-Store Sales', icon: '🏪' }
+  ]
+
   useEffect(() => {
     fetchAllAnalytics()
+    fetchAllInstoreAnalytics()
   }, [])
 
   const fetchAllAnalytics = async () => {
@@ -34,13 +44,36 @@ function Analytics() {
     }
   }
 
-  const getCurrentAnalytics = () => {
-    if (!analyticsData || !analyticsData[selectedPeriod]) {
-      return null
+  const fetchAllInstoreAnalytics = async () => {
+    setInstoreLoading(true)
+    setInstoreError(null)
+
+    try {
+      const response = await api.getAllInstoreSalesAnalytics()
+      setInstoreData(response.data.data)
+    } catch (err) {
+      console.error('Error fetching instore analytics:', err)
+      setInstoreError('Failed to load in-store analytics data. Please try again.')
+    } finally {
+      setInstoreLoading(false)
     }
-    return analyticsData[selectedPeriod]
   }
 
+  const refreshAll = () => {
+    fetchAllAnalytics()
+    fetchAllInstoreAnalytics()
+  }
+
+  const getCurrentAnalytics = () => {
+    const data = selectedTab === 'online' ? analyticsData : instoreData
+    if (!data || !data[selectedPeriod]) {
+      return null
+    }
+    return data[selectedPeriod]
+  }
+
+  const isLoading = selectedTab === 'online' ? loading : instoreLoading
+  const currentError = selectedTab === 'online' ? error : instoreError
   const currentData = getCurrentAnalytics()
 
   return (
@@ -54,12 +87,32 @@ function Analytics() {
           </p>
         </div>
         <button
-          onClick={fetchAllAnalytics}
-          disabled={loading}
+          onClick={refreshAll}
+          disabled={loading || instoreLoading}
           className="btn-secondary"
         >
-          {loading ? 'Refreshing...' : '🔄 Refresh'}
+          {(loading || instoreLoading) ? 'Refreshing...' : '🔄 Refresh'}
         </button>
+      </div>
+
+      {/* Tab Selector */}
+      <div className="card">
+        <div className="flex gap-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSelectedTab(tab.id)}
+              className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all ${
+                selectedTab === tab.id
+                  ? 'bg-primary-600 text-white shadow-md'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span className="text-xl mr-2">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Period Selector */}
@@ -83,20 +136,20 @@ function Analytics() {
       </div>
 
       {/* Error State */}
-      {error && (
+      {currentError && (
         <div className="card bg-red-50 border-red-200">
           <div className="flex items-center gap-3">
             <span className="text-3xl">⚠️</span>
             <div>
               <h3 className="font-semibold text-red-900">Error Loading Analytics</h3>
-              <p className="text-red-700 text-sm">{error}</p>
+              <p className="text-red-700 text-sm">{currentError}</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Loading State */}
-      {loading && (
+      {isLoading && (
         <div className="card">
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
@@ -108,7 +161,7 @@ function Analytics() {
       )}
 
       {/* Analytics Cards */}
-      {!loading && !error && currentData && (
+      {!isLoading && !currentError && currentData && (
         <>
           {/* Period Info */}
           <div className="card bg-blue-50 border-blue-200">
@@ -133,50 +186,87 @@ function Analytics() {
           </div>
 
           {/* Metrics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Total Sales */}
-            <AnalyticsCard
-              title="Total Sales"
-              value={currentData.totalSales}
-              currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
-              comparisonData={currentData.yearOverYearComparison}
-              icon="💰"
-              type="sales"
-            />
+          {selectedTab === 'online' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Total Sales */}
+              <AnalyticsCard
+                title="Total Sales"
+                value={currentData.totalSales}
+                currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
+                comparisonData={currentData.yearOverYearComparison}
+                icon="💰"
+                type="sales"
+              />
 
-            {/* Average Sale */}
-            <AnalyticsCard
-              title="Average Sale"
-              value={currentData.averageSale}
-              currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
-              comparisonData={null}
-              icon="📊"
-              type="average"
-            />
+              {/* Average Sale */}
+              <AnalyticsCard
+                title="Average Sale"
+                value={currentData.averageSale}
+                currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
+                comparisonData={null}
+                icon="📊"
+                type="average"
+              />
 
-            {/* Total Freight */}
-            <AnalyticsCard
-              title="Total Freight Paid"
-              value={currentData.totalFreight}
-              currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
-              comparisonData={null}
-              icon="🚚"
-              type="freight"
-            />
+              {/* Total Freight */}
+              <AnalyticsCard
+                title="Total Freight Paid"
+                value={currentData.totalFreight}
+                currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
+                comparisonData={null}
+                icon="🚚"
+                type="freight"
+              />
 
-            {/* Total Discounts */}
-            <AnalyticsCard
-              title="Total Discounts Given"
-              value={currentData.totalDiscounts}
-              currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
-              comparisonData={null}
-              icon="🏷️"
-              type="discount"
-            />
-          </div>
+              {/* Total Discounts */}
+              <AnalyticsCard
+                title="Total Discounts Given"
+                value={currentData.totalDiscounts}
+                currency={currentData.currencyCode === 'AUD' ? '$' : currentData.currencyCode}
+                comparisonData={null}
+                icon="🏷️"
+                type="discount"
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Total Sales */}
+              <AnalyticsCard
+                title="Total In-Store Sales"
+                value={currentData.totalSales || 0}
+                currency="$"
+                comparisonData={currentData.yoyChange ? {
+                  percentage: currentData.yoyChange,
+                  direction: currentData.yoyChange >= 0 ? 'up' : 'down'
+                } : null}
+                icon="💰"
+                type="sales"
+              />
+
+              {/* Average Sale */}
+              <AnalyticsCard
+                title="Average Sale"
+                value={currentData.averageSale || 0}
+                currency="$"
+                comparisonData={null}
+                icon="📊"
+                type="average"
+              />
+
+              {/* Order Count */}
+              <AnalyticsCard
+                title="Total Orders"
+                value={currentData.orderCount || 0}
+                currency=""
+                comparisonData={null}
+                icon="📦"
+                type="orders"
+              />
+            </div>
+          )}
 
           {/* Additional Insights */}
-          {currentData.orderCount > 0 && (
+          {currentData.orderCount > 0 && selectedTab === 'online' && (
             <div className="card bg-green-50 border-green-200">
               <h3 className="font-semibold text-gray-900 mb-3">📈 Key Insights</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -196,6 +286,27 @@ function Analytics() {
                   <span className="text-gray-600">Avg Discount/Order:</span>
                   <span className="font-semibold text-gray-900 ml-2">
                     ${(parseFloat(currentData.totalDiscounts) / currentData.orderCount).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* In-Store Insights */}
+          {currentData.orderCount > 0 && selectedTab === 'instore' && (
+            <div className="card bg-green-50 border-green-200">
+              <h3 className="font-semibold text-gray-900 mb-3">📈 In-Store Performance</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-gray-600">Total Orders:</span>
+                  <span className="font-semibold text-gray-900 ml-2">
+                    {currentData.orderCount}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Average Transaction:</span>
+                  <span className="font-semibold text-gray-900 ml-2">
+                    ${parseFloat(currentData.averageSale || 0).toFixed(2)}
                   </span>
                 </div>
               </div>

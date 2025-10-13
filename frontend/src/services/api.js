@@ -104,6 +104,15 @@ const api = {
   },
 
   getAllSalesAnalytics: () => apiClient.get('/analytics/sales/all'),
+
+  // In-Store Analytics (CRS)
+  getInstoreSalesAnalytics: (period = '7d') => {
+    return apiClient.get('/analytics/instore/sales', {
+      params: { period }
+    })
+  },
+
+  getAllInstoreSalesAnalytics: () => apiClient.get('/analytics/instore/sales/all'),
 }
 
 export default api

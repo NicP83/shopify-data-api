@@ -45,7 +45,7 @@ function OrdersToFulfill() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between no-print">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Orders to Fulfill</h1>
           <p className="text-gray-600 mt-1">
@@ -62,7 +62,7 @@ function OrdersToFulfill() {
       </div>
 
       {/* Search Bar */}
-      <div className="card">
+      <div className="card no-print">
         <input
           type="text"
           placeholder="Search by order #, customer name, or email..."
@@ -99,7 +99,7 @@ function OrdersToFulfill() {
 
       {/* Orders Count */}
       {!loading && !error && (
-        <div className="card bg-blue-50 border-blue-200">
+        <div className="card bg-blue-50 border-blue-200 no-print">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold text-gray-900">
@@ -128,7 +128,7 @@ function OrdersToFulfill() {
             <div key={order.orderId} className="card hover:shadow-lg transition-shadow">
               {/* Order Summary */}
               <div
-                className="cursor-pointer"
+                className="cursor-pointer no-print"
                 onClick={() => toggleOrderDetails(order.orderId)}
               >
                 <div className="flex items-center justify-between">

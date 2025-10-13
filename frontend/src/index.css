@@ -25,3 +25,42 @@
     @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none;
   }
 }
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Hide navigation, headers, and other UI elements */
+  nav, header, .no-print {
+    display: none !important;
+  }
+
+  /* Ensure cards print nicely */
+  .card {
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  /* Make tables print better */
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  /* Ensure text is black for printing */
+  * {
+    color: black !important;
+  }
+}

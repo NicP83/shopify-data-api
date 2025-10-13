@@ -23,6 +23,9 @@ public class UnfulfilledOrder {
     private LocalDateTime createdAt;
     private String displayFulfillmentStatus;
     private String note;
+    private BigDecimal subtotalPrice;  // Subtotal before discounts
+    private BigDecimal totalDiscounts;  // Total discount amount
+    private String discountCodes;  // Discount codes applied to order
 
     public UnfulfilledOrder() {
         this.lineItems = new ArrayList<>();
@@ -131,6 +134,30 @@ public class UnfulfilledOrder {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public BigDecimal getSubtotalPrice() {
+        return subtotalPrice;
+    }
+
+    public void setSubtotalPrice(BigDecimal subtotalPrice) {
+        this.subtotalPrice = subtotalPrice;
+    }
+
+    public BigDecimal getTotalDiscounts() {
+        return totalDiscounts;
+    }
+
+    public void setTotalDiscounts(BigDecimal totalDiscounts) {
+        this.totalDiscounts = totalDiscounts;
+    }
+
+    public String getDiscountCodes() {
+        return discountCodes;
+    }
+
+    public void setDiscountCodes(String discountCodes) {
+        this.discountCodes = discountCodes;
     }
 
     @Override

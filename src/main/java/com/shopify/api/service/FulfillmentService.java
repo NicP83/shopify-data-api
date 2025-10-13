@@ -51,12 +51,14 @@ public class FulfillmentService {
             List<UnfulfilledOrder> shopifyOrders = fetchRecentShopifyOrders();
             logger.info("Found {} recent orders from Shopify", shopifyOrders.size());
 
-            // Step 2: Check each order against CRS
+            // Step 2: Check each order against CRS and enrich with sale data
             List<UnfulfilledOrder> ordersToFulfill = new ArrayList<>();
             for (UnfulfilledOrder order : shopifyOrders) {
                 try {
                     boolean existsInCRS = checkOrderInCRS(order.getOrderName()).block();
                     if (!existsInCRS) {
+                        // Enrich order with CRS sale information for each line item
+                        enrichOrderWithCRSSaleData(order);
                         ordersToFulfill.add(order);
                         logger.debug("Order {} not found in CRS, adding to fulfillment list", order.getOrderName());
                     } else {
@@ -96,12 +98,24 @@ public class FulfillmentService {
                     createdAt
                     displayFulfillmentStatus
                     note
+                    subtotalPriceSet {
+                      shopMoney {
+                        amount
+                        currencyCode
+                      }
+                    }
                     totalPriceSet {
                       shopMoney {
                         amount
                         currencyCode
                       }
                     }
+                    totalDiscountsSet {
+                      shopMoney {
+                        amount
+                      }
+                    }
+                    discountCodes
                     customer {
                       email
                       firstName
@@ -115,6 +129,23 @@ public class FulfillmentService {
                           title
                           quantity
                           originalUnitPrice
+                          discountedTotalSet {
+                            shopMoney {
+                              amount
+                            }
+                          }
+                          discountAllocations {
+                            allocatedAmountSet {
+                              shopMoney {
+                                amount
+                              }
+                            }
+                            discountApplication {
+                              ... on DiscountCodeApplication {
+                                code
+                              }
+                            }
+                          }
                           variant {
                             id
                             title
@@ -202,6 +233,17 @@ public class FulfillmentService {
                 }
 
                 // Price info
+                Map<String, Object> subtotalPriceSet = (Map<String, Object>) node.get("subtotalPriceSet");
+                if (subtotalPriceSet != null) {
+                    Map<String, Object> shopMoney = (Map<String, Object>) subtotalPriceSet.get("shopMoney");
+                    if (shopMoney != null) {
+                        String amount = (String) shopMoney.get("amount");
+                        if (amount != null) {
+                            order.setSubtotalPrice(new BigDecimal(amount));
+                        }
+                    }
+                }
+
                 Map<String, Object> totalPriceSet = (Map<String, Object>) node.get("totalPriceSet");
                 if (totalPriceSet != null) {
                     Map<String, Object> shopMoney = (Map<String, Object>) totalPriceSet.get("shopMoney");
@@ -213,6 +255,22 @@ public class FulfillmentService {
                         order.setCurrencyCode((String) shopMoney.get("currencyCode"));
                     }
                 }
+
+                // Discount info
+                Map<String, Object> totalDiscountsSet = (Map<String, Object>) node.get("totalDiscountsSet");
+                if (totalDiscountsSet != null) {
+                    Map<String, Object> shopMoney = (Map<String, Object>) totalDiscountsSet.get("shopMoney");
+                    if (shopMoney != null) {
+                        String amount = (String) shopMoney.get("amount");
+                        if (amount != null) {
+                            order.setTotalDiscounts(new BigDecimal(amount));
+                        }
+                    }
+                }
+
+                // Discount codes
+                String discountCodes = (String) node.get("discountCodes");
+                order.setDiscountCodes(discountCodes);
 
                 // Line items
                 Map<String, Object> lineItemsData = (Map<String, Object>) node.get("lineItems");
@@ -235,6 +293,51 @@ public class FulfillmentService {
                         String priceStr = (String) lineItemNode.get("originalUnitPrice");
                         if (priceStr != null) {
                             lineItem.setPrice(new BigDecimal(priceStr));
+                        }
+
+                        // Discounted total price
+                        Map<String, Object> discountedTotalSet = (Map<String, Object>) lineItemNode.get("discountedTotalSet");
+                        if (discountedTotalSet != null) {
+                            Map<String, Object> shopMoney = (Map<String, Object>) discountedTotalSet.get("shopMoney");
+                            if (shopMoney != null) {
+                                String amount = (String) shopMoney.get("amount");
+                                if (amount != null) {
+                                    lineItem.setDiscountedTotalPrice(new BigDecimal(amount));
+                                }
+                            }
+                        }
+
+                        // Discount allocations
+                        List<Map<String, Object>> discountAllocations = (List<Map<String, Object>>) lineItemNode.get("discountAllocations");
+                        if (discountAllocations != null && !discountAllocations.isEmpty()) {
+                            StringBuilder discountDesc = new StringBuilder();
+                            BigDecimal totalDiscount = BigDecimal.ZERO;
+
+                            for (Map<String, Object> allocation : discountAllocations) {
+                                Map<String, Object> allocatedAmountSet = (Map<String, Object>) allocation.get("allocatedAmountSet");
+                                if (allocatedAmountSet != null) {
+                                    Map<String, Object> shopMoney = (Map<String, Object>) allocatedAmountSet.get("shopMoney");
+                                    if (shopMoney != null) {
+                                        String amount = (String) shopMoney.get("amount");
+                                        if (amount != null) {
+                                            totalDiscount = totalDiscount.add(new BigDecimal(amount));
+                                        }
+                                    }
+                                }
+
+                                Map<String, Object> discountApp = (Map<String, Object>) allocation.get("discountApplication");
+                                if (discountApp != null && discountApp.containsKey("code")) {
+                                    String code = (String) discountApp.get("code");
+                                    if (discountDesc.length() > 0) {
+                                        discountDesc.append(", ");
+                                    }
+                                    discountDesc.append(code);
+                                }
+                            }
+
+                            if (discountDesc.length() > 0) {
+                                lineItem.setDiscountAllocations(discountDesc.toString() + " (-$" + totalDiscount.toString() + ")");
+                            }
                         }
 
                         Map<String, Object> variant = (Map<String, Object>) lineItemNode.get("variant");
@@ -337,6 +440,88 @@ public class FulfillmentService {
                     logger.error("Error checking order {} in CRS: {}", orderName, e.getMessage());
                     return Mono.just(false); // On error, assume not in CRS
                 });
+    }
+
+    /**
+     * Enrich order with CRS sale data for each line item
+     * Checks if products were on sale at time of order
+     */
+    private void enrichOrderWithCRSSaleData(UnfulfilledOrder order) {
+        if (!mcpClient.isEnabled()) {
+            logger.debug("MCP is disabled, skipping CRS sale data enrichment");
+            return;
+        }
+
+        for (OrderLineItem lineItem : order.getLineItems()) {
+            try {
+                String sku = lineItem.getSku();
+                if (sku == null || sku.trim().isEmpty()) {
+                    continue;
+                }
+
+                // Query CRS for product pricing information
+                String query = String.format(
+                    "SELECT ItemCode, RegularPrice, SalePrice, OnSale FROM ItemMaster WHERE ItemCode = '%s'",
+                    sku.replace("'", "''") // Escape single quotes
+                );
+
+                Map<String, Object> arguments = new HashMap<>();
+                arguments.put("query", query);
+
+                JsonNode result = mcpClient.callTool("query_database", arguments).block();
+                if (result != null) {
+                    parseCRSSaleData(result, lineItem);
+                }
+            } catch (Exception e) {
+                logger.debug("Could not fetch CRS sale data for SKU {}: {}", lineItem.getSku(), e.getMessage());
+                // Continue processing other items even if one fails
+            }
+        }
+    }
+
+    /**
+     * Parse CRS sale data from MCP response
+     */
+    private void parseCRSSaleData(JsonNode result, OrderLineItem lineItem) {
+        try {
+            if (result.has("content") && result.get("content").isArray() && result.get("content").size() > 0) {
+                JsonNode content = result.get("content").get(0);
+                if (content.has("text")) {
+                    String text = content.get("text").asText();
+
+                    // Extract JSON from text
+                    int jsonStart = text.indexOf('{');
+                    int jsonEnd = text.lastIndexOf('}');
+
+                    if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+                        String jsonStr = text.substring(jsonStart, jsonEnd + 1);
+                        JsonNode jsonNode = objectMapper.readTree(jsonStr);
+
+                        // Extract pricing information
+                        if (jsonNode.has("RegularPrice")) {
+                            double regularPrice = jsonNode.get("RegularPrice").asDouble();
+                            lineItem.setCrsRegularPrice(BigDecimal.valueOf(regularPrice));
+                        }
+
+                        if (jsonNode.has("SalePrice")) {
+                            double salePrice = jsonNode.get("SalePrice").asDouble();
+                            lineItem.setCrsSalePrice(BigDecimal.valueOf(salePrice));
+                        }
+
+                        if (jsonNode.has("OnSale")) {
+                            boolean onSale = jsonNode.get("OnSale").asBoolean();
+                            lineItem.setOnSale(onSale);
+                        }
+
+                        logger.debug("Enriched SKU {} with CRS data: RegularPrice=${}, SalePrice=${}, OnSale={}",
+                                lineItem.getSku(), lineItem.getCrsRegularPrice(),
+                                lineItem.getCrsSalePrice(), lineItem.getOnSale());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.debug("Error parsing CRS sale data for SKU {}: {}", lineItem.getSku(), e.getMessage());
+        }
     }
 
     /**

@@ -13,6 +13,11 @@ public class OrderLineItem {
     private String variantTitle;
     private Integer quantity;
     private BigDecimal price;
+    private BigDecimal discountedTotalPrice;  // Price after discounts
+    private String discountAllocations;  // Description of discounts applied
+    private Boolean onSale;  // Whether product was on sale in CRS
+    private BigDecimal crsRegularPrice;  // Regular price from CRS
+    private BigDecimal crsSalePrice;  // Sale price from CRS if on sale
 
     public OrderLineItem() {
     }
@@ -73,6 +78,46 @@ public class OrderLineItem {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getDiscountedTotalPrice() {
+        return discountedTotalPrice;
+    }
+
+    public void setDiscountedTotalPrice(BigDecimal discountedTotalPrice) {
+        this.discountedTotalPrice = discountedTotalPrice;
+    }
+
+    public String getDiscountAllocations() {
+        return discountAllocations;
+    }
+
+    public void setDiscountAllocations(String discountAllocations) {
+        this.discountAllocations = discountAllocations;
+    }
+
+    public Boolean getOnSale() {
+        return onSale;
+    }
+
+    public void setOnSale(Boolean onSale) {
+        this.onSale = onSale;
+    }
+
+    public BigDecimal getCrsRegularPrice() {
+        return crsRegularPrice;
+    }
+
+    public void setCrsRegularPrice(BigDecimal crsRegularPrice) {
+        this.crsRegularPrice = crsRegularPrice;
+    }
+
+    public BigDecimal getCrsSalePrice() {
+        return crsSalePrice;
+    }
+
+    public void setCrsSalePrice(BigDecimal crsSalePrice) {
+        this.crsSalePrice = crsSalePrice;
     }
 
     @Override

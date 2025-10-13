@@ -3,8 +3,22 @@ import PropTypes from 'prop-types'
 function OrderDetailCard({ order }) {
   if (!order) return null
 
+  const handlePrint = () => {
+    window.print()
+  }
+
   return (
     <div className="space-y-4">
+      {/* Print Button */}
+      <div className="flex justify-end print:hidden">
+        <button
+          onClick={handlePrint}
+          className="btn-primary flex items-center gap-2"
+        >
+          <span>🖨️</span>
+          Print Order
+        </button>
+      </div>
       {/* Customer Info */}
       <div className="card bg-blue-50 border-blue-200">
         <h3 className="font-semibold text-gray-900 mb-2">Customer Information</h3>
@@ -48,6 +62,9 @@ function OrderDetailCard({ order }) {
                 <th className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">
                   Price
                 </th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                  Sale/Discount
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -69,11 +86,37 @@ function OrderDetailCard({ order }) {
                     <td className="px-4 py-3 text-sm text-right">
                       ${parseFloat(item.price || 0).toFixed(2)}
                     </td>
+                    <td className="px-4 py-3 text-sm">
+                      <div className="space-y-1">
+                        {/* CRS Sale Badge */}
+                        {item.onSale && (
+                          <div className="flex items-center gap-1">
+                            <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                              🏷️ On Sale in CRS
+                            </span>
+                            {item.crsSalePrice && (
+                              <span className="text-xs text-gray-600">
+                                ${parseFloat(item.crsSalePrice).toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                        {/* Shopify Discount */}
+                        {item.discountAllocations && (
+                          <div className="text-xs text-green-700 font-medium">
+                            💰 {item.discountAllocations}
+                          </div>
+                        )}
+                        {!item.onSale && !item.discountAllocations && (
+                          <span className="text-xs text-gray-400">-</span>
+                        )}
+                      </div>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="px-4 py-3 text-sm text-gray-500 text-center">
+                  <td colSpan="6" className="px-4 py-3 text-sm text-gray-500 text-center">
                     No items found
                   </td>
                 </tr>
@@ -85,6 +128,29 @@ function OrderDetailCard({ order }) {
           <span className="text-sm text-gray-600">Total Items:</span>
           <span className="text-lg font-bold text-gray-900">{order.itemCount || 0}</span>
         </div>
+
+        {/* Order-level discount summary */}
+        {order.totalDiscounts && parseFloat(order.totalDiscounts) > 0 && (
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-sm font-medium text-gray-700">Order Discounts:</span>
+                {order.discountCodes && (
+                  <span className="ml-2 text-xs text-gray-500">({order.discountCodes})</span>
+                )}
+              </div>
+              <span className="text-lg font-bold text-green-600">
+                -${parseFloat(order.totalDiscounts).toFixed(2)}
+              </span>
+            </div>
+            {order.subtotalPrice && (
+              <div className="text-xs text-gray-500 mt-1">
+                Subtotal: ${parseFloat(order.subtotalPrice).toFixed(2)} →
+                Final: ${parseFloat(order.totalPrice).toFixed(2)}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Shipping Address */}

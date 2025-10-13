@@ -27,12 +27,6 @@ public class UnfulfilledOrder {
     private BigDecimal totalDiscounts;  // Total discount amount
     private String discountCodes;  // Discount codes applied to order
 
-    // Customer tier fields (calculated from CRS ERP data)
-    private BigDecimal customerYearlySpend;  // Total CRS spend in last 365 days
-    private Integer customerOrderCount;       // Total CRS orders in last 365 days
-    private Integer customerRecentOrders;     // CRS orders in last 30 days
-    private String customerTier;              // GOLD, SILVER, BRONZE, REPEAT, NEW
-
     public UnfulfilledOrder() {
         this.lineItems = new ArrayList<>();
     }
@@ -164,38 +158,6 @@ public class UnfulfilledOrder {
 
     public void setDiscountCodes(String discountCodes) {
         this.discountCodes = discountCodes;
-    }
-
-    public BigDecimal getCustomerYearlySpend() {
-        return customerYearlySpend;
-    }
-
-    public void setCustomerYearlySpend(BigDecimal customerYearlySpend) {
-        this.customerYearlySpend = customerYearlySpend;
-    }
-
-    public Integer getCustomerOrderCount() {
-        return customerOrderCount;
-    }
-
-    public void setCustomerOrderCount(Integer customerOrderCount) {
-        this.customerOrderCount = customerOrderCount;
-    }
-
-    public Integer getCustomerRecentOrders() {
-        return customerRecentOrders;
-    }
-
-    public void setCustomerRecentOrders(Integer customerRecentOrders) {
-        this.customerRecentOrders = customerRecentOrders;
-    }
-
-    public String getCustomerTier() {
-        return customerTier;
-    }
-
-    public void setCustomerTier(String customerTier) {
-        this.customerTier = customerTier;
     }
 
     @Override

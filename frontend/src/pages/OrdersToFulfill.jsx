@@ -145,19 +145,9 @@ function OrdersToFulfill() {
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 mt-1">
-                        <p className="text-sm text-gray-600">
-                          {order.customerName} • {order.customerEmail}
-                        </p>
-                        {order.customerTier && (
-                          <span title={`Customer Tier: ${order.customerTier}`}>
-                            {order.customerTier === 'GOLD' && '🥇'}
-                            {order.customerTier === 'SILVER' && '🥈'}
-                            {order.customerTier === 'BRONZE' && '🥉'}
-                            {order.customerTier === 'REPEAT' && '🔄'}
-                          </span>
-                        )}
-                      </div>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {order.customerName} • {order.customerEmail}
+                      </p>
                       <p className="text-xs text-gray-500 mt-1">
                         Created: {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}
                       </p>

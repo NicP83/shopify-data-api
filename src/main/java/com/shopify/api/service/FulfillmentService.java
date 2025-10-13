@@ -40,15 +40,16 @@ public class FulfillmentService {
 
     /**
      * Get all unfulfilled Shopify orders that haven't been processed in CRS
+     * Fetches most recent orders from last 3 months and checks each against CRS
      * @return List of unfulfilled orders
      */
     public List<UnfulfilledOrder> getUnfulfilledOrders() {
-        logger.info("Fetching unfulfilled orders from Shopify and checking against CRS");
+        logger.info("Fetching recent Shopify orders and checking against CRS");
 
         try {
-            // Step 1: Fetch unfulfilled orders from Shopify (last 90 days)
-            List<UnfulfilledOrder> shopifyOrders = fetchUnfulfilledShopifyOrders();
-            logger.info("Found {} unfulfilled orders in Shopify", shopifyOrders.size());
+            // Step 1: Fetch recent orders from Shopify (sorted newest first)
+            List<UnfulfilledOrder> shopifyOrders = fetchRecentShopifyOrders();
+            logger.info("Found {} recent orders from Shopify", shopifyOrders.size());
 
             // Step 2: Check each order against CRS
             List<UnfulfilledOrder> ordersToFulfill = new ArrayList<>();
@@ -78,13 +79,14 @@ public class FulfillmentService {
     }
 
     /**
-     * Fetch unfulfilled orders from Shopify
+     * Fetch recent orders from Shopify (most recent first, last 3 months)
+     * Does NOT filter by fulfillment status - checks ALL orders against CRS
      */
-    private List<UnfulfilledOrder> fetchUnfulfilledShopifyOrders() {
-        // Get orders from last 90 days with unfulfilled status
+    private List<UnfulfilledOrder> fetchRecentShopifyOrders() {
+        // Get most recent 250 orders, sorted by creation date (newest first)
         String query = """
             {
-              orders(first: 100, query: "fulfillment_status:unfulfilled") {
+              orders(first: 250, reverse: true, sortKey: CREATED_AT) {
                 edges {
                   node {
                     id
@@ -142,12 +144,22 @@ public class FulfillmentService {
         GraphQLResponse response = graphQLClient.executeQuery(query);
 
         if (response.hasErrors()) {
-            logger.error("Error fetching unfulfilled orders from Shopify: {}", response.getErrors());
-            throw new RuntimeException("Failed to fetch unfulfilled orders: " +
+            logger.error("Error fetching recent orders from Shopify: {}", response.getErrors());
+            throw new RuntimeException("Failed to fetch recent orders: " +
                     response.getErrors().get(0).getMessage());
         }
 
-        return parseShopifyOrders(response.getData());
+        List<UnfulfilledOrder> allOrders = parseShopifyOrders(response.getData());
+
+        // Filter to only orders from last 3 months
+        LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
+        List<UnfulfilledOrder> recentOrders = allOrders.stream()
+                .filter(order -> order.getCreatedAt() != null && order.getCreatedAt().isAfter(threeMonthsAgo))
+                .collect(java.util.stream.Collectors.toList());
+
+        logger.info("Filtered to {} orders from last 3 months (from {} total)", recentOrders.size(), allOrders.size());
+
+        return recentOrders;
     }
 
     /**

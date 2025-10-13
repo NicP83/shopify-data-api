@@ -4,13 +4,13 @@ import AnalyticsCard from '../components/AnalyticsCard'
 
 function Analytics() {
   const [analyticsData, setAnalyticsData] = useState(null)
-  const [instoreData, setInstoreData] = useState(null)
+  const [channelData, setChannelData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [instoreLoading, setInstoreLoading] = useState(true)
+  const [channelLoading, setChannelLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [instoreError, setInstoreError] = useState(null)
+  const [channelError, setChannelError] = useState(null)
   const [selectedPeriod, setSelectedPeriod] = useState('7d')
-  const [selectedTab, setSelectedTab] = useState('online') // 'online' or 'instore'
+  const [selectedTab, setSelectedTab] = useState('online') // 'online' or 'channels'
 
   const periods = [
     { id: '1d', label: '1 Day', icon: '📅' },
@@ -21,12 +21,12 @@ function Analytics() {
 
   const tabs = [
     { id: 'online', label: 'Online Sales', icon: '🛒' },
-    { id: 'instore', label: 'In-Store Sales', icon: '🏪' }
+    { id: 'channels', label: 'All Channels', icon: '📊' }
   ]
 
   useEffect(() => {
     fetchAllAnalytics()
-    fetchAllInstoreAnalytics()
+    fetchAllChannelAnalytics()
   }, [])
 
   const fetchAllAnalytics = async () => {
@@ -44,36 +44,42 @@ function Analytics() {
     }
   }
 
-  const fetchAllInstoreAnalytics = async () => {
-    setInstoreLoading(true)
-    setInstoreError(null)
+  const fetchAllChannelAnalytics = async () => {
+    setChannelLoading(true)
+    setChannelError(null)
 
     try {
-      const response = await api.getAllInstoreSalesAnalytics()
-      setInstoreData(response.data.data)
+      const response = await api.getAllChannelSalesAnalytics()
+      setChannelData(response.data.data)
     } catch (err) {
-      console.error('Error fetching instore analytics:', err)
-      setInstoreError('Failed to load in-store analytics data. Please try again.')
+      console.error('Error fetching channel analytics:', err)
+      setChannelError('Failed to load channel analytics data. Please try again.')
     } finally {
-      setInstoreLoading(false)
+      setChannelLoading(false)
     }
   }
 
   const refreshAll = () => {
     fetchAllAnalytics()
-    fetchAllInstoreAnalytics()
+    fetchAllChannelAnalytics()
   }
 
   const getCurrentAnalytics = () => {
-    const data = selectedTab === 'online' ? analyticsData : instoreData
-    if (!data || !data[selectedPeriod]) {
-      return null
+    if (selectedTab === 'channels') {
+      if (!channelData || !channelData[selectedPeriod]) {
+        return null
+      }
+      return channelData[selectedPeriod]
+    } else {
+      if (!analyticsData || !analyticsData[selectedPeriod]) {
+        return null
+      }
+      return analyticsData[selectedPeriod]
     }
-    return data[selectedPeriod]
   }
 
-  const isLoading = selectedTab === 'online' ? loading : instoreLoading
-  const currentError = selectedTab === 'online' ? error : instoreError
+  const isLoading = selectedTab === 'online' ? loading : channelLoading
+  const currentError = selectedTab === 'online' ? error : channelError
   const currentData = getCurrentAnalytics()
 
   return (
@@ -88,10 +94,10 @@ function Analytics() {
         </div>
         <button
           onClick={refreshAll}
-          disabled={loading || instoreLoading}
+          disabled={loading || channelLoading}
           className="btn-secondary"
         >
-          {(loading || instoreLoading) ? 'Refreshing...' : '🔄 Refresh'}
+          {(loading || channelLoading) ? 'Refreshing...' : '🔄 Refresh'}
         </button>
       </div>
 
@@ -171,7 +177,9 @@ function Analytics() {
                   {periods.find(p => p.id === selectedPeriod)?.label} Report
                 </h3>
                 <p className="text-sm text-gray-600 mt-1">
-                  {currentData.orderCount || 0} orders processed
+                  {selectedTab === 'channels'
+                    ? `${currentData.totalOrders || 0} orders processed`
+                    : `${currentData.orderCount || 0} orders processed`}
                 </p>
               </div>
               <div className="text-right text-sm text-gray-600">
@@ -229,36 +237,129 @@ function Analytics() {
               />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Total Sales */}
-              <AnalyticsCard
-                title="Total In-Store Sales"
-                value={currentData.totalSales || 0}
-                currency="$"
-                comparisonData={currentData.yearOverYearComparison}
-                icon="💰"
-                type="sales"
-              />
+            /* Channel Breakdown */
+            <div className="space-y-6">
+              {/* Grand Total */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">📊 Grand Total - All Channels</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <AnalyticsCard
+                    title="Total Revenue"
+                    value={currentData.totalRevenue || 0}
+                    currency="$"
+                    comparisonData={currentData.yearOverYearComparison}
+                    icon="💰"
+                    type="sales"
+                  />
+                  <AnalyticsCard
+                    title="Total Orders"
+                    value={currentData.totalOrders || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="📦"
+                    type="orders"
+                  />
+                  <AnalyticsCard
+                    title="Total Items Sold"
+                    value={currentData.totalItems || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="📋"
+                    type="orders"
+                  />
+                </div>
+              </div>
 
-              {/* Average Sale */}
-              <AnalyticsCard
-                title="Average Sale"
-                value={currentData.averageSale || 0}
-                currency="$"
-                comparisonData={null}
-                icon="📊"
-                type="average"
-              />
+              {/* Channel Breakdown */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">🏪 The Hobbyman (Store 1)</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <AnalyticsCard
+                    title="Revenue"
+                    value={currentData.hobbyman?.revenue || 0}
+                    currency="$"
+                    comparisonData={null}
+                    icon="💵"
+                    type="sales"
+                  />
+                  <AnalyticsCard
+                    title="Orders"
+                    value={currentData.hobbyman?.orderCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="🛍️"
+                    type="orders"
+                  />
+                  <AnalyticsCard
+                    title="Items Sold"
+                    value={currentData.hobbyman?.itemCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="📦"
+                    type="orders"
+                  />
+                </div>
+              </div>
 
-              {/* Order Count */}
-              <AnalyticsCard
-                title="Total Orders"
-                value={currentData.orderCount || 0}
-                currency=""
-                comparisonData={null}
-                icon="📦"
-                type="orders"
-              />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">🏬 Hearns Hobbies (Store 2)</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <AnalyticsCard
+                    title="Revenue"
+                    value={currentData.hearnsHobbies?.revenue || 0}
+                    currency="$"
+                    comparisonData={null}
+                    icon="💵"
+                    type="sales"
+                  />
+                  <AnalyticsCard
+                    title="Orders"
+                    value={currentData.hearnsHobbies?.orderCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="🛍️"
+                    type="orders"
+                  />
+                  <AnalyticsCard
+                    title="Items Sold"
+                    value={currentData.hearnsHobbies?.itemCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="📦"
+                    type="orders"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">🛒 Shopify (Online)</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <AnalyticsCard
+                    title="Revenue"
+                    value={currentData.shopify?.revenue || 0}
+                    currency="$"
+                    comparisonData={null}
+                    icon="💵"
+                    type="sales"
+                  />
+                  <AnalyticsCard
+                    title="Orders"
+                    value={currentData.shopify?.orderCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="🛍️"
+                    type="orders"
+                  />
+                  <AnalyticsCard
+                    title="Items"
+                    value={currentData.shopify?.itemCount || 0}
+                    currency=""
+                    comparisonData={null}
+                    icon="📦"
+                    type="orders"
+                  />
+                </div>
+              </div>
             </div>
           )}
 
@@ -289,29 +390,9 @@ function Analytics() {
             </div>
           )}
 
-          {/* In-Store Insights */}
-          {currentData.orderCount > 0 && selectedTab === 'instore' && (
-            <div className="card bg-green-50 border-green-200">
-              <h3 className="font-semibold text-gray-900 mb-3">📈 In-Store Performance</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-gray-600">Total Orders:</span>
-                  <span className="font-semibold text-gray-900 ml-2">
-                    {currentData.orderCount}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-gray-600">Average Transaction:</span>
-                  <span className="font-semibold text-gray-900 ml-2">
-                    ${parseFloat(currentData.averageSale || 0).toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* No Data Message */}
-          {currentData.orderCount === 0 && (
+          {((selectedTab === 'online' && currentData.orderCount === 0) ||
+            (selectedTab === 'channels' && currentData.totalOrders === 0)) && (
             <div className="card bg-yellow-50 border-yellow-200">
               <div className="flex items-center gap-3">
                 <span className="text-3xl">📭</span>

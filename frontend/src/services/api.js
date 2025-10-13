@@ -113,6 +113,15 @@ const api = {
   },
 
   getAllInstoreSalesAnalytics: () => apiClient.get('/analytics/instore/sales/all'),
+
+  // Channel Sales Analytics (Hobbyman, Hearns, Shopify)
+  getChannelSalesAnalytics: (period = '7d') => {
+    return apiClient.get('/analytics/channels', {
+      params: { period }
+    })
+  },
+
+  getAllChannelSalesAnalytics: () => apiClient.get('/analytics/channels/all'),
 }
 
 export default api

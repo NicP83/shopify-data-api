@@ -2,8 +2,10 @@ package com.shopify.api.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.shopify.api.client.MCPClient;
+import com.shopify.api.model.ChannelSalesData;
 import com.shopify.api.model.PeriodComparison;
 import com.shopify.api.model.SalesAnalytics;
+import com.shopify.api.model.SalesByChannelData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Service for retrieving in-store sales analytics from CRS ERP via MCP
@@ -116,6 +120,105 @@ public class CRSAnalyticsService {
             result.put("90d", tuple.getT4());
             return result;
         });
+    }
+
+    /**
+     * Get sales breakdown by channel for a specific period
+     * Uses the new get_sales_by_channel MCP tool
+     * @param period "1d", "7d", "30d", or "90d"
+     * @return SalesByChannelData with breakdown by store and online
+     */
+    public Mono<SalesByChannelData> getSalesByChannel(String period) {
+        if (!enabled) {
+            logger.warn("CRS MCP is disabled, returning empty channel data");
+            return Mono.just(createEmptyChannelData(period));
+        }
+
+        int days = parsePeriod(period);
+        LocalDateTime now = LocalDateTime.now(SYDNEY_ZONE);
+        LocalDateTime startDate = now.minusDays(days);
+        LocalDateTime endDate = now;
+
+        logger.info("Fetching CRS sales by channel for period: {} ({} days)", period, days);
+
+        return getChannelSalesForPeriod(startDate, endDate, period)
+                .flatMap(currentSales -> {
+                    // Get previous period for YoY comparison
+                    LocalDateTime prevStart = startDate.minusYears(1);
+                    LocalDateTime prevEnd = endDate.minusYears(1);
+
+                    return getChannelSalesForPeriod(prevStart, prevEnd, period)
+                            .map(previousSales -> {
+                                // Create YoY comparison for total revenue
+                                PeriodComparison comparison = new PeriodComparison(
+                                    currentSales.getTotalRevenue(),
+                                    previousSales.getTotalRevenue()
+                                );
+                                currentSales.setYearOverYearComparison(comparison);
+
+                                logger.info("Channel Sales for {}: ${} ({} orders), YoY: {}%",
+                                    period, currentSales.getTotalRevenue(), currentSales.getTotalOrders(),
+                                    comparison.getPercentageChange());
+
+                                return currentSales;
+                            })
+                            .onErrorResume(e -> {
+                                logger.warn("Failed to fetch previous period channel data: {}", e.getMessage());
+                                return Mono.just(currentSales);
+                            });
+                })
+                .onErrorResume(e -> {
+                    logger.error("Error fetching channel sales for period {}: {}", period, e.getMessage(), e);
+                    return Mono.just(createEmptyChannelData(period));
+                });
+    }
+
+    /**
+     * Get all sales by channel for all periods
+     * @return Map of period -> SalesByChannelData
+     */
+    public Mono<Map<String, SalesByChannelData>> getAllSalesByChannel() {
+        if (!enabled) {
+            logger.warn("CRS MCP is disabled, returning empty channel data");
+            return Mono.just(new HashMap<>());
+        }
+
+        logger.info("Fetching all CRS sales by channel");
+
+        return Mono.zip(
+            getSalesByChannel("1d"),
+            getSalesByChannel("7d"),
+            getSalesByChannel("30d"),
+            getSalesByChannel("90d")
+        ).map(tuple -> {
+            Map<String, SalesByChannelData> result = new HashMap<>();
+            result.put("1d", tuple.getT1());
+            result.put("7d", tuple.getT2());
+            result.put("30d", tuple.getT3());
+            result.put("90d", tuple.getT4());
+            return result;
+        });
+    }
+
+    /**
+     * Get channel sales data for a specific date range
+     */
+    private Mono<SalesByChannelData> getChannelSalesForPeriod(LocalDateTime startDate, LocalDateTime endDate, String period) {
+        String startDateStr = startDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String endDateStr = endDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+        Map<String, Object> arguments = new HashMap<>();
+        arguments.put("start_date", startDateStr);
+        arguments.put("end_date", endDateStr);
+
+        logger.debug("Calling get_sales_by_channel: {} to {}", startDateStr, endDateStr);
+
+        return mcpClient.callTool("get_sales_by_channel", arguments)
+                .map(result -> parseChannelSalesResponse(result, startDate, endDate, period))
+                .onErrorResume(e -> {
+                    logger.error("Error calling get_sales_by_channel: {}", e.getMessage(), e);
+                    return Mono.error(new RuntimeException("Failed to get channel sales", e));
+                });
     }
 
     /**
@@ -313,6 +416,137 @@ public class CRSAnalyticsService {
         analytics.setPeriodEnd(now);
 
         return analytics;
+    }
+
+    /**
+     * Parse get_sales_by_channel response into SalesByChannelData
+     * Expected format:
+     * "Sales by Channel (2025-10-06 to 2025-10-13):
+     *
+     * IN-STORE SALES:
+     *   The Hobbyman:
+     *     Orders: 419
+     *     Items: 1213
+     *     Revenue: $33,369.28
+     *
+     *   Hearns Hobbies:
+     *     Orders: 948
+     *     Items: 2790
+     *     Revenue: $91,585.01
+     *
+     *   In-Store Subtotal: 1367 orders, $124,954.29
+     *
+     * ONLINE SALES (Shopify):
+     *   Orders: 236
+     *   Revenue: $26,463.70
+     *
+     * ========================================
+     * GRAND TOTAL: 1603 orders, $151,417.99"
+     */
+    private SalesByChannelData parseChannelSalesResponse(JsonNode result, LocalDateTime startDate, LocalDateTime endDate, String period) {
+        try {
+            SalesByChannelData data = new SalesByChannelData();
+            data.setPeriod(period);
+            data.setPeriodStart(startDate);
+            data.setPeriodEnd(endDate);
+
+            if (result.has("content") && result.get("content").isArray() && result.get("content").size() > 0) {
+                JsonNode content = result.get("content").get(0);
+                if (content.has("text")) {
+                    String text = content.get("text").asText();
+                    logger.debug("Channel Sales Response: {}", text);
+
+                    // Parse The Hobbyman
+                    Pattern hobbymanPattern = Pattern.compile("The Hobbyman:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher hobbymanMatcher = hobbymanPattern.matcher(text);
+                    if (hobbymanMatcher.find()) {
+                        ChannelSalesData hobbyman = new ChannelSalesData();
+                        hobbyman.setChannelName("The Hobbyman");
+                        hobbyman.setOrderCount(Integer.parseInt(hobbymanMatcher.group(1)));
+                        hobbyman.setItemCount(Integer.parseInt(hobbymanMatcher.group(2)));
+                        hobbyman.setRevenue(new BigDecimal(hobbymanMatcher.group(3).replace(",", "")));
+                        data.setHobbyman(hobbyman);
+                    }
+
+                    // Parse Hearns Hobbies
+                    Pattern hearnsPattern = Pattern.compile("Hearns Hobbies:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher hearnsMatcher = hearnsPattern.matcher(text);
+                    if (hearnsMatcher.find()) {
+                        ChannelSalesData hearns = new ChannelSalesData();
+                        hearns.setChannelName("Hearns Hobbies");
+                        hearns.setOrderCount(Integer.parseInt(hearnsMatcher.group(1)));
+                        hearns.setItemCount(Integer.parseInt(hearnsMatcher.group(2)));
+                        hearns.setRevenue(new BigDecimal(hearnsMatcher.group(3).replace(",", "")));
+                        data.setHearnsHobbies(hearns);
+                    }
+
+                    // Parse Shopify
+                    Pattern shopifyPattern = Pattern.compile("ONLINE SALES[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher shopifyMatcher = shopifyPattern.matcher(text);
+                    if (shopifyMatcher.find()) {
+                        ChannelSalesData shopify = new ChannelSalesData();
+                        shopify.setChannelName("Shopify");
+                        shopify.setOrderCount(Integer.parseInt(shopifyMatcher.group(1)));
+                        shopify.setItemCount(0); // Not provided for online
+                        shopify.setRevenue(new BigDecimal(shopifyMatcher.group(2).replace(",", "")));
+                        data.setShopify(shopify);
+                    }
+
+                    // Parse Grand Total
+                    Pattern totalPattern = Pattern.compile("GRAND TOTAL:\\s*(\\d+)\\s*orders,\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher totalMatcher = totalPattern.matcher(text);
+                    if (totalMatcher.find()) {
+                        data.setTotalOrders(Integer.parseInt(totalMatcher.group(1)));
+                        data.setTotalRevenue(new BigDecimal(totalMatcher.group(2).replace(",", "")));
+                    }
+
+                    // Calculate total items
+                    int totalItems = 0;
+                    if (data.getHobbyman() != null) totalItems += data.getHobbyman().getItemCount();
+                    if (data.getHearnsHobbies() != null) totalItems += data.getHearnsHobbies().getItemCount();
+                    data.setTotalItems(totalItems);
+
+                    logger.info("Parsed channel sales - Total: ${}, Hobbyman: ${}, Hearns: ${}, Shopify: ${}",
+                        data.getTotalRevenue(),
+                        data.getHobbyman() != null ? data.getHobbyman().getRevenue() : "0",
+                        data.getHearnsHobbies() != null ? data.getHearnsHobbies().getRevenue() : "0",
+                        data.getShopify() != null ? data.getShopify().getRevenue() : "0");
+
+                } else {
+                    logger.warn("Channel sales response missing text field");
+                }
+            } else {
+                logger.warn("Channel sales response has unexpected structure");
+            }
+
+            return data;
+
+        } catch (Exception e) {
+            logger.error("Error parsing channel sales response: {}", e.getMessage(), e);
+            return createEmptyChannelData(period);
+        }
+    }
+
+    /**
+     * Create empty channel data object
+     */
+    private SalesByChannelData createEmptyChannelData(String period) {
+        SalesByChannelData data = new SalesByChannelData();
+        data.setPeriod(period);
+
+        LocalDateTime now = LocalDateTime.now(SYDNEY_ZONE);
+        int days = parsePeriod(period);
+        data.setPeriodStart(now.minusDays(days));
+        data.setPeriodEnd(now);
+
+        data.setHobbyman(new ChannelSalesData("The Hobbyman", 0, 0, BigDecimal.ZERO));
+        data.setHearnsHobbies(new ChannelSalesData("Hearns Hobbies", 0, 0, BigDecimal.ZERO));
+        data.setShopify(new ChannelSalesData("Shopify", 0, 0, BigDecimal.ZERO));
+        data.setTotalOrders(0);
+        data.setTotalItems(0);
+        data.setTotalRevenue(BigDecimal.ZERO);
+
+        return data;
     }
 
     /**

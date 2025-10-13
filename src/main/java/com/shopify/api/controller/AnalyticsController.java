@@ -2,6 +2,7 @@ package com.shopify.api.controller;
 
 import com.shopify.api.model.ApiResponse;
 import com.shopify.api.model.SalesAnalytics;
+import com.shopify.api.model.SalesByChannelData;
 import com.shopify.api.service.AnalyticsService;
 import com.shopify.api.service.CRSAnalyticsService;
 import org.slf4j.Logger;
@@ -128,6 +129,55 @@ public class AnalyticsController {
                     logger.error("Error fetching all in-store sales analytics", e);
                     return Mono.just(ResponseEntity.internalServerError()
                             .body(ApiResponse.error("Failed to fetch in-store sales analytics", e.getMessage())));
+                });
+    }
+
+    /**
+     * GET /api/analytics/channels
+     * Get sales breakdown by channel (Hobbyman, Hearns, Shopify) for a specific period
+     *
+     * @param period Time period: "1d", "7d", "30d", or "90d"
+     * @return Sales breakdown by all channels with YoY comparison
+     */
+    @GetMapping("/channels")
+    public Mono<ResponseEntity<ApiResponse<SalesByChannelData>>> getSalesByChannel(
+            @RequestParam(defaultValue = "7d") String period) {
+
+        logger.info("GET /api/analytics/channels - period: {}", period);
+
+        // Validate period parameter
+        if (!isValidPeriod(period)) {
+            return Mono.just(ResponseEntity.badRequest()
+                .body(ApiResponse.error("Invalid period",
+                    "Period must be one of: 1d, 7d, 30d, 90d")));
+        }
+
+        return crsAnalyticsService.getSalesByChannel(period)
+                .map(channelData -> ResponseEntity.ok(ApiResponse.success(channelData)))
+                .onErrorResume(e -> {
+                    logger.error("Error fetching sales by channel for period {}", period, e);
+                    return Mono.just(ResponseEntity.internalServerError()
+                            .body(ApiResponse.error("Failed to fetch channel sales", e.getMessage())));
+                });
+    }
+
+    /**
+     * GET /api/analytics/channels/all
+     * Get sales by channel for all periods (1d, 7d, 30d, 90d)
+     *
+     * @return Map of period -> channel sales for all periods
+     */
+    @GetMapping("/channels/all")
+    public Mono<ResponseEntity<ApiResponse<Map<String, SalesByChannelData>>>> getAllSalesByChannel() {
+
+        logger.info("GET /api/analytics/channels/all");
+
+        return crsAnalyticsService.getAllSalesByChannel()
+                .map(allChannelData -> ResponseEntity.ok(ApiResponse.success(allChannelData)))
+                .onErrorResume(e -> {
+                    logger.error("Error fetching all channel sales", e);
+                    return Mono.just(ResponseEntity.internalServerError()
+                            .body(ApiResponse.error("Failed to fetch channel sales", e.getMessage())));
                 });
     }
 

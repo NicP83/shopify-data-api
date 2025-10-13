@@ -198,87 +198,62 @@ public class CRSAnalyticsService {
 
     /**
      * Parse sales data from text response
+     * Expected format: "Row 1: { \"OrderCount\": 1367, \"TotalSales\": 124954.29, \"AvgSale\": 32.93 }"
      */
     private void parseSalesFromText(String text, SalesAnalytics analytics) {
         try {
-            // Try to parse structured data from text
-            // The MCP returns results in a formatted table or JSON-like structure
+            logger.debug("Parsing CRS text response: {}", text);
 
-            // Look for patterns like "OrderCount: 1137" or "TotalSales: 108189.18"
-            String orderCountStr = extractValue(text, "OrderCount");
-            String totalSalesStr = extractValue(text, "TotalSales");
-            String avgSaleStr = extractValue(text, "AvgSale");
+            // Extract JSON object from text
+            // Format: "Row 1: { ... }"
+            int jsonStart = text.indexOf('{');
+            int jsonEnd = text.lastIndexOf('}');
 
-            if (orderCountStr != null) {
-                analytics.setOrderCount(Integer.parseInt(orderCountStr));
+            if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+                String jsonStr = text.substring(jsonStart, jsonEnd + 1);
+                logger.debug("Extracted JSON: {}", jsonStr);
+
+                // Parse JSON using Jackson
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                JsonNode jsonNode = mapper.readTree(jsonStr);
+
+                // Extract values from JSON
+                if (jsonNode.has("OrderCount")) {
+                    analytics.setOrderCount(jsonNode.get("OrderCount").asInt());
+                } else {
+                    analytics.setOrderCount(0);
+                }
+
+                if (jsonNode.has("TotalSales")) {
+                    analytics.setTotalSales(new BigDecimal(jsonNode.get("TotalSales").asDouble()).setScale(2, RoundingMode.HALF_UP));
+                } else {
+                    analytics.setTotalSales(BigDecimal.ZERO);
+                }
+
+                if (jsonNode.has("AvgSale")) {
+                    analytics.setAverageSale(new BigDecimal(jsonNode.get("AvgSale").asDouble()).setScale(2, RoundingMode.HALF_UP));
+                } else if (analytics.getOrderCount() > 0 && analytics.getTotalSales() != null) {
+                    // Calculate average from total and count
+                    analytics.calculateAverageSale();
+                } else {
+                    analytics.setAverageSale(BigDecimal.ZERO);
+                }
+
+                // Set defaults for freight and discounts (not applicable for in-store)
+                analytics.setTotalFreight(BigDecimal.ZERO);
+                analytics.setTotalDiscounts(BigDecimal.ZERO);
+
+                logger.info("Successfully parsed CRS data - Orders: {}, Sales: ${}, AvgSale: ${}",
+                    analytics.getOrderCount(), analytics.getTotalSales(), analytics.getAverageSale());
+
             } else {
-                analytics.setOrderCount(0);
+                logger.warn("Could not find JSON object in text: {}", text);
+                setDefaultValues(analytics);
             }
-
-            if (totalSalesStr != null) {
-                analytics.setTotalSales(new BigDecimal(totalSalesStr).setScale(2, RoundingMode.HALF_UP));
-            } else {
-                analytics.setTotalSales(BigDecimal.ZERO);
-            }
-
-            if (avgSaleStr != null) {
-                analytics.setAverageSale(new BigDecimal(avgSaleStr).setScale(2, RoundingMode.HALF_UP));
-            } else if (analytics.getOrderCount() > 0 && analytics.getTotalSales() != null) {
-                // Calculate average from total and count
-                analytics.calculateAverageSale();
-            } else {
-                analytics.setAverageSale(BigDecimal.ZERO);
-            }
-
-            // Set defaults for freight and discounts (not applicable for in-store)
-            analytics.setTotalFreight(BigDecimal.ZERO);
-            analytics.setTotalDiscounts(BigDecimal.ZERO);
-
-            logger.debug("Parsed CRS data - Orders: {}, Sales: ${}",
-                analytics.getOrderCount(), analytics.getTotalSales());
 
         } catch (Exception e) {
-            logger.error("Error parsing sales from text: {}", e.getMessage());
+            logger.error("Error parsing sales from text: {}", e.getMessage(), e);
             setDefaultValues(analytics);
-        }
-    }
-
-    /**
-     * Extract numeric value from text response
-     */
-    private String extractValue(String text, String fieldName) {
-        try {
-            // Try different patterns:
-            // 1. "FieldName: 123.45"
-            // 2. "FieldName | 123.45"
-            // 3. Row format with field position
-
-            String pattern1 = fieldName + ":\\s*([0-9.]+)";
-            java.util.regex.Pattern p1 = java.util.regex.Pattern.compile(pattern1, java.util.regex.Pattern.CASE_INSENSITIVE);
-            java.util.regex.Matcher m1 = p1.matcher(text);
-            if (m1.find()) {
-                return m1.group(1);
-            }
-
-            String pattern2 = fieldName + "\\s*\\|\\s*([0-9.]+)";
-            java.util.regex.Pattern p2 = java.util.regex.Pattern.compile(pattern2, java.util.regex.Pattern.CASE_INSENSITIVE);
-            java.util.regex.Matcher m2 = p2.matcher(text);
-            if (m2.find()) {
-                return m2.group(1);
-            }
-
-            // Try to find the field in a table row
-            String pattern3 = fieldName + "[^0-9]*([0-9.]+)";
-            java.util.regex.Pattern p3 = java.util.regex.Pattern.compile(pattern3, java.util.regex.Pattern.CASE_INSENSITIVE);
-            java.util.regex.Matcher m3 = p3.matcher(text);
-            if (m3.find()) {
-                return m3.group(1);
-            }
-
-            return null;
-        } catch (Exception e) {
-            logger.error("Error extracting value for {}: {}", fieldName, e.getMessage());
-            return null;
         }
     }
 

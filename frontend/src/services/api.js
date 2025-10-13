@@ -122,6 +122,11 @@ const api = {
   },
 
   getAllChannelSalesAnalytics: () => apiClient.get('/analytics/channels/all'),
+
+  // Fulfillment
+  getPendingFulfillments: () => apiClient.get('/fulfillment/pending'),
+
+  getFulfillmentDetails: (id) => apiClient.get(`/fulfillment/${id}`),
 }
 
 export default api

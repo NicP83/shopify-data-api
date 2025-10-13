@@ -5,6 +5,7 @@ import ProductSearch from './pages/ProductSearch'
 import ChatAgent from './pages/ChatAgent'
 import Settings from './pages/Settings'
 import Analytics from './pages/Analytics'
+import OrdersToFulfill from './pages/OrdersToFulfill'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<ProductSearch />} />
             <Route path="/chat" element={<ChatAgent />} />
+            <Route path="/fulfillment" element={<OrdersToFulfill />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/market-intel" element={<div className="text-center py-20 text-gray-500">Market Intelligence - Coming Soon</div>} />

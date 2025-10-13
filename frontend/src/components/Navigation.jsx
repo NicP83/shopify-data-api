@@ -7,6 +7,7 @@ function Navigation() {
     { path: '/', label: 'Dashboard', icon: '🏠' },
     { path: '/products', label: 'Product Search', icon: '🔍' },
     { path: '/chat', label: 'AI Chat Agent', icon: '💬' },
+    { path: '/fulfillment', label: 'Orders to Fulfill', icon: '📦' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
     { path: '/analytics', label: 'Analytics', icon: '📊' },
     { path: '/market-intel', label: 'Market Intel', icon: '💰' },

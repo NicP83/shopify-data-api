@@ -38,6 +38,14 @@ function Dashboard() {
       color: 'bg-green-100 text-green-800'
     },
     {
+      title: 'Orders to Fulfill',
+      description: 'View Shopify orders pending CRS fulfillment',
+      icon: '📦',
+      path: '/fulfillment',
+      status: 'Active',
+      color: 'bg-orange-100 text-orange-800'
+    },
+    {
       title: 'Analytics Dashboard',
       description: 'Business insights and reporting',
       icon: '📊',

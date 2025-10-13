@@ -1,0 +1,360 @@
+package com.shopify.api.service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shopify.api.client.MCPClient;
+import com.shopify.api.client.ShopifyGraphQLClient;
+import com.shopify.api.model.GraphQLResponse;
+import com.shopify.api.model.OrderLineItem;
+import com.shopify.api.model.UnfulfilledOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Service for managing order fulfillment
+ * Checks Shopify orders against CRS ERP to find orders pending fulfillment
+ */
+@Service
+public class FulfillmentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(FulfillmentService.class);
+
+    private final ShopifyGraphQLClient graphQLClient;
+    private final MCPClient mcpClient;
+    private final ObjectMapper objectMapper;
+
+    public FulfillmentService(ShopifyGraphQLClient graphQLClient, MCPClient mcpClient) {
+        this.graphQLClient = graphQLClient;
+        this.mcpClient = mcpClient;
+        this.objectMapper = new ObjectMapper();
+    }
+
+    /**
+     * Get all unfulfilled Shopify orders that haven't been processed in CRS
+     * @return List of unfulfilled orders
+     */
+    public List<UnfulfilledOrder> getUnfulfilledOrders() {
+        logger.info("Fetching unfulfilled orders from Shopify and checking against CRS");
+
+        try {
+            // Step 1: Fetch unfulfilled orders from Shopify (last 90 days)
+            List<UnfulfilledOrder> shopifyOrders = fetchUnfulfilledShopifyOrders();
+            logger.info("Found {} unfulfilled orders in Shopify", shopifyOrders.size());
+
+            // Step 2: Check each order against CRS
+            List<UnfulfilledOrder> ordersToFulfill = new ArrayList<>();
+            for (UnfulfilledOrder order : shopifyOrders) {
+                try {
+                    boolean existsInCRS = checkOrderInCRS(order.getOrderName()).block();
+                    if (!existsInCRS) {
+                        ordersToFulfill.add(order);
+                        logger.debug("Order {} not found in CRS, adding to fulfillment list", order.getOrderName());
+                    } else {
+                        logger.debug("Order {} already exists in CRS, skipping", order.getOrderName());
+                    }
+                } catch (Exception e) {
+                    logger.error("Error checking order {} in CRS: {}", order.getOrderName(), e.getMessage());
+                    // If CRS check fails, include the order to be safe
+                    ordersToFulfill.add(order);
+                }
+            }
+
+            logger.info("Found {} orders pending fulfillment in CRS", ordersToFulfill.size());
+            return ordersToFulfill;
+
+        } catch (Exception e) {
+            logger.error("Error fetching unfulfilled orders: {}", e.getMessage(), e);
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Fetch unfulfilled orders from Shopify
+     */
+    private List<UnfulfilledOrder> fetchUnfulfilledShopifyOrders() {
+        // Get orders from last 90 days with unfulfilled status
+        String query = """
+            {
+              orders(first: 100, query: "fulfillment_status:unfulfilled") {
+                edges {
+                  node {
+                    id
+                    name
+                    email
+                    phone
+                    createdAt
+                    displayFulfillmentStatus
+                    note
+                    totalPriceSet {
+                      shopMoney {
+                        amount
+                        currencyCode
+                      }
+                    }
+                    customer {
+                      email
+                      firstName
+                      lastName
+                      phone
+                    }
+                    lineItems(first: 100) {
+                      edges {
+                        node {
+                          id
+                          title
+                          quantity
+                          originalUnitPrice
+                          variant {
+                            id
+                            title
+                            sku
+                          }
+                        }
+                      }
+                    }
+                    shippingAddress {
+                      firstName
+                      lastName
+                      company
+                      address1
+                      address2
+                      city
+                      province
+                      country
+                      zip
+                      phone
+                    }
+                  }
+                }
+              }
+            }
+            """;
+
+        GraphQLResponse response = graphQLClient.executeQuery(query);
+
+        if (response.hasErrors()) {
+            logger.error("Error fetching unfulfilled orders from Shopify: {}", response.getErrors());
+            throw new RuntimeException("Failed to fetch unfulfilled orders: " +
+                    response.getErrors().get(0).getMessage());
+        }
+
+        return parseShopifyOrders(response.getData());
+    }
+
+    /**
+     * Parse Shopify GraphQL response into UnfulfilledOrder objects
+     */
+    private List<UnfulfilledOrder> parseShopifyOrders(Map<String, Object> data) {
+        List<UnfulfilledOrder> orders = new ArrayList<>();
+
+        try {
+            Map<String, Object> ordersData = (Map<String, Object>) data.get("orders");
+            List<Map<String, Object>> edges = (List<Map<String, Object>>) ordersData.get("edges");
+
+            for (Map<String, Object> edge : edges) {
+                Map<String, Object> node = (Map<String, Object>) edge.get("node");
+                UnfulfilledOrder order = new UnfulfilledOrder();
+
+                // Basic order info
+                order.setOrderId((String) node.get("id"));
+                order.setOrderName((String) node.get("name"));
+                order.setDisplayFulfillmentStatus((String) node.get("displayFulfillmentStatus"));
+                order.setNote((String) node.get("note"));
+
+                // Parse created date
+                String createdAtStr = (String) node.get("createdAt");
+                if (createdAtStr != null) {
+                    order.setCreatedAt(ZonedDateTime.parse(createdAtStr).toLocalDateTime());
+                }
+
+                // Customer info
+                Map<String, Object> customer = (Map<String, Object>) node.get("customer");
+                if (customer != null) {
+                    String firstName = (String) customer.get("firstName");
+                    String lastName = (String) customer.get("lastName");
+                    order.setCustomerName((firstName != null ? firstName : "") + " " + (lastName != null ? lastName : ""));
+                    order.setCustomerEmail((String) customer.get("email"));
+                    order.setCustomerPhone((String) customer.get("phone"));
+                } else {
+                    order.setCustomerEmail((String) node.get("email"));
+                    order.setCustomerPhone((String) node.get("phone"));
+                }
+
+                // Price info
+                Map<String, Object> totalPriceSet = (Map<String, Object>) node.get("totalPriceSet");
+                if (totalPriceSet != null) {
+                    Map<String, Object> shopMoney = (Map<String, Object>) totalPriceSet.get("shopMoney");
+                    if (shopMoney != null) {
+                        String amount = (String) shopMoney.get("amount");
+                        if (amount != null) {
+                            order.setTotalPrice(new BigDecimal(amount));
+                        }
+                        order.setCurrencyCode((String) shopMoney.get("currencyCode"));
+                    }
+                }
+
+                // Line items
+                Map<String, Object> lineItemsData = (Map<String, Object>) node.get("lineItems");
+                if (lineItemsData != null) {
+                    List<Map<String, Object>> lineItemEdges = (List<Map<String, Object>>) lineItemsData.get("edges");
+                    List<OrderLineItem> lineItems = new ArrayList<>();
+                    int totalItems = 0;
+
+                    for (Map<String, Object> lineItemEdge : lineItemEdges) {
+                        Map<String, Object> lineItemNode = (Map<String, Object>) lineItemEdge.get("node");
+                        OrderLineItem lineItem = new OrderLineItem();
+
+                        lineItem.setLineItemId((String) lineItemNode.get("id"));
+                        lineItem.setTitle((String) lineItemNode.get("title"));
+
+                        Integer quantity = (Integer) lineItemNode.get("quantity");
+                        lineItem.setQuantity(quantity);
+                        totalItems += (quantity != null ? quantity : 0);
+
+                        String priceStr = (String) lineItemNode.get("originalUnitPrice");
+                        if (priceStr != null) {
+                            lineItem.setPrice(new BigDecimal(priceStr));
+                        }
+
+                        Map<String, Object> variant = (Map<String, Object>) lineItemNode.get("variant");
+                        if (variant != null) {
+                            lineItem.setSku((String) variant.get("sku"));
+                            lineItem.setVariantTitle((String) variant.get("title"));
+                        }
+
+                        lineItems.add(lineItem);
+                    }
+
+                    order.setLineItems(lineItems);
+                    order.setItemCount(totalItems);
+                }
+
+                // Shipping address
+                Map<String, Object> shippingAddr = (Map<String, Object>) node.get("shippingAddress");
+                if (shippingAddr != null) {
+                    order.setShippingAddress(formatAddress(shippingAddr));
+                }
+
+                orders.add(order);
+            }
+
+        } catch (Exception e) {
+            logger.error("Error parsing Shopify orders: {}", e.getMessage(), e);
+        }
+
+        return orders;
+    }
+
+    /**
+     * Format shipping address into a readable string
+     */
+    private String formatAddress(Map<String, Object> address) {
+        StringBuilder sb = new StringBuilder();
+
+        String firstName = (String) address.get("firstName");
+        String lastName = (String) address.get("lastName");
+        if (firstName != null || lastName != null) {
+            sb.append(firstName != null ? firstName : "").append(" ").append(lastName != null ? lastName : "").append("\n");
+        }
+
+        String company = (String) address.get("company");
+        if (company != null && !company.isEmpty()) {
+            sb.append(company).append("\n");
+        }
+
+        String address1 = (String) address.get("address1");
+        if (address1 != null) {
+            sb.append(address1).append("\n");
+        }
+
+        String address2 = (String) address.get("address2");
+        if (address2 != null && !address2.isEmpty()) {
+            sb.append(address2).append("\n");
+        }
+
+        String city = (String) address.get("city");
+        String province = (String) address.get("province");
+        String zip = (String) address.get("zip");
+        sb.append(city != null ? city : "").append(", ")
+          .append(province != null ? province : "").append(" ")
+          .append(zip != null ? zip : "").append("\n");
+
+        String country = (String) address.get("country");
+        if (country != null) {
+            sb.append(country);
+        }
+
+        return sb.toString().trim();
+    }
+
+    /**
+     * Check if an order exists in CRS by querying via MCP
+     * @param orderName The Shopify order name (e.g., "#1001")
+     * @return true if order exists in CRS, false otherwise
+     */
+    public Mono<Boolean> checkOrderInCRS(String orderName) {
+        if (!mcpClient.isEnabled()) {
+            logger.warn("MCP is disabled, cannot check order in CRS");
+            return Mono.just(false);
+        }
+
+        logger.debug("Checking if order {} exists in CRS", orderName);
+
+        // Query CRS to check if order exists
+        String query = String.format(
+            "SELECT COUNT(*) as OrderCount FROM InvoiceHeader WHERE ShopifyOrderNum = '%s'",
+            orderName.replace("'", "''") // Escape single quotes
+        );
+
+        Map<String, Object> arguments = new HashMap<>();
+        arguments.put("query", query);
+
+        return mcpClient.callTool("query_database", arguments)
+                .map(result -> parseOrderCountResult(result))
+                .map(count -> count > 0)
+                .onErrorResume(e -> {
+                    logger.error("Error checking order {} in CRS: {}", orderName, e.getMessage());
+                    return Mono.just(false); // On error, assume not in CRS
+                });
+    }
+
+    /**
+     * Parse the COUNT result from CRS query
+     */
+    private int parseOrderCountResult(JsonNode result) {
+        try {
+            if (result.has("content") && result.get("content").isArray() && result.get("content").size() > 0) {
+                JsonNode content = result.get("content").get(0);
+                if (content.has("text")) {
+                    String text = content.get("text").asText();
+
+                    // Extract JSON from text
+                    int jsonStart = text.indexOf('{');
+                    int jsonEnd = text.lastIndexOf('}');
+
+                    if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+                        String jsonStr = text.substring(jsonStart, jsonEnd + 1);
+                        JsonNode jsonNode = objectMapper.readTree(jsonStr);
+
+                        if (jsonNode.has("OrderCount")) {
+                            return jsonNode.get("OrderCount").asInt();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error parsing order count result: {}", e.getMessage());
+        }
+
+        return 0;
+    }
+}

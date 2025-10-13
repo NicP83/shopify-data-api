@@ -12,12 +12,24 @@ public class SalesByChannelData {
     private LocalDateTime periodStart;
     private LocalDateTime periodEnd;
 
-    // Individual channels
+    // Pure in-store sales (walk-in customers only)
     private ChannelSalesData hobbyman;
     private ChannelSalesData hearnsHobbies;
+
+    // Online orders fulfilled in-store
+    private ChannelSalesData hobbymanFulfillment;
+    private ChannelSalesData hearnsFulfillment;
+
+    // Online sales (Shopify)
     private ChannelSalesData shopify;
 
-    // Totals
+    // Online fulfillment details
+    private Integer onlineFulfilledOrders;
+    private BigDecimal onlineFulfilledRevenue;
+    private Integer onlinePendingOrders;
+    private BigDecimal onlinePendingRevenue;
+
+    // Totals (no double-counting)
     private Integer totalOrders;
     private Integer totalItems;
     private BigDecimal totalRevenue;
@@ -107,6 +119,54 @@ public class SalesByChannelData {
 
     public void setYearOverYearComparison(PeriodComparison yearOverYearComparison) {
         this.yearOverYearComparison = yearOverYearComparison;
+    }
+
+    public ChannelSalesData getHobbymanFulfillment() {
+        return hobbymanFulfillment;
+    }
+
+    public void setHobbymanFulfillment(ChannelSalesData hobbymanFulfillment) {
+        this.hobbymanFulfillment = hobbymanFulfillment;
+    }
+
+    public ChannelSalesData getHearnsFulfillment() {
+        return hearnsFulfillment;
+    }
+
+    public void setHearnsFulfillment(ChannelSalesData hearnsFulfillment) {
+        this.hearnsFulfillment = hearnsFulfillment;
+    }
+
+    public Integer getOnlineFulfilledOrders() {
+        return onlineFulfilledOrders;
+    }
+
+    public void setOnlineFulfilledOrders(Integer onlineFulfilledOrders) {
+        this.onlineFulfilledOrders = onlineFulfilledOrders;
+    }
+
+    public BigDecimal getOnlineFulfilledRevenue() {
+        return onlineFulfilledRevenue;
+    }
+
+    public void setOnlineFulfilledRevenue(BigDecimal onlineFulfilledRevenue) {
+        this.onlineFulfilledRevenue = onlineFulfilledRevenue;
+    }
+
+    public Integer getOnlinePendingOrders() {
+        return onlinePendingOrders;
+    }
+
+    public void setOnlinePendingOrders(Integer onlinePendingOrders) {
+        this.onlinePendingOrders = onlinePendingOrders;
+    }
+
+    public BigDecimal getOnlinePendingRevenue() {
+        return onlinePendingRevenue;
+    }
+
+    public void setOnlinePendingRevenue(BigDecimal onlinePendingRevenue) {
+        this.onlinePendingRevenue = onlinePendingRevenue;
     }
 
     @Override

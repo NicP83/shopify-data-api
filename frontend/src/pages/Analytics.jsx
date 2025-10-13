@@ -241,7 +241,7 @@ function Analytics() {
             <div className="space-y-6">
               {/* Grand Total */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">📊 Grand Total - All Channels</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">📊 Grand Total (No Double-Counting)</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <AnalyticsCard
                     title="Total Revenue"
@@ -270,80 +270,153 @@ function Analytics() {
                 </div>
               </div>
 
-              {/* Channel Breakdown */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">🏪 The Hobbyman (Store 1)</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <AnalyticsCard
-                    title="Revenue"
-                    value={currentData.hobbyman?.revenue || 0}
-                    currency="$"
-                    comparisonData={null}
-                    icon="💵"
-                    type="sales"
-                  />
-                  <AnalyticsCard
-                    title="Orders"
-                    value={currentData.hobbyman?.orderCount || 0}
-                    currency=""
-                    comparisonData={null}
-                    icon="🛍️"
-                    type="orders"
-                  />
-                  <AnalyticsCard
-                    title="Items Sold"
-                    value={currentData.hobbyman?.itemCount || 0}
-                    currency=""
-                    comparisonData={null}
-                    icon="📦"
-                    type="orders"
-                  />
+              {/* Pure In-Store Sales Section */}
+              <div className="card bg-blue-50 border-blue-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">🏪 Pure In-Store Sales (Walk-in Customers)</h3>
+
+                <div className="mb-4">
+                  <h4 className="text-md font-semibold text-gray-800 mb-2">The Hobbyman (Narre Warren)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <AnalyticsCard
+                      title="Revenue"
+                      value={currentData.hobbyman?.revenue || 0}
+                      currency="$"
+                      comparisonData={null}
+                      icon="💵"
+                      type="sales"
+                    />
+                    <AnalyticsCard
+                      title="Orders"
+                      value={currentData.hobbyman?.orderCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="🛍️"
+                      type="orders"
+                    />
+                    <AnalyticsCard
+                      title="Items Sold"
+                      value={currentData.hobbyman?.itemCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📦"
+                      type="orders"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold text-gray-800 mb-2">Hearns Hobbies (Melbourne CBD)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <AnalyticsCard
+                      title="Revenue"
+                      value={currentData.hearnsHobbies?.revenue || 0}
+                      currency="$"
+                      comparisonData={null}
+                      icon="💵"
+                      type="sales"
+                    />
+                    <AnalyticsCard
+                      title="Orders"
+                      value={currentData.hearnsHobbies?.orderCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="🛍️"
+                      type="orders"
+                    />
+                    <AnalyticsCard
+                      title="Items Sold"
+                      value={currentData.hearnsHobbies?.itemCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📦"
+                      type="orders"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">🏬 Hearns Hobbies (Store 2)</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <AnalyticsCard
-                    title="Revenue"
-                    value={currentData.hearnsHobbies?.revenue || 0}
-                    currency="$"
-                    comparisonData={null}
-                    icon="💵"
-                    type="sales"
-                  />
-                  <AnalyticsCard
-                    title="Orders"
-                    value={currentData.hearnsHobbies?.orderCount || 0}
-                    currency=""
-                    comparisonData={null}
-                    icon="🛍️"
-                    type="orders"
-                  />
-                  <AnalyticsCard
-                    title="Items Sold"
-                    value={currentData.hearnsHobbies?.itemCount || 0}
-                    currency=""
-                    comparisonData={null}
-                    icon="📦"
-                    type="orders"
-                  />
+              {/* Online Fulfillment Section */}
+              <div className="card bg-green-50 border-green-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">📦 Online Orders Fulfilled In-Store</h3>
+                <p className="text-sm text-gray-600 mb-4">Online orders processed and invoiced at physical store locations</p>
+
+                <div className="mb-4">
+                  <h4 className="text-md font-semibold text-gray-800 mb-2">The Hobbyman (Fulfillment)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <AnalyticsCard
+                      title="Revenue"
+                      value={currentData.hobbymanFulfillment?.revenue || 0}
+                      currency="$"
+                      comparisonData={null}
+                      icon="💵"
+                      type="sales"
+                    />
+                    <AnalyticsCard
+                      title="Orders"
+                      value={currentData.hobbymanFulfillment?.orderCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📦"
+                      type="orders"
+                    />
+                    <AnalyticsCard
+                      title="Items"
+                      value={currentData.hobbymanFulfillment?.itemCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📋"
+                      type="orders"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold text-gray-800 mb-2">Hearns Hobbies (Fulfillment)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <AnalyticsCard
+                      title="Revenue"
+                      value={currentData.hearnsFulfillment?.revenue || 0}
+                      currency="$"
+                      comparisonData={null}
+                      icon="💵"
+                      type="sales"
+                    />
+                    <AnalyticsCard
+                      title="Orders"
+                      value={currentData.hearnsFulfillment?.orderCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📦"
+                      type="orders"
+                    />
+                    <AnalyticsCard
+                      title="Items"
+                      value={currentData.hearnsFulfillment?.itemCount || 0}
+                      currency=""
+                      comparisonData={null}
+                      icon="📋"
+                      type="orders"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">🛒 Shopify (Online)</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Online Sales Summary */}
+              <div className="card bg-purple-50 border-purple-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">🛒 Online Sales Summary (Shopify)</h3>
+                <p className="text-sm text-gray-600 mb-4">Total online orders placed through Shopify</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <AnalyticsCard
-                    title="Revenue"
+                    title="Total Online Revenue"
                     value={currentData.shopify?.revenue || 0}
                     currency="$"
                     comparisonData={null}
-                    icon="💵"
+                    icon="💰"
                     type="sales"
                   />
                   <AnalyticsCard
-                    title="Orders"
+                    title="Total Online Orders"
                     value={currentData.shopify?.orderCount || 0}
                     currency=""
                     comparisonData={null}
@@ -358,6 +431,37 @@ function Analytics() {
                     icon="📦"
                     type="orders"
                   />
+                </div>
+
+                {/* Fulfillment Status Breakdown */}
+                <div className="border-t pt-4">
+                  <h4 className="text-md font-semibold text-gray-800 mb-3">Fulfillment Status</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-white rounded-lg p-4 border border-green-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-700">Fulfilled & Invoiced</span>
+                        <span className="text-2xl">✅</span>
+                      </div>
+                      <div className="text-2xl font-bold text-green-600">
+                        ${(currentData.onlineFulfilledRevenue || 0).toLocaleString()}
+                      </div>
+                      <div className="text-sm text-gray-600 mt-1">
+                        {currentData.onlineFulfilledOrders || 0} orders
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 border border-yellow-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-700">Pending/Unfulfilled</span>
+                        <span className="text-2xl">⏳</span>
+                      </div>
+                      <div className="text-2xl font-bold text-yellow-600">
+                        ${(currentData.onlinePendingRevenue || 0).toLocaleString()}
+                      </div>
+                      <div className="text-sm text-gray-600 mt-1">
+                        {currentData.onlinePendingOrders || 0} orders
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

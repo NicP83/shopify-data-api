@@ -420,28 +420,7 @@ public class CRSAnalyticsService {
 
     /**
      * Parse get_sales_by_channel response into SalesByChannelData
-     * Expected format:
-     * "Sales by Channel (2025-10-06 to 2025-10-13):
-     *
-     * IN-STORE SALES:
-     *   The Hobbyman:
-     *     Orders: 419
-     *     Items: 1213
-     *     Revenue: $33,369.28
-     *
-     *   Hearns Hobbies:
-     *     Orders: 948
-     *     Items: 2790
-     *     Revenue: $91,585.01
-     *
-     *   In-Store Subtotal: 1367 orders, $124,954.29
-     *
-     * ONLINE SALES (Shopify):
-     *   Orders: 236
-     *   Revenue: $26,463.70
-     *
-     * ========================================
-     * GRAND TOTAL: 1603 orders, $151,417.99"
+     * New format with PURE IN-STORE, ONLINE FULFILLMENT, and ONLINE SALES sections
      */
     private SalesByChannelData parseChannelSalesResponse(JsonNode result, LocalDateTime startDate, LocalDateTime endDate, String period) {
         try {
@@ -456,61 +435,104 @@ public class CRSAnalyticsService {
                     String text = content.get("text").asText();
                     logger.debug("Channel Sales Response: {}", text);
 
-                    // Parse The Hobbyman
-                    Pattern hobbymanPattern = Pattern.compile("The Hobbyman:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
-                    Matcher hobbymanMatcher = hobbymanPattern.matcher(text);
-                    if (hobbymanMatcher.find()) {
+                    // Parse PURE IN-STORE SALES - The Hobbyman
+                    Pattern pureHobbymanPattern = Pattern.compile("PURE IN-STORE[\\s\\S]*?The Hobbyman:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher pureHobbymanMatcher = pureHobbymanPattern.matcher(text);
+                    if (pureHobbymanMatcher.find()) {
                         ChannelSalesData hobbyman = new ChannelSalesData();
                         hobbyman.setChannelName("The Hobbyman");
-                        hobbyman.setOrderCount(Integer.parseInt(hobbymanMatcher.group(1)));
-                        hobbyman.setItemCount(Integer.parseInt(hobbymanMatcher.group(2)));
-                        hobbyman.setRevenue(new BigDecimal(hobbymanMatcher.group(3).replace(",", "")));
+                        hobbyman.setOrderCount(Integer.parseInt(pureHobbymanMatcher.group(1)));
+                        hobbyman.setItemCount(Integer.parseInt(pureHobbymanMatcher.group(2)));
+                        hobbyman.setRevenue(new BigDecimal(pureHobbymanMatcher.group(3).replace(",", "")));
                         data.setHobbyman(hobbyman);
                     }
 
-                    // Parse Hearns Hobbies
-                    Pattern hearnsPattern = Pattern.compile("Hearns Hobbies:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
-                    Matcher hearnsMatcher = hearnsPattern.matcher(text);
-                    if (hearnsMatcher.find()) {
+                    // Parse PURE IN-STORE SALES - Hearns Hobbies
+                    Pattern pureHearnsPattern = Pattern.compile("PURE IN-STORE[\\s\\S]*?Hearns Hobbies:[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher pureHearnsMatcher = pureHearnsPattern.matcher(text);
+                    if (pureHearnsMatcher.find()) {
                         ChannelSalesData hearns = new ChannelSalesData();
                         hearns.setChannelName("Hearns Hobbies");
-                        hearns.setOrderCount(Integer.parseInt(hearnsMatcher.group(1)));
-                        hearns.setItemCount(Integer.parseInt(hearnsMatcher.group(2)));
-                        hearns.setRevenue(new BigDecimal(hearnsMatcher.group(3).replace(",", "")));
+                        hearns.setOrderCount(Integer.parseInt(pureHearnsMatcher.group(1)));
+                        hearns.setItemCount(Integer.parseInt(pureHearnsMatcher.group(2)));
+                        hearns.setRevenue(new BigDecimal(pureHearnsMatcher.group(3).replace(",", "")));
                         data.setHearnsHobbies(hearns);
                     }
 
-                    // Parse Shopify
-                    Pattern shopifyPattern = Pattern.compile("ONLINE SALES[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
-                    Matcher shopifyMatcher = shopifyPattern.matcher(text);
-                    if (shopifyMatcher.find()) {
+                    // Parse ONLINE ORDERS FULFILLED IN-STORE - Hobbyman
+                    Pattern fulfillHobbymanPattern = Pattern.compile("ONLINE ORDERS FULFILLED[\\s\\S]*?The Hobbyman \\(fulfillment\\):[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher fulfillHobbymanMatcher = fulfillHobbymanPattern.matcher(text);
+                    if (fulfillHobbymanMatcher.find()) {
+                        ChannelSalesData hobbymanFulfill = new ChannelSalesData();
+                        hobbymanFulfill.setChannelName("The Hobbyman (Fulfillment)");
+                        hobbymanFulfill.setOrderCount(Integer.parseInt(fulfillHobbymanMatcher.group(1)));
+                        hobbymanFulfill.setItemCount(Integer.parseInt(fulfillHobbymanMatcher.group(2)));
+                        hobbymanFulfill.setRevenue(new BigDecimal(fulfillHobbymanMatcher.group(3).replace(",", "")));
+                        data.setHobbymanFulfillment(hobbymanFulfill);
+                    }
+
+                    // Parse ONLINE ORDERS FULFILLED IN-STORE - Hearns
+                    Pattern fulfillHearnsPattern = Pattern.compile("ONLINE ORDERS FULFILLED[\\s\\S]*?Hearns Hobbies \\(fulfillment\\):[\\s\\S]*?Orders:\\s*(\\d+)[\\s\\S]*?Items:\\s*(\\d+)[\\s\\S]*?Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher fulfillHearnsMatcher = fulfillHearnsPattern.matcher(text);
+                    if (fulfillHearnsMatcher.find()) {
+                        ChannelSalesData hearnsFulfill = new ChannelSalesData();
+                        hearnsFulfill.setChannelName("Hearns Hobbies (Fulfillment)");
+                        hearnsFulfill.setOrderCount(Integer.parseInt(fulfillHearnsMatcher.group(1)));
+                        hearnsFulfill.setItemCount(Integer.parseInt(fulfillHearnsMatcher.group(2)));
+                        hearnsFulfill.setRevenue(new BigDecimal(fulfillHearnsMatcher.group(3).replace(",", "")));
+                        data.setHearnsFulfillment(hearnsFulfill);
+                    }
+
+                    // Parse ONLINE SALES SUMMARY
+                    Pattern onlineTotalPattern = Pattern.compile("Total Online Orders:\\s*(\\d+)[\\s\\S]*?Total Online Revenue:\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher onlineTotalMatcher = onlineTotalPattern.matcher(text);
+                    if (onlineTotalMatcher.find()) {
                         ChannelSalesData shopify = new ChannelSalesData();
                         shopify.setChannelName("Shopify");
-                        shopify.setOrderCount(Integer.parseInt(shopifyMatcher.group(1)));
-                        shopify.setItemCount(0); // Not provided for online
-                        shopify.setRevenue(new BigDecimal(shopifyMatcher.group(2).replace(",", "")));
+                        shopify.setOrderCount(Integer.parseInt(onlineTotalMatcher.group(1)));
+                        shopify.setItemCount(0);
+                        shopify.setRevenue(new BigDecimal(onlineTotalMatcher.group(2).replace(",", "")));
                         data.setShopify(shopify);
                     }
 
+                    // Parse Fulfilled & Pending details
+                    Pattern fulfilledPattern = Pattern.compile("Fulfilled & Invoiced:\\s*(\\d+)\\s*orders,\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher fulfilledMatcher = fulfilledPattern.matcher(text);
+                    if (fulfilledMatcher.find()) {
+                        data.setOnlineFulfilledOrders(Integer.parseInt(fulfilledMatcher.group(1)));
+                        data.setOnlineFulfilledRevenue(new BigDecimal(fulfilledMatcher.group(2).replace(",", "")));
+                    }
+
+                    Pattern pendingPattern = Pattern.compile("Pending/Unfulfilled:\\s*(\\d+)\\s*orders,\\s*\\$([\\d,]+\\.\\d{2})");
+                    Matcher pendingMatcher = pendingPattern.matcher(text);
+                    if (pendingMatcher.find()) {
+                        data.setOnlinePendingOrders(Integer.parseInt(pendingMatcher.group(1)));
+                        data.setOnlinePendingRevenue(new BigDecimal(pendingMatcher.group(2).replace(",", "")));
+                    }
+
                     // Parse Grand Total
-                    Pattern totalPattern = Pattern.compile("GRAND TOTAL:\\s*(\\d+)\\s*orders,\\s*\\$([\\d,]+\\.\\d{2})");
+                    Pattern totalPattern = Pattern.compile("GRAND TOTAL[\\s\\S]*?:\\s*(\\d+)\\s*orders,\\s*\\$([\\d,]+\\.\\d{2})");
                     Matcher totalMatcher = totalPattern.matcher(text);
                     if (totalMatcher.find()) {
                         data.setTotalOrders(Integer.parseInt(totalMatcher.group(1)));
                         data.setTotalRevenue(new BigDecimal(totalMatcher.group(2).replace(",", "")));
                     }
 
-                    // Calculate total items
+                    // Calculate total items (pure in-store + fulfillment)
                     int totalItems = 0;
                     if (data.getHobbyman() != null) totalItems += data.getHobbyman().getItemCount();
                     if (data.getHearnsHobbies() != null) totalItems += data.getHearnsHobbies().getItemCount();
+                    if (data.getHobbymanFulfillment() != null) totalItems += data.getHobbymanFulfillment().getItemCount();
+                    if (data.getHearnsFulfillment() != null) totalItems += data.getHearnsFulfillment().getItemCount();
                     data.setTotalItems(totalItems);
 
-                    logger.info("Parsed channel sales - Total: ${}, Hobbyman: ${}, Hearns: ${}, Shopify: ${}",
-                        data.getTotalRevenue(),
-                        data.getHobbyman() != null ? data.getHobbyman().getRevenue() : "0",
-                        data.getHearnsHobbies() != null ? data.getHearnsHobbies().getRevenue() : "0",
-                        data.getShopify() != null ? data.getShopify().getRevenue() : "0");
+                    logger.info("Parsed channel sales - Total: ${} ({} orders), Pure In-Store: ${}, Online Fulfillment: ${}, Online Total: ${}",
+                        data.getTotalRevenue(), data.getTotalOrders(),
+                        (data.getHobbyman() != null ? data.getHobbyman().getRevenue() : BigDecimal.ZERO).add(
+                            data.getHearnsHobbies() != null ? data.getHearnsHobbies().getRevenue() : BigDecimal.ZERO),
+                        (data.getHobbymanFulfillment() != null ? data.getHobbymanFulfillment().getRevenue() : BigDecimal.ZERO).add(
+                            data.getHearnsFulfillment() != null ? data.getHearnsFulfillment().getRevenue() : BigDecimal.ZERO),
+                        data.getShopify() != null ? data.getShopify().getRevenue() : BigDecimal.ZERO);
 
                 } else {
                     logger.warn("Channel sales response missing text field");

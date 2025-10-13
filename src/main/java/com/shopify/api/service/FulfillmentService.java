@@ -282,8 +282,8 @@ public class FulfillmentService {
                     List<Map<String, Object>> discountEdges = (List<Map<String, Object>>) discountApplications.get("edges");
                     if (discountEdges != null && !discountEdges.isEmpty()) {
                         StringBuilder discountCodes = new StringBuilder();
-                        for (Map<String, Object> edge : discountEdges) {
-                            Map<String, Object> discountNode = (Map<String, Object>) edge.get("node");
+                        for (Map<String, Object> discountEdge : discountEdges) {
+                            Map<String, Object> discountNode = (Map<String, Object>) discountEdge.get("node");
                             if (discountNode != null && discountNode.containsKey("code")) {
                                 String code = (String) discountNode.get("code");
                                 if (discountCodes.length() > 0) {

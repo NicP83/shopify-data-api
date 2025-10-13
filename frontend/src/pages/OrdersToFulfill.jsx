@@ -8,17 +8,19 @@ function OrdersToFulfill() {
   const [error, setError] = useState(null)
   const [expandedOrderId, setExpandedOrderId] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [includeDiscounts, setIncludeDiscounts] = useState(false)
+  const [includeSalePrices, setIncludeSalePrices] = useState(false)
 
   useEffect(() => {
     fetchOrders()
-  }, [])
+  }, [includeDiscounts, includeSalePrices])
 
   const fetchOrders = async () => {
     setLoading(true)
     setError(null)
 
     try {
-      const response = await api.getPendingFulfillments()
+      const response = await api.getPendingFulfillments(includeDiscounts, includeSalePrices)
       setOrders(response.data.data || [])
     } catch (err) {
       console.error('Error fetching orders:', err)
@@ -70,6 +72,42 @@ function OrdersToFulfill() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
         />
+      </div>
+
+      {/* Data Options Toggle */}
+      <div className="card no-print bg-blue-50 border-blue-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-2">Optional Data Loading</h3>
+            <p className="text-sm text-gray-600">
+              Enable these options to load additional data (may slow down initial load)
+            </p>
+          </div>
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeDiscounts}
+                onChange={(e) => setIncludeDiscounts(e.target.checked)}
+                className="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                Show Discounts 💰
+              </span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeSalePrices}
+                onChange={(e) => setIncludeSalePrices(e.target.checked)}
+                className="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                Show Sale Prices 🏷️
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
 
       {/* Error State */}

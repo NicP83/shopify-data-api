@@ -30,15 +30,20 @@ public class FulfillmentController {
      * GET /api/fulfillment/pending
      * Fetch all orders that are unfulfilled in Shopify and not yet in CRS
      *
+     * @param includeDiscounts Whether to fetch discount information (default: false for faster load)
+     * @param includeSalePrices Whether to fetch CRS sale prices (default: false for faster load)
      * @return List of unfulfilled orders
      */
     @GetMapping("/pending")
-    public ResponseEntity<ApiResponse<List<UnfulfilledOrder>>> getPendingOrders() {
+    public ResponseEntity<ApiResponse<List<UnfulfilledOrder>>> getPendingOrders(
+            @RequestParam(defaultValue = "false") boolean includeDiscounts,
+            @RequestParam(defaultValue = "false") boolean includeSalePrices) {
 
-        logger.info("GET /api/fulfillment/pending - Fetching pending fulfillment orders");
+        logger.info("GET /api/fulfillment/pending - Fetching pending fulfillment orders (discounts={}, salePrices={})",
+                    includeDiscounts, includeSalePrices);
 
         try {
-            List<UnfulfilledOrder> orders = fulfillmentService.getUnfulfilledOrders();
+            List<UnfulfilledOrder> orders = fulfillmentService.getUnfulfilledOrders(includeDiscounts, includeSalePrices);
             logger.info("Found {} orders pending fulfillment", orders.size());
             return ResponseEntity.ok(ApiResponse.success(orders));
         } catch (Exception e) {
@@ -62,8 +67,8 @@ public class FulfillmentController {
         logger.info("GET /api/fulfillment/{} - Fetching order details", orderId);
 
         try {
-            // Fetch all orders and find the matching one
-            List<UnfulfilledOrder> orders = fulfillmentService.getUnfulfilledOrders();
+            // Fetch all orders with full data (discounts and sale prices) for single order lookup
+            List<UnfulfilledOrder> orders = fulfillmentService.getUnfulfilledOrders(true, true);
             UnfulfilledOrder order = orders.stream()
                     .filter(o -> o.getOrderId().equals(orderId) || o.getOrderName().equals(orderId))
                     .findFirst()

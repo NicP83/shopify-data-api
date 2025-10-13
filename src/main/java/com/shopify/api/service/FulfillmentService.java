@@ -41,24 +41,29 @@ public class FulfillmentService {
     /**
      * Get all unfulfilled Shopify orders that haven't been processed in CRS
      * Fetches most recent orders from last 3 months and checks each against CRS
+     * @param includeDiscounts Whether to include discount information (makes query slower)
+     * @param includeSalePrices Whether to enrich with CRS sale price data (makes query slower)
      * @return List of unfulfilled orders
      */
-    public List<UnfulfilledOrder> getUnfulfilledOrders() {
-        logger.info("Fetching recent Shopify orders and checking against CRS");
+    public List<UnfulfilledOrder> getUnfulfilledOrders(boolean includeDiscounts, boolean includeSalePrices) {
+        logger.info("Fetching recent Shopify orders and checking against CRS (discounts={}, salePrices={})",
+                    includeDiscounts, includeSalePrices);
 
         try {
             // Step 1: Fetch recent orders from Shopify (sorted newest first)
-            List<UnfulfilledOrder> shopifyOrders = fetchRecentShopifyOrders();
+            List<UnfulfilledOrder> shopifyOrders = fetchRecentShopifyOrders(includeDiscounts);
             logger.info("Found {} recent orders from Shopify", shopifyOrders.size());
 
-            // Step 2: Check each order against CRS and enrich with sale data
+            // Step 2: Check each order against CRS and optionally enrich with sale data
             List<UnfulfilledOrder> ordersToFulfill = new ArrayList<>();
             for (UnfulfilledOrder order : shopifyOrders) {
                 try {
                     boolean existsInCRS = checkOrderInCRS(order.getOrderName()).block();
                     if (!existsInCRS) {
-                        // Enrich order with CRS sale information for each line item
-                        enrichOrderWithCRSSaleData(order);
+                        // Optionally enrich order with CRS sale information for each line item
+                        if (includeSalePrices) {
+                            enrichOrderWithCRSSaleData(order);
+                        }
                         ordersToFulfill.add(order);
                         logger.debug("Order {} not found in CRS, adding to fulfillment list", order.getOrderName());
                     } else {
@@ -83,10 +88,49 @@ public class FulfillmentService {
     /**
      * Fetch recent orders from Shopify (most recent first, last 3 months)
      * Does NOT filter by fulfillment status - checks ALL orders against CRS
+     * @param includeDiscounts Whether to include discount fields in the query
      */
-    private List<UnfulfilledOrder> fetchRecentShopifyOrders() {
+    private List<UnfulfilledOrder> fetchRecentShopifyOrders(boolean includeDiscounts) {
+        // Build query conditionally based on whether discounts are needed
+        String discountFields = includeDiscounts ? """
+                    totalDiscountsSet {
+                      shopMoney {
+                        amount
+                      }
+                    }
+                    discountApplications(first: 10) {
+                      edges {
+                        node {
+                          ... on DiscountCodeApplication {
+                            code
+                          }
+                        }
+                      }
+                    }
+                """ : "";
+
+        String lineItemDiscountFields = includeDiscounts ? """
+                          discountedTotalSet {
+                            shopMoney {
+                              amount
+                            }
+                          }
+                          discountAllocations {
+                            allocatedAmountSet {
+                              shopMoney {
+                                amount
+                              }
+                            }
+                            discountApplication {
+                              ... on DiscountCodeApplication {
+                                code
+                              }
+                            }
+                          }
+                """ : "";
+
         // Get most recent 250 orders, sorted by creation date (newest first)
-        String query = """
+        String query = String.format("""
             {
               orders(first: 250, reverse: true, sortKey: CREATED_AT) {
                 edges {
@@ -110,20 +154,7 @@ public class FulfillmentService {
                         currencyCode
                       }
                     }
-                    totalDiscountsSet {
-                      shopMoney {
-                        amount
-                      }
-                    }
-                    discountApplications(first: 10) {
-                      edges {
-                        node {
-                          ... on DiscountCodeApplication {
-                            code
-                          }
-                        }
-                      }
-                    }
+                    %s
                     customer {
                       email
                       firstName
@@ -137,23 +168,7 @@ public class FulfillmentService {
                           title
                           quantity
                           originalUnitPrice
-                          discountedTotalSet {
-                            shopMoney {
-                              amount
-                            }
-                          }
-                          discountAllocations {
-                            allocatedAmountSet {
-                              shopMoney {
-                                amount
-                              }
-                            }
-                            discountApplication {
-                              ... on DiscountCodeApplication {
-                                code
-                              }
-                            }
-                          }
+                          %s
                           variant {
                             id
                             title
@@ -178,7 +193,7 @@ public class FulfillmentService {
                 }
               }
             }
-            """;
+            """, discountFields, lineItemDiscountFields);
 
         GraphQLResponse response = graphQLClient.executeQuery(query);
 

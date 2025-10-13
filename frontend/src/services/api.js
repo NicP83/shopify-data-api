@@ -124,7 +124,11 @@ const api = {
   getAllChannelSalesAnalytics: () => apiClient.get('/analytics/channels/all'),
 
   // Fulfillment
-  getPendingFulfillments: () => apiClient.get('/fulfillment/pending'),
+  getPendingFulfillments: (includeDiscounts = false, includeSalePrices = false) => {
+    return apiClient.get('/fulfillment/pending', {
+      params: { includeDiscounts, includeSalePrices }
+    })
+  },
 
   getFulfillmentDetails: (id) => apiClient.get(`/fulfillment/${id}`),
 }

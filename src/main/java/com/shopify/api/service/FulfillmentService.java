@@ -115,7 +115,15 @@ public class FulfillmentService {
                         amount
                       }
                     }
-                    discountCodes
+                    discountApplications(first: 10) {
+                      edges {
+                        node {
+                          ... on DiscountCodeApplication {
+                            code
+                          }
+                        }
+                      }
+                    }
                     customer {
                       email
                       firstName
@@ -268,9 +276,27 @@ public class FulfillmentService {
                     }
                 }
 
-                // Discount codes
-                String discountCodes = (String) node.get("discountCodes");
-                order.setDiscountCodes(discountCodes);
+                // Discount codes - parse from discountApplications
+                Map<String, Object> discountApplications = (Map<String, Object>) node.get("discountApplications");
+                if (discountApplications != null) {
+                    List<Map<String, Object>> discountEdges = (List<Map<String, Object>>) discountApplications.get("edges");
+                    if (discountEdges != null && !discountEdges.isEmpty()) {
+                        StringBuilder discountCodes = new StringBuilder();
+                        for (Map<String, Object> edge : discountEdges) {
+                            Map<String, Object> discountNode = (Map<String, Object>) edge.get("node");
+                            if (discountNode != null && discountNode.containsKey("code")) {
+                                String code = (String) discountNode.get("code");
+                                if (discountCodes.length() > 0) {
+                                    discountCodes.append(", ");
+                                }
+                                discountCodes.append(code);
+                            }
+                        }
+                        if (discountCodes.length() > 0) {
+                            order.setDiscountCodes(discountCodes.toString());
+                        }
+                    }
+                }
 
                 // Line items
                 Map<String, Object> lineItemsData = (Map<String, Object>) node.get("lineItems");

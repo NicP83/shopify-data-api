@@ -59,6 +59,8 @@ public class FulfillmentService {
                     if (!existsInCRS) {
                         // Enrich order with CRS sale information for each line item
                         enrichOrderWithCRSSaleData(order);
+                        // Enrich order with customer tier information from CRS
+                        enrichOrderWithCustomerTier(order);
                         ordersToFulfill.add(order);
                         logger.debug("Order {} not found in CRS, adding to fulfillment list", order.getOrderName());
                     } else {
@@ -503,6 +505,182 @@ public class FulfillmentService {
                 // Continue processing other items even if one fails
             }
         }
+    }
+
+    /**
+     * Enrich order with customer tier information from CRS
+     * Calculates customer tier based on total spending and order frequency
+     */
+    private void enrichOrderWithCustomerTier(UnfulfilledOrder order) {
+        if (!mcpClient.isEnabled()) {
+            logger.debug("MCP is disabled, skipping customer tier enrichment");
+            return;
+        }
+
+        String customerEmail = order.getCustomerEmail();
+        if (customerEmail == null || customerEmail.trim().isEmpty()) {
+            logger.debug("No customer email for order {}, skipping tier calculation", order.getOrderName());
+            order.setCustomerTier("NEW");
+            return;
+        }
+
+        try {
+            // Calculate dates for queries
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime oneYearAgo = now.minusYears(1);
+            LocalDateTime oneMonthAgo = now.minusMonths(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            // Query 1: Get total spending and order count for last 365 days
+            String yearlyQuery = String.format(
+                "SELECT COUNT(DISTINCT h.DocNum) as OrderCount, ISNULL(SUM(d.SaleAmount), 0) as TotalSpend " +
+                "FROM InvoiceHeader h " +
+                "LEFT JOIN InvoiceDetail d ON h.DocNum = d.DocNum " +
+                "WHERE h.CustomerEmail = '%s' " +
+                "AND h.Date >= '%s' " +
+                "AND h.Completed = 1",
+                customerEmail.replace("'", "''"),
+                oneYearAgo.format(formatter)
+            );
+
+            Map<String, Object> arguments = new HashMap<>();
+            arguments.put("query", yearlyQuery);
+
+            JsonNode yearlyResult = mcpClient.callTool("query_database", arguments).block();
+
+            BigDecimal yearlySpend = BigDecimal.ZERO;
+            int yearlyOrderCount = 0;
+
+            if (yearlyResult != null) {
+                Map<String, Object> yearlyData = parseCustomerSpendData(yearlyResult);
+                if (yearlyData != null) {
+                    yearlySpend = (BigDecimal) yearlyData.get("totalSpend");
+                    yearlyOrderCount = (Integer) yearlyData.get("orderCount");
+                }
+            }
+
+            // Query 2: Get order count for last 30 days
+            String monthlyQuery = String.format(
+                "SELECT COUNT(DISTINCT h.DocNum) as OrderCount " +
+                "FROM InvoiceHeader h " +
+                "WHERE h.CustomerEmail = '%s' " +
+                "AND h.Date >= '%s' " +
+                "AND h.Completed = 1",
+                customerEmail.replace("'", "''"),
+                oneMonthAgo.format(formatter)
+            );
+
+            arguments.put("query", monthlyQuery);
+            JsonNode monthlyResult = mcpClient.callTool("query_database", arguments).block();
+
+            int monthlyOrderCount = 0;
+            if (monthlyResult != null) {
+                monthlyOrderCount = parseCustomerOrderCount(monthlyResult);
+            }
+
+            // Set customer data in order
+            order.setCustomerYearlySpend(yearlySpend);
+            order.setCustomerOrderCount(yearlyOrderCount);
+            order.setCustomerRecentOrders(monthlyOrderCount);
+
+            // Calculate tier based on yearly spending
+            String tier;
+            if (yearlySpend.compareTo(new BigDecimal("5000")) >= 0) {
+                tier = "GOLD";
+            } else if (yearlySpend.compareTo(new BigDecimal("2000")) >= 0) {
+                tier = "SILVER";
+            } else if (yearlySpend.compareTo(new BigDecimal("1000")) >= 0) {
+                tier = "BRONZE";
+            } else if (monthlyOrderCount > 1) {
+                tier = "REPEAT";
+            } else {
+                tier = "NEW";
+            }
+
+            order.setCustomerTier(tier);
+
+            logger.debug("Customer {} tier: {} (Yearly: ${}, Orders: {}, Recent: {})",
+                    customerEmail, tier, yearlySpend, yearlyOrderCount, monthlyOrderCount);
+
+        } catch (Exception e) {
+            logger.debug("Error calculating customer tier for {}: {}", customerEmail, e.getMessage());
+            order.setCustomerTier("NEW");
+        }
+    }
+
+    /**
+     * Parse customer spending data from CRS query result
+     */
+    private Map<String, Object> parseCustomerSpendData(JsonNode result) {
+        try {
+            if (result.has("content") && result.get("content").isArray() && result.get("content").size() > 0) {
+                JsonNode content = result.get("content").get(0);
+                if (content.has("text")) {
+                    String text = content.get("text").asText();
+
+                    // Extract JSON from text
+                    int jsonStart = text.indexOf('{');
+                    int jsonEnd = text.lastIndexOf('}');
+
+                    if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+                        String jsonStr = text.substring(jsonStart, jsonEnd + 1);
+                        JsonNode jsonNode = objectMapper.readTree(jsonStr);
+
+                        Map<String, Object> data = new HashMap<>();
+
+                        if (jsonNode.has("TotalSpend")) {
+                            double totalSpend = jsonNode.get("TotalSpend").asDouble();
+                            data.put("totalSpend", BigDecimal.valueOf(totalSpend));
+                        } else {
+                            data.put("totalSpend", BigDecimal.ZERO);
+                        }
+
+                        if (jsonNode.has("OrderCount")) {
+                            data.put("orderCount", jsonNode.get("OrderCount").asInt());
+                        } else {
+                            data.put("orderCount", 0);
+                        }
+
+                        return data;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.debug("Error parsing customer spend data: {}", e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Parse customer order count from CRS query result
+     */
+    private int parseCustomerOrderCount(JsonNode result) {
+        try {
+            if (result.has("content") && result.get("content").isArray() && result.get("content").size() > 0) {
+                JsonNode content = result.get("content").get(0);
+                if (content.has("text")) {
+                    String text = content.get("text").asText();
+
+                    // Extract JSON from text
+                    int jsonStart = text.indexOf('{');
+                    int jsonEnd = text.lastIndexOf('}');
+
+                    if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+                        String jsonStr = text.substring(jsonStart, jsonEnd + 1);
+                        JsonNode jsonNode = objectMapper.readTree(jsonStr);
+
+                        if (jsonNode.has("OrderCount")) {
+                            return jsonNode.get("OrderCount").asInt();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.debug("Error parsing customer order count: {}", e.getMessage());
+        }
+
+        return 0;
     }
 
     /**

@@ -135,12 +135,29 @@ function OrdersToFulfill() {
                   <div className="flex items-center gap-4 flex-1">
                     <div className="text-3xl">📦</div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        Order {order.orderName}
-                      </h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {order.customerName} • {order.customerEmail}
-                      </p>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          Order {order.orderName}
+                        </h3>
+                        {order.totalDiscounts && parseFloat(order.totalDiscounts) > 0 && (
+                          <span className="text-green-600" title={`Discount: $${parseFloat(order.totalDiscounts).toFixed(2)}`}>
+                            💰
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-sm text-gray-600">
+                          {order.customerName} • {order.customerEmail}
+                        </p>
+                        {order.customerTier && (
+                          <span title={`Customer Tier: ${order.customerTier}`}>
+                            {order.customerTier === 'GOLD' && '🥇'}
+                            {order.customerTier === 'SILVER' && '🥈'}
+                            {order.customerTier === 'BRONZE' && '🥉'}
+                            {order.customerTier === 'REPEAT' && '🔄'}
+                          </span>
+                        )}
+                      </div>
                       <p className="text-xs text-gray-500 mt-1">
                         Created: {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}
                       </p>

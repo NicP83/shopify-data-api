@@ -131,6 +131,124 @@ const api = {
   },
 
   getFulfillmentDetails: (id) => apiClient.get(`/fulfillment/${id}`),
+
+  // Multi-Agent System - Agents
+  getAgents: (activeOnly = null) => {
+    const params = {}
+    if (activeOnly !== null) params.activeOnly = activeOnly
+    return apiClient.get('/agents', { params })
+  },
+
+  getAgent: (id) => apiClient.get(`/agents/${id}`),
+
+  createAgent: (agent) => apiClient.post('/agents', agent),
+
+  updateAgent: (id, agent) => apiClient.put(`/agents/${id}`, agent),
+
+  deleteAgent: (id) => apiClient.delete(`/agents/${id}`),
+
+  activateAgent: (id) => apiClient.post(`/agents/${id}/activate`),
+
+  deactivateAgent: (id) => apiClient.post(`/agents/${id}/deactivate`),
+
+  executeAgent: (id, input) => apiClient.post(`/agents/${id}/execute`, input),
+
+  // Multi-Agent System - Workflows
+  getWorkflows: (activeOnly = null, triggerType = null) => {
+    const params = {}
+    if (activeOnly !== null) params.activeOnly = activeOnly
+    if (triggerType !== null) params.triggerType = triggerType
+    return apiClient.get('/workflows', { params })
+  },
+
+  getWorkflow: (id) => apiClient.get(`/workflows/${id}`),
+
+  createWorkflow: (workflow) => apiClient.post('/workflows', workflow),
+
+  updateWorkflow: (id, workflow) => apiClient.put(`/workflows/${id}`, workflow),
+
+  deleteWorkflow: (id) => apiClient.delete(`/workflows/${id}`),
+
+  activateWorkflow: (id) => apiClient.post(`/workflows/${id}/activate`),
+
+  deactivateWorkflow: (id) => apiClient.post(`/workflows/${id}/deactivate`),
+
+  executeWorkflow: (id, triggerData) => apiClient.post(`/workflows/${id}/execute`, triggerData),
+
+  // Multi-Agent System - Workflow Steps
+  getWorkflowSteps: (workflowId) => apiClient.get(`/workflows/${workflowId}/steps`),
+
+  createWorkflowStep: (workflowId, step) => apiClient.post(`/workflows/${workflowId}/steps`, step),
+
+  updateWorkflowStep: (workflowId, stepId, step) =>
+    apiClient.put(`/workflows/${workflowId}/steps/${stepId}`, step),
+
+  deleteWorkflowStep: (workflowId, stepId) =>
+    apiClient.delete(`/workflows/${workflowId}/steps/${stepId}`),
+
+  reorderWorkflowSteps: (workflowId, stepIds) =>
+    apiClient.post(`/workflows/${workflowId}/steps/reorder`, stepIds),
+
+  // Multi-Agent System - Workflow Executions
+  getWorkflowExecutions: (workflowId) => apiClient.get(`/workflows/${workflowId}/executions`),
+
+  getAllExecutions: () => apiClient.get('/executions'),
+
+  getExecutionDetails: (id) => apiClient.get(`/executions/${id}`),
+
+  // Multi-Agent System - Approvals
+  getPendingApprovals: (role = null) => {
+    const params = {}
+    if (role !== null) params.role = role
+    return apiClient.get('/approvals/pending', { params })
+  },
+
+  getApprovalsByExecution: (executionId) => apiClient.get(`/approvals/execution/${executionId}`),
+
+  getApprovalCount: () => apiClient.get('/approvals/count'),
+
+  approveRequest: (id, approvedBy, comments) =>
+    apiClient.post(`/approvals/${id}/approve`, { approvedBy, comments }),
+
+  rejectRequest: (id, rejectedBy, reason) =>
+    apiClient.post(`/approvals/${id}/reject`, { rejectedBy, reason }),
+
+  // Multi-Agent System - Tools
+  getTools: (activeOnly = null) => {
+    const params = {}
+    if (activeOnly !== null) params.activeOnly = activeOnly
+    return apiClient.get('/tools', { params })
+  },
+
+  getTool: (id) => apiClient.get(`/tools/${id}`),
+
+  createTool: (tool) => apiClient.post('/tools', tool),
+
+  updateTool: (id, tool) => apiClient.put(`/tools/${id}`, tool),
+
+  deleteTool: (id) => apiClient.delete(`/tools/${id}`),
+
+  // Multi-Agent System - Schedules
+  getSchedules: (active = true) => {
+    const params = {}
+    if (active !== null) params.active = active
+    return apiClient.get('/schedules', { params })
+  },
+
+  getSchedulesForWorkflow: (workflowId) => apiClient.get(`/schedules/workflow/${workflowId}`),
+
+  createSchedule: (workflowId, cronExpression, triggerData = null) =>
+    apiClient.post('/schedules', { workflowId, cronExpression, triggerData }),
+
+  cancelSchedule: (id) => apiClient.delete(`/schedules/${id}`),
+
+  activateSchedule: (id) => apiClient.put(`/schedules/${id}/activate`),
+
+  updateScheduleCron: (id, cronExpression) =>
+    apiClient.put(`/schedules/${id}/cron`, { cronExpression }),
+
+  updateScheduleTriggerData: (id, triggerData) =>
+    apiClient.put(`/schedules/${id}/trigger-data`, triggerData),
 }
 
 export default api

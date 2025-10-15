@@ -45,7 +45,7 @@ public class CreateWorkflowRequest {
     /**
      * Interface type for workflow execution
      */
-    @Pattern(regexp = "FORM|CHAT|API|CUSTOM", message = "Interface type must be FORM, CHAT, API, or CUSTOM")
+    @Pattern(regexp = "^(FORM|CHAT|API|CUSTOM)?$", message = "Interface type must be FORM, CHAT, API, or CUSTOM")
     @Builder.Default
     private String interfaceType = "FORM";
 

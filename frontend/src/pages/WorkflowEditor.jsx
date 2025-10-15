@@ -12,7 +12,7 @@ function WorkflowEditor() {
     name: '',
     description: '',
     triggerType: 'MANUAL',
-    executionMode: 'SEQUENTIAL',
+    executionMode: 'SYNC',
     isActive: false,
     triggerConfigJson: {}
   })
@@ -270,7 +270,6 @@ function WorkflowEditor() {
               >
                 <option value="MANUAL">Manual</option>
                 <option value="SCHEDULED">Scheduled</option>
-                <option value="WEBHOOK">Webhook</option>
                 <option value="EVENT">Event</option>
               </select>
             </div>
@@ -284,9 +283,8 @@ function WorkflowEditor() {
                 onChange={(e) => setWorkflow({ ...workflow, executionMode: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
-                <option value="SEQUENTIAL">Sequential</option>
-                <option value="PARALLEL">Parallel</option>
-                <option value="CONDITIONAL">Conditional</option>
+                <option value="SYNC">Synchronous</option>
+                <option value="ASYNC">Asynchronous</option>
               </select>
             </div>
           </div>

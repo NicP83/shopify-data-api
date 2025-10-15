@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.shopify.api.dto.agent.AgentResponse;
 import com.shopify.api.dto.agent.CreateAgentRequest;
 import com.shopify.api.model.agent.Agent;
+import com.shopify.api.model.agent.AgentExecution;
+import com.shopify.api.repository.agent.AgentExecutionRepository;
 import com.shopify.api.service.agent.AgentExecutionService;
 import com.shopify.api.service.agent.AgentService;
 import jakarta.validation.Valid;
@@ -34,6 +36,7 @@ public class AgentController {
 
     private final AgentService agentService;
     private final AgentExecutionService agentExecutionService;
+    private final AgentExecutionRepository agentExecutionRepository;
 
     /**
      * Create a new agent
@@ -232,6 +235,17 @@ public class AgentController {
                 return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body((Object) new ErrorResponse(error.getMessage())));
             });
+    }
+
+    /**
+     * Get execution history for an agent
+     * GET /api/agents/{agentId}/executions
+     */
+    @GetMapping("/{agentId}/executions")
+    public ResponseEntity<List<AgentExecution>> getAgentExecutions(@PathVariable Long agentId) {
+        log.info("Fetching executions for agent {}", agentId);
+        List<AgentExecution> executions = agentExecutionRepository.findByAgentId(agentId);
+        return ResponseEntity.ok(executions);
     }
 
     /**

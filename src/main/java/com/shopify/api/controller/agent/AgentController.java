@@ -1,8 +1,10 @@
 package com.shopify.api.controller.agent;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.shopify.api.dto.agent.AgentResponse;
 import com.shopify.api.dto.agent.CreateAgentRequest;
 import com.shopify.api.model.agent.Agent;
+import com.shopify.api.service.agent.AgentExecutionService;
 import com.shopify.api.service.agent.AgentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +33,7 @@ import java.util.stream.Collectors;
 public class AgentController {
 
     private final AgentService agentService;
+    private final AgentExecutionService agentExecutionService;
 
     /**
      * Create a new agent
@@ -211,6 +215,26 @@ public class AgentController {
     }
 
     /**
+     * Execute an agent with given input
+     * POST /api/agents/{id}/execute
+     */
+    @PostMapping("/{id}/execute")
+    public Mono<ResponseEntity<Object>> executeAgent(
+        @PathVariable Long id,
+        @RequestBody JsonNode input
+    ) {
+        log.info("Executing agent {} with input", id);
+
+        return agentExecutionService.executeAgent(id, input)
+            .map(result -> ResponseEntity.ok((Object) result))
+            .onErrorResume(error -> {
+                log.error("Agent execution failed: {}", error.getMessage(), error);
+                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body((Object) new ErrorResponse(error.getMessage())));
+            });
+    }
+
+    /**
      * Exception handler for IllegalArgumentException
      */
     @ExceptionHandler(IllegalArgumentException.class)
@@ -218,4 +242,9 @@ public class AgentController {
         log.error("Validation error: {}", ex.getMessage());
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+
+    /**
+     * Simple error response class
+     */
+    private record ErrorResponse(String error) {}
 }

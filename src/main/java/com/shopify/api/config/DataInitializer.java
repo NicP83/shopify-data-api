@@ -108,6 +108,15 @@ public class DataInitializer implements CommandLineRunner {
             createSchema("text", "string", "Text to analyze"),
             "com.shopify.api.handler.tool.TextAnalysisToolHandler"
         );
+
+        // MCP Tool - Call external MCP server tools
+        createTool(
+            "mcp_call",
+            "MCP",
+            "Call a tool from the MCP (Model Context Protocol) server",
+            createMCPCallSchema(),
+            "com.shopify.api.handler.tool.MCPCallToolHandler"
+        );
     }
 
     private void createTool(String name, String type, String description, ObjectNode inputSchema, String handlerClass) {
@@ -170,6 +179,32 @@ public class DataInitializer implements CommandLineRunner {
         schema.set("properties", properties);
 
         var requiredArray = objectMapper.createArrayNode().add("url").add("method");
+        schema.set("required", requiredArray);
+
+        return schema;
+    }
+
+    private ObjectNode createMCPCallSchema() {
+        ObjectNode schema = objectMapper.createObjectNode();
+        schema.put("type", "object");
+
+        ObjectNode properties = objectMapper.createObjectNode();
+
+        // Tool name property
+        ObjectNode toolNameProp = objectMapper.createObjectNode();
+        toolNameProp.put("type", "string");
+        toolNameProp.put("description", "Name of the MCP tool to call");
+        properties.set("tool_name", toolNameProp);
+
+        // Arguments property
+        ObjectNode argumentsProp = objectMapper.createObjectNode();
+        argumentsProp.put("type", "object");
+        argumentsProp.put("description", "Arguments to pass to the MCP tool");
+        properties.set("arguments", argumentsProp);
+
+        schema.set("properties", properties);
+
+        var requiredArray = objectMapper.createArrayNode().add("tool_name").add("arguments");
         schema.set("required", requiredArray);
 
         return schema;

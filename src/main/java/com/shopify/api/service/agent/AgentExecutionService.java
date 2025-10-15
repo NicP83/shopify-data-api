@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.shopify.api.client.MCPClient;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.model.agent.AgentExecution;
 import com.shopify.api.model.agent.AgentTool;
@@ -21,7 +22,9 @@ import reactor.core.publisher.Mono;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service for executing AI agents
@@ -43,6 +46,7 @@ public class AgentExecutionService {
     private final AgentExecutionRepository agentExecutionRepository;
     private final WebClient.Builder webClientBuilder;
     private final ObjectMapper objectMapper;
+    private final MCPClient mcpClient;
 
     @Value("${anthropic.api.key:}")
     private String anthropicApiKey;
@@ -311,14 +315,74 @@ public class AgentExecutionService {
     }
 
     /**
-     * Execute a tool call (stub for now - will be implemented with actual tool handlers)
+     * Execute a tool call
+     *
+     * Currently implements:
+     * - mcp_call: Call external MCP server tools
+     * - Other tools: Return placeholder (TODO: implement handler loading)
      */
     private Mono<String> executeToolCall(String toolName, JsonNode input, Agent agent) {
         log.info("Tool execution: {} with input: {}", toolName, input);
 
+        // Handle MCP tool calls
+        if ("mcp_call".equals(toolName)) {
+            return executeMCPToolCall(input);
+        }
+
         // TODO: Implement actual tool execution by loading tool handler classes
-        // For now, return a placeholder
+        // For now, return a placeholder for other tools
         return Mono.just("{\"message\": \"Tool '" + toolName + "' executed successfully\", \"input\": " + input.toString() + "}");
+    }
+
+    /**
+     * Execute an MCP tool call
+     *
+     * Expected input format:
+     * {
+     *   "tool_name": "name_of_mcp_tool",
+     *   "arguments": { ... }
+     * }
+     */
+    private Mono<String> executeMCPToolCall(JsonNode input) {
+        try {
+            // Extract tool_name and arguments from input
+            if (!input.has("tool_name")) {
+                return Mono.error(new IllegalArgumentException("MCP call missing 'tool_name' field"));
+            }
+
+            String mcpToolName = input.get("tool_name").asText();
+            JsonNode argumentsNode = input.has("arguments") ? input.get("arguments") : objectMapper.createObjectNode();
+
+            // Convert arguments to Map
+            Map<String, Object> arguments = new HashMap<>();
+            argumentsNode.fields().forEachRemaining(entry -> {
+                JsonNode value = entry.getValue();
+                if (value.isTextual()) {
+                    arguments.put(entry.getKey(), value.asText());
+                } else if (value.isNumber()) {
+                    arguments.put(entry.getKey(), value.numberValue());
+                } else if (value.isBoolean()) {
+                    arguments.put(entry.getKey(), value.booleanValue());
+                } else if (value.isNull()) {
+                    arguments.put(entry.getKey(), null);
+                } else {
+                    // For complex types, pass as JsonNode
+                    arguments.put(entry.getKey(), value);
+                }
+            });
+
+            log.info("Calling MCP tool: {} with arguments: {}", mcpToolName, arguments);
+
+            // Call MCP client
+            return mcpClient.callTool(mcpToolName, arguments)
+                .map(result -> result.toString())
+                .doOnSuccess(result -> log.info("MCP tool {} completed", mcpToolName))
+                .doOnError(error -> log.error("MCP tool {} failed: {}", mcpToolName, error.getMessage()));
+
+        } catch (Exception e) {
+            log.error("Error executing MCP tool call: {}", e.getMessage(), e);
+            return Mono.error(new RuntimeException("Failed to execute MCP tool: " + e.getMessage(), e));
+        }
     }
 
     /**

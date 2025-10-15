@@ -67,7 +67,13 @@ function WorkflowEditor() {
         api.getWorkflowSteps(id)
       ])
 
-      setWorkflow(workflowRes.data)
+      // Merge with defaults for new fields
+      setWorkflow({
+        ...workflowRes.data,
+        interfaceType: workflowRes.data.interfaceType || 'FORM',
+        isPublic: workflowRes.data.isPublic || false,
+        inputSchemaJson: workflowRes.data.inputSchemaJson || null
+      })
       setSteps(stepsRes.data)
     } catch (error) {
       console.error('Error loading workflow:', error)

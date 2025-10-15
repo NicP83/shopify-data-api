@@ -6,8 +6,8 @@ import com.shopify.api.model.agent.WorkflowStep;
 import com.shopify.api.repository.agent.ApprovalRequestRepository;
 import com.shopify.api.repository.agent.WorkflowExecutionRepository;
 import com.shopify.api.repository.agent.WorkflowStepRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
@@ -25,7 +25,6 @@ import java.util.List;
  * See: docs/multi-agent/IMPLEMENTATION_ROADMAP.md Phase 8
  */
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class ApprovalService {
 
@@ -33,6 +32,17 @@ public class ApprovalService {
     private final WorkflowExecutionRepository workflowExecutionRepository;
     private final WorkflowStepRepository workflowStepRepository;
     private final WorkflowOrchestratorService workflowOrchestratorService;
+
+    public ApprovalService(
+            ApprovalRequestRepository approvalRequestRepository,
+            WorkflowExecutionRepository workflowExecutionRepository,
+            WorkflowStepRepository workflowStepRepository,
+            @Lazy WorkflowOrchestratorService workflowOrchestratorService) {
+        this.approvalRequestRepository = approvalRequestRepository;
+        this.workflowExecutionRepository = workflowExecutionRepository;
+        this.workflowStepRepository = workflowStepRepository;
+        this.workflowOrchestratorService = workflowOrchestratorService;
+    }
 
     /**
      * Create a new approval request

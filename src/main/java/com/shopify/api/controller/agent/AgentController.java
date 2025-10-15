@@ -1,6 +1,7 @@
 package com.shopify.api.controller.agent;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.shopify.api.dto.agent.AgentExecutionResponse;
 import com.shopify.api.dto.agent.AgentResponse;
 import com.shopify.api.dto.agent.CreateAgentRequest;
 import com.shopify.api.model.agent.Agent;
@@ -242,10 +243,13 @@ public class AgentController {
      * GET /api/agents/{agentId}/executions
      */
     @GetMapping("/{agentId}/executions")
-    public ResponseEntity<List<AgentExecution>> getAgentExecutions(@PathVariable Long agentId) {
+    public ResponseEntity<List<AgentExecutionResponse>> getAgentExecutions(@PathVariable Long agentId) {
         log.info("Fetching executions for agent {}", agentId);
         List<AgentExecution> executions = agentExecutionRepository.findByAgentId(agentId);
-        return ResponseEntity.ok(executions);
+        List<AgentExecutionResponse> response = executions.stream()
+            .map(AgentExecutionResponse::fromEntity)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
     /**

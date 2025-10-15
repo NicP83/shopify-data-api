@@ -6,18 +6,31 @@
 --              and public access support to workflows
 -- ============================================
 
--- Add new columns to workflows table
-ALTER TABLE workflows
-ADD COLUMN input_schema_json JSONB,
-ADD COLUMN interface_type VARCHAR(50) DEFAULT 'FORM',
-ADD COLUMN is_public BOOLEAN DEFAULT false;
+-- Add new columns to workflows table (idempotent)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns
+                   WHERE table_name='workflows' AND column_name='input_schema_json') THEN
+        ALTER TABLE workflows ADD COLUMN input_schema_json JSONB;
+    END IF;
 
--- Add indexes for querying
-CREATE INDEX idx_workflows_public
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns
+                   WHERE table_name='workflows' AND column_name='interface_type') THEN
+        ALTER TABLE workflows ADD COLUMN interface_type VARCHAR(50) DEFAULT 'FORM';
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns
+                   WHERE table_name='workflows' AND column_name='is_public') THEN
+        ALTER TABLE workflows ADD COLUMN is_public BOOLEAN DEFAULT false;
+    END IF;
+END $$;
+
+-- Add indexes for querying (idempotent)
+CREATE INDEX IF NOT EXISTS idx_workflows_public
 ON workflows(is_public)
 WHERE is_public = true;
 
-CREATE INDEX idx_workflows_interface_type
+CREATE INDEX IF NOT EXISTS idx_workflows_interface_type
 ON workflows(interface_type);
 
 -- Add comments for documentation

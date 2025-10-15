@@ -258,14 +258,15 @@ COMMENT ON TABLE workflow_schedules IS 'Cron-based workflow scheduling configura
 -- ============================================
 
 -- Insert sample product search tool
-INSERT INTO tools (name, type, description, input_schema_json, handler_class, is_active)
+INSERT INTO tools (name, type, description, input_schema_json, handler_class, is_active, created_at)
 VALUES (
     'product_search',
     'SHOPIFY',
     'Search for products in the Shopify catalog',
     '{"type": "object", "properties": {"query": {"type": "string", "description": "Search query"}, "maxResults": {"type": "integer", "description": "Maximum results to return"}}, "required": ["query"]}'::jsonb,
     'com.shopify.api.service.tool.ProductSearchToolHandler',
-    true
+    true,
+    CURRENT_TIMESTAMP
 )
 ON CONFLICT (name) DO NOTHING;
 

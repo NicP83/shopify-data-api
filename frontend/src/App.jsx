@@ -12,6 +12,9 @@ import WorkflowExecutions from './pages/WorkflowExecutions'
 import AgentManagement from './pages/AgentManagement'
 import AgentEditor from './pages/AgentEditor'
 import ApprovalQueue from './pages/ApprovalQueue'
+import WorkflowFormExecutor from './pages/WorkflowFormExecutor'
+import WorkflowChatExecutor from './pages/WorkflowChatExecutor'
+import WorkflowGallery from './pages/WorkflowGallery'
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
             <Route path="/workflows" element={<WorkflowManagement />} />
             <Route path="/workflows/new" element={<WorkflowEditorVisual />} />
             <Route path="/workflows/:id" element={<WorkflowEditorVisual />} />
+            <Route path="/workflow-gallery" element={<WorkflowGallery />} />
+            <Route path="/workflow/execute/:id" element={<WorkflowFormExecutor />} />
+            <Route path="/workflow/chat/:id" element={<WorkflowChatExecutor />} />
             <Route path="/executions" element={<WorkflowExecutions />} />
             <Route path="/executions/:workflowId" element={<WorkflowExecutions />} />
             <Route path="/approvals" element={<ApprovalQueue />} />

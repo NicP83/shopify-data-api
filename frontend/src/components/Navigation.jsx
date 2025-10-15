@@ -29,6 +29,7 @@ function Navigation() {
     { path: '/fulfillment', label: 'Orders to Fulfill', icon: '📦' },
     { path: '/agents', label: 'Agents', icon: '🤖' },
     { path: '/workflows', label: 'Workflows', icon: '🔄' },
+    { path: '/workflow-gallery', label: 'Workflow Gallery', icon: '🎨' },
     { path: '/executions', label: 'Executions', icon: '📈' },
     { path: '/approvals', label: 'Approvals', icon: '✅', badge: approvalCount },
     { path: '/settings', label: 'Settings', icon: '⚙️' },

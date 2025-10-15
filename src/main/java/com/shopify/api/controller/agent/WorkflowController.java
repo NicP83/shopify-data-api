@@ -49,6 +49,9 @@ public class WorkflowController {
             .triggerConfigJson(request.getTriggerConfigJson())
             .executionMode(request.getExecutionMode())
             .isActive(request.getIsActive())
+            .inputSchemaJson(request.getInputSchemaJson())
+            .interfaceType(request.getInterfaceType())
+            .isPublic(request.getIsPublic())
             .build();
 
         Workflow createdWorkflow = workflowService.createWorkflow(workflow);
@@ -118,6 +121,9 @@ public class WorkflowController {
             .triggerConfigJson(request.getTriggerConfigJson())
             .executionMode(request.getExecutionMode())
             .isActive(request.getIsActive())
+            .inputSchemaJson(request.getInputSchemaJson())
+            .interfaceType(request.getInterfaceType())
+            .isPublic(request.getIsPublic())
             .build();
 
         Workflow workflow = workflowService.updateWorkflow(id, updatedWorkflow);
@@ -289,6 +295,59 @@ public class WorkflowController {
             })
             .onErrorResume(error -> {
                 log.error("Workflow execution error: {}", error.getMessage());
+                java.util.Map<String, Object> errorResponse = new java.util.HashMap<>();
+                errorResponse.put("success", false);
+                errorResponse.put("error", error.getMessage());
+                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body((Object) errorResponse));
+            });
+    }
+
+    /**
+     * Execute a public workflow (no authentication required)
+     * POST /api/workflows/public/{id}/execute
+     */
+    @PostMapping("/public/{id}/execute")
+    public Mono<ResponseEntity<Object>> executePublicWorkflow(
+        @PathVariable Long id,
+        @RequestBody(required = false) com.fasterxml.jackson.databind.JsonNode input
+    ) {
+        log.info("Public execution request for workflow ID: {}", id);
+
+        // Verify workflow exists and is public
+        return Mono.fromCallable(() -> workflowService.getWorkflowById(id))
+            .flatMap(optWorkflow -> {
+                if (optWorkflow.isEmpty()) {
+                    return Mono.just(ResponseEntity.notFound().build());
+                }
+
+                Workflow workflow = optWorkflow.get();
+                if (!Boolean.TRUE.equals(workflow.getIsPublic())) {
+                    java.util.Map<String, Object> errorResponse = new java.util.HashMap<>();
+                    errorResponse.put("success", false);
+                    errorResponse.put("error", "Workflow is not public");
+                    return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body((Object) errorResponse));
+                }
+
+                // Default to empty object if no input provided
+                com.fasterxml.jackson.databind.JsonNode inputData = input != null
+                    ? input
+                    : new com.fasterxml.jackson.databind.ObjectMapper().createObjectNode();
+
+                return workflowOrchestratorService.executeWorkflow(id, inputData)
+                    .map(result -> {
+                        java.util.Map<String, Object> response = new java.util.HashMap<>();
+                        response.put("success", result.isSuccess());
+                        response.put("context", result.getContext());
+                        if (result.getErrorMessage() != null) {
+                            response.put("error", result.getErrorMessage());
+                        }
+                        return ResponseEntity.ok((Object) response);
+                    });
+            })
+            .onErrorResume(error -> {
+                log.error("Public workflow execution error: {}", error.getMessage());
                 java.util.Map<String, Object> errorResponse = new java.util.HashMap<>();
                 errorResponse.put("success", false);
                 errorResponse.put("error", error.getMessage());

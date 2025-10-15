@@ -61,6 +61,29 @@ public class Workflow {
     @Builder.Default
     private Boolean isActive = true;
 
+    /**
+     * JSON Schema defining the input structure for this workflow
+     * Example: {"type": "object", "properties": {"product_code": {"type": "string", ...}}}
+     */
+    @Type(JsonBinaryType.class)
+    @Column(name = "input_schema_json", columnDefinition = "jsonb")
+    private JsonNode inputSchemaJson;
+
+    /**
+     * Type of execution interface for this workflow
+     * Values: FORM (web form), CHAT (chatbot), API (programmatic), CUSTOM
+     */
+    @Column(name = "interface_type", length = 50)
+    @Builder.Default
+    private String interfaceType = "FORM";
+
+    /**
+     * Whether this workflow can be executed publicly without authentication
+     */
+    @Column(name = "is_public", nullable = false)
+    @Builder.Default
+    private Boolean isPublic = false;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

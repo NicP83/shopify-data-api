@@ -175,6 +175,8 @@ const api = {
 
   executeWorkflow: (id, triggerData) => apiClient.post(`/workflows/${id}/execute`, triggerData),
 
+  executePublicWorkflow: (id, input) => apiClient.post(`/workflows/public/${id}/execute`, input),
+
   // Multi-Agent System - Workflow Steps
   getWorkflowSteps: (workflowId) => apiClient.get(`/workflows/${workflowId}/steps`),
 

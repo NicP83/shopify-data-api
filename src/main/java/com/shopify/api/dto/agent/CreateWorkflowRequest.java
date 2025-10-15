@@ -36,4 +36,22 @@ public class CreateWorkflowRequest {
 
     @Builder.Default
     private Boolean isActive = true;
+
+    /**
+     * JSON Schema for workflow inputs (optional)
+     */
+    private JsonNode inputSchemaJson;
+
+    /**
+     * Interface type for workflow execution
+     */
+    @Pattern(regexp = "FORM|CHAT|API|CUSTOM", message = "Interface type must be FORM, CHAT, API, or CUSTOM")
+    @Builder.Default
+    private String interfaceType = "FORM";
+
+    /**
+     * Whether workflow is publicly accessible
+     */
+    @Builder.Default
+    private Boolean isPublic = false;
 }

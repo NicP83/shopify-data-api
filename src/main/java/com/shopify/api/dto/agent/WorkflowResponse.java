@@ -28,6 +28,9 @@ public class WorkflowResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Integer stepCount;
+    private JsonNode inputSchemaJson;
+    private String interfaceType;
+    private Boolean isPublic;
 
     /**
      * Convert Workflow entity to WorkflowResponse DTO
@@ -41,6 +44,9 @@ public class WorkflowResponse {
             .triggerConfigJson(workflow.getTriggerConfigJson())
             .executionMode(workflow.getExecutionMode())
             .isActive(workflow.getIsActive())
+            .inputSchemaJson(workflow.getInputSchemaJson())
+            .interfaceType(workflow.getInterfaceType())
+            .isPublic(workflow.getIsPublic())
             .createdAt(workflow.getCreatedAt())
             .updatedAt(workflow.getUpdatedAt())
             .stepCount(workflow.getWorkflowSteps() != null ? workflow.getWorkflowSteps().size() : 0)

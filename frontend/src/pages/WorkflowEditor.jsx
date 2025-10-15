@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import api from '../services/api'
+import InputSchemaBuilder from '../components/workflow/InputSchemaBuilder'
 
 function WorkflowEditor() {
   const { id } = useParams()
@@ -14,7 +15,10 @@ function WorkflowEditor() {
     triggerType: 'MANUAL',
     executionMode: 'SYNC',
     isActive: false,
-    triggerConfigJson: {}
+    triggerConfigJson: {},
+    inputSchemaJson: null,
+    interfaceType: 'FORM',
+    isPublic: false
   })
 
   // Steps state
@@ -211,6 +215,22 @@ function WorkflowEditor() {
           >
             Cancel
           </button>
+          {isEditMode && (
+            <button
+              onClick={() => {
+                const url = workflow.interfaceType === 'CHAT'
+                  ? `/workflow/chat/${id}`
+                  : `/workflow/execute/${id}`
+                window.open(url, '_blank')
+              }}
+              className="px-4 py-2 border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              Open Interface
+            </button>
+          )}
           <button
             onClick={handleSaveWorkflow}
             disabled={saving}
@@ -289,19 +309,89 @@ function WorkflowEditor() {
             </div>
           </div>
 
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="isActive"
-              checked={workflow.isActive}
-              onChange={(e) => setWorkflow({ ...workflow, isActive: e.target.checked })}
-              className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-            />
-            <label htmlFor="isActive" className="ml-2 block text-sm text-gray-700">
-              Active (workflow will be available for execution)
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Interface Type
             </label>
+            <select
+              value={workflow.interfaceType}
+              onChange={(e) => setWorkflow({ ...workflow, interfaceType: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+            >
+              <option value="FORM">Form (structured inputs)</option>
+              <option value="CHAT">Chat (conversational)</option>
+              <option value="API">API (programmatic)</option>
+              <option value="CUSTOM">Custom</option>
+            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              How users will interact with this workflow
+            </p>
           </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="isActive"
+                checked={workflow.isActive}
+                onChange={(e) => setWorkflow({ ...workflow, isActive: e.target.checked })}
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              />
+              <label htmlFor="isActive" className="ml-2 block text-sm text-gray-700">
+                Active (workflow will be available for execution)
+              </label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="isPublic"
+                checked={workflow.isPublic}
+                onChange={(e) => setWorkflow({ ...workflow, isPublic: e.target.checked })}
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              />
+              <label htmlFor="isPublic" className="ml-2 block text-sm text-gray-700">
+                Public (allow execution without authentication)
+              </label>
+            </div>
+          </div>
+
+          {/* Shareable Link */}
+          {isEditMode && workflow.isPublic && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-blue-900 mb-2">Public Workflow Link</h4>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  readOnly
+                  value={`${window.location.origin}/workflow/execute/${id}`}
+                  className="flex-1 px-3 py-2 bg-white border border-blue-300 rounded-lg text-sm font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${window.location.origin}/workflow/execute/${id}`)
+                    alert('Link copied to clipboard!')
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                >
+                  Copy
+                </button>
+              </div>
+              <p className="text-xs text-blue-700 mt-2">
+                Share this link to allow anyone to execute this workflow
+              </p>
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* Workflow Inputs */}
+      <div className="card">
+        <InputSchemaBuilder
+          schema={workflow.inputSchemaJson}
+          onChange={(schema) => setWorkflow({ ...workflow, inputSchemaJson: schema })}
+        />
       </div>
 
       {/* Workflow Steps */}

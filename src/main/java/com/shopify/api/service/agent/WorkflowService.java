@@ -117,6 +117,11 @@ public class WorkflowService {
         existingWorkflow.setExecutionMode(updatedWorkflow.getExecutionMode());
         existingWorkflow.setIsActive(updatedWorkflow.getIsActive());
 
+        // Update Phase 2 fields (UI/UX enhancements)
+        existingWorkflow.setInputSchemaJson(updatedWorkflow.getInputSchemaJson());
+        existingWorkflow.setInterfaceType(updatedWorkflow.getInterfaceType());
+        existingWorkflow.setIsPublic(updatedWorkflow.getIsPublic());
+
         return workflowRepository.save(existingWorkflow);
     }
 

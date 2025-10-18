@@ -15,6 +15,7 @@ import ApprovalQueue from './pages/ApprovalQueue'
 import WorkflowFormExecutor from './pages/WorkflowFormExecutor'
 import WorkflowChatExecutor from './pages/WorkflowChatExecutor'
 import WorkflowGallery from './pages/WorkflowGallery'
+import SeoAgent from './pages/SeoAgent'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/agents" element={<AgentManagement />} />
             <Route path="/agents/new" element={<AgentEditor />} />
             <Route path="/agents/:id" element={<AgentEditor />} />
+            <Route path="/seo-agent" element={<SeoAgent />} />
             <Route path="/workflows" element={<WorkflowManagement />} />
             <Route path="/workflows/new" element={<WorkflowEditor />} />
             <Route path="/workflows/:id" element={<WorkflowEditor />} />

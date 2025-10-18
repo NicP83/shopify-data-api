@@ -89,15 +89,11 @@ Engage with the user professionally and help them improve their SEO strategy.`
     try {
       // Load available tools
       const toolsResponse = await api.getAgentTools()
-      if (toolsResponse.data.success) {
-        setAvailableTools(toolsResponse.data.data || [])
-      }
+      setAvailableTools(toolsResponse.data || [])
 
       // Load available agents
       const agentsResponse = await api.getAgents()
-      if (agentsResponse.data.success) {
-        setAvailableAgents(agentsResponse.data.data || [])
-      }
+      setAvailableAgents(agentsResponse.data || [])
     } catch (err) {
       console.error('Error loading tools/agents:', err)
     }

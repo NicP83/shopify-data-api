@@ -55,9 +55,10 @@ public class WorkflowOrchestratorService {
     public Mono<WorkflowExecutionResult> executeWorkflow(Long workflowId, JsonNode triggerData) {
         log.info("Starting workflow execution for workflow ID: {}", workflowId);
 
-        // Load workflow from database
+        // Load workflow from database with all associations eagerly loaded
+        // This prevents lazy loading exceptions during async execution
         return Mono.fromCallable(() -> {
-            Workflow workflow = workflowRepository.findById(workflowId)
+            Workflow workflow = workflowRepository.findByIdWithStepsAndAgents(workflowId)
                 .orElseThrow(() -> new IllegalArgumentException("Workflow not found with ID: " + workflowId));
 
             // Validate workflow is active

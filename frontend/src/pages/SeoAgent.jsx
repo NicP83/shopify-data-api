@@ -160,14 +160,23 @@ Engage with the user professionally and help them improve their SEO strategy.`
     setError(null)
 
     try {
-      // For now, use the existing chat API (will be replaced with SEO Agent API in Phase 5)
-      const response = await api.sendChatMessage(message, messages)
+      // Build config object for SEO Agent API
+      const config = {
+        selectedTools,
+        selectedAgents,
+        llmConfig,
+        orchestrationPrompt
+      }
+
+      // Call the SEO Agent API with configuration
+      const response = await api.sendSeoAgentMessage(message, messages, config)
 
       if (response.data.success && response.data.data) {
         const assistantMessage = {
           role: 'assistant',
-          content: response.data.data.content,
-          timestamp: response.data.data.timestamp || Date.now()
+          content: response.data.data.message.content,
+          timestamp: response.data.data.message.timestamp || Date.now(),
+          metadata: response.data.data.metadata
         }
         setMessages(prev => [...prev, assistantMessage])
       } else {
@@ -448,15 +457,15 @@ Engage with the user professionally and help them improve their SEO strategy.`
             </div>
 
             {/* Info Box */}
-            <div className="p-4 bg-blue-50 border-t border-blue-200">
+            <div className="p-4 bg-green-50 border-t border-green-200">
               <div className="flex gap-2">
-                <svg className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <h4 className="text-xs font-semibold text-blue-900 mb-1">Status</h4>
-                  <p className="text-xs text-blue-800">
-                    Phase 3+4 complete. Backend integration (Phase 5) coming next.
+                  <h4 className="text-xs font-semibold text-green-900 mb-1">Status</h4>
+                  <p className="text-xs text-green-800">
+                    Phase 5 complete! Backend API integrated with full tool/agent orchestration.
                   </p>
                 </div>
               </div>

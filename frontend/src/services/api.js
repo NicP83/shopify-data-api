@@ -251,6 +251,24 @@ const api = {
 
   updateScheduleTriggerData: (id, triggerData) =>
     apiClient.put(`/schedules/${id}/trigger-data`, triggerData),
+
+  // SEO Agent
+  sendSeoAgentMessage: (message, conversationHistory = [], config = null) => {
+    return apiClient.post('/seo-agent/chat', {
+      message,
+      conversationHistory,
+      config
+    })
+  },
+
+  getSeoAgentStatus: () => apiClient.get('/seo-agent/status'),
+
+  // Convenience method to get tools for SEO Agent (alias to existing getTools)
+  getAgentTools: (activeOnly = true) => {
+    const params = {}
+    if (activeOnly !== null) params.activeOnly = activeOnly
+    return apiClient.get('/tools', { params })
+  },
 }
 
 export default api

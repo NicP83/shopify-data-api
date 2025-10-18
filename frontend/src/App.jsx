@@ -7,7 +7,7 @@ import Settings from './pages/Settings'
 import Analytics from './pages/Analytics'
 import OrdersToFulfill from './pages/OrdersToFulfill'
 import WorkflowManagement from './pages/WorkflowManagement'
-import WorkflowEditorVisual from './pages/WorkflowEditorVisual'
+import WorkflowEditor from './pages/WorkflowEditor'
 import WorkflowExecutions from './pages/WorkflowExecutions'
 import AgentManagement from './pages/AgentManagement'
 import AgentEditor from './pages/AgentEditor'
@@ -31,8 +31,8 @@ function App() {
             <Route path="/agents/new" element={<AgentEditor />} />
             <Route path="/agents/:id" element={<AgentEditor />} />
             <Route path="/workflows" element={<WorkflowManagement />} />
-            <Route path="/workflows/new" element={<WorkflowEditorVisual />} />
-            <Route path="/workflows/:id" element={<WorkflowEditorVisual />} />
+            <Route path="/workflows/new" element={<WorkflowEditor />} />
+            <Route path="/workflows/:id" element={<WorkflowEditor />} />
             <Route path="/workflow-gallery" element={<WorkflowGallery />} />
             <Route path="/workflow/execute/:id" element={<WorkflowFormExecutor />} />
             <Route path="/workflow/chat/:id" element={<WorkflowChatExecutor />} />

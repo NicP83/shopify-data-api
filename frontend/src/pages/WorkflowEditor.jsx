@@ -93,10 +93,24 @@ function WorkflowEditor() {
         return
       }
 
+      // DEBUG: Log workflow data being saved
+      console.log('=== WORKFLOW SAVE DEBUG ===')
+      console.log('Save mode:', isEditMode ? 'UPDATE' : 'CREATE')
+      console.log('Workflow ID:', id)
+      console.log('Workflow data being saved:', workflow)
+      console.log('Input schema:', workflow.inputSchemaJson)
+      console.log('Interface type:', workflow.interfaceType)
+      console.log('Is public:', workflow.isPublic)
+      console.log('Is active:', workflow.isActive)
+
       if (isEditMode) {
-        await api.updateWorkflow(id, workflow)
+        const response = await api.updateWorkflow(id, workflow)
+        console.log('Update response:', response.data)
+        console.log('=== END DEBUG ===')
       } else {
         const response = await api.createWorkflow(workflow)
+        console.log('Create response:', response.data)
+        console.log('=== END DEBUG ===')
         navigate(`/workflows/${response.data.id}`)
         return
       }
@@ -104,6 +118,7 @@ function WorkflowEditor() {
       alert('Workflow saved successfully')
     } catch (error) {
       console.error('Error saving workflow:', error)
+      console.error('Error details:', error.response?.data)
       setError(error.response?.data?.message || 'Failed to save workflow')
     } finally {
       setSaving(false)

@@ -26,8 +26,27 @@ function WorkflowGallery() {
       // Get all active workflows
       const response = await api.getWorkflows(true)
 
+      // DEBUG: Log all workflows returned from API
+      console.log('=== WORKFLOW GALLERY DEBUG ===')
+      console.log('All active workflows from API:', response.data)
+      console.log('Total workflows returned:', response.data.length)
+
       // Filter for public workflows only
       const publicWorkflows = response.data.filter(w => w.isPublic)
+
+      // DEBUG: Log filtered public workflows
+      console.log('Public workflows (isPublic=true):', publicWorkflows)
+      console.log('Public workflow count:', publicWorkflows.length)
+      console.log('Workflow details:', publicWorkflows.map(w => ({
+        id: w.id,
+        name: w.name,
+        isPublic: w.isPublic,
+        isActive: w.isActive,
+        interfaceType: w.interfaceType,
+        hasInputSchema: !!w.inputSchemaJson
+      })))
+      console.log('=== END DEBUG ===')
+
       setWorkflows(publicWorkflows)
     } catch (error) {
       console.error('Error loading workflows:', error)

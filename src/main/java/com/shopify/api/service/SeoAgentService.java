@@ -7,10 +7,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.model.ChatMessage;
 import com.shopify.api.model.SeoAgentRequest;
 import com.shopify.api.model.SeoAgentResponse;
+import com.shopify.api.client.MCPClient;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.repository.agent.ToolRepository;
+import com.shopify.api.service.agent.AgentExecutionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,17 +49,23 @@ public class SeoAgentService {
     private final WebClient webClient;
     private final ToolRepository toolRepository;
     private final AgentRepository agentRepository;
+    private final AgentExecutionService agentExecutionService;
+    private final MCPClient mcpClient;
     private final ObjectMapper objectMapper;
 
     @Autowired
     public SeoAgentService(WebClient.Builder webClientBuilder,
                           ToolRepository toolRepository,
-                          AgentRepository agentRepository) {
+                          AgentRepository agentRepository,
+                          AgentExecutionService agentExecutionService,
+                          MCPClient mcpClient) {
         this.webClient = webClientBuilder
                 .baseUrl("https://api.anthropic.com/v1")
                 .build();
         this.toolRepository = toolRepository;
         this.agentRepository = agentRepository;
+        this.agentExecutionService = agentExecutionService;
+        this.mcpClient = mcpClient;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -198,9 +206,9 @@ public class SeoAgentService {
             assistantMessage.set("content", response.get("content"));
             messages.add(assistantMessage);
 
-            // Execute all tool calls
+            // Execute all tool calls and collect results
             JsonNode content = response.get("content");
-            ArrayNode toolResults = objectMapper.createArrayNode();
+            List<Mono<ObjectNode>> toolCallMonos = new ArrayList<>();
 
             for (JsonNode block : content) {
                 if ("tool_use".equals(block.get("type").asText())) {
@@ -211,28 +219,138 @@ public class SeoAgentService {
                     logger.info("Executing tool: {}", toolName);
                     toolsUsed.add(toolName);
 
-                    // Build tool result block
-                    ObjectNode toolResultBlock = objectMapper.createObjectNode();
-                    toolResultBlock.put("type", "tool_result");
-                    toolResultBlock.put("tool_use_id", toolUseId);
-                    toolResultBlock.put("content", "Tool executed: " + toolName + " (integration pending)");
-                    toolResults.add(toolResultBlock);
+                    // Execute tool and build result block
+                    Mono<ObjectNode> toolResultMono = executeToolCall(toolName, toolInput, request)
+                            .map(toolResult -> {
+                                ObjectNode toolResultBlock = objectMapper.createObjectNode();
+                                toolResultBlock.put("type", "tool_result");
+                                toolResultBlock.put("tool_use_id", toolUseId);
+                                toolResultBlock.put("content", toolResult);
+                                return toolResultBlock;
+                            })
+                            .onErrorResume(error -> {
+                                logger.error("Tool execution error for {}: {}", toolName, error.getMessage());
+                                ObjectNode errorBlock = objectMapper.createObjectNode();
+                                errorBlock.put("type", "tool_result");
+                                errorBlock.put("tool_use_id", toolUseId);
+                                errorBlock.put("content", "Tool execution failed: " + error.getMessage());
+                                errorBlock.put("is_error", true);
+                                return Mono.just(errorBlock);
+                            });
+
+                    toolCallMonos.add(toolResultMono);
                 }
             }
 
-            // Add user message with tool results
-            ObjectNode userMessage = objectMapper.createObjectNode();
-            userMessage.put("role", "user");
-            userMessage.set("content", toolResults);
-            messages.add(userMessage);
+            // Execute all tools and continue conversation
+            return Mono.zip(toolCallMonos, results -> {
+                ArrayNode toolResults = objectMapper.createArrayNode();
+                for (Object result : results) {
+                    toolResults.add((ObjectNode) result);
+                }
+                return toolResults;
+            }).flatMap(toolResults -> {
+                // Add user message with tool results
+                ObjectNode userMessage = objectMapper.createObjectNode();
+                userMessage.put("role", "user");
+                userMessage.set("content", toolResults);
+                messages.add(userMessage);
 
-            // Continue conversation
-            return callClaudeWithTools(request, systemPrompt, messages, iteration + 1,
-                    startTime, toolsUsed, agentsInvoked);
+                // Continue conversation
+                return callClaudeWithTools(request, systemPrompt, messages, iteration + 1,
+                        startTime, toolsUsed, agentsInvoked);
+            });
 
         } catch (Exception e) {
             logger.error("Error handling tool use: {}", e.getMessage());
             return Mono.just(createErrorResponse(startTime));
+        }
+    }
+
+    /**
+     * Execute a single tool call
+     * Routes to appropriate execution based on tool type:
+     * - MCP tools: delegate to AgentExecutionService
+     * - Custom tools: load handler class dynamically
+     * - Agent invocation: execute via AgentExecutionService.executeAgent
+     */
+    private Mono<String> executeToolCall(String toolName, JsonNode toolInput, SeoAgentRequest request) {
+        logger.info("Executing tool: {} with input: {}", toolName, toolInput);
+
+        // Look up tool from database
+        return Mono.fromCallable(() -> toolRepository.findAll().stream()
+                .filter(t -> t.getName().equals(toolName))
+                .findFirst()
+                .orElse(null))
+            .flatMap(tool -> {
+                if (tool == null) {
+                    logger.warn("Tool not found: {}", toolName);
+                    return Mono.just("{\"error\": \"Tool not found: " + toolName + "\"}");
+                }
+
+                String toolType = tool.getType();
+                logger.info("Tool type: {}", toolType);
+
+                // Route based on tool type
+                if ("MCP".equals(toolType)) {
+                    // MCP tools - delegate to agent execution service
+                    // The agentExecutionService expects the tool to be called via an agent
+                    // For now, we'll call the MCP directly using the same logic
+                    return executeMCPTool(toolInput);
+                } else {
+                    // Custom tools and other types
+                    // TODO Phase 2: Implement dynamic handler class loading
+                    logger.warn("Custom tool execution not yet implemented for type: {}", toolType);
+                    return Mono.just("{\"message\": \"Tool '" + toolName + "' placeholder executed\", \"type\": \"" + toolType + "\"}");
+                }
+            });
+    }
+
+    /**
+     * Execute an MCP tool call
+     * Uses MCPClient to call external MCP server tools
+     */
+    private Mono<String> executeMCPTool(JsonNode toolInput) {
+        try {
+            // MCP tools expect tool_name and arguments fields
+            if (!toolInput.has("tool_name")) {
+                return Mono.error(new IllegalArgumentException("MCP tool call missing 'tool_name' field"));
+            }
+
+            String mcpToolName = toolInput.get("tool_name").asText();
+            JsonNode argumentsNode = toolInput.has("arguments") ? toolInput.get("arguments") : objectMapper.createObjectNode();
+
+            // Convert arguments to Map<String, Object>
+            java.util.Map<String, Object> arguments = new java.util.HashMap<>();
+            argumentsNode.fields().forEachRemaining(entry -> {
+                JsonNode value = entry.getValue();
+                if (value.isTextual()) {
+                    arguments.put(entry.getKey(), value.asText());
+                } else if (value.isNumber()) {
+                    arguments.put(entry.getKey(), value.numberValue());
+                } else if (value.isBoolean()) {
+                    arguments.put(entry.getKey(), value.booleanValue());
+                } else if (value.isNull()) {
+                    arguments.put(entry.getKey(), null);
+                } else {
+                    // For complex types, pass as JsonNode
+                    arguments.put(entry.getKey(), value);
+                }
+            });
+
+            logger.info("Calling MCP tool: {} with arguments: {}", mcpToolName, arguments);
+
+            // Call MCP client directly
+            return mcpClient.callTool(mcpToolName, arguments)
+                    .map(result -> result.toString())
+                    .doOnSuccess(result -> logger.info("MCP tool {} completed successfully", mcpToolName))
+                    .onErrorResume(error -> {
+                        logger.error("MCP tool {} failed: {}", mcpToolName, error.getMessage());
+                        return Mono.just("{\"error\": \"" + error.getMessage() + "\"}");
+                    });
+        } catch (Exception e) {
+            logger.error("Error preparing MCP tool call: {}", e.getMessage(), e);
+            return Mono.error(new RuntimeException("Failed to execute MCP tool: " + e.getMessage(), e));
         }
     }
 

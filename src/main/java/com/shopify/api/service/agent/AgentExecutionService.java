@@ -65,8 +65,8 @@ public class AgentExecutionService {
     public Mono<AgentExecutionResult> executeAgent(Long agentId, JsonNode input) {
         log.info("Executing agent ID: {} with input", agentId);
 
-        // Load agent from database
-        return Mono.fromCallable(() -> agentRepository.findById(agentId)
+        // Load agent from database with eagerly fetched tools to avoid lazy loading
+        return Mono.fromCallable(() -> agentRepository.findByIdWithTools(agentId)
                 .orElseThrow(() -> new IllegalArgumentException("Agent not found with ID: " + agentId)))
             .flatMap(agent -> {
                 // Validate agent is active

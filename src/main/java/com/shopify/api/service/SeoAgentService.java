@@ -13,7 +13,7 @@ import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.repository.agent.ToolRepository;
 import com.shopify.api.service.agent.AgentExecutionService;
-import com.shopify.api.service.tool.ToolHandler;
+import com.shopify.api.handler.tool.ToolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

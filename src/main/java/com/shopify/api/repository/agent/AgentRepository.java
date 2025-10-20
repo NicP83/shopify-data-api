@@ -49,4 +49,11 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
      */
     @Query("SELECT DISTINCT a FROM Agent a JOIN a.agentTools at WHERE at.tool.id = :toolId")
     List<Agent> findAgentsWithTool(Long toolId);
+
+    /**
+     * Find agent by ID with eagerly fetched agentTools and their tools
+     * This prevents lazy loading exceptions when accessing agentTools outside of a transaction
+     */
+    @Query("SELECT a FROM Agent a LEFT JOIN FETCH a.agentTools at LEFT JOIN FETCH at.tool WHERE a.id = :id")
+    Optional<Agent> findByIdWithTools(Long id);
 }

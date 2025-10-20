@@ -124,13 +124,25 @@ public class SeoAgentService {
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
-        // Add tools if selected
+        // Add tools and agents if selected
+        ArrayNode toolsArray = objectMapper.createArrayNode();
+
+        // Add selected tools
         if (request.getConfig() != null && request.getConfig().getSelectedTools() != null
                 && !request.getConfig().getSelectedTools().isEmpty()) {
-            ArrayNode toolsArray = buildToolsArray(request.getConfig().getSelectedTools());
-            if (toolsArray.size() > 0) {
-                requestBody.set("tools", toolsArray);
-            }
+            ArrayNode selectedTools = buildToolsArray(request.getConfig().getSelectedTools());
+            selectedTools.forEach(toolsArray::add);
+        }
+
+        // Add selected agents as invocation tools
+        if (request.getConfig() != null && request.getConfig().getSelectedAgents() != null
+                && !request.getConfig().getSelectedAgents().isEmpty()) {
+            ArrayNode agentTools = buildAgentInvocationTools(request.getConfig().getSelectedAgents());
+            agentTools.forEach(toolsArray::add);
+        }
+
+        if (toolsArray.size() > 0) {
+            requestBody.set("tools", toolsArray);
         }
 
         // Call Claude API
@@ -270,12 +282,24 @@ public class SeoAgentService {
     /**
      * Execute a single tool call
      * Routes to appropriate execution based on tool type:
-     * - MCP tools: delegate to AgentExecutionService
-     * - Custom tools: load handler class dynamically
      * - Agent invocation: execute via AgentExecutionService.executeAgent
+     * - MCP tools: call via MCPClient
+     * - Custom tools: load handler class dynamically
      */
     private Mono<String> executeToolCall(String toolName, JsonNode toolInput, SeoAgentRequest request) {
         logger.info("Executing tool: {} with input: {}", toolName, toolInput);
+
+        // Check if this is an agent invocation (pattern: invoke_agent_{id})
+        if (toolName.startsWith("invoke_agent_")) {
+            try {
+                Long agentId = Long.parseLong(toolName.substring("invoke_agent_".length()));
+                logger.info("Invoking agent with ID: {}", agentId);
+                return executeAgentInvocation(agentId, toolInput, request);
+            } catch (NumberFormatException e) {
+                logger.error("Invalid agent ID in tool name: {}", toolName);
+                return Mono.just("{\"error\": \"Invalid agent ID in tool name\"}");
+            }
+        }
 
         // Look up tool from database
         return Mono.fromCallable(() -> toolRepository.findAll().stream()
@@ -293,17 +317,44 @@ public class SeoAgentService {
 
                 // Route based on tool type
                 if ("MCP".equals(toolType)) {
-                    // MCP tools - delegate to agent execution service
-                    // The agentExecutionService expects the tool to be called via an agent
-                    // For now, we'll call the MCP directly using the same logic
+                    // MCP tools - call via MCPClient
                     return executeMCPTool(toolInput);
                 } else {
-                    // Custom tools and other types
+                    // Custom tools (SHOPIFY, DATABASE, API, etc.)
                     // TODO Phase 2: Implement dynamic handler class loading
                     logger.warn("Custom tool execution not yet implemented for type: {}", toolType);
                     return Mono.just("{\"message\": \"Tool '" + toolName + "' placeholder executed\", \"type\": \"" + toolType + "\"}");
                 }
             });
+    }
+
+    /**
+     * Execute an agent invocation
+     * Allows the SEO Agent to orchestrate other agents as sub-tasks
+     */
+    private Mono<String> executeAgentInvocation(Long agentId, JsonNode toolInput, SeoAgentRequest request) {
+        logger.info("Executing agent invocation for agent ID: {} with input: {}", agentId, toolInput);
+
+        // Track agent invocation if needed
+        if (request != null) {
+            // Could add agent name to agentsInvoked list here if we had access to it
+        }
+
+        // Execute the agent
+        return agentExecutionService.executeAgent(agentId, toolInput)
+                .map(result -> {
+                    // Extract text output from agent result
+                    JsonNode output = result.getOutput();
+                    if (output.has("text")) {
+                        return output.get("text").asText();
+                    }
+                    return output.toString();
+                })
+                .doOnSuccess(result -> logger.info("Agent {} execution completed successfully", agentId))
+                .onErrorResume(error -> {
+                    logger.error("Agent {} execution failed: {}", agentId, error.getMessage());
+                    return Mono.just("{\"error\": \"Agent execution failed: " + error.getMessage() + "\"}");
+                });
     }
 
     /**
@@ -444,6 +495,47 @@ public class SeoAgentService {
                 toolNode.put("description", tool.getDescription());
                 toolNode.set("input_schema", tool.getInputSchemaJson());
                 tools.add(toolNode);
+            }
+        }
+
+        return tools;
+    }
+
+    /**
+     * Build agent invocation tools from selected agent IDs
+     * Creates tool definitions that allow Claude to invoke other agents
+     */
+    private ArrayNode buildAgentInvocationTools(List<Long> selectedAgentIds) {
+        ArrayNode tools = objectMapper.createArrayNode();
+
+        List<Agent> selectedAgents = agentRepository.findAllById(selectedAgentIds);
+
+        for (Agent agent : selectedAgents) {
+            if (agent.getIsActive()) {
+                ObjectNode toolNode = objectMapper.createObjectNode();
+                toolNode.put("name", "invoke_agent_" + agent.getId());
+                toolNode.put("description", "Invoke the " + agent.getName() + " agent: " + agent.getDescription());
+
+                // Create input schema for agent invocation
+                ObjectNode inputSchema = objectMapper.createObjectNode();
+                inputSchema.put("type", "object");
+
+                ObjectNode properties = objectMapper.createObjectNode();
+                ObjectNode taskProperty = objectMapper.createObjectNode();
+                taskProperty.put("type", "string");
+                taskProperty.put("description", "The task or query to send to the agent");
+                properties.set("task", taskProperty);
+
+                inputSchema.set("properties", properties);
+
+                ArrayNode required = objectMapper.createArrayNode();
+                required.add("task");
+                inputSchema.set("required", required);
+
+                toolNode.set("input_schema", inputSchema);
+                tools.add(toolNode);
+
+                logger.debug("Added agent invocation tool: invoke_agent_{}", agent.getId());
             }
         }
 

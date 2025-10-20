@@ -13,10 +13,12 @@ import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.repository.agent.ToolRepository;
 import com.shopify.api.service.agent.AgentExecutionService;
+import com.shopify.api.service.tool.ToolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -51,6 +53,7 @@ public class SeoAgentService {
     private final AgentRepository agentRepository;
     private final AgentExecutionService agentExecutionService;
     private final MCPClient mcpClient;
+    private final ApplicationContext applicationContext;
     private final ObjectMapper objectMapper;
 
     @Autowired
@@ -58,7 +61,8 @@ public class SeoAgentService {
                           ToolRepository toolRepository,
                           AgentRepository agentRepository,
                           AgentExecutionService agentExecutionService,
-                          MCPClient mcpClient) {
+                          MCPClient mcpClient,
+                          ApplicationContext applicationContext) {
         this.webClient = webClientBuilder
                 .baseUrl("https://api.anthropic.com/v1")
                 .build();
@@ -66,6 +70,7 @@ public class SeoAgentService {
         this.agentRepository = agentRepository;
         this.agentExecutionService = agentExecutionService;
         this.mcpClient = mcpClient;
+        this.applicationContext = applicationContext;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -321,9 +326,8 @@ public class SeoAgentService {
                     return executeMCPTool(toolInput);
                 } else {
                     // Custom tools (SHOPIFY, DATABASE, API, etc.)
-                    // TODO Phase 2: Implement dynamic handler class loading
-                    logger.warn("Custom tool execution not yet implemented for type: {}", toolType);
-                    return Mono.just("{\"message\": \"Tool '" + toolName + "' placeholder executed\", \"type\": \"" + toolType + "\"}");
+                    // Load and execute handler class dynamically
+                    return executeCustomTool(tool, toolInput);
                 }
             });
     }
@@ -402,6 +406,58 @@ public class SeoAgentService {
         } catch (Exception e) {
             logger.error("Error preparing MCP tool call: {}", e.getMessage(), e);
             return Mono.error(new RuntimeException("Failed to execute MCP tool: " + e.getMessage(), e));
+        }
+    }
+
+    /**
+     * Execute a custom tool by dynamically loading its handler class
+     * Uses reflection to instantiate the handler and Spring's ApplicationContext to get beans
+     */
+    private Mono<String> executeCustomTool(Tool tool, JsonNode toolInput) {
+        logger.info("Executing custom tool: {} with handler: {}", tool.getName(), tool.getHandlerClass());
+
+        try {
+            // Load handler class via reflection
+            Class<?> handlerClass = Class.forName(tool.getHandlerClass());
+
+            // Check if class implements ToolHandler interface
+            if (!ToolHandler.class.isAssignableFrom(handlerClass)) {
+                logger.error("Handler class {} does not implement ToolHandler interface", tool.getHandlerClass());
+                return Mono.just("{\"error\": \"Invalid tool handler class\"}");
+            }
+
+            // Try to get handler bean from Spring context first (if it's a @Component)
+            ToolHandler handler;
+            try {
+                handler = (ToolHandler) applicationContext.getBean(handlerClass);
+                logger.debug("Retrieved handler {} from Spring context", tool.getHandlerClass());
+            } catch (Exception e) {
+                // If not found in context, try to instantiate manually
+                logger.debug("Handler {} not found in Spring context, attempting manual instantiation", tool.getHandlerClass());
+                handler = (ToolHandler) handlerClass.getDeclaredConstructor().newInstance();
+            }
+
+            // Validate input
+            if (!handler.validateInput(toolInput)) {
+                logger.warn("Tool input validation failed for tool: {}", tool.getName());
+                return Mono.just("{\"error\": \"Invalid input for tool: " + tool.getName() + "\"}");
+            }
+
+            // Execute tool and convert JsonNode result to String
+            return handler.execute(toolInput)
+                    .map(result -> result.toString())
+                    .doOnSuccess(result -> logger.info("Custom tool {} executed successfully", tool.getName()))
+                    .onErrorResume(error -> {
+                        logger.error("Custom tool {} execution failed: {}", tool.getName(), error.getMessage());
+                        return Mono.just("{\"error\": \"" + error.getMessage() + "\"}");
+                    });
+
+        } catch (ClassNotFoundException e) {
+            logger.error("Tool handler class not found: {}", tool.getHandlerClass());
+            return Mono.just("{\"error\": \"Tool handler class not found: " + tool.getHandlerClass() + "\"}");
+        } catch (Exception e) {
+            logger.error("Error loading tool handler: {}", e.getMessage(), e);
+            return Mono.just("{\"error\": \"Failed to load tool handler: " + e.getMessage() + "\"}");
         }
     }
 

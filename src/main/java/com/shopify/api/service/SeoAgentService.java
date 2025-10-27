@@ -45,7 +45,7 @@ public class SeoAgentService {
     @Value("${anthropic.api.key:}")
     private String anthropicApiKey;
 
-    @Value("${anthropic.api.version:2024-01-01}")
+    @Value("${anthropic.api.version:2023-06-01}")
     private String anthropicApiVersion;
 
     private final WebClient webClient;

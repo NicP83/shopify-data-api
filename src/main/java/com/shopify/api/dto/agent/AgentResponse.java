@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Slf4j
 public class AgentResponse {
 
     private Long id;
@@ -69,7 +71,9 @@ public class AgentResponse {
                     .collect(Collectors.toList());
             }
         } catch (Exception e) {
-            // Ignore lazy loading exceptions - just leave count as 0
+            log.error("Failed to load agent tools for agent {}: {} - {}",
+                agent.getId(), e.getClass().getSimpleName(), e.getMessage());
+            // Leave count as 0 on error
         }
 
         return AgentResponse.builder()

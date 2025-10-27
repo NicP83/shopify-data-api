@@ -576,7 +576,7 @@ public class SeoAgentService {
             // Build agent list for placeholder replacement
             StringBuilder agentList = new StringBuilder();
             if (request.getConfig().getSelectedAgents() != null && !request.getConfig().getSelectedAgents().isEmpty()) {
-                List<Agent> selectedAgents = agentRepository.findAllById(request.getConfig().getSelectedAgents());
+                List<Agent> selectedAgents = agentRepository.findAllByIdWithTools(request.getConfig().getSelectedAgents());
                 for (Agent agent : selectedAgents) {
                     agentList.append("- ").append(agent.getName()).append(": ").append(agent.getDescription()).append("\n");
                 }
@@ -619,7 +619,7 @@ public class SeoAgentService {
                 prompt.append("\n\n=== AVAILABLE AGENTS ===\n");
                 prompt.append("You can invoke the following specialized agents for complex tasks:\n");
 
-                List<Agent> selectedAgents = agentRepository.findAllById(request.getConfig().getSelectedAgents());
+                List<Agent> selectedAgents = agentRepository.findAllByIdWithTools(request.getConfig().getSelectedAgents());
                 for (Agent agent : selectedAgents) {
                     prompt.append("- ").append(agent.getName()).append(": ").append(agent.getDescription()).append("\n");
                 }
@@ -682,7 +682,7 @@ public class SeoAgentService {
     private ArrayNode buildAgentInvocationTools(List<Long> selectedAgentIds) {
         ArrayNode tools = objectMapper.createArrayNode();
 
-        List<Agent> selectedAgents = agentRepository.findAllById(selectedAgentIds);
+        List<Agent> selectedAgents = agentRepository.findAllByIdWithTools(selectedAgentIds);
 
         for (Agent agent : selectedAgents) {
             if (agent.getIsActive()) {

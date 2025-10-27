@@ -153,7 +153,10 @@ public class AgentExecutionService {
 
         // Convert input JSON to string for the message
         String inputText;
-        if (input.isTextual()) {
+        if (input.has("task")) {
+            // Agent invocation format - extract task field from {"task": "..."}
+            inputText = input.get("task").asText();
+        } else if (input.isTextual()) {
             inputText = input.asText();
         } else {
             inputText = input.toString();

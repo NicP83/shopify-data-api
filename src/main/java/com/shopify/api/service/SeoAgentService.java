@@ -111,7 +111,15 @@ public class SeoAgentService {
             List<String> agentsInvoked) {
 
         if (iteration >= 5) {
-            logger.warn("Max tool use iterations reached");
+            logger.error("========================================");
+            logger.error("MAX TOOL USE ITERATIONS REACHED");
+            logger.error("========================================");
+            logger.error("- Iteration limit: 5");
+            logger.error("- Current iteration: {}", iteration);
+            logger.error("- Tools used: {}", toolsUsed);
+            logger.error("- Agents invoked: {}", agentsInvoked);
+            logger.error("This usually means the agent is stuck in a loop or making too many tool calls.");
+            logger.error("========================================");
             return Mono.just(createErrorResponse(startTime));
         }
 
@@ -167,8 +175,26 @@ public class SeoAgentService {
                 .flatMap(response -> handleClaudeResponse(
                         request, response, systemPrompt, messages, iteration, startTime, toolsUsed, agentsInvoked))
                 .onErrorResume(error -> {
-                    logger.error("Error calling Claude API", error);
-                    logger.error("Request body: {}", requestBody.toPrettyString());
+                    logger.error("========================================");
+                    logger.error("ERROR CALLING CLAUDE API");
+                    logger.error("========================================");
+                    logger.error("Error type: {}", error.getClass().getName());
+                    logger.error("Error message: {}", error.getMessage());
+                    logger.error("Full error:", error);
+                    logger.error("----------------------------------------");
+                    logger.error("Request details:");
+                    logger.error("- Model: {}", requestBody.get("model").asText());
+                    logger.error("- Max tokens: {}", requestBody.get("max_tokens").asInt());
+                    logger.error("- Temperature: {}", requestBody.get("temperature").asDouble());
+                    logger.error("- Has tools: {}", requestBody.has("tools"));
+                    if (requestBody.has("tools")) {
+                        logger.error("- Number of tools: {}", requestBody.get("tools").size());
+                    }
+                    logger.error("- System prompt length: {} chars", requestBody.get("system").asText().length());
+                    logger.error("- Messages count: {}", requestBody.get("messages").size());
+                    logger.error("----------------------------------------");
+                    logger.error("Full request body:\n{}", requestBody.toPrettyString());
+                    logger.error("========================================");
                     return Mono.just(createErrorResponse(startTime));
                 });
     }
@@ -204,7 +230,29 @@ public class SeoAgentService {
                 return Mono.just(createSuccessResponse(response, startTime, toolsUsed, agentsInvoked));
             }
         } catch (Exception e) {
-            logger.error("Error handling Claude response: {}", e.getMessage(), e);
+            logger.error("========================================");
+            logger.error("ERROR HANDLING CLAUDE RESPONSE");
+            logger.error("========================================");
+            logger.error("Error type: {}", e.getClass().getName());
+            logger.error("Error message: {}", e.getMessage());
+            logger.error("Full error:", e);
+            logger.error("----------------------------------------");
+            logger.error("Response structure:");
+            try {
+                logger.error("- Has stop_reason: {}", response.has("stop_reason"));
+                if (response.has("stop_reason")) {
+                    logger.error("- stop_reason value: {}", response.get("stop_reason").asText());
+                }
+                logger.error("- Has content: {}", response.has("content"));
+                if (response.has("content")) {
+                    logger.error("- content type: {}", response.get("content").getNodeType());
+                    logger.error("- content size: {}", response.get("content").size());
+                }
+                logger.error("Full response:\n{}", response.toPrettyString());
+            } catch (Exception parseError) {
+                logger.error("Could not parse response for logging: {}", parseError.getMessage());
+            }
+            logger.error("========================================");
             return Mono.just(createErrorResponse(startTime));
         }
     }
@@ -285,7 +333,33 @@ public class SeoAgentService {
             });
 
         } catch (Exception e) {
-            logger.error("Error handling tool use: {}", e.getMessage());
+            logger.error("========================================");
+            logger.error("ERROR HANDLING TOOL USE");
+            logger.error("========================================");
+            logger.error("Error type: {}", e.getClass().getName());
+            logger.error("Error message: {}", e.getMessage());
+            logger.error("Full error:", e);
+            logger.error("----------------------------------------");
+            logger.error("Tool use details:");
+            try {
+                logger.error("- Iteration: {}", iteration);
+                logger.error("- Tools used so far: {}", toolsUsed);
+                logger.error("- Agents invoked so far: {}", agentsInvoked);
+                JsonNode content = response.get("content");
+                if (content != null && content.isArray()) {
+                    logger.error("- Number of content blocks: {}", content.size());
+                    for (int i = 0; i < content.size(); i++) {
+                        JsonNode block = content.get(i);
+                        logger.error("  Block {}: type={}", i, block.get("type").asText());
+                        if ("tool_use".equals(block.get("type").asText())) {
+                            logger.error("    Tool name: {}", block.get("name").asText());
+                        }
+                    }
+                }
+            } catch (Exception parseError) {
+                logger.error("Could not parse tool use details: {}", parseError.getMessage());
+            }
+            logger.error("========================================");
             return Mono.just(createErrorResponse(startTime));
         }
     }

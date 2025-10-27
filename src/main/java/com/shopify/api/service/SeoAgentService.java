@@ -118,7 +118,12 @@ public class SeoAgentService {
         // Get LLM config or use defaults
         SeoAgentRequest.LlmConfig llmConfig = request.getConfig() != null && request.getConfig().getLlmConfig() != null
                 ? request.getConfig().getLlmConfig()
-                : SeoAgentRequest.LlmConfig.builder().build();
+                : SeoAgentRequest.LlmConfig.builder()
+                    .model("claude-3-5-sonnet-20241022")
+                    .temperature(0.7)
+                    .maxTokens(4096)
+                    .topP(1.0)
+                    .build();
 
         // Create request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
@@ -162,7 +167,8 @@ public class SeoAgentService {
                 .flatMap(response -> handleClaudeResponse(
                         request, response, systemPrompt, messages, iteration, startTime, toolsUsed, agentsInvoked))
                 .onErrorResume(error -> {
-                    logger.error("Error calling Claude API: {}", error.getMessage());
+                    logger.error("Error calling Claude API", error);
+                    logger.error("Request body: {}", requestBody.toPrettyString());
                     return Mono.just(createErrorResponse(startTime));
                 });
     }

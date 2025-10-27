@@ -45,7 +45,7 @@ public class SeoAgentService {
     @Value("${anthropic.api.key:}")
     private String anthropicApiKey;
 
-    @Value("${anthropic.api.version:2023-06-01}")
+    @Value("${anthropic.api.version:2024-01-01}")
     private String anthropicApiVersion;
 
     private final WebClient webClient;
@@ -180,9 +180,19 @@ public class SeoAgentService {
                     logger.error("========================================");
                     logger.error("Error type: {}", error.getClass().getName());
                     logger.error("Error message: {}", error.getMessage());
+
+                    // Try to extract response body from WebClientResponseException
+                    if (error instanceof org.springframework.web.reactive.function.client.WebClientResponseException) {
+                        org.springframework.web.reactive.function.client.WebClientResponseException webClientError =
+                            (org.springframework.web.reactive.function.client.WebClientResponseException) error;
+                        logger.error("HTTP Status: {}", webClientError.getStatusCode());
+                        logger.error("Response body: {}", webClientError.getResponseBodyAsString());
+                    }
+
                     logger.error("Full error:", error);
                     logger.error("----------------------------------------");
                     logger.error("Request details:");
+                    logger.error("- API Version: {}", anthropicApiVersion);
                     logger.error("- Model: {}", requestBody.get("model").asText());
                     logger.error("- Max tokens: {}", requestBody.get("max_tokens").asInt());
                     logger.error("- Temperature: {}", requestBody.get("temperature").asDouble());

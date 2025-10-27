@@ -53,6 +53,14 @@ public class AgentService {
     }
 
     /**
+     * Get agent by ID with tools eagerly loaded
+     */
+    @Transactional(readOnly = true)
+    public Optional<Agent> getAgentByIdWithTools(Long id) {
+        return agentRepository.findByIdWithTools(id);
+    }
+
+    /**
      * Get agent by name
      */
     @Transactional(readOnly = true)

@@ -100,7 +100,7 @@ public class AgentController {
     public ResponseEntity<AgentResponse> getAgentById(@PathVariable Long id) {
         log.info("Fetching agent with ID: {}", id);
 
-        return agentService.getAgentById(id)
+        return agentService.getAgentByIdWithTools(id)
             .map(AgentResponse::fromEntity)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());

@@ -550,7 +550,35 @@ public class SeoAgentService {
         // Use custom orchestration prompt if provided
         if (request.getConfig() != null && request.getConfig().getOrchestrationPrompt() != null
                 && !request.getConfig().getOrchestrationPrompt().trim().isEmpty()) {
-            prompt.append(request.getConfig().getOrchestrationPrompt());
+            String customPrompt = request.getConfig().getOrchestrationPrompt();
+
+            // Build tool list for placeholder replacement
+            StringBuilder toolList = new StringBuilder();
+            if (request.getConfig().getSelectedTools() != null && !request.getConfig().getSelectedTools().isEmpty()) {
+                List<Tool> selectedTools = toolRepository.findAllById(request.getConfig().getSelectedTools());
+                for (Tool tool : selectedTools) {
+                    toolList.append("- ").append(tool.getName()).append(": ").append(tool.getDescription()).append("\n");
+                }
+            } else {
+                toolList.append("No tools selected\n");
+            }
+
+            // Build agent list for placeholder replacement
+            StringBuilder agentList = new StringBuilder();
+            if (request.getConfig().getSelectedAgents() != null && !request.getConfig().getSelectedAgents().isEmpty()) {
+                List<Agent> selectedAgents = agentRepository.findAllById(request.getConfig().getSelectedAgents());
+                for (Agent agent : selectedAgents) {
+                    agentList.append("- ").append(agent.getName()).append(": ").append(agent.getDescription()).append("\n");
+                }
+            } else {
+                agentList.append("No agents selected\n");
+            }
+
+            // Replace placeholders in custom prompt
+            customPrompt = customPrompt.replace("{tool_list}", toolList.toString());
+            customPrompt = customPrompt.replace("{agent_list}", agentList.toString());
+
+            prompt.append(customPrompt);
         } else {
             // Default SEO agent prompt
             prompt.append("You are an advanced SEO optimization assistant with access to various tools and capabilities.\n\n");
@@ -562,29 +590,29 @@ public class SeoAgentService {
             prompt.append("- Search visibility improvements\n\n");
             prompt.append("When available, use the provided tools to gather information and perform tasks.\n");
             prompt.append("Always provide actionable, data-driven recommendations.");
-        }
 
-        // Add tool context if tools are selected
-        if (request.getConfig() != null && request.getConfig().getSelectedTools() != null
-                && !request.getConfig().getSelectedTools().isEmpty()) {
-            prompt.append("\n\n=== AVAILABLE TOOLS ===\n");
-            prompt.append("You have access to the following tools. Use them when appropriate:\n");
+            // Add tool context if tools are selected
+            if (request.getConfig() != null && request.getConfig().getSelectedTools() != null
+                    && !request.getConfig().getSelectedTools().isEmpty()) {
+                prompt.append("\n\n=== AVAILABLE TOOLS ===\n");
+                prompt.append("You have access to the following tools. Use them when appropriate:\n");
 
-            List<Tool> selectedTools = toolRepository.findAllById(request.getConfig().getSelectedTools());
-            for (Tool tool : selectedTools) {
-                prompt.append("- ").append(tool.getName()).append(": ").append(tool.getDescription()).append("\n");
+                List<Tool> selectedTools = toolRepository.findAllById(request.getConfig().getSelectedTools());
+                for (Tool tool : selectedTools) {
+                    prompt.append("- ").append(tool.getName()).append(": ").append(tool.getDescription()).append("\n");
+                }
             }
-        }
 
-        // Add agent context if agents are selected
-        if (request.getConfig() != null && request.getConfig().getSelectedAgents() != null
-                && !request.getConfig().getSelectedAgents().isEmpty()) {
-            prompt.append("\n\n=== AVAILABLE AGENTS ===\n");
-            prompt.append("You can invoke the following specialized agents for complex tasks:\n");
+            // Add agent context if agents are selected
+            if (request.getConfig() != null && request.getConfig().getSelectedAgents() != null
+                    && !request.getConfig().getSelectedAgents().isEmpty()) {
+                prompt.append("\n\n=== AVAILABLE AGENTS ===\n");
+                prompt.append("You can invoke the following specialized agents for complex tasks:\n");
 
-            List<Agent> selectedAgents = agentRepository.findAllById(request.getConfig().getSelectedAgents());
-            for (Agent agent : selectedAgents) {
-                prompt.append("- ").append(agent.getName()).append(": ").append(agent.getDescription()).append("\n");
+                List<Agent> selectedAgents = agentRepository.findAllById(request.getConfig().getSelectedAgents());
+                for (Agent agent : selectedAgents) {
+                    prompt.append("- ").append(agent.getName()).append(": ").append(agent.getDescription()).append("\n");
+                }
             }
         }
 

@@ -26,6 +26,13 @@ spring:
     validate-on-migrate: false
     clean-disabled: false
 
+  # Spring MVC Configuration
+  mvc:
+    async:
+      # Increase timeout for long-running agent orchestration requests
+      # Multi-agent orchestration can take 60-90 seconds with tool use
+      request-timeout: 120000
+
 # Server Configuration
 server:
   port: ${PORT:8080}

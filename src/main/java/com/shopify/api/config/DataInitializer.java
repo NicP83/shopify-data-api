@@ -117,6 +117,15 @@ public class DataInitializer implements CommandLineRunner {
             createMCPCallSchema(),
             "com.shopify.api.handler.tool.MCPCallToolHandler"
         );
+
+        // Get In-Stock Products with Links Tool - For blog and marketing content
+        createTool(
+            "get_in_stock_products_with_links",
+            "SHOPIFY",
+            "Get in-stock products with clickable links and add-to-cart URLs for blog content. Returns only products with available inventory, formatted with product URLs, variant details, pricing, and add-to-cart permalinks.",
+            createInStockProductsSchema(),
+            "com.shopify.api.handler.tool.GetInStockProductsWithLinksToolHandler"
+        );
     }
 
     private void createTool(String name, String type, String description, ObjectNode inputSchema, String handlerClass) {
@@ -205,6 +214,39 @@ public class DataInitializer implements CommandLineRunner {
         schema.set("properties", properties);
 
         var requiredArray = objectMapper.createArrayNode().add("tool_name").add("arguments");
+        schema.set("required", requiredArray);
+
+        return schema;
+    }
+
+    private ObjectNode createInStockProductsSchema() {
+        ObjectNode schema = objectMapper.createObjectNode();
+        schema.put("type", "object");
+
+        ObjectNode properties = objectMapper.createObjectNode();
+
+        // Query property (optional)
+        ObjectNode queryProp = objectMapper.createObjectNode();
+        queryProp.put("type", "string");
+        queryProp.put("description", "Search query to find specific products. Leave empty to get all products.");
+        properties.set("query", queryProp);
+
+        // Limit property (optional)
+        ObjectNode limitProp = objectMapper.createObjectNode();
+        limitProp.put("type", "integer");
+        limitProp.put("description", "Maximum number of products to return (default: 20)");
+        properties.set("limit", limitProp);
+
+        // Product type property (optional)
+        ObjectNode productTypeProp = objectMapper.createObjectNode();
+        productTypeProp.put("type", "string");
+        productTypeProp.put("description", "Filter by product type (e.g., 'PLASTIC KITS', 'PAINTS', 'TOOLS')");
+        properties.set("productType", productTypeProp);
+
+        schema.set("properties", properties);
+
+        // No required fields - all are optional
+        var requiredArray = objectMapper.createArrayNode();
         schema.set("required", requiredArray);
 
         return schema;

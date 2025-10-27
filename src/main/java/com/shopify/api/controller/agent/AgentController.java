@@ -219,10 +219,10 @@ public class AgentController {
     }
 
     /**
-     * Get count of tools assigned to an agent
-     * GET /api/agents/{agentId}/tools/count
+     * Get count of tools assigned to an agent (using AgentToolRepository directly)
+     * GET /api/agents/{agentId}/tool-count
      */
-    @GetMapping("/{agentId}/tools/count")
+    @GetMapping("/{agentId}/tool-count")
     public ResponseEntity<Integer> getAgentToolsCount(@PathVariable Long agentId) {
         log.info("Counting tools for agent {}", agentId);
         int count = agentService.getAgentTools(agentId).size();

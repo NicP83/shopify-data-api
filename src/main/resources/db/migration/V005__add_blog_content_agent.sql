@@ -7,7 +7,7 @@
 -- newsletters, and marketing materials.
 
 -- Insert the Blog Content Product Link Agent
-INSERT INTO agents (name, description, model_provider, model_name, system_prompt, is_active, created_at, updated_at)
+INSERT INTO agents (name, description, model_provider, model_name, system_prompt, temperature, max_tokens, is_active, created_at, updated_at)
 VALUES (
     'Blog Content Product Link Agent',
     'Specialized agent for finding in-stock products at Hearns Hobbies and generating formatted product links with add-to-cart URLs for blog posts and marketing content.',
@@ -69,6 +69,8 @@ When asked to find products, you should:
 - "I need links for X brand products" → Filter by vendor name
 
 Always prioritize in-stock items and make the links easy to copy and use in blog posts!',
+    0.7,
+    2048,
     true,
     NOW(),
     NOW()

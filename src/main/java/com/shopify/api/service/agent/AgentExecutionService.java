@@ -65,47 +65,47 @@ public class AgentExecutionService {
     public Mono<AgentExecutionResult> executeAgent(Long agentId, JsonNode input) {
         log.info("Executing agent ID: {} with input", agentId);
 
-        // Load agent from database with eagerly fetched tools to avoid lazy loading
-        return Mono.fromCallable(() -> agentRepository.findByIdWithTools(agentId)
-                .orElseThrow(() -> new IllegalArgumentException("Agent not found with ID: " + agentId)))
-            .flatMap(agent -> {
-                // Validate agent is active
-                if (!agent.getIsActive()) {
-                    return Mono.error(new IllegalStateException("Agent is not active: " + agent.getName()));
-                }
+        // Load agent from database BEFORE reactive chain (within transaction context)
+        // This ensures agentTools are eagerly fetched and available
+        Agent agent = agentRepository.findByIdWithTools(agentId)
+                .orElseThrow(() -> new IllegalArgumentException("Agent not found with ID: " + agentId));
 
-                // Create execution record
-                AgentExecution execution = AgentExecution.builder()
-                    .agent(agent)
-                    .status("RUNNING")
-                    .inputDataJson(input)
-                    .startedAt(LocalDateTime.now())
-                    .build();
+        // Validate agent is active
+        if (!agent.getIsActive()) {
+            return Mono.error(new IllegalStateException("Agent is not active: " + agent.getName()));
+        }
 
-                AgentExecution savedExecution = agentExecutionRepository.save(execution);
-                log.info("Created execution record: {}", savedExecution.getId());
+        // Create execution record
+        AgentExecution execution = AgentExecution.builder()
+                .agent(agent)
+                .status("RUNNING")
+                .inputDataJson(input)
+                .startedAt(LocalDateTime.now())
+                .build();
 
-                // Execute based on provider
-                return executeWithProvider(agent, input, savedExecution)
-                    .doOnSuccess(result -> {
-                        // Update execution record with results
-                        savedExecution.setStatus("COMPLETED");
-                        savedExecution.setOutputDataJson(result.output);
-                        savedExecution.setCompletedAt(LocalDateTime.now());
-                        savedExecution.setTokensUsed(result.inputTokens + result.outputTokens);
-                        savedExecution.setExecutionTimeMs(
-                            (int) java.time.Duration.between(savedExecution.getStartedAt(), LocalDateTime.now()).toMillis());
-                        agentExecutionRepository.save(savedExecution);
-                        log.info("Execution {} completed successfully", savedExecution.getId());
-                    })
-                    .doOnError(error -> {
-                        // Update execution record with error
-                        savedExecution.setStatus("FAILED");
-                        savedExecution.setErrorMessage(error.getMessage());
-                        savedExecution.setCompletedAt(LocalDateTime.now());
-                        agentExecutionRepository.save(savedExecution);
-                        log.error("Execution {} failed: {}", savedExecution.getId(), error.getMessage());
-                    });
+        AgentExecution savedExecution = agentExecutionRepository.save(execution);
+        log.info("Created execution record: {}", savedExecution.getId());
+
+        // Execute based on provider and return reactive result
+        return executeWithProvider(agent, input, savedExecution)
+            .doOnSuccess(result -> {
+                // Update execution record with results
+                savedExecution.setStatus("COMPLETED");
+                savedExecution.setOutputDataJson(result.output);
+                savedExecution.setCompletedAt(LocalDateTime.now());
+                savedExecution.setTokensUsed(result.inputTokens + result.outputTokens);
+                savedExecution.setExecutionTimeMs(
+                    (int) java.time.Duration.between(savedExecution.getStartedAt(), LocalDateTime.now()).toMillis());
+                agentExecutionRepository.save(savedExecution);
+                log.info("Execution {} completed successfully", savedExecution.getId());
+            })
+            .doOnError(error -> {
+                // Update execution record with error
+                savedExecution.setStatus("FAILED");
+                savedExecution.setErrorMessage(error.getMessage());
+                savedExecution.setCompletedAt(LocalDateTime.now());
+                agentExecutionRepository.save(savedExecution);
+                log.error("Execution {} failed: {}", savedExecution.getId(), error.getMessage());
             });
     }
 

@@ -12,7 +12,7 @@ VALUES (
     'Blog Content Product Link Agent',
     'Specialized agent for finding in-stock products at Hearns Hobbies and generating formatted product links with add-to-cart URLs for blog posts and marketing content.',
     'ANTHROPIC',
-    'claude-3-5-sonnet-20241022',
+    'claude-3-7-sonnet-20250219',
     'You are a specialized content assistant for Hearns Hobbies, a premier hobby store in Australia.
 
 Your primary role is to help content creators find in-stock products and provide ready-to-use product links for blogs, newsletters, and marketing materials.

@@ -73,7 +73,7 @@ public class ChatController {
      *   "data": {
      *     "available": true,
      *     "provider": "Anthropic Claude",
-     *     "model": "claude-3-5-sonnet-20241022"
+     *     "model": "claude-3-7-sonnet-20250219"
      *   }
      * }
      */
@@ -86,7 +86,7 @@ public class ChatController {
                 new java.util.HashMap<String, Object>() {{
                     put("available", true);
                     put("provider", "Anthropic Claude");
-                    put("model", "claude-3-5-sonnet-20241022");
+                    put("model", "claude-3-7-sonnet-20250219");
                     put("description", "AI-powered sales and support assistant for Gundam model kits");
                 }}
         ));

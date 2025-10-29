@@ -33,7 +33,7 @@ function SeoAgent() {
 
   // Settings State - LLM Configuration
   const [llmConfig, setLlmConfig] = useState({
-    model: 'claude-3-5-sonnet-20241022',
+    model: 'claude-3-7-sonnet-20250219',
     temperature: 0.7,
     maxTokens: 4096,
     topP: 1.0,
@@ -383,7 +383,7 @@ Engage with the user professionally and help them improve their SEO strategy.`
                       onChange={(e) => setLlmConfig({...llmConfig, model: e.target.value})}
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
                     >
-                      <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                      <option value="claude-3-7-sonnet-20250219">Claude 3.5 Sonnet</option>
                       <option value="claude-3-opus-20240229">Claude 3 Opus</option>
                       <option value="claude-3-haiku-20240307">Claude 3 Haiku</option>
                     </select>

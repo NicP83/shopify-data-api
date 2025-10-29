@@ -12,7 +12,7 @@ function AgentEditor() {
     name: '',
     description: '',
     modelProvider: 'ANTHROPIC',
-    modelName: 'claude-3-5-sonnet-20241022',
+    modelName: 'claude-3-7-sonnet-20250219',
     systemPrompt: '',
     temperature: 0.7,
     maxTokens: 4096,
@@ -30,7 +30,7 @@ function AgentEditor() {
 
   const modelOptions = {
     ANTHROPIC: [
-      'claude-3-5-sonnet-20241022',
+      'claude-3-7-sonnet-20250219',
       'claude-3-5-haiku-20241022',
       'claude-3-opus-20240229',
       'claude-3-sonnet-20240229',

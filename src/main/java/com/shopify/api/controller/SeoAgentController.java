@@ -45,7 +45,7 @@ public class SeoAgentController {
      *     "selectedTools": [1, 2, 3],
      *     "selectedAgents": [1],
      *     "llmConfig": {
-     *       "model": "claude-3-5-sonnet-20241022",
+     *       "model": "claude-3-7-sonnet-20250219",
      *       "temperature": 0.7,
      *       "maxTokens": 4096,
      *       "topP": 1.0
@@ -69,7 +69,7 @@ public class SeoAgentController {
      *     "metadata": {
      *       "tokensUsed": 1523,
      *       "processingTimeMs": 2340,
-     *       "modelUsed": "claude-3-5-sonnet-20241022"
+     *       "modelUsed": "claude-3-7-sonnet-20250219"
      *     }
      *   }
      * }
@@ -104,7 +104,7 @@ public class SeoAgentController {
      *   "data": {
      *     "available": true,
      *     "provider": "Anthropic Claude",
-     *     "defaultModel": "claude-3-5-sonnet-20241022",
+     *     "defaultModel": "claude-3-7-sonnet-20250219",
      *     "description": "AI-powered SEO optimization assistant"
      *   }
      * }
@@ -118,7 +118,7 @@ public class SeoAgentController {
                 new java.util.HashMap<String, Object>() {{
                     put("available", true);
                     put("provider", "Anthropic Claude");
-                    put("defaultModel", "claude-3-5-sonnet-20241022");
+                    put("defaultModel", "claude-3-7-sonnet-20250219");
                     put("description", "AI-powered SEO optimization assistant with configurable tools and agents");
                     put("features", new String[]{
                         "Product description optimization",

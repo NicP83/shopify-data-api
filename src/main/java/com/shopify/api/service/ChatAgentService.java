@@ -34,7 +34,7 @@ public class ChatAgentService {
     @Value("${anthropic.api.version:2023-06-01}")
     private String anthropicApiVersion;
 
-    @Value("${anthropic.model:claude-3-5-sonnet-20241022}")
+    @Value("${anthropic.model:claude-3-7-sonnet-20250219}")
     private String anthropicModel;
 
     @Value("${anthropic.max-tokens:1024}")

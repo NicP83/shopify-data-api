@@ -127,7 +127,7 @@ public class SeoAgentService {
         SeoAgentRequest.LlmConfig llmConfig = request.getConfig() != null && request.getConfig().getLlmConfig() != null
                 ? request.getConfig().getLlmConfig()
                 : SeoAgentRequest.LlmConfig.builder()
-                    .model("claude-3-5-sonnet-20241022")
+                    .model("claude-3-7-sonnet-20250219")
                     .temperature(0.7)
                     .maxTokens(4096)
                     .topP(1.0)

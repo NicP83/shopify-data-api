@@ -59,7 +59,7 @@ public class SeoAgentRequest {
 
         @JsonProperty("model")
         @Builder.Default
-        private String model = "claude-3-5-sonnet-20241022";
+        private String model = "claude-3-7-sonnet-20250219";
 
         @JsonProperty("temperature")
         @Builder.Default

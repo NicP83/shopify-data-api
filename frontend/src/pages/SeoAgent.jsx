@@ -383,8 +383,15 @@ Engage with the user professionally and help them improve their SEO strategy.`
                       onChange={(e) => setLlmConfig({...llmConfig, model: e.target.value})}
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
                     >
-                      <option value="claude-3-7-sonnet-20250219">Claude 3.5 Sonnet</option>
+                      <option value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5 (Latest)</option>
+                      <option value="claude-opus-4-1-20250805">Claude Opus 4.1</option>
+                      <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+                      <option value="claude-sonnet-4-20250514">Claude Sonnet 4</option>
+                      <option value="claude-opus-4-20250514">Claude Opus 4</option>
+                      <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
+                      <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
                       <option value="claude-3-opus-20240229">Claude 3 Opus</option>
+                      <option value="claude-3-sonnet-20240229">Claude 3 Sonnet</option>
                       <option value="claude-3-haiku-20240307">Claude 3 Haiku</option>
                     </select>
                   </div>

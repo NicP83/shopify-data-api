@@ -124,6 +124,11 @@ public class ConfigController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("models", new String[]{
+            "claude-sonnet-4-5-20250929",
+            "claude-opus-4-1-20250805",
+            "claude-haiku-4-5-20251001",
+            "claude-sonnet-4-20250514",
+            "claude-opus-4-20250514",
             "claude-3-7-sonnet-20250219",
             "claude-3-5-haiku-20241022",
             "claude-3-opus-20240229",

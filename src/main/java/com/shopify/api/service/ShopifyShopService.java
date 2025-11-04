@@ -94,6 +94,14 @@ public class ShopifyShopService {
     }
 
     /**
+     * Find shop by domain (returns null if not found)
+     * Used by admin controllers
+     */
+    public ShopifyShop findByDomain(String shopDomain) {
+        return shopifyShopRepository.findByShopDomain(shopDomain).orElse(null);
+    }
+
+    /**
      * Check if shop is installed and active
      */
     public boolean isShopActive(String shopDomain) {

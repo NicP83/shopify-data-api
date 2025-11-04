@@ -166,7 +166,13 @@ public class PromptTestingController {
         Page<PromptTestResult> resultsPage;
 
         if (promptId != null) {
-            SystemPrompt prompt = systemPromptService.getPromptById(promptId);
+            SystemPrompt prompt = systemPromptService.getPromptById(promptId).orElse(null);
+            if (prompt == null) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "success", false,
+                        "message", "Prompt not found: " + promptId
+                ));
+            }
             resultsPage = promptTestRepository.findByShopAndPromptOrderByTestedAtDesc(
                     shopEntity, prompt, pageable
             );

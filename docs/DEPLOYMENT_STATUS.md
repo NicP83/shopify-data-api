@@ -50,6 +50,8 @@ All backend infrastructure for admin activity logging is now deployed and ready 
 6. **d2dc82b** - Fix: javax.* → jakarta.* imports (Spring Boot 3.x)
 7. **723f14e** - Documentation update (javax fix)
 8. **0939ed0** - Fix: Hibernate 6.x Type annotations (JSONB compatibility)
+9. **c25ae50** - Documentation update (Hibernate fix)
+10. **6656072** - Fix: Flyway V11/V011 migration conflict (V11 → V012)
 
 ### Railway Auto-Deploy:
 - ✅ Automatic deployment triggered on push to main
@@ -255,9 +257,19 @@ Map<String, Object> comparison = configHistoryService.compareVersions(
 - Added Hibernate 6.x imports (JdbcTypeCode, SqlTypes)
 - Applied to 9 JSONB fields total across AdminActivityLog, ConfigChangeHistory, and PromptTestResult
 
-### Issue 3: Migrations Not Running
+### Issue 3: Flyway Migration Version Conflict ✅ FIXED
+**Status:** ✅ Resolved (Commit 6656072)
+**Description:** Application crashed on startup with "Found more than one migration with version 11". Flyway detected duplicate version 11 from two migration files:
+- `V11__fix_invalid_agent_models.sql`
+- `V011__update_system_prompt_defaults.sql`
+
+Flyway interprets both `V11` and `V011` as version 11, causing a fatal conflict.
+
+**Resolution:** Renamed `V11__fix_invalid_agent_models.sql` to `V012__fix_invalid_agent_models.sql` to maintain correct sequential order after V011.
+
+### Issue 4: Migrations Not Running
 **Status:** ⏳ In Progress
-**Description:** V009, V010, V011 migrations not yet applied
+**Description:** V009, V010, V011, V012 migrations not yet applied
 **Impact:** Chat API returns "Shop not found or inactive"
 **Expected Resolution:** Railway should apply migrations after successful build
 

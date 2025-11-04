@@ -46,11 +46,12 @@ All backend infrastructure for admin activity logging is now deployed and ready 
 2. **a27f3c7** - Updated system prompts (diverse catalog)
 3. **e7e78ee** - Phase 2: Logging services and AOP
 4. **ef94bfb** - AOP configuration
+5. **d61efb8** - Deployment status documentation
+6. **d2dc82b** - Fix: javax.* → jakarta.* imports (Spring Boot 3.x)
 
 ### Railway Auto-Deploy:
 - ✅ Automatic deployment triggered on push to main
-- ✅ Maven build successful
-- ✅ Spring Boot application running
+- ⏳ Maven build in progress (fixing import errors)
 - ⏳ Flyway migrations pending (V009, V010, V011)
 
 ---
@@ -227,13 +228,21 @@ Map<String, Object> comparison = configHistoryService.compareVersions(
 
 ---
 
-## 🐛 Known Issues
+## 🐛 Issues & Resolutions
 
-### Issue 1: Migrations Not Running
+### Issue 1: Railway Build Failure - javax.* imports ✅ FIXED
+**Status:** ✅ Resolved (Commit d2dc82b)
+**Description:** Build failed with 100+ compilation errors due to using Java EE (javax.*) packages instead of Jakarta EE (jakarta.*) packages required by Spring Boot 3.x
+**Resolution:** Updated all imports in 5 files:
+- `javax.persistence.*` → `jakarta.persistence.*`
+- `javax.validation.constraints.*` → `jakarta.validation.constraints.*`
+- `javax.servlet.http.*` → `jakarta.servlet.http.*`
+
+### Issue 2: Migrations Not Running
 **Status:** ⏳ In Progress
 **Description:** V009, V010, V011 migrations not yet applied
 **Impact:** Chat API returns "Shop not found or inactive"
-**Expected Resolution:** Railway should apply migrations on next deployment cycle
+**Expected Resolution:** Railway should apply migrations after successful build
 
 **Workaround:** Migrations can be manually triggered if needed via Railway PostgreSQL console
 
@@ -329,8 +338,8 @@ curl -X POST 'https://shopify-data-api-production.up.railway.app/api/shopify/cha
 
 ---
 
-**Backend Status:** 🟢 OPERATIONAL
-**Logging Infrastructure:** 🟢 READY
-**Migrations:** 🟡 PENDING
-**Overall:** 🟢 95% COMPLETE
+**Backend Status:** 🟡 DEPLOYING (build in progress)
+**Logging Infrastructure:** 🟢 READY (code pushed, awaiting deployment)
+**Migrations:** 🟡 PENDING (waiting for successful build)
+**Overall:** 🟢 95% COMPLETE (build fix deployed, waiting for Railway)
 

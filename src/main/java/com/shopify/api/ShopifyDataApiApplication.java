@@ -2,6 +2,7 @@ package com.shopify.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -18,10 +19,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * - Inventory tracking
  * - Automatic rate limiting
  * - OAuth token management
+ * - AOP-based activity logging
  */
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
+@EnableAspectJAutoProxy
 public class ShopifyDataApiApplication {
 
     public static void main(String[] args) {

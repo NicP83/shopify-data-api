@@ -48,6 +48,8 @@ All backend infrastructure for admin activity logging is now deployed and ready 
 4. **ef94bfb** - AOP configuration
 5. **d61efb8** - Deployment status documentation
 6. **d2dc82b** - Fix: javax.* → jakarta.* imports (Spring Boot 3.x)
+7. **723f14e** - Documentation update (javax fix)
+8. **0939ed0** - Fix: Hibernate 6.x Type annotations (JSONB compatibility)
 
 ### Railway Auto-Deploy:
 - ✅ Automatic deployment triggered on push to main
@@ -238,7 +240,22 @@ Map<String, Object> comparison = configHistoryService.compareVersions(
 - `javax.validation.constraints.*` → `jakarta.validation.constraints.*`
 - `javax.servlet.http.*` → `jakarta.servlet.http.*`
 
-### Issue 2: Migrations Not Running
+### Issue 2: Railway Build Failure - Hibernate Type Annotations ✅ FIXED
+**Status:** ✅ Resolved (Commit 0939ed0)
+**Description:** Second build failure with 100 compilation errors after javax fix. Hibernate 6.x (included with Spring Boot 3.x) deprecated `@TypeDef` and `@Type(type = "jsonb")` annotations. The hypersistence-utils library syntax was no longer compatible.
+**Errors:**
+- `package com.vladmihalcea.hibernate.type.json does not exist`
+- `cannot find symbol: class TypeDef`
+- `annotation @Type is missing a default value for the element 'value'`
+
+**Resolution:** Updated all 3 Phase 2 entity models to use Hibernate 6.x built-in JSON support:
+- Removed `@TypeDef` class-level annotation
+- Replaced `@Type(type = "jsonb")` with `@JdbcTypeCode(SqlTypes.JSON)` on all JSONB fields
+- Removed hypersistence-utils imports (JsonBinaryType, Type, TypeDef)
+- Added Hibernate 6.x imports (JdbcTypeCode, SqlTypes)
+- Applied to 9 JSONB fields total across AdminActivityLog, ConfigChangeHistory, and PromptTestResult
+
+### Issue 3: Migrations Not Running
 **Status:** ⏳ In Progress
 **Description:** V009, V010, V011 migrations not yet applied
 **Impact:** Chat API returns "Shop not found or inactive"
@@ -338,8 +355,8 @@ curl -X POST 'https://shopify-data-api-production.up.railway.app/api/shopify/cha
 
 ---
 
-**Backend Status:** 🟡 DEPLOYING (build in progress)
-**Logging Infrastructure:** 🟢 READY (code pushed, awaiting deployment)
+**Backend Status:** 🟡 DEPLOYING (Hibernate 6.x fix pushed, build in progress)
+**Logging Infrastructure:** 🟢 READY (all compatibility fixes complete)
 **Migrations:** 🟡 PENDING (waiting for successful build)
-**Overall:** 🟢 95% COMPLETE (build fix deployed, waiting for Railway)
+**Overall:** 🟢 98% COMPLETE (both javax & Hibernate fixes deployed, awaiting Railway build)
 

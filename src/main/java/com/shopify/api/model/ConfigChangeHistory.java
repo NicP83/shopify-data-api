@@ -1,9 +1,8 @@
 package com.shopify.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.*;
@@ -24,7 +23,6 @@ import java.util.Map;
     @Index(name = "idx_config_history_created", columnList = "created_at"),
     @Index(name = "idx_config_history_version", columnList = "shop_id, config_type, version_number")
 })
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class ConfigChangeHistory {
 
     @Id
@@ -42,7 +40,7 @@ public class ConfigChangeHistory {
 
     // ===== Configuration Snapshot =====
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "config_snapshot", nullable = false, columnDefinition = "jsonb")
     private Map<String, Object> configSnapshot;
 
@@ -59,11 +57,11 @@ public class ConfigChangeHistory {
 
     // ===== Performance Tracking =====
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "performance_before", columnDefinition = "jsonb")
     private Map<String, Object> performanceBefore;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "performance_after", columnDefinition = "jsonb")
     private Map<String, Object> performanceAfter;
 

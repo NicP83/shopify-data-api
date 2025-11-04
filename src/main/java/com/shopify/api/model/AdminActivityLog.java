@@ -1,10 +1,9 @@
 package com.shopify.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.*;
 import java.time.ZonedDateTime;
@@ -26,7 +25,6 @@ import java.util.Map;
     @Index(name = "idx_admin_activity_success", columnList = "success"),
     @Index(name = "idx_admin_activity_shop_date", columnList = "shop_id, created_at")
 })
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class AdminActivityLog {
 
     @Id
@@ -64,11 +62,11 @@ public class AdminActivityLog {
 
     // ===== CHANGES: Before/After State =====
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "previous_value", columnDefinition = "jsonb")
     private Map<String, Object> previousValue;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "new_value", columnDefinition = "jsonb")
     private Map<String, Object> newValue;
 
@@ -94,7 +92,7 @@ public class AdminActivityLog {
 
     // ===== CONTEXT: Additional Metadata =====
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "metadata", columnDefinition = "jsonb")
     private Map<String, Object> metadata;
 

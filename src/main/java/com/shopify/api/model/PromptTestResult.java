@@ -1,9 +1,8 @@
 package com.shopify.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.*;
@@ -29,7 +28,6 @@ import java.util.Map;
     @Index(name = "idx_prompt_test_rating", columnList = "tester_rating"),
     @Index(name = "idx_prompt_test_shop_prompt", columnList = "shop_id, prompt_id, tested_at")
 })
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class PromptTestResult {
 
     @Id
@@ -51,7 +49,7 @@ public class PromptTestResult {
     @Column(name = "test_query", nullable = false, columnDefinition = "TEXT")
     private String testQuery;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "test_context", columnDefinition = "jsonb")
     private Map<String, Object> testContext;  // Conversation history, filters, etc.
 
@@ -63,7 +61,7 @@ public class PromptTestResult {
     @Column(name = "products_returned")
     private Integer productsReturned = 0;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "product_ids", columnDefinition = "jsonb")
     private List<Long> productIds;  // Array of product IDs returned
 
@@ -105,7 +103,7 @@ public class PromptTestResult {
 
     // ===== Model Configuration Snapshot =====
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "model_config", columnDefinition = "jsonb")
     private Map<String, Object> modelConfig;  // AI settings at test time
 

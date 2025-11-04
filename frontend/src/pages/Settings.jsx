@@ -38,6 +38,11 @@ function Settings() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState(null)
 
+  // Test Prompt State
+  const [testMessage, setTestMessage] = useState('')
+  const [testMessages, setTestMessages] = useState([])
+  const [testLoading, setTestLoading] = useState(false)
+
   useEffect(() => {
     loadSettings()
   }, [activeTab])
@@ -171,6 +176,47 @@ function Settings() {
 
   const hasChatbotChanges = () => {
     return JSON.stringify(chatbotConfig) !== JSON.stringify(originalChatbotConfig)
+  }
+
+  const handleTestMessage = async () => {
+    if (!testMessage.trim()) return
+
+    const userMessage = { role: 'user', content: testMessage }
+    setTestMessages(prev => [...prev, userMessage])
+    setTestMessage('')
+    setTestLoading(true)
+
+    try {
+      const response = await fetch('/api/chat/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: testMessage,
+          shop: 'hearnshobbies.myshopify.com'
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        const assistantMessage = { role: 'assistant', content: data.data.response }
+        setTestMessages(prev => [...prev, assistantMessage])
+      } else {
+        const errorMessage = { role: 'error', content: data.message || 'Failed to get response' }
+        setTestMessages(prev => [...prev, errorMessage])
+      }
+    } catch (error) {
+      console.error('Error testing prompt:', error)
+      const errorMessage = { role: 'error', content: 'Failed to send test message' }
+      setTestMessages(prev => [...prev, errorMessage])
+    } finally {
+      setTestLoading(false)
+    }
+  }
+
+  const clearTestMessages = () => {
+    setTestMessages([])
+    setTestMessage('')
   }
 
   if (loading) {
@@ -597,6 +643,88 @@ function Settings() {
             </div>
             <p className="mt-2 text-sm text-gray-500">
               This is the system prompt that will be sent to Claude based on your configuration
+            </p>
+          </div>
+
+          {/* Test Prompt */}
+          <div className="card">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold">Test Your Prompt</h2>
+              {testMessages.length > 0 && (
+                <button
+                  onClick={clearTestMessages}
+                  className="text-sm text-gray-600 hover:text-gray-800 underline"
+                >
+                  Clear Chat
+                </button>
+              )}
+            </div>
+            <p className="text-sm text-gray-600 mb-4">
+              Test your chatbot configuration with the tools and settings configured above
+            </p>
+
+            {/* Chat Messages */}
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 mb-4 min-h-[300px] max-h-[500px] overflow-y-auto">
+              {testMessages.length === 0 ? (
+                <div className="text-center text-gray-500 py-20">
+                  Send a test message to see how your chatbot responds
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {testMessages.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-lg ${
+                        msg.role === 'user'
+                          ? 'bg-primary-100 ml-8'
+                          : msg.role === 'error'
+                          ? 'bg-red-100 mr-8'
+                          : 'bg-white mr-8'
+                      }`}
+                    >
+                      <div className="text-xs font-semibold mb-1 text-gray-600">
+                        {msg.role === 'user' ? 'You' : msg.role === 'error' ? 'Error' : 'AI Assistant'}
+                      </div>
+                      <div className="text-sm text-gray-800 whitespace-pre-wrap">
+                        {msg.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {testLoading && (
+                <div className="p-3 rounded-lg bg-white mr-8">
+                  <div className="text-xs font-semibold mb-1 text-gray-600">AI Assistant</div>
+                  <div className="text-sm text-gray-500">Thinking...</div>
+                </div>
+              )}
+            </div>
+
+            {/* Input Area */}
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={testMessage}
+                onChange={(e) => setTestMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !testLoading) {
+                    handleTestMessage()
+                  }
+                }}
+                placeholder="Type a test message... (e.g., 'I'm looking for model kits')"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                disabled={testLoading}
+              />
+              <button
+                onClick={handleTestMessage}
+                disabled={testLoading || !testMessage.trim()}
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {testLoading ? 'Sending...' : 'Send'}
+              </button>
+            </div>
+            <p className="mt-2 text-xs text-gray-500">
+              💡 This uses the current saved configuration and tools. Save any changes above first to test them.
             </p>
           </div>
         </>

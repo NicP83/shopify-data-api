@@ -2,6 +2,8 @@ package com.shopify.api.repository;
 
 import com.shopify.api.model.ChatAnalytics;
 import com.shopify.api.model.ShopifyShop;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +23,11 @@ public interface ChatAnalyticsRepository extends JpaRepository<ChatAnalytics, Lo
      * Find analytics by shop
      */
     List<ChatAnalytics> findByShopOrderByCreatedAtDesc(ShopifyShop shop);
+
+    /**
+     * Find analytics by shop (pageable)
+     */
+    Page<ChatAnalytics> findByShop(ShopifyShop shop, Pageable pageable);
 
     /**
      * Find analytics by shop within date range

@@ -16,7 +16,7 @@ import WorkflowFormExecutor from './pages/WorkflowFormExecutor'
 import WorkflowChatExecutor from './pages/WorkflowChatExecutor'
 import WorkflowGallery from './pages/WorkflowGallery'
 import SeoAgent from './pages/SeoAgent'
-import AdminDashboard from './pages/AdminDashboard'
+import Logs from './pages/Logs'
 
 function App() {
   return (
@@ -42,9 +42,9 @@ function App() {
             <Route path="/executions" element={<WorkflowExecutions />} />
             <Route path="/executions/:workflowId" element={<WorkflowExecutions />} />
             <Route path="/approvals" element={<ApprovalQueue />} />
-            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/logs" element={<Logs />} />
             <Route path="/market-intel" element={<div className="text-center py-20 text-gray-500">Market Intelligence - Coming Soon</div>} />
           </Routes>
         </main>

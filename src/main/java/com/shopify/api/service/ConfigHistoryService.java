@@ -7,6 +7,8 @@ import com.shopify.api.repository.ConfigChangeHistoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -371,5 +373,95 @@ public class ConfigHistoryService {
         }
 
         return improvements;
+    }
+
+    /**
+     * Get configuration history with pagination
+     */
+    @Transactional(readOnly = true)
+    public Page<ConfigChangeHistory> getConfigHistory(
+            ShopifyShop shop,
+            String configType,
+            Pageable pageable
+    ) {
+        return configHistoryRepository.findByShopAndConfigTypeOrderByVersionNumberDesc(
+                shop,
+                configType,
+                pageable
+        );
+    }
+
+    /**
+     * Get active configuration version
+     */
+    @Transactional(readOnly = true)
+    public ConfigChangeHistory getActiveVersion(ShopifyShop shop, String configType) {
+        return configHistoryRepository.findByShopAndConfigTypeAndIsActiveTrue(shop, configType)
+                .orElse(null);
+    }
+
+    /**
+     * Get configuration version by ID
+     */
+    @Transactional(readOnly = true)
+    public ConfigChangeHistory getVersionById(Long versionId) {
+        return configHistoryRepository.findById(versionId).orElse(null);
+    }
+
+    /**
+     * Save a configuration version
+     */
+    @Transactional
+    public ConfigChangeHistory saveVersion(ConfigChangeHistory version) {
+        return configHistoryRepository.save(version);
+    }
+
+    /**
+     * Activate a specific version
+     */
+    @Transactional
+    public ConfigChangeHistory activateVersion(
+            ShopifyShop shop,
+            String configType,
+            Long versionId
+    ) {
+        // Deactivate all versions
+        configHistoryRepository.deactivateAllByShopAndConfigType(
+                shop,
+                configType,
+                ZonedDateTime.now()
+        );
+
+        // Activate target version
+        ConfigChangeHistory version = configHistoryRepository.findById(versionId)
+                .orElseThrow(() -> new IllegalArgumentException("Version not found: " + versionId));
+
+        version.activate();
+        return configHistoryRepository.save(version);
+    }
+
+    /**
+     * Get recent configuration changes
+     */
+    @Transactional(readOnly = true)
+    public List<ConfigChangeHistory> getRecentChanges(ShopifyShop shop, int days) {
+        ZonedDateTime since = ZonedDateTime.now().minusDays(days);
+        return configHistoryRepository.findRecentChanges(shop, since);
+    }
+
+    /**
+     * Clean up old configuration versions (controller method)
+     */
+    @Transactional
+    public int cleanupOldVersions(ShopifyShop shop, String configType, int keepCount) {
+        try {
+            configHistoryRepository.deleteOldVersions(shop, configType, keepCount);
+            logger.info("Cleaned up old versions for shop {} - type: {}, kept: {}",
+                    shop.getShopDomain(), configType, keepCount);
+            return 1; // Return count of config types cleaned
+        } catch (Exception e) {
+            logger.error("Failed to cleanup old versions for type: {}", configType, e);
+            return 0;
+        }
     }
 }

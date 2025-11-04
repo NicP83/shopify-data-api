@@ -35,6 +35,15 @@ public interface ConfigChangeHistoryRepository extends JpaRepository<ConfigChang
     );
 
     /**
+     * Find configuration history by shop and config type (paginated)
+     */
+    Page<ConfigChangeHistory> findByShopAndConfigTypeOrderByVersionNumberDesc(
+            ShopifyShop shop,
+            String configType,
+            Pageable pageable
+    );
+
+    /**
      * Find the active configuration for a shop and config type
      */
     Optional<ConfigChangeHistory> findByShopAndConfigTypeAndIsActiveTrue(

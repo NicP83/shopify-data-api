@@ -200,4 +200,56 @@ public interface PromptTestResultRepository extends JpaRepository<PromptTestResu
             @Param("shop") ShopifyShop shop,
             @Param("since") ZonedDateTime since
     );
+
+    /**
+     * Find test results for a shop and prompt (used by controller)
+     */
+    Page<PromptTestResult> findByShopAndPromptOrderByTestedAtDesc(
+            ShopifyShop shop,
+            SystemPrompt prompt,
+            Pageable pageable
+    );
+
+    /**
+     * Count all tests for a shop
+     */
+    Long countByShop(ShopifyShop shop);
+
+    /**
+     * Count tests with quality score >= threshold
+     */
+    Long countByShopAndAutoQualityScoreGreaterThanEqual(
+            ShopifyShop shop,
+            BigDecimal minScore
+    );
+
+    /**
+     * Get average response time for a shop
+     */
+    @Query("SELECT AVG(t.responseTimeMs) FROM PromptTestResult t WHERE t.shop = :shop")
+    Double getAverageResponseTimeByShop(@Param("shop") ShopifyShop shop);
+
+    /**
+     * Count tests by shop and mode
+     */
+    Long countByShopAndTestMode(ShopifyShop shop, String testMode);
+
+    /**
+     * Find tests with low quality scores
+     */
+    List<PromptTestResult> findByShopAndAutoQualityScoreLessThan(
+            ShopifyShop shop,
+            BigDecimal maxScore
+    );
+
+    /**
+     * Delete old test results
+     */
+    @Modifying
+    @Query("DELETE FROM PromptTestResult t WHERE t.shop = :shop " +
+           "AND t.testedAt < :cutoffDate")
+    int deleteByShopAndTestedAtBefore(
+            @Param("shop") ShopifyShop shop,
+            @Param("cutoffDate") ZonedDateTime cutoffDate
+    );
 }

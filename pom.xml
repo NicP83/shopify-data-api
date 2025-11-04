@@ -82,6 +82,12 @@
             <version>3.7.0</version>
         </dependency>
 
+        <!-- Apache Commons Codec for HMAC verification -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

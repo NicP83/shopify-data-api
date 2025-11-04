@@ -28,7 +28,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/workflows")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class WorkflowController {
 
     private final WorkflowService workflowService;

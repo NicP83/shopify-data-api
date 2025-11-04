@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/agents")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class AgentController {
 
     private final AgentService agentService;

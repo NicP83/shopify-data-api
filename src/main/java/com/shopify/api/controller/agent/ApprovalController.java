@@ -23,7 +23,6 @@ import java.util.Map;
 @RequestMapping("/api/approvals")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class ApprovalController {
 
     private final ApprovalService approvalService;

@@ -1,10 +1,12 @@
 package com.shopify.api.service.agent;
 
+import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.model.agent.AgentTool;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.repository.agent.AgentToolRepository;
 import com.shopify.api.repository.agent.ToolRepository;
+import com.shopify.api.service.ModelValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ public class AgentService {
     private final AgentRepository agentRepository;
     private final AgentToolRepository agentToolRepository;
     private final ToolRepository toolRepository;
+    private final ModelValidationService modelValidationService;
 
     /**
      * Create a new agent
@@ -39,6 +42,14 @@ public class AgentService {
 
         if (agentRepository.existsByName(agent.getName())) {
             throw new IllegalArgumentException("Agent with name '" + agent.getName() + "' already exists");
+        }
+
+        // Validate and normalize model before saving
+        String validatedModel = modelValidationService.validateOrDefault(agent.getModelName());
+        if (!validatedModel.equals(agent.getModelName())) {
+            log.warn("Invalid model '{}' for new agent '{}', using '{}' instead",
+                agent.getModelName(), agent.getName(), validatedModel);
+            agent.setModelName(validatedModel);
         }
 
         return agentRepository.save(agent);
@@ -108,11 +119,18 @@ public class AgentService {
             throw new IllegalArgumentException("Agent with name '" + updatedAgent.getName() + "' already exists");
         }
 
+        // Validate and normalize model before updating
+        String validatedModel = modelValidationService.validateOrDefault(updatedAgent.getModelName());
+        if (!validatedModel.equals(updatedAgent.getModelName())) {
+            log.warn("Invalid model '{}' for agent '{}', using '{}' instead",
+                updatedAgent.getModelName(), updatedAgent.getName(), validatedModel);
+        }
+
         // Update fields
         existingAgent.setName(updatedAgent.getName());
         existingAgent.setDescription(updatedAgent.getDescription());
         existingAgent.setModelProvider(updatedAgent.getModelProvider());
-        existingAgent.setModelName(updatedAgent.getModelName());
+        existingAgent.setModelName(validatedModel);  // Use validated model
         existingAgent.setSystemPrompt(updatedAgent.getSystemPrompt());
         existingAgent.setTemperature(updatedAgent.getTemperature());
         existingAgent.setMaxTokens(updatedAgent.getMaxTokens());

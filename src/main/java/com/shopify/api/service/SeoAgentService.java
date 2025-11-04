@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.ChatMessage;
 import com.shopify.api.model.SeoAgentRequest;
 import com.shopify.api.model.SeoAgentResponse;
@@ -54,6 +55,7 @@ public class SeoAgentService {
     private final AgentRepository agentRepository;
     private final AgentExecutionService agentExecutionService;
     private final MCPClient mcpClient;
+    private final ModelValidationService modelValidationService;
     private final ApplicationContext applicationContext;
     private final ObjectMapper objectMapper;
 
@@ -63,6 +65,7 @@ public class SeoAgentService {
                           AgentRepository agentRepository,
                           AgentExecutionService agentExecutionService,
                           MCPClient mcpClient,
+                          ModelValidationService modelValidationService,
                           ApplicationContext applicationContext) {
         this.webClient = webClientBuilder
                 .baseUrl("https://api.anthropic.com/v1")
@@ -71,6 +74,7 @@ public class SeoAgentService {
         this.agentRepository = agentRepository;
         this.agentExecutionService = agentExecutionService;
         this.mcpClient = mcpClient;
+        this.modelValidationService = modelValidationService;
         this.applicationContext = applicationContext;
         this.objectMapper = new ObjectMapper();
     }
@@ -128,15 +132,22 @@ public class SeoAgentService {
         SeoAgentRequest.LlmConfig llmConfig = request.getConfig() != null && request.getConfig().getLlmConfig() != null
                 ? request.getConfig().getLlmConfig()
                 : SeoAgentRequest.LlmConfig.builder()
-                    .model("claude-3-7-sonnet-20250219")
+                    .model(ModelConfig.DEFAULT_MODEL)
                     .temperature(0.7)
                     .maxTokens(4096)
                     .topP(1.0)
                     .build();
 
+        // Validate model before using it
+        String validatedModel = modelValidationService.validateOrDefault(llmConfig.getModel());
+        if (!validatedModel.equals(llmConfig.getModel())) {
+            logger.warn("Invalid model '{}' in request, using '{}' instead",
+                llmConfig.getModel(), validatedModel);
+        }
+
         // Create request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
-        requestBody.put("model", llmConfig.getModel());
+        requestBody.put("model", validatedModel);
         requestBody.put("max_tokens", llmConfig.getMaxTokens());
         requestBody.put("temperature", llmConfig.getTemperature());
         requestBody.put("top_p", llmConfig.getTopP());

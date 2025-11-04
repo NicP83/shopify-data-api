@@ -1,8 +1,11 @@
 package com.shopify.api.service;
 
+import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.ChatMessage;
 import com.shopify.api.model.ChatRequest;
 import com.shopify.api.model.ChatbotConfig;
+import com.shopify.api.model.ShopifyShop;
+import com.shopify.api.model.SystemPrompt;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -22,6 +25,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ChatAgentService {
@@ -49,15 +53,22 @@ public class ChatAgentService {
     private final WebClient webClient;
     private final ProductService productService;
     private final ChatbotConfigService chatbotConfigService;
+    private final SystemPromptService systemPromptService;
+    private final ModelValidationService modelValidationService;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
     private String systemPromptTemplate;
 
+    // Shop context for dynamic prompts
+    private ShopifyShop currentShop;
+
     @Autowired
     public ChatAgentService(WebClient.Builder webClientBuilder,
                            ProductService productService,
                            ChatbotConfigService chatbotConfigService,
+                           SystemPromptService systemPromptService,
+                           ModelValidationService modelValidationService,
                            ResourceLoader resourceLoader,
                            @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
@@ -65,6 +76,8 @@ public class ChatAgentService {
                 .build();
         this.productService = productService;
         this.chatbotConfigService = chatbotConfigService;
+        this.systemPromptService = systemPromptService;
+        this.modelValidationService = modelValidationService;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -83,6 +96,21 @@ public class ChatAgentService {
                     You are a helpful sales and customer support assistant for an online Gundam model kit store.
                     Store URL: {SHOP_URL}
                     """;
+        }
+
+        // Validate the configured model
+        try {
+            String validatedModel = modelValidationService.validateOrDefault(anthropicModel);
+            if (!validatedModel.equals(anthropicModel)) {
+                logger.warn("Configured model '{}' is invalid, using default: {}", anthropicModel, validatedModel);
+                anthropicModel = validatedModel;
+            } else {
+                logger.info("Using validated model: {}", anthropicModel);
+            }
+        } catch (Exception e) {
+            logger.error("Error validating model on startup: {}", e.getMessage());
+            anthropicModel = ModelConfig.DEFAULT_MODEL;
+            logger.warn("Falling back to default model: {}", anthropicModel);
         }
     }
 
@@ -325,10 +353,54 @@ public class ChatAgentService {
     }
 
     /**
+     * Set the current shop context for dynamic prompts
+     * Should be called before processChat for shop-scoped requests
+     */
+    public void setShopContext(ShopifyShop shop) {
+        this.currentShop = shop;
+        logger.debug("Shop context set to: {}", shop != null ? shop.getShopDomain() : "null");
+    }
+
+    /**
+     * Clear the current shop context
+     */
+    public void clearShopContext() {
+        this.currentShop = null;
+    }
+
+    /**
      * Build system prompt that defines the AI's role and capabilities
-     * Dynamically generates prompt from ChatbotConfig
+     * Dynamically generates prompt from database or ChatbotConfig
      */
     private String buildSystemPrompt() {
+        // Try to get dynamic prompt from database if shop context is set
+        if (currentShop != null && systemPromptService != null) {
+            try {
+                Optional<SystemPrompt> promptOpt = systemPromptService.getActivePromptByType(
+                    SystemPrompt.PromptType.PRODUCT_SEARCH,
+                    currentShop
+                );
+
+                if (promptOpt.isPresent()) {
+                    SystemPrompt prompt = promptOpt.get();
+                    logger.info("Using dynamic system prompt: {} (version {})",
+                        prompt.getPromptName(), prompt.getVersion());
+                    return prompt.getPromptText();
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
+            }
+        }
+
+        // Fall back to building prompt from ChatbotConfig
+        logger.debug("Using ChatbotConfig-based system prompt");
+        return buildSystemPromptFromConfig();
+    }
+
+    /**
+     * Build system prompt from ChatbotConfig (legacy method)
+     */
+    private String buildSystemPromptFromConfig() {
         ChatbotConfig config = chatbotConfigService.getConfig();
 
         StringBuilder prompt = new StringBuilder();
@@ -448,8 +520,13 @@ public class ChatAgentService {
     }
 
     public void setAnthropicModel(String model) {
-        this.anthropicModel = model;
-        logger.info("Model updated to: {}", model);
+        // Validate model before setting
+        String validatedModel = modelValidationService.validateOrDefault(model);
+        this.anthropicModel = validatedModel;
+        logger.info("Model updated to: {}", validatedModel);
+        if (!validatedModel.equals(model)) {
+            logger.warn("Requested model '{}' was invalid, using '{}' instead", model, validatedModel);
+        }
     }
 
     /**

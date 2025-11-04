@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.client.MCPClient;
+import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.model.agent.AgentExecution;
 import com.shopify.api.model.agent.AgentTool;
 import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentExecutionRepository;
 import com.shopify.api.repository.agent.AgentRepository;
+import com.shopify.api.service.ModelValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +49,7 @@ public class AgentExecutionService {
     private final WebClient.Builder webClientBuilder;
     private final ObjectMapper objectMapper;
     private final MCPClient mcpClient;
+    private final ModelValidationService modelValidationService;
 
     @Value("${anthropic.api.key:}")
     private String anthropicApiKey;
@@ -139,6 +142,13 @@ public class AgentExecutionService {
             return Mono.error(new IllegalStateException("Anthropic API key not configured"));
         }
 
+        // Validate model before using it
+        String validatedModel = modelValidationService.validateOrDefault(agent.getModelName());
+        if (!validatedModel.equals(agent.getModelName())) {
+            log.warn("Invalid model '{}' for agent '{}', using '{}' instead",
+                agent.getModelName(), agent.getName(), validatedModel);
+        }
+
         WebClient webClient = webClientBuilder
             .baseUrl("https://api.anthropic.com/v1")
             .build();
@@ -168,7 +178,7 @@ public class AgentExecutionService {
         ArrayNode tools = buildToolsArrayForAgent(agent);
 
         // Call Claude API
-        return callClaudeWithTools(webClient, agent, systemPrompt, messages, tools, 0, execution.getId());
+        return callClaudeWithTools(webClient, validatedModel, agent, systemPrompt, messages, tools, 0, execution.getId());
     }
 
     /**
@@ -176,6 +186,7 @@ public class AgentExecutionService {
      */
     private Mono<AgentExecutionResult> callClaudeWithTools(
             WebClient webClient,
+            String validatedModel,
             Agent agent,
             String systemPrompt,
             ArrayNode messages,
@@ -188,9 +199,9 @@ public class AgentExecutionService {
             return Mono.error(new RuntimeException("Max iterations reached"));
         }
 
-        // Create request body
+        // Create request body with validated model
         ObjectNode requestBody = objectMapper.createObjectNode();
-        requestBody.put("model", agent.getModelName());
+        requestBody.put("model", validatedModel);
         requestBody.put("max_tokens", agent.getMaxTokens());
         requestBody.put("temperature", agent.getTemperature().doubleValue());
         requestBody.put("system", systemPrompt);
@@ -212,7 +223,7 @@ public class AgentExecutionService {
             .retrieve()
             .bodyToMono(JsonNode.class)
             .flatMap(response -> handleClaudeResponse(
-                webClient, agent, systemPrompt, messages, tools, response, iteration, executionId));
+                webClient, validatedModel, agent, systemPrompt, messages, tools, response, iteration, executionId));
     }
 
     /**
@@ -220,6 +231,7 @@ public class AgentExecutionService {
      */
     private Mono<AgentExecutionResult> handleClaudeResponse(
             WebClient webClient,
+            String validatedModel,
             Agent agent,
             String systemPrompt,
             ArrayNode messages,
@@ -242,7 +254,7 @@ public class AgentExecutionService {
             if ("tool_use".equals(stopReason)) {
                 // Handle tool calls and continue
                 return handleToolUseAndContinue(
-                    webClient, agent, systemPrompt, messages, tools, response, iteration, executionId);
+                    webClient, validatedModel, agent, systemPrompt, messages, tools, response, iteration, executionId);
             } else {
                 // Extract final response
                 return extractFinalResult(response, inputTokens, outputTokens);
@@ -258,6 +270,7 @@ public class AgentExecutionService {
      */
     private Mono<AgentExecutionResult> handleToolUseAndContinue(
             WebClient webClient,
+            String validatedModel,
             Agent agent,
             String systemPrompt,
             ArrayNode messages,
@@ -313,7 +326,7 @@ public class AgentExecutionService {
 
             // Continue conversation
             return callClaudeWithTools(
-                webClient, agent, systemPrompt, messages, tools, iteration + 1, executionId);
+                webClient, validatedModel, agent, systemPrompt, messages, tools, iteration + 1, executionId);
         });
     }
 

@@ -1,8 +1,10 @@
 package com.shopify.api.controller;
 
+import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.ChatbotConfig;
 import com.shopify.api.service.ChatAgentService;
 import com.shopify.api.service.ChatbotConfigService;
+import com.shopify.api.service.ModelValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,15 @@ public class ConfigController {
 
     private final ChatAgentService chatAgentService;
     private final ChatbotConfigService chatbotConfigService;
+    private final ModelValidationService modelValidationService;
 
     @Autowired
-    public ConfigController(ChatAgentService chatAgentService, ChatbotConfigService chatbotConfigService) {
+    public ConfigController(ChatAgentService chatAgentService,
+                          ChatbotConfigService chatbotConfigService,
+                          ModelValidationService modelValidationService) {
         this.chatAgentService = chatAgentService;
         this.chatbotConfigService = chatbotConfigService;
+        this.modelValidationService = modelValidationService;
     }
 
     /**
@@ -65,6 +71,8 @@ public class ConfigController {
             // Update model if provided
             if (config.containsKey("model")) {
                 String model = (String) config.get("model");
+                // Validate model before applying
+                modelValidationService.validateModel(model);
                 chatAgentService.setAnthropicModel(model);
             }
 
@@ -123,21 +131,42 @@ public class ConfigController {
         logger.info("Fetching available Claude models");
 
         Map<String, Object> response = new HashMap<>();
-        response.put("models", new String[]{
-            "claude-sonnet-4-5-20250929",
-            "claude-opus-4-1-20250805",
-            "claude-haiku-4-5-20251001",
-            "claude-sonnet-4-20250514",
-            "claude-opus-4-20250514",
-            "claude-3-7-sonnet-20250219",
-            "claude-3-5-haiku-20241022",
-            "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229",
-            "claude-3-haiku-20240307"
-        });
+        // Use centralized model configuration
+        response.put("models", ModelConfig.VALID_ANTHROPIC_MODELS);
+        response.put("modelsWithDisplayNames", ModelConfig.getAllModelsWithDisplayNames());
         response.put("current", chatAgentService.getAnthropicModel());
+        response.put("default", ModelConfig.DEFAULT_MODEL);
 
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Validate a model name
+     * POST /api/config/validate-model
+     *
+     * Request body: { "model": "claude-3-7-sonnet-20250219" }
+     * Response: { "valid": true, "model": "claude-3-7-sonnet-20250219" }
+     * or { "valid": false, "error": "Invalid model..." }
+     */
+    @PostMapping("/validate-model")
+    public ResponseEntity<Map<String, Object>> validateModel(@RequestBody Map<String, String> request) {
+        String model = request.get("model");
+        logger.info("Validating model: {}", model);
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            modelValidationService.validateModel(model);
+            response.put("valid", true);
+            response.put("model", model);
+            response.put("displayName", ModelConfig.getModelDisplayName(model));
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            response.put("valid", false);
+            response.put("error", e.getMessage());
+            response.put("suggestedModel", ModelConfig.DEFAULT_MODEL);
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     /**

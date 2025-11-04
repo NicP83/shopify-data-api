@@ -31,9 +31,25 @@ function SeoAgent() {
   const [selectedTools, setSelectedTools] = useState([])
   const [selectedAgents, setSelectedAgents] = useState([])
 
+  // Valid Claude models (must match backend ModelConfig.java)
+  const VALID_MODELS = [
+    'claude-sonnet-4-5-20250929',
+    'claude-opus-4-1-20250805',
+    'claude-haiku-4-5-20251001',
+    'claude-sonnet-4-20250514',
+    'claude-opus-4-20250514',
+    'claude-3-7-sonnet-20250219',
+    'claude-3-5-haiku-20241022',
+    'claude-3-opus-20240229',
+    'claude-3-sonnet-20240229',
+    'claude-3-haiku-20240307'
+  ]
+
+  const DEFAULT_MODEL = 'claude-3-7-sonnet-20250219'
+
   // Settings State - LLM Configuration
   const [llmConfig, setLlmConfig] = useState({
-    model: 'claude-3-7-sonnet-20250219',
+    model: DEFAULT_MODEL,
     temperature: 0.7,
     maxTokens: 4096,
     topP: 1.0,
@@ -99,6 +115,11 @@ Engage with the user professionally and help them improve their SEO strategy.`
     }
   }
 
+  // Validate model is in the list of valid models
+  const isValidModel = (model) => {
+    return VALID_MODELS.includes(model)
+  }
+
   // Load saved configuration from localStorage
   const loadSavedConfig = () => {
     try {
@@ -107,7 +128,24 @@ Engage with the user professionally and help them improve their SEO strategy.`
         const config = JSON.parse(saved)
         if (config.selectedTools) setSelectedTools(config.selectedTools)
         if (config.selectedAgents) setSelectedAgents(config.selectedAgents)
-        if (config.llmConfig) setLlmConfig(config.llmConfig)
+
+        // Validate and fix model if needed
+        if (config.llmConfig) {
+          const savedModel = config.llmConfig.model
+          if (!isValidModel(savedModel)) {
+            console.warn(`Invalid model '${savedModel}' in saved config, resetting to default: ${DEFAULT_MODEL}`)
+            setLlmConfig({
+              ...config.llmConfig,
+              model: DEFAULT_MODEL
+            })
+            // Show warning to user
+            setError(`Your saved model '${savedModel}' is no longer valid. Reset to ${DEFAULT_MODEL}`)
+            setTimeout(() => setError(null), 5000)
+          } else {
+            setLlmConfig(config.llmConfig)
+          }
+        }
+
         if (config.orchestrationPrompt) setOrchestrationPrompt(config.orchestrationPrompt)
       }
     } catch (err) {

@@ -28,15 +28,16 @@ function AgentEditor() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
 
+  // Valid Claude models (must match backend ModelConfig.java)
   const modelOptions = {
     ANTHROPIC: [
-      'claude-sonnet-4-5-20250929',
-      'claude-opus-4-1-20250805',
-      'claude-haiku-4-5-20251001',
+      'claude-sonnet-4-5-20250929',      // Latest Sonnet
+      'claude-opus-4-1-20250805',        // Latest Opus
+      'claude-haiku-4-5-20251001',       // Latest Haiku
       'claude-sonnet-4-20250514',
       'claude-opus-4-20250514',
-      'claude-3-7-sonnet-20250219',
-      'claude-3-5-haiku-20241022',
+      'claude-3-7-sonnet-20250219',      // Default
+      'claude-3-5-haiku-20241022',       // Note: HAIKU not Sonnet!
       'claude-3-opus-20240229',
       'claude-3-sonnet-20240229',
       'claude-3-haiku-20240307'
@@ -73,7 +74,15 @@ function AgentEditor() {
     try {
       setLoading(true)
       const response = await api.getAgent(id)
-      setAgent(response.data)
+      const loadedAgent = response.data
+
+      // Validate model is in the list
+      if (loadedAgent.modelName && !modelOptions[loadedAgent.modelProvider].includes(loadedAgent.modelName)) {
+        console.warn(`Agent has invalid model '${loadedAgent.modelName}', will use default on save`)
+        setError(`Warning: Agent has invalid model '${loadedAgent.modelName}'. It will be updated to a valid model when you save.`)
+      }
+
+      setAgent(loadedAgent)
 
       // Extract tool IDs from agentTools relationship
       if (response.data.agentTools) {

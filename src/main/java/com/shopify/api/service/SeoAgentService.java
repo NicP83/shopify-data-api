@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -554,6 +555,7 @@ public class SeoAgentService {
     /**
      * Build system prompt from request configuration
      */
+    @Transactional(readOnly = true)
     private String buildSystemPrompt(SeoAgentRequest request) {
         StringBuilder prompt = new StringBuilder();
 
@@ -661,6 +663,7 @@ public class SeoAgentService {
     /**
      * Build tools array from selected tool IDs
      */
+    @Transactional(readOnly = true)
     private ArrayNode buildToolsArray(List<Long> selectedToolIds) {
         ArrayNode tools = objectMapper.createArrayNode();
 
@@ -683,6 +686,7 @@ public class SeoAgentService {
      * Build agent invocation tools from selected agent IDs
      * Creates tool definitions that allow Claude to invoke other agents
      */
+    @Transactional(readOnly = true)
     private ArrayNode buildAgentInvocationTools(List<Long> selectedAgentIds) {
         ArrayNode tools = objectMapper.createArrayNode();
 

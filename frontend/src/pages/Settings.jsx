@@ -183,23 +183,30 @@ function Settings() {
 
     const userMessage = { role: 'user', content: testMessage }
     setTestMessages(prev => [...prev, userMessage])
+    const currentMessage = testMessage
     setTestMessage('')
     setTestLoading(true)
 
     try {
+      // Build conversation history from testMessages (excluding the one we just added)
+      const conversationHistory = testMessages.map(msg => ({
+        role: msg.role === 'error' ? 'assistant' : msg.role,
+        content: msg.content
+      }))
+
       const response = await fetch('/api/chat/message', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: testMessage,
-          shop: 'hearnshobbies.myshopify.com'
+          message: currentMessage,
+          conversationHistory: conversationHistory
         })
       })
 
       const data = await response.json()
 
       if (data.success) {
-        const assistantMessage = { role: 'assistant', content: data.data.response }
+        const assistantMessage = { role: 'assistant', content: data.data.content || data.data.response }
         setTestMessages(prev => [...prev, assistantMessage])
       } else {
         const errorMessage = { role: 'error', content: data.message || 'Failed to get response' }

@@ -19,6 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
                         "https://hearnshobbies.com",
                         "https://www.hearnshobbies.com",
                         "https://*.myshopify.com",
+                        "https://*.up.railway.app",  // Railway production
                         "http://localhost:5173",  // Development - frontend
                         "http://localhost:8080"   // Development - backend
                 )

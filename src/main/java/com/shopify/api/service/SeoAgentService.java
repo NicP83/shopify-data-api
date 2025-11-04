@@ -565,7 +565,7 @@ public class SeoAgentService {
             // Build tool list for placeholder replacement
             StringBuilder toolList = new StringBuilder();
             if (request.getConfig().getSelectedTools() != null && !request.getConfig().getSelectedTools().isEmpty()) {
-                List<Tool> selectedTools = toolRepository.findAllById(request.getConfig().getSelectedTools());
+                List<Tool> selectedTools = toolRepository.findAllByIdWithTools(request.getConfig().getSelectedTools());
                 for (Tool tool : selectedTools) {
                     toolList.append("- ").append(tool.getName()).append(": ").append(tool.getDescription()).append("\n");
                 }
@@ -609,7 +609,7 @@ public class SeoAgentService {
                 prompt.append("\n\n=== AVAILABLE TOOLS ===\n");
                 prompt.append("You have access to the following tools. Use them when appropriate:\n");
 
-                List<Tool> selectedTools = toolRepository.findAllById(request.getConfig().getSelectedTools());
+                List<Tool> selectedTools = toolRepository.findAllByIdWithTools(request.getConfig().getSelectedTools());
                 for (Tool tool : selectedTools) {
                     prompt.append("- ").append(tool.getName()).append(": ").append(tool.getDescription()).append("\n");
                 }
@@ -664,7 +664,7 @@ public class SeoAgentService {
     private ArrayNode buildToolsArray(List<Long> selectedToolIds) {
         ArrayNode tools = objectMapper.createArrayNode();
 
-        List<Tool> selectedTools = toolRepository.findAllById(selectedToolIds);
+        List<Tool> selectedTools = toolRepository.findAllByIdWithTools(selectedToolIds);
 
         for (Tool tool : selectedTools) {
             if (tool.getIsActive()) {

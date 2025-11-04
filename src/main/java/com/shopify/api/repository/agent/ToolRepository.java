@@ -2,6 +2,7 @@ package com.shopify.api.repository.agent;
 
 import com.shopify.api.model.agent.Tool;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,4 +43,15 @@ public interface ToolRepository extends JpaRepository<Tool, Long> {
      * Check if a tool exists by name
      */
     boolean existsByName(String name);
+
+    /**
+     * Find multiple tools by IDs with eagerly fetched agentTools
+     * This prevents lazy loading exceptions when accessing agentTools outside of a transaction
+     *
+     * Note: Using LEFT JOIN FETCH to handle tools that may not have agent relationships
+     */
+    @Query("SELECT DISTINCT t FROM Tool t " +
+           "LEFT JOIN FETCH t.agentTools " +
+           "WHERE t.id IN :ids")
+    List<Tool> findAllByIdWithTools(List<Long> ids);
 }

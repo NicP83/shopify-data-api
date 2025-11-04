@@ -42,6 +42,7 @@ function Navigation() {
     { path: '/fulfillment', label: 'Orders to Fulfill', icon: '📦' },
     { path: '/agents', label: 'Agents', icon: '🤖' },
     { path: '/seo-agent', label: 'SEO Agent', icon: '🎯' },
+    { path: '/admin', label: 'Admin', icon: '🎛️' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
     { path: '/analytics', label: 'Analytics', icon: '📊' },
     { path: '/market-intel', label: 'Market Intel', icon: '💰' },
@@ -69,6 +70,9 @@ function Navigation() {
     }
     if (path === '/seo-agent') {
       return location.pathname.startsWith('/seo-agent')
+    }
+    if (path === '/admin') {
+      return location.pathname.startsWith('/admin')
     }
     return location.pathname === path
   }

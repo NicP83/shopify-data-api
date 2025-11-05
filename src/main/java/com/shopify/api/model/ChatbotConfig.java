@@ -1,5 +1,7 @@
 package com.shopify.api.model;
 
+import java.util.List;
+
 /**
  * Configuration model for chatbot behavior and settings.
  * Supports full customization of store identity, conversation scope, and response style.
@@ -35,8 +37,7 @@ public class ChatbotConfig {
     private Integer maxTokens;       // 256 to 8192 (null = use default)
 
     // ===== Agent Integration =====
-    private Long linkedAgentId;      // Optional: Link to Agent from agents table
-    private Boolean useAgentPrompt;  // If true, use agent's systemPrompt as base
+    private List<Long> linkedAgentIds;  // Optional: Link to multiple Agents for delegation
 
     // ===== Constructors =====
 
@@ -174,20 +175,12 @@ public class ChatbotConfig {
         this.maxTokens = maxTokens;
     }
 
-    public Long getLinkedAgentId() {
-        return linkedAgentId;
+    public List<Long> getLinkedAgentIds() {
+        return linkedAgentIds;
     }
 
-    public void setLinkedAgentId(Long linkedAgentId) {
-        this.linkedAgentId = linkedAgentId;
-    }
-
-    public Boolean getUseAgentPrompt() {
-        return useAgentPrompt;
-    }
-
-    public void setUseAgentPrompt(Boolean useAgentPrompt) {
-        this.useAgentPrompt = useAgentPrompt;
+    public void setLinkedAgentIds(List<Long> linkedAgentIds) {
+        this.linkedAgentIds = linkedAgentIds;
     }
 
     // ===== Builder Pattern (Optional but helpful) =====
@@ -279,13 +272,8 @@ public class ChatbotConfig {
             return this;
         }
 
-        public Builder linkedAgentId(Long linkedAgentId) {
-            config.linkedAgentId = linkedAgentId;
-            return this;
-        }
-
-        public Builder useAgentPrompt(Boolean useAgentPrompt) {
-            config.useAgentPrompt = useAgentPrompt;
+        public Builder linkedAgentIds(List<Long> linkedAgentIds) {
+            config.linkedAgentIds = linkedAgentIds;
             return this;
         }
 
@@ -313,8 +301,7 @@ public class ChatbotConfig {
                 ", modelName='" + modelName + '\'' +
                 ", temperature=" + temperature +
                 ", maxTokens=" + maxTokens +
-                ", linkedAgentId=" + linkedAgentId +
-                ", useAgentPrompt=" + useAgentPrompt +
+                ", linkedAgentIds=" + linkedAgentIds +
                 '}';
     }
 }

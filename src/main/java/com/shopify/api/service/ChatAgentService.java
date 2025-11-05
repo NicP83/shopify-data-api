@@ -8,6 +8,7 @@ import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.repository.agent.AgentRepository;
+import com.shopify.api.service.agent.AgentExecutionService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -58,6 +59,7 @@ public class ChatAgentService {
     private final SystemPromptService systemPromptService;
     private final ModelValidationService modelValidationService;
     private final AgentRepository agentRepository;
+    private final AgentExecutionService agentExecutionService;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
@@ -73,6 +75,7 @@ public class ChatAgentService {
                            SystemPromptService systemPromptService,
                            ModelValidationService modelValidationService,
                            AgentRepository agentRepository,
+                           AgentExecutionService agentExecutionService,
                            ResourceLoader resourceLoader,
                            @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
@@ -83,6 +86,7 @@ public class ChatAgentService {
         this.systemPromptService = systemPromptService;
         this.modelValidationService = modelValidationService;
         this.agentRepository = agentRepository;
+        this.agentExecutionService = agentExecutionService;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -325,6 +329,54 @@ public class ChatAgentService {
                             logger.error("Returning error to Claude: {}", errorMsg);
                             return Mono.just(errorMsg);
                         });
+            } else if ("delegate_to_agent".equals(toolName)) {
+                // Handle agent delegation
+                String agentName = input.get("agent_name").asText();
+                String task = input.get("task").asText();
+
+                logger.info("=== EXECUTING TOOL: delegate_to_agent ===");
+                logger.info("Agent: '{}', Task: '{}'", agentName, task);
+
+                // Find agent by name
+                return Mono.fromCallable(() -> agentRepository.findByName(agentName))
+                        .flatMap(agentOpt -> {
+                            if (agentOpt.isEmpty()) {
+                                logger.warn("Agent not found: {}", agentName);
+                                return Mono.just("{\"error\": \"Agent '" + agentName + "' not found\"}");
+                            }
+
+                            Agent agent = agentOpt.get();
+                            logger.info("Delegating to agent ID: {}, Name: {}", agent.getId(), agent.getName());
+
+                            // Build input JSON for agent
+                            ObjectNode agentInput = objectMapper.createObjectNode();
+                            agentInput.put("task", task);
+
+                            // Execute agent and format result
+                            return agentExecutionService.executeAgent(agent.getId(), agentInput)
+                                    .map(result -> {
+                                        try {
+                                            // Extract text from agent result
+                                            JsonNode output = result.getOutput();
+                                            String responseText = output.has("text") ? output.get("text").asText() : output.toString();
+
+                                            // Build formatted response
+                                            ObjectNode response = objectMapper.createObjectNode();
+                                            response.put("agent", agentName);
+                                            response.put("response", responseText);
+                                            response.put("tokens_used", result.getInputTokens() + result.getOutputTokens());
+
+                                            return response.toString();
+                                        } catch (Exception e) {
+                                            logger.error("Error formatting agent result: {}", e.getMessage(), e);
+                                            return "{\"error\": \"Failed to format agent response: " + e.getMessage() + "\"}";
+                                        }
+                                    })
+                                    .onErrorResume(e -> {
+                                        logger.error("Error executing agent {}: {}", agentName, e.getMessage(), e);
+                                        return Mono.just("{\"error\": \"Agent execution failed: " + e.getMessage() + "\"}");
+                                    });
+                        });
             }
 
             logger.warn("Unknown tool requested: {}", toolName);
@@ -342,30 +394,64 @@ public class ChatAgentService {
     private ArrayNode buildToolsArray(ChatbotConfig config) {
         ArrayNode tools = objectMapper.createArrayNode();
 
-        // Define search_products tool
-        ObjectNode searchTool = objectMapper.createObjectNode();
-        searchTool.put("name", "search_products");
-        searchTool.put("description", "Search the product catalog to find items matching a query. " +
-                "Use this to find specific products, check availability, get prices, or browse categories. " +
-                "Returns product details including title, description, price, SKU, variants, and image URL.");
+        // Add search_products tool if enabled
+        if (config.isEnableProductSearch()) {
+            ObjectNode searchTool = objectMapper.createObjectNode();
+            searchTool.put("name", "search_products");
+            searchTool.put("description", "Search the product catalog to find items matching a query. " +
+                    "Use this to find specific products, check availability, get prices, or browse categories. " +
+                    "Returns product details including title, description, price, SKU, variants, and image URL.");
 
-        // Define input schema
-        ObjectNode inputSchema = objectMapper.createObjectNode();
-        inputSchema.put("type", "object");
+            ObjectNode inputSchema = objectMapper.createObjectNode();
+            inputSchema.put("type", "object");
 
-        ObjectNode properties = objectMapper.createObjectNode();
-        ObjectNode queryProperty = objectMapper.createObjectNode();
-        queryProperty.put("type", "string");
-        queryProperty.put("description", "Search query to find products (searches title, description, tags, vendor)");
-        properties.set("query", queryProperty);
+            ObjectNode properties = objectMapper.createObjectNode();
+            ObjectNode queryProperty = objectMapper.createObjectNode();
+            queryProperty.put("type", "string");
+            queryProperty.put("description", "Search query to find products (searches title, description, tags, vendor)");
+            properties.set("query", queryProperty);
 
-        inputSchema.set("properties", properties);
-        ArrayNode required = objectMapper.createArrayNode();
-        required.add("query");
-        inputSchema.set("required", required);
+            inputSchema.set("properties", properties);
+            ArrayNode required = objectMapper.createArrayNode();
+            required.add("query");
+            inputSchema.set("required", required);
 
-        searchTool.set("input_schema", inputSchema);
-        tools.add(searchTool);
+            searchTool.set("input_schema", inputSchema);
+            tools.add(searchTool);
+        }
+
+        // Add delegate_to_agent tool if agents are linked
+        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
+            ObjectNode delegateTool = objectMapper.createObjectNode();
+            delegateTool.put("name", "delegate_to_agent");
+            delegateTool.put("description", "Delegate a task to a specialist agent. " +
+                    "Use this when you need expert knowledge or specialized capabilities. " +
+                    "The agent will process the task and return results.");
+
+            ObjectNode delegateSchema = objectMapper.createObjectNode();
+            delegateSchema.put("type", "object");
+
+            ObjectNode delegateProps = objectMapper.createObjectNode();
+
+            ObjectNode agentNameProp = objectMapper.createObjectNode();
+            agentNameProp.put("type", "string");
+            agentNameProp.put("description", "Name of the specialist agent to delegate to");
+            delegateProps.set("agent_name", agentNameProp);
+
+            ObjectNode taskProp = objectMapper.createObjectNode();
+            taskProp.put("type", "string");
+            taskProp.put("description", "The task or question to send to the specialist agent");
+            delegateProps.set("task", taskProp);
+
+            delegateSchema.set("properties", delegateProps);
+            ArrayNode delegateRequired = objectMapper.createArrayNode();
+            delegateRequired.add("agent_name");
+            delegateRequired.add("task");
+            delegateSchema.set("required", delegateRequired);
+
+            delegateTool.set("input_schema", delegateSchema);
+            tools.add(delegateTool);
+        }
 
         return tools;
     }
@@ -417,37 +503,10 @@ public class ChatAgentService {
 
     /**
      * Build system prompt from ChatbotConfig
-     * Supports agent prompt inheritance if configured
+     * Includes list of available specialist agents if configured
      */
     private String buildSystemPromptFromConfig() {
         ChatbotConfig config = chatbotConfigService.getConfig();
-
-        // Check if we should use agent prompt as base
-        if (Boolean.TRUE.equals(config.getUseAgentPrompt()) && config.getLinkedAgentId() != null) {
-            try {
-                Optional<Agent> agentOpt = agentRepository.findById(config.getLinkedAgentId());
-                if (agentOpt.isPresent()) {
-                    Agent agent = agentOpt.get();
-                    logger.info("Using agent prompt as base: {} (ID: {})", agent.getName(), agent.getId());
-
-                    // Start with agent's system prompt
-                    StringBuilder prompt = new StringBuilder(agent.getSystemPrompt());
-
-                    // Append custom instructions if provided
-                    if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
-                        prompt.append("\n\n=== ADDITIONAL CHATBOT INSTRUCTIONS ===\n");
-                        prompt.append(config.getCustomInstructions());
-                    }
-
-                    return prompt.toString();
-                }
-            } catch (Exception e) {
-                logger.warn("Failed to load agent prompt (ID: {}), falling back to config-based prompt: {}",
-                    config.getLinkedAgentId(), e.getMessage());
-            }
-        }
-
-        // Fall back to building prompt from ChatbotConfig fields
         StringBuilder prompt = new StringBuilder();
 
         // Identity
@@ -459,6 +518,29 @@ public class ChatAgentService {
 
         // Store URL
         prompt.append("Store URL: https://").append(shopUrl).append("\n\n");
+
+        // Specialist Agents (if any are linked)
+        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
+            prompt.append("=== SPECIALIST AGENTS AVAILABLE ===\n");
+            prompt.append("You have access to the following specialist agents via the delegate_to_agent tool:\n\n");
+
+            for (Long agentId : config.getLinkedAgentIds()) {
+                try {
+                    Optional<Agent> agentOpt = agentRepository.findById(agentId);
+                    if (agentOpt.isPresent()) {
+                        Agent agent = agentOpt.get();
+                        prompt.append("- ").append(agent.getName());
+                        if (agent.getDescription() != null && !agent.getDescription().isEmpty()) {
+                            prompt.append(": ").append(agent.getDescription());
+                        }
+                        prompt.append("\n");
+                    }
+                } catch (Exception e) {
+                    logger.warn("Failed to load agent ID {}: {}", agentId, e.getMessage());
+                }
+            }
+            prompt.append("\n");
+        }
 
         // Tools FIRST - Make it crystal clear how to use them
         if (config.isEnableProductSearch()) {
@@ -523,13 +605,24 @@ public class ChatAgentService {
         }
         prompt.append("\n");
 
-        // Custom instructions
+        // Custom instructions (including agent routing logic)
         if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
             prompt.append("=== ADDITIONAL INSTRUCTIONS ===\n");
             prompt.append(config.getCustomInstructions()).append("\n\n");
         }
 
-        prompt.append("Remember: USE search_products for ANY product-related question!");
+        // Final reminder
+        StringBuilder reminder = new StringBuilder("Remember: ");
+        if (config.isEnableProductSearch()) {
+            reminder.append("USE search_products for product-related questions");
+        }
+        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
+            if (config.isEnableProductSearch()) {
+                reminder.append(", and ");
+            }
+            reminder.append("delegate to specialist agents when their expertise is needed");
+        }
+        prompt.append(reminder).append("!");
 
         return prompt.toString();
     }

@@ -34,8 +34,7 @@ function Settings() {
     temperature: null,
     maxTokens: null,
     // Agent Integration
-    linkedAgentId: null,
-    useAgentPrompt: false
+    linkedAgentIds: []
   })
   const [originalChatbotConfig, setOriginalChatbotConfig] = useState(null)
   const [generatedPrompt, setGeneratedPrompt] = useState('')
@@ -622,54 +621,71 @@ function Settings() {
 
           {/* Agent Integration */}
           <div className="card">
-            <h2 className="text-xl font-semibold mb-6">Agent Integration</h2>
+            <h2 className="text-xl font-semibold mb-6">Specialist Agents (Agent Delegation)</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Link to Agent (Optional)
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Select Specialist Agents (Optional)
                 </label>
-                <select
-                  value={chatbotConfig.linkedAgentId || ''}
-                  onChange={(e) => setChatbotConfig({
-                    ...chatbotConfig,
-                    linkedAgentId: e.target.value ? parseInt(e.target.value) : null
-                  })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-                >
-                  <option value="">No agent linked (standalone mode)</option>
-                  {availableAgents.map((agent) => (
-                    <option key={agent.id} value={agent.id}>
-                      {agent.name} - {agent.modelProvider} / {agent.modelName}
-                    </option>
-                  ))}
-                </select>
-                <p className="mt-1 text-sm text-gray-500">
-                  Link to an existing agent to inherit its configuration
+                <div className="space-y-2 max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-3">
+                  {availableAgents.length === 0 ? (
+                    <p className="text-sm text-gray-500 italic">No agents available</p>
+                  ) : (
+                    availableAgents.map((agent) => (
+                      <div key={agent.id} className="flex items-start">
+                        <input
+                          type="checkbox"
+                          id={`agent-${agent.id}`}
+                          checked={chatbotConfig.linkedAgentIds?.includes(agent.id) || false}
+                          onChange={(e) => {
+                            const currentIds = chatbotConfig.linkedAgentIds || [];
+                            const newIds = e.target.checked
+                              ? [...currentIds, agent.id]
+                              : currentIds.filter(id => id !== agent.id);
+                            setChatbotConfig({ ...chatbotConfig, linkedAgentIds: newIds });
+                          }}
+                          className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mt-1"
+                        />
+                        <label htmlFor={`agent-${agent.id}`} className="ml-2 block text-sm text-gray-700">
+                          <span className="font-medium">{agent.name}</span>
+                          {agent.description && (
+                            <span className="text-gray-500"> - {agent.description}</span>
+                          )}
+                          <br />
+                          <span className="text-xs text-gray-400">
+                            {agent.modelProvider} / {agent.modelName}
+                          </span>
+                        </label>
+                      </div>
+                    ))
+                  )}
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Select specialist agents that the chatbot can delegate tasks to
                 </p>
               </div>
 
-              {chatbotConfig.linkedAgentId && (
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="useAgentPrompt"
-                    checked={chatbotConfig.useAgentPrompt}
-                    onChange={(e) => setChatbotConfig({ ...chatbotConfig, useAgentPrompt: e.target.checked })}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="useAgentPrompt" className="ml-2 block text-sm text-gray-700">
-                    Use agent's system prompt as base (append custom instructions if provided)
-                  </label>
-                </div>
-              )}
+              {chatbotConfig.linkedAgentIds && chatbotConfig.linkedAgentIds.length > 0 && (
+                <>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p className="text-sm text-blue-800">
+                      <strong>Delegation Pattern:</strong> The chatbot will have access to a <code>delegate_to_agent</code> tool.
+                      Use the <strong>Custom Instructions</strong> section below to define routing logic.
+                    </p>
+                  </div>
 
-              {chatbotConfig.linkedAgentId && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="text-sm text-blue-800">
-                    <strong>Agent Mode:</strong> When linked, chatbot can inherit AI settings and prompt from the agent.
-                    Chatbot-specific settings below will override agent defaults.
-                  </p>
-                </div>
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p className="text-sm text-yellow-800 font-medium mb-2">Example Routing Instructions:</p>
+                    <pre className="text-xs text-yellow-900 whitespace-pre-wrap font-mono bg-yellow-100 p-2 rounded">
+{`When users ask about:
+- Hobby paints, thinners, or finishing: delegate to paint_expert
+- RC cars, batteries, or radio systems: delegate to rc_expert
+- Orders, shipping, or returns: delegate to customer_service
+
+Only delegate when specialist knowledge is needed. Handle general product questions yourself using search_products.`}
+                    </pre>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -680,8 +696,7 @@ function Settings() {
             <div className="space-y-6">
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <p className="text-sm text-yellow-800">
-                  <strong>Optional:</strong> Override default AI settings for this chatbot. Leave blank to use system defaults
-                  {chatbotConfig.linkedAgentId && ' or agent settings'}.
+                  <strong>Optional:</strong> Override default AI settings for this chatbot. Leave blank to use system defaults.
                 </p>
               </div>
 

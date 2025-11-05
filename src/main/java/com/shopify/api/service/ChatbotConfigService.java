@@ -1,8 +1,15 @@
 package com.shopify.api.service;
 
 import com.shopify.api.model.ChatbotConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for managing chatbot configuration.
@@ -10,6 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ChatbotConfigService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatbotConfigService.class);
 
     // Store Identity
     @Value("${chatbot.store.name}")
@@ -65,12 +74,9 @@ public class ChatbotConfigService {
     @Value("${chatbot.ai.max-tokens:#{null}}")
     private Integer maxTokens;
 
-    // Agent Integration (optional)
-    @Value("${chatbot.agent.linked-id:#{null}}")
-    private Long linkedAgentId;
-
-    @Value("${chatbot.agent.use-prompt:#{null}}")
-    private Boolean useAgentPrompt;
+    // Agent Integration (optional) - comma-separated list of agent IDs
+    @Value("${chatbot.agent.linked-ids:#{null}}")
+    private String linkedAgentIdsConfig;
 
     /**
      * Get current chatbot configuration
@@ -93,8 +99,7 @@ public class ChatbotConfigService {
                 .modelName(modelName)
                 .temperature(temperature)
                 .maxTokens(maxTokens)
-                .linkedAgentId(linkedAgentId)
-                .useAgentPrompt(useAgentPrompt)
+                .linkedAgentIds(parseLinkedAgentIds(linkedAgentIdsConfig))
                 .build();
     }
 
@@ -140,11 +145,29 @@ public class ChatbotConfigService {
             this.maxTokens = config.getMaxTokens();
         }
         // Update agent integration settings
-        if (config.getLinkedAgentId() != null) {
-            this.linkedAgentId = config.getLinkedAgentId();
+        if (config.getLinkedAgentIds() != null) {
+            this.linkedAgentIdsConfig = config.getLinkedAgentIds().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
         }
-        if (config.getUseAgentPrompt() != null) {
-            this.useAgentPrompt = config.getUseAgentPrompt();
+    }
+
+    /**
+     * Parse linked agent IDs from comma-separated string
+     */
+    private List<Long> parseLinkedAgentIds(String config) {
+        if (config == null || config.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+        try {
+            return Arrays.stream(config.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid linked agent IDs config: {}", config);
+            return Collections.emptyList();
         }
     }
 
@@ -223,11 +246,7 @@ public class ChatbotConfigService {
         return maxTokens;
     }
 
-    public Long getLinkedAgentId() {
-        return linkedAgentId;
-    }
-
-    public Boolean getUseAgentPrompt() {
-        return useAgentPrompt;
+    public List<Long> getLinkedAgentIds() {
+        return parseLinkedAgentIds(linkedAgentIdsConfig);
     }
 }

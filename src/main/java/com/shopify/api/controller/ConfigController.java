@@ -187,7 +187,7 @@ public class ConfigController {
     }
 
     /**
-     * Update chatbot configuration (runtime only, not persisted)
+     * Update chatbot configuration (persisted to database)
      * PUT /api/config/chatbot
      */
     @PutMapping("/chatbot")
@@ -195,12 +195,14 @@ public class ConfigController {
         logger.info("Updating chatbot configuration");
 
         try {
-            chatbotConfigService.updateConfig(config);
+            // Persist config to database
+            ChatbotConfig savedConfig = chatbotConfigService.updateConfig(config);
 
             Map<String, Object> response = new HashMap<>();
-            response.put("config", chatbotConfigService.getConfig());
-            response.put("message", "Chatbot configuration updated successfully (runtime only)");
+            response.put("config", savedConfig);
+            response.put("message", "Chatbot configuration updated and persisted to database");
 
+            logger.info("Chatbot configuration successfully saved to database");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             logger.error("Error updating chatbot configuration: {}", e.getMessage());

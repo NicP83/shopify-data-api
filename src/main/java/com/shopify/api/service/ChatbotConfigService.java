@@ -1,6 +1,8 @@
 package com.shopify.api.service;
 
 import com.shopify.api.model.ChatbotConfig;
+import com.shopify.api.model.ChatbotConfigEntity;
+import com.shopify.api.repository.ChatbotConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,16 +11,20 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Service for managing chatbot configuration.
- * Loads configuration from application.yml and provides runtime updates.
+ * Loads configuration from database first, falls back to application.yml defaults.
+ * All changes are persisted to the database.
  */
 @Service
 public class ChatbotConfigService {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatbotConfigService.class);
+
+    private final ChatbotConfigRepository configRepository;
 
     // Store Identity
     @Value("${chatbot.store.name}")
@@ -78,10 +84,47 @@ public class ChatbotConfigService {
     @Value("${chatbot.agent.linked-ids:#{null}}")
     private String linkedAgentIdsConfig;
 
+    public ChatbotConfigService(ChatbotConfigRepository configRepository) {
+        this.configRepository = configRepository;
+    }
+
     /**
      * Get current chatbot configuration
+     * Loads from database first, falls back to @Value defaults
      */
     public ChatbotConfig getConfig() {
+        return getConfig(null); // Use global config by default
+    }
+
+    /**
+     * Get chatbot configuration for a specific shop
+     * @param shopId Shop ID (null for global config)
+     */
+    public ChatbotConfig getConfig(Long shopId) {
+        // Try to load from database
+        Optional<ChatbotConfigEntity> configEntity;
+
+        if (shopId != null) {
+            configEntity = configRepository.findByShopId(shopId);
+        } else {
+            configEntity = configRepository.findGlobalConfig();
+        }
+
+        // If found in database, return it
+        if (configEntity.isPresent()) {
+            logger.debug("Loaded config from database for shop: {}", shopId);
+            return configEntity.get().toConfig();
+        }
+
+        // Otherwise, return defaults from application.yml
+        logger.debug("Using default config from application.yml for shop: {}", shopId);
+        return getDefaultConfig();
+    }
+
+    /**
+     * Get default configuration from application.yml properties
+     */
+    private ChatbotConfig getDefaultConfig() {
         return ChatbotConfig.builder()
                 .storeName(storeName)
                 .storeDescription(storeDescription)
@@ -104,51 +147,98 @@ public class ChatbotConfigService {
     }
 
     /**
-     * Update chatbot configuration (runtime only)
+     * Update chatbot configuration and persist to database
+     * @param config The updated configuration
      */
-    public void updateConfig(ChatbotConfig config) {
+    public ChatbotConfig updateConfig(ChatbotConfig config) {
+        return updateConfig(config, null, "system");
+    }
+
+    /**
+     * Update chatbot configuration and persist to database
+     * @param config The updated configuration
+     * @param shopId Shop ID (null for global config)
+     * @param updatedBy Username of who made the update
+     */
+    public ChatbotConfig updateConfig(ChatbotConfig config, Long shopId, String updatedBy) {
+        logger.info("Updating chatbot config for shop: {}", shopId);
+
+        // Load existing config or create new one
+        Optional<ChatbotConfigEntity> existingEntity;
+
+        if (shopId != null) {
+            existingEntity = configRepository.findByShopId(shopId);
+        } else {
+            existingEntity = configRepository.findGlobalConfig();
+        }
+
+        ChatbotConfigEntity entity;
+
+        if (existingEntity.isPresent()) {
+            // Update existing entity
+            entity = existingEntity.get();
+            updateEntityFromConfig(entity, config);
+            entity.setUpdatedBy(updatedBy);
+        } else {
+            // Create new entity
+            entity = ChatbotConfigEntity.fromConfig(config);
+            entity.setCreatedBy(updatedBy);
+            entity.setUpdatedBy(updatedBy);
+            // Note: shop relationship would need to be set if shopId is provided
+            // For now, we'll handle global configs only
+        }
+
+        // Save to database
+        ChatbotConfigEntity savedEntity = configRepository.save(entity);
+        logger.info("Config saved to database with ID: {}", savedEntity.getId());
+
+        return savedEntity.toConfig();
+    }
+
+    /**
+     * Update entity fields from config DTO
+     */
+    private void updateEntityFromConfig(ChatbotConfigEntity entity, ChatbotConfig config) {
         if (config.getStoreName() != null) {
-            this.storeName = config.getStoreName();
+            entity.setStoreName(config.getStoreName());
         }
         if (config.getStoreDescription() != null) {
-            this.storeDescription = config.getStoreDescription();
+            entity.setStoreDescription(config.getStoreDescription());
         }
         if (config.getStoreCategories() != null) {
-            this.storeCategories = config.getStoreCategories();
+            entity.setStoreCategories(config.getStoreCategories());
         }
         if (config.getScopeInstructions() != null) {
-            this.scopeInstructions = config.getScopeInstructions();
+            entity.setScopeInstructions(config.getScopeInstructions());
         }
         if (config.getOutOfScopeResponse() != null) {
-            this.outOfScopeResponse = config.getOutOfScopeResponse();
+            entity.setOutOfScopeResponse(config.getOutOfScopeResponse());
         }
-        this.requireSearch = config.isRequireSearchBeforeRecommendation();
-        this.enableProductSearch = config.isEnableProductSearch();
-        this.maxSearchResults = config.getMaxSearchResults();
+        entity.setRequireSearchBeforeRecommendation(config.isRequireSearchBeforeRecommendation());
+        entity.setEnableProductSearch(config.isEnableProductSearch());
+        entity.setMaxSearchResults(config.getMaxSearchResults());
         if (config.getToneOfVoice() != null) {
-            this.tone = config.getToneOfVoice();
+            entity.setToneOfVoice(config.getToneOfVoice());
         }
-        this.includeCartLinks = config.isIncludeCartLinks();
-        this.showPrices = config.isShowPrices();
-        this.showSkus = config.isShowSkus();
+        entity.setIncludeCartLinks(config.isIncludeCartLinks());
+        entity.setShowPrices(config.isShowPrices());
+        entity.setShowSkus(config.isShowSkus());
         if (config.getCustomInstructions() != null) {
-            this.customInstructions = config.getCustomInstructions();
+            entity.setCustomInstructions(config.getCustomInstructions());
         }
         // Update AI model settings
         if (config.getModelName() != null) {
-            this.modelName = config.getModelName();
+            entity.setModelName(config.getModelName());
         }
         if (config.getTemperature() != null) {
-            this.temperature = config.getTemperature();
+            entity.setTemperature(java.math.BigDecimal.valueOf(config.getTemperature()));
         }
         if (config.getMaxTokens() != null) {
-            this.maxTokens = config.getMaxTokens();
+            entity.setMaxTokens(config.getMaxTokens());
         }
         // Update agent integration settings
         if (config.getLinkedAgentIds() != null) {
-            this.linkedAgentIdsConfig = config.getLinkedAgentIds().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(","));
+            entity.setLinkedAgentIds(config.getLinkedAgentIds());
         }
     }
 

@@ -6,6 +6,8 @@ import com.shopify.api.model.ChatRequest;
 import com.shopify.api.model.ChatbotConfig;
 import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
+import com.shopify.api.model.agent.Agent;
+import com.shopify.api.repository.agent.AgentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -55,6 +57,7 @@ public class ChatAgentService {
     private final ChatbotConfigService chatbotConfigService;
     private final SystemPromptService systemPromptService;
     private final ModelValidationService modelValidationService;
+    private final AgentRepository agentRepository;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
@@ -69,6 +72,7 @@ public class ChatAgentService {
                            ChatbotConfigService chatbotConfigService,
                            SystemPromptService systemPromptService,
                            ModelValidationService modelValidationService,
+                           AgentRepository agentRepository,
                            ResourceLoader resourceLoader,
                            @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
@@ -78,6 +82,7 @@ public class ChatAgentService {
         this.chatbotConfigService = chatbotConfigService;
         this.systemPromptService = systemPromptService;
         this.modelValidationService = modelValidationService;
+        this.agentRepository = agentRepository;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -147,16 +152,29 @@ public class ChatAgentService {
             return Mono.just(new ChatMessage("assistant", "I apologize, but I'm having trouble completing your request. Please try rephrasing."));
         }
 
+        // Get chatbot config
+        ChatbotConfig config = chatbotConfigService.getConfig();
+
+        // Determine model to use (chatbot config overrides defaults)
+        String modelToUse = config.getModelName() != null ? config.getModelName() : anthropicModel;
+
+        // Determine temperature to use (chatbot config overrides defaults)
+        double tempToUse = config.getTemperature() != null ? config.getTemperature() : temperature;
+
+        // Determine max tokens to use (chatbot config overrides defaults)
+        int tokensToUse = config.getMaxTokens() != null ? config.getMaxTokens() : maxTokens;
+
+        logger.debug("Using AI settings - model: {}, temp: {}, maxTokens: {}", modelToUse, tempToUse, tokensToUse);
+
         // Create the request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
-        requestBody.put("model", anthropicModel);
-        requestBody.put("max_tokens", maxTokens);
-        requestBody.put("temperature", temperature);
+        requestBody.put("model", modelToUse);
+        requestBody.put("max_tokens", tokensToUse);
+        requestBody.put("temperature", tempToUse);
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
         // Add tools array if product search is enabled
-        ChatbotConfig config = chatbotConfigService.getConfig();
         if (config.isEnableProductSearch()) {
             requestBody.set("tools", buildToolsArray(config));
         }
@@ -398,11 +416,38 @@ public class ChatAgentService {
     }
 
     /**
-     * Build system prompt from ChatbotConfig (legacy method)
+     * Build system prompt from ChatbotConfig
+     * Supports agent prompt inheritance if configured
      */
     private String buildSystemPromptFromConfig() {
         ChatbotConfig config = chatbotConfigService.getConfig();
 
+        // Check if we should use agent prompt as base
+        if (Boolean.TRUE.equals(config.getUseAgentPrompt()) && config.getLinkedAgentId() != null) {
+            try {
+                Optional<Agent> agentOpt = agentRepository.findById(config.getLinkedAgentId());
+                if (agentOpt.isPresent()) {
+                    Agent agent = agentOpt.get();
+                    logger.info("Using agent prompt as base: {} (ID: {})", agent.getName(), agent.getId());
+
+                    // Start with agent's system prompt
+                    StringBuilder prompt = new StringBuilder(agent.getSystemPrompt());
+
+                    // Append custom instructions if provided
+                    if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
+                        prompt.append("\n\n=== ADDITIONAL CHATBOT INSTRUCTIONS ===\n");
+                        prompt.append(config.getCustomInstructions());
+                    }
+
+                    return prompt.toString();
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to load agent prompt (ID: {}), falling back to config-based prompt: {}",
+                    config.getLinkedAgentId(), e.getMessage());
+            }
+        }
+
+        // Fall back to building prompt from ChatbotConfig fields
         StringBuilder prompt = new StringBuilder();
 
         // Identity

@@ -1,0 +1,83 @@
+# Shopify Theme App Extension Configuration
+# This extension adds an AI-powered product search assistant to the storefront
+
+api_version = "2024-01"
+
+[[extensions]]
+type = "theme"
+name = "AI Product Search Assistant"
+
+# Extension handles (used for identification)
+handle = "ai-search-assistant"
+
+# Supported theme blocks
+[[extensions.blocks]]
+type = "search-bar"
+name = "AI Search Bar"
+
+[[extensions.blocks]]
+type = "search-modal"
+name = "AI Search Modal"
+
+# Settings schema for theme customization
+[extensions.settings]
+
+  [[extensions.settings.section]]
+  name = "Appearance"
+
+    [[extensions.settings.section.settings]]
+    type = "color"
+    id = "primary_color"
+    label = "Primary Color"
+    default = "#4A90E2"
+
+    [[extensions.settings.section.settings]]
+    type = "color"
+    id = "text_color"
+    label = "Text Color"
+    default = "#333333"
+
+    [[extensions.settings.section.settings]]
+    type = "select"
+    id = "position"
+    label = "Search Bar Position"
+    options = [
+      { label = "Header", value = "header" },
+      { label = "Fixed Bottom", value = "fixed-bottom" },
+      { label = "Inline", value = "inline" }
+    ]
+    default = "header"
+
+  [[extensions.settings.section]]
+  name = "Behavior"
+
+    [[extensions.settings.section.settings]]
+    type = "checkbox"
+    id = "auto_focus"
+    label = "Auto-focus search on page load"
+    default = false
+
+    [[extensions.settings.section.settings]]
+    type = "checkbox"
+    id = "show_suggestions"
+    label = "Show search suggestions"
+    default = true
+
+    [[extensions.settings.section.settings]]
+    type = "range"
+    id = "max_results"
+    label = "Maximum results to display"
+    min = 3
+    max = 20
+    step = 1
+    default = 10
+
+  [[extensions.settings.section]]
+  name = "API Configuration"
+
+    [[extensions.settings.section.settings]]
+    type = "text"
+    id = "api_url"
+    label = "Backend API URL"
+    default = "https://your-app.railway.app/api/shopify/chat/message"
+    info = "Your backend API endpoint for chat messages"

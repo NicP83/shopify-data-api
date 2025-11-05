@@ -29,6 +29,15 @@ public class ChatbotConfig {
     // ===== Advanced =====
     private String customInstructions;  // Additional custom prompt instructions
 
+    // ===== AI Model Settings =====
+    private String modelName;        // e.g., "claude-sonnet-4-5-20250929"
+    private Double temperature;      // 0.0 to 1.0 (null = use default)
+    private Integer maxTokens;       // 256 to 8192 (null = use default)
+
+    // ===== Agent Integration =====
+    private Long linkedAgentId;      // Optional: Link to Agent from agents table
+    private Boolean useAgentPrompt;  // If true, use agent's systemPrompt as base
+
     // ===== Constructors =====
 
     public ChatbotConfig() {
@@ -141,6 +150,46 @@ public class ChatbotConfig {
         this.customInstructions = customInstructions;
     }
 
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public Integer getMaxTokens() {
+        return maxTokens;
+    }
+
+    public void setMaxTokens(Integer maxTokens) {
+        this.maxTokens = maxTokens;
+    }
+
+    public Long getLinkedAgentId() {
+        return linkedAgentId;
+    }
+
+    public void setLinkedAgentId(Long linkedAgentId) {
+        this.linkedAgentId = linkedAgentId;
+    }
+
+    public Boolean getUseAgentPrompt() {
+        return useAgentPrompt;
+    }
+
+    public void setUseAgentPrompt(Boolean useAgentPrompt) {
+        this.useAgentPrompt = useAgentPrompt;
+    }
+
     // ===== Builder Pattern (Optional but helpful) =====
 
     public static Builder builder() {
@@ -215,6 +264,31 @@ public class ChatbotConfig {
             return this;
         }
 
+        public Builder modelName(String modelName) {
+            config.modelName = modelName;
+            return this;
+        }
+
+        public Builder temperature(Double temperature) {
+            config.temperature = temperature;
+            return this;
+        }
+
+        public Builder maxTokens(Integer maxTokens) {
+            config.maxTokens = maxTokens;
+            return this;
+        }
+
+        public Builder linkedAgentId(Long linkedAgentId) {
+            config.linkedAgentId = linkedAgentId;
+            return this;
+        }
+
+        public Builder useAgentPrompt(Boolean useAgentPrompt) {
+            config.useAgentPrompt = useAgentPrompt;
+            return this;
+        }
+
         public ChatbotConfig build() {
             return config;
         }
@@ -236,6 +310,11 @@ public class ChatbotConfig {
                 ", showPrices=" + showPrices +
                 ", showSkus=" + showSkus +
                 ", customInstructions='" + customInstructions + '\'' +
+                ", modelName='" + modelName + '\'' +
+                ", temperature=" + temperature +
+                ", maxTokens=" + maxTokens +
+                ", linkedAgentId=" + linkedAgentId +
+                ", useAgentPrompt=" + useAgentPrompt +
                 '}';
     }
 }

@@ -28,10 +28,18 @@ function Settings() {
     includeCartLinks: true,
     showPrices: true,
     showSkus: true,
-    customInstructions: ''
+    customInstructions: '',
+    // AI Model Settings
+    modelName: null,
+    temperature: null,
+    maxTokens: null,
+    // Agent Integration
+    linkedAgentId: null,
+    useAgentPrompt: false
   })
   const [originalChatbotConfig, setOriginalChatbotConfig] = useState(null)
   const [generatedPrompt, setGeneratedPrompt] = useState('')
+  const [availableAgents, setAvailableAgents] = useState([])
 
   // UI State
   const [loading, setLoading] = useState(true)
@@ -63,14 +71,18 @@ function Settings() {
         setPrompt(promptRes.data.prompt)
         setAvailableModels(modelsRes.data.models)
       } else if (activeTab === 'chatbot') {
-        const [configRes, previewRes] = await Promise.all([
+        const [configRes, previewRes, modelsRes, agentsRes] = await Promise.all([
           api.getChatbotConfig(),
-          api.previewSystemPrompt()
+          api.previewSystemPrompt(),
+          api.getAvailableModels(),
+          fetch('/api/config/agents').then(r => r.json())
         ])
 
         setChatbotConfig(configRes.data)
         setOriginalChatbotConfig(configRes.data)
         setGeneratedPrompt(previewRes.data.prompt)
+        setAvailableModels(modelsRes.data.models)
+        setAvailableAgents(agentsRes.agents || [])
       }
     } catch (error) {
       console.error('Error loading settings:', error)
@@ -605,6 +617,161 @@ function Settings() {
               <p className="mt-1 text-sm text-gray-500">
                 Optional custom instructions that will be appended to the system prompt
               </p>
+            </div>
+          </div>
+
+          {/* Agent Integration */}
+          <div className="card">
+            <h2 className="text-xl font-semibold mb-6">Agent Integration</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Link to Agent (Optional)
+                </label>
+                <select
+                  value={chatbotConfig.linkedAgentId || ''}
+                  onChange={(e) => setChatbotConfig({
+                    ...chatbotConfig,
+                    linkedAgentId: e.target.value ? parseInt(e.target.value) : null
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">No agent linked (standalone mode)</option>
+                  {availableAgents.map((agent) => (
+                    <option key={agent.id} value={agent.id}>
+                      {agent.name} - {agent.modelProvider} / {agent.modelName}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1 text-sm text-gray-500">
+                  Link to an existing agent to inherit its configuration
+                </p>
+              </div>
+
+              {chatbotConfig.linkedAgentId && (
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="useAgentPrompt"
+                    checked={chatbotConfig.useAgentPrompt}
+                    onChange={(e) => setChatbotConfig({ ...chatbotConfig, useAgentPrompt: e.target.checked })}
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="useAgentPrompt" className="ml-2 block text-sm text-gray-700">
+                    Use agent's system prompt as base (append custom instructions if provided)
+                  </label>
+                </div>
+              )}
+
+              {chatbotConfig.linkedAgentId && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm text-blue-800">
+                    <strong>Agent Mode:</strong> When linked, chatbot can inherit AI settings and prompt from the agent.
+                    Chatbot-specific settings below will override agent defaults.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* AI Model Settings */}
+          <div className="card">
+            <h2 className="text-xl font-semibold mb-6">AI Model Settings (Chatbot-Specific)</h2>
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-yellow-800">
+                  <strong>Optional:</strong> Override default AI settings for this chatbot. Leave blank to use system defaults
+                  {chatbotConfig.linkedAgentId && ' or agent settings'}.
+                </p>
+              </div>
+
+              {/* Model Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Model (Optional)
+                </label>
+                <select
+                  value={chatbotConfig.modelName || ''}
+                  onChange={(e) => setChatbotConfig({ ...chatbotConfig, modelName: e.target.value || null })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">Use default model</option>
+                  {availableModels.map((model) => (
+                    <option key={model} value={model}>
+                      {model}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1 text-sm text-gray-500">
+                  Select which Claude model to use for this chatbot
+                </p>
+              </div>
+
+              {/* Temperature Slider */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Temperature: {chatbotConfig.temperature !== null ? chatbotConfig.temperature.toFixed(2) : 'Default'}
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={chatbotConfig.temperature !== null ? chatbotConfig.temperature : 0.7}
+                    onChange={(e) => setChatbotConfig({ ...chatbotConfig, temperature: parseFloat(e.target.value) })}
+                    className="flex-1"
+                    disabled={chatbotConfig.temperature === null}
+                  />
+                  <button
+                    onClick={() => setChatbotConfig({
+                      ...chatbotConfig,
+                      temperature: chatbotConfig.temperature === null ? 0.7 : null
+                    })}
+                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
+                  >
+                    {chatbotConfig.temperature === null ? 'Set' : 'Clear'}
+                  </button>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>More Focused (0.0)</span>
+                  <span>More Creative (1.0)</span>
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Controls randomness in responses
+                </p>
+              </div>
+
+              {/* Max Tokens */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Max Tokens (Optional)
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number"
+                    min="256"
+                    max="8192"
+                    step="256"
+                    value={chatbotConfig.maxTokens !== null ? chatbotConfig.maxTokens : 1024}
+                    onChange={(e) => setChatbotConfig({ ...chatbotConfig, maxTokens: parseInt(e.target.value) })}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    disabled={chatbotConfig.maxTokens === null}
+                  />
+                  <button
+                    onClick={() => setChatbotConfig({
+                      ...chatbotConfig,
+                      maxTokens: chatbotConfig.maxTokens === null ? 1024 : null
+                    })}
+                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
+                  >
+                    {chatbotConfig.maxTokens === null ? 'Set' : 'Clear'}
+                  </button>
+                </div>
+                <p className="mt-1 text-sm text-gray-500">
+                  Maximum length of AI responses (256-8192 tokens)
+                </p>
+              </div>
             </div>
           </div>
 

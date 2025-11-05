@@ -2,6 +2,8 @@ package com.shopify.api.controller;
 
 import com.shopify.api.config.ModelConfig;
 import com.shopify.api.model.ChatbotConfig;
+import com.shopify.api.model.agent.Agent;
+import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.service.ChatAgentService;
 import com.shopify.api.service.ChatbotConfigService;
 import com.shopify.api.service.ModelValidationService;
@@ -12,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * REST API for managing AI configuration settings
@@ -26,14 +30,17 @@ public class ConfigController {
     private final ChatAgentService chatAgentService;
     private final ChatbotConfigService chatbotConfigService;
     private final ModelValidationService modelValidationService;
+    private final AgentRepository agentRepository;
 
     @Autowired
     public ConfigController(ChatAgentService chatAgentService,
                           ChatbotConfigService chatbotConfigService,
-                          ModelValidationService modelValidationService) {
+                          ModelValidationService modelValidationService,
+                          AgentRepository agentRepository) {
         this.chatAgentService = chatAgentService;
         this.chatbotConfigService = chatbotConfigService;
         this.modelValidationService = modelValidationService;
+        this.agentRepository = agentRepository;
     }
 
     /**
@@ -243,5 +250,46 @@ public class ConfigController {
         response.put("message", "This is the system prompt that will be sent to Claude API based on current configuration");
 
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Get list of available agents for chatbot integration
+     * GET /api/config/agents
+     */
+    @GetMapping("/agents")
+    public ResponseEntity<Map<String, Object>> getAvailableAgents() {
+        logger.info("Fetching available agents");
+
+        try {
+            List<Agent> agents = agentRepository.findAll();
+
+            // Map to simplified DTO for frontend
+            List<Map<String, Object>> agentList = agents.stream()
+                .map(agent -> {
+                    Map<String, Object> agentMap = new HashMap<>();
+                    agentMap.put("id", agent.getId());
+                    agentMap.put("name", agent.getName());
+                    agentMap.put("description", agent.getDescription());
+                    agentMap.put("modelProvider", agent.getModelProvider());
+                    agentMap.put("modelName", agent.getModelName());
+                    return agentMap;
+                })
+                .collect(Collectors.toList());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("agents", agentList);
+            response.put("count", agentList.size());
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            logger.error("Error fetching agents: {}", e.getMessage());
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to fetch agents");
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("agents", List.of());
+            errorResponse.put("count", 0);
+            return ResponseEntity.ok(errorResponse);
+        }
     }
 }

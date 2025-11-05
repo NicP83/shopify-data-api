@@ -55,6 +55,23 @@ public class ChatbotConfigService {
     @Value("${chatbot.custom-instructions}")
     private String customInstructions;
 
+    // AI Model Settings (optional, default to null = use system defaults)
+    @Value("${chatbot.ai.model-name:#{null}}")
+    private String modelName;
+
+    @Value("${chatbot.ai.temperature:#{null}}")
+    private Double temperature;
+
+    @Value("${chatbot.ai.max-tokens:#{null}}")
+    private Integer maxTokens;
+
+    // Agent Integration (optional)
+    @Value("${chatbot.agent.linked-id:#{null}}")
+    private Long linkedAgentId;
+
+    @Value("${chatbot.agent.use-prompt:#{null}}")
+    private Boolean useAgentPrompt;
+
     /**
      * Get current chatbot configuration
      */
@@ -73,6 +90,11 @@ public class ChatbotConfigService {
                 .showPrices(showPrices)
                 .showSkus(showSkus)
                 .customInstructions(customInstructions)
+                .modelName(modelName)
+                .temperature(temperature)
+                .maxTokens(maxTokens)
+                .linkedAgentId(linkedAgentId)
+                .useAgentPrompt(useAgentPrompt)
                 .build();
     }
 
@@ -106,6 +128,23 @@ public class ChatbotConfigService {
         this.showSkus = config.isShowSkus();
         if (config.getCustomInstructions() != null) {
             this.customInstructions = config.getCustomInstructions();
+        }
+        // Update AI model settings
+        if (config.getModelName() != null) {
+            this.modelName = config.getModelName();
+        }
+        if (config.getTemperature() != null) {
+            this.temperature = config.getTemperature();
+        }
+        if (config.getMaxTokens() != null) {
+            this.maxTokens = config.getMaxTokens();
+        }
+        // Update agent integration settings
+        if (config.getLinkedAgentId() != null) {
+            this.linkedAgentId = config.getLinkedAgentId();
+        }
+        if (config.getUseAgentPrompt() != null) {
+            this.useAgentPrompt = config.getUseAgentPrompt();
         }
     }
 
@@ -170,5 +209,25 @@ public class ChatbotConfigService {
 
     public String getCustomInstructions() {
         return customInstructions;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public Integer getMaxTokens() {
+        return maxTokens;
+    }
+
+    public Long getLinkedAgentId() {
+        return linkedAgentId;
+    }
+
+    public Boolean getUseAgentPrompt() {
+        return useAgentPrompt;
     }
 }

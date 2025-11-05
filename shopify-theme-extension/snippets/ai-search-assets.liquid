@@ -1,0 +1,62 @@
+{% comment %}
+  AI Product Search Assets Loader
+  Include this snippet in your theme.liquid file to load the AI search functionality
+
+  Usage:
+  {% render 'ai-search-assets' %}
+{% endcomment %}
+
+{% comment %} Load the AI Search JavaScript {% endcomment %}
+<script src="{{ 'ai-search-client.js' | asset_url }}" defer></script>
+
+{% comment %} Optional: Add keyboard shortcut hint {% endcomment %}
+<style>
+  .ai-keyboard-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: monospace;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  .ai-keyboard-hint.show {
+    opacity: 1;
+  }
+
+  .ai-kbd {
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    margin: 0 2px;
+  }
+</style>
+
+<div class="ai-keyboard-hint" id="ai-keyboard-hint">
+  Press <span class="ai-kbd">⌘</span> + <span class="ai-kbd">K</span> to search
+</div>
+
+<script>
+  // Show keyboard hint on first visit
+  document.addEventListener('DOMContentLoaded', function() {
+    const hint = document.getElementById('ai-keyboard-hint');
+    const hasSeenHint = localStorage.getItem('ai-search-hint-seen');
+
+    if (!hasSeenHint && hint) {
+      setTimeout(() => {
+        hint.classList.add('show');
+        setTimeout(() => {
+          hint.classList.remove('show');
+          localStorage.setItem('ai-search-hint-seen', 'true');
+        }, 3000);
+      }, 2000);
+    }
+  });
+</script>

@@ -8,7 +8,7 @@ import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.repository.agent.AgentRepository;
-import com.shopify.api.service.agent.AgentExecutionService;
+import com.shopify.api.service.tool.AgentDelegationToolHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -59,7 +59,7 @@ public class ChatAgentService {
     private final SystemPromptService systemPromptService;
     private final ModelValidationService modelValidationService;
     private final AgentRepository agentRepository;
-    private final AgentExecutionService agentExecutionService;
+    private final AgentDelegationToolHandler agentDelegationHandler;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
@@ -75,7 +75,7 @@ public class ChatAgentService {
                            SystemPromptService systemPromptService,
                            ModelValidationService modelValidationService,
                            AgentRepository agentRepository,
-                           AgentExecutionService agentExecutionService,
+                           AgentDelegationToolHandler agentDelegationHandler,
                            ResourceLoader resourceLoader,
                            @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
@@ -86,7 +86,7 @@ public class ChatAgentService {
         this.systemPromptService = systemPromptService;
         this.modelValidationService = modelValidationService;
         this.agentRepository = agentRepository;
-        this.agentExecutionService = agentExecutionService;
+        this.agentDelegationHandler = agentDelegationHandler;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -295,97 +295,75 @@ public class ChatAgentService {
 
     /**
      * Execute a tool call reactively and return results
+     * Uses handler pattern for clean separation of concerns
      */
     private Mono<String> executeToolCallReactive(String toolName, JsonNode input) {
+        logger.info("=== EXECUTING TOOL: {} ===", toolName);
+
         try {
+            // Route to appropriate handler based on tool name
             if ("search_products".equals(toolName)) {
-                String query = input.get("query").asText();
-                int maxResults = chatbotConfigService.getConfig().getMaxSearchResults();
-
-                logger.info("=== EXECUTING TOOL: search_products ===");
-                logger.info("Query: '{}', Max Results: {}", query, maxResults);
-
-                // Search products using ProductService reactively
-                return productService.searchProductsReactive(query, maxResults)
-                        .map(results -> {
-                            try {
-                                // Log results summary
-                                logger.info("Search completed - Results type: {}",
-                                    results != null ? results.getClass().getSimpleName() : "null");
-
-                                // Format results for Claude
-                                String jsonResult = objectMapper.writeValueAsString(results);
-                                logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
-
-                                return jsonResult;
-                            } catch (Exception e) {
-                                logger.error("Error formatting search results: {}", e.getMessage(), e);
-                                return "Error formatting results: " + e.getMessage();
-                            }
-                        })
-                        .onErrorResume(e -> {
-                            logger.error("Error executing tool {}: {}", toolName, e.getMessage(), e);
-                            String errorMsg = "Error executing search: " + e.getMessage();
-                            logger.error("Returning error to Claude: {}", errorMsg);
-                            return Mono.just(errorMsg);
-                        });
+                return executeProductSearch(input);
             } else if ("delegate_to_agent".equals(toolName)) {
-                // Handle agent delegation
-                String agentName = input.get("agent_name").asText();
-                String task = input.get("task").asText();
-
-                logger.info("=== EXECUTING TOOL: delegate_to_agent ===");
-                logger.info("Agent: '{}', Task: '{}'", agentName, task);
-
-                // Find agent by name
-                return Mono.fromCallable(() -> agentRepository.findByName(agentName))
-                        .flatMap(agentOpt -> {
-                            if (agentOpt.isEmpty()) {
-                                logger.warn("Agent not found: {}", agentName);
-                                return Mono.just("{\"error\": \"Agent '" + agentName + "' not found\"}");
-                            }
-
-                            Agent agent = agentOpt.get();
-                            logger.info("Delegating to agent ID: {}, Name: {}", agent.getId(), agent.getName());
-
-                            // Build input JSON for agent
-                            ObjectNode agentInput = objectMapper.createObjectNode();
-                            agentInput.put("task", task);
-
-                            // Execute agent and format result
-                            return agentExecutionService.executeAgent(agent.getId(), agentInput)
-                                    .map(result -> {
-                                        try {
-                                            // Extract text from agent result
-                                            JsonNode output = result.getOutput();
-                                            String responseText = output.has("text") ? output.get("text").asText() : output.toString();
-
-                                            // Build formatted response
-                                            ObjectNode response = objectMapper.createObjectNode();
-                                            response.put("agent", agentName);
-                                            response.put("response", responseText);
-                                            response.put("tokens_used", result.getInputTokens() + result.getOutputTokens());
-
-                                            return response.toString();
-                                        } catch (Exception e) {
-                                            logger.error("Error formatting agent result: {}", e.getMessage(), e);
-                                            return "{\"error\": \"Failed to format agent response: " + e.getMessage() + "\"}";
-                                        }
-                                    })
-                                    .onErrorResume(e -> {
-                                        logger.error("Error executing agent {}: {}", agentName, e.getMessage(), e);
-                                        return Mono.just("{\"error\": \"Agent execution failed: " + e.getMessage() + "\"}");
-                                    });
-                        });
+                return executeDelegateToAgent(input);
             }
 
             logger.warn("Unknown tool requested: {}", toolName);
-            return Mono.just("Unknown tool: " + toolName);
+            return Mono.just("{\"error\": \"Unknown tool: " + toolName + "\"}");
 
         } catch (Exception e) {
             logger.error("Error in executeToolCallReactive {}: {}", toolName, e.getMessage(), e);
-            return Mono.just("Error: " + e.getMessage());
+            return Mono.just("{\"error\": \"" + e.getMessage() + "\"}");
         }
+    }
+
+    /**
+     * Execute product search tool
+     */
+    private Mono<String> executeProductSearch(JsonNode input) {
+        String query = input.get("query").asText();
+        int maxResults = chatbotConfigService.getConfig().getMaxSearchResults();
+
+        logger.info("Query: '{}', Max Results: {}", query, maxResults);
+
+        return productService.searchProductsReactive(query, maxResults)
+                .map(results -> {
+                    try {
+                        logger.info("Search completed - Results type: {}",
+                            results != null ? results.getClass().getSimpleName() : "null");
+
+                        String jsonResult = objectMapper.writeValueAsString(results);
+                        logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
+
+                        return jsonResult;
+                    } catch (Exception e) {
+                        logger.error("Error formatting search results: {}", e.getMessage(), e);
+                        return "{\"error\": \"Error formatting results: " + e.getMessage() + "\"}";
+                    }
+                })
+                .onErrorResume(e -> {
+                    logger.error("Error executing product search: {}", e.getMessage(), e);
+                    return Mono.just("{\"error\": \"Error executing search: " + e.getMessage() + "\"}");
+                });
+    }
+
+    /**
+     * Execute agent delegation tool using handler
+     */
+    private Mono<String> executeDelegateToAgent(JsonNode input) {
+        // Validate input first
+        if (!agentDelegationHandler.validateInput(input)) {
+            logger.warn("Invalid input for delegate_to_agent tool");
+            return Mono.just("{\"error\": \"Invalid input: agent_name and task are required\"}");
+        }
+
+        // Execute using the dedicated handler
+        return agentDelegationHandler.execute(input)
+                .map(JsonNode::toString)
+                .onErrorResume(e -> {
+                    logger.error("Error delegating to agent: {}", e.getMessage(), e);
+                    return Mono.just("{\"error\": \"Delegation failed: " + e.getMessage() + "\"}");
+                });
     }
 
     /**

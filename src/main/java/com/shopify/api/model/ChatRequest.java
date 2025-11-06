@@ -11,4 +11,6 @@ import java.util.List;
 public class ChatRequest {
     private String message;                 // User's message
     private List<ChatMessage> conversationHistory;  // Previous messages for context
+    private String sessionId;               // Session identifier for analytics tracking
+    private String userIdentifier;          // Anonymous user identifier (optional, hashed)
 }

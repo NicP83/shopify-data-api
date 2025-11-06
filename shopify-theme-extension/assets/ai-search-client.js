@@ -9,6 +9,64 @@ class AISearchClient {
     this.shopDomain = config.shopDomain;
     this.maxResults = config.maxResults || 10;
     this.messageHistory = [];
+
+    // Initialize session tracking
+    this.sessionId = this.getOrCreateSessionId();
+    this.userIdentifier = this.getOrCreateUserIdentifier();
+
+    console.log('AI Search Client initialized with session:', this.sessionId);
+  }
+
+  /**
+   * Get or create persistent session ID
+   * Session ID persists across page refreshes but not across browser sessions
+   * @returns {string} - Session UUID
+   */
+  getOrCreateSessionId() {
+    const storageKey = 'aiSearchSessionId';
+
+    // Try to get existing session ID from sessionStorage
+    let sessionId = sessionStorage.getItem(storageKey);
+
+    if (!sessionId) {
+      // Generate new session ID (simple UUID v4)
+      sessionId = this.generateUUID();
+      sessionStorage.setItem(storageKey, sessionId);
+    }
+
+    return sessionId;
+  }
+
+  /**
+   * Get or create persistent user identifier (anonymous)
+   * This identifier persists across sessions for analytics
+   * @returns {string} - Anonymous user hash
+   */
+  getOrCreateUserIdentifier() {
+    const storageKey = 'aiSearchUserId';
+
+    // Try to get existing user ID from localStorage
+    let userId = localStorage.getItem(storageKey);
+
+    if (!userId) {
+      // Generate new anonymous user ID
+      userId = this.generateUUID();
+      localStorage.setItem(storageKey, userId);
+    }
+
+    return userId;
+  }
+
+  /**
+   * Generate a simple UUID v4
+   * @returns {string} - UUID
+   */
+  generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   /**
@@ -20,7 +78,9 @@ class AISearchClient {
     const requestBody = {
       message: message,
       conversationHistory: this.messageHistory,
-      maxResults: this.maxResults
+      maxResults: this.maxResults,
+      sessionId: this.sessionId,
+      userIdentifier: this.userIdentifier
     };
 
     try {

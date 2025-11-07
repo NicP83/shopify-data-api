@@ -137,3 +137,66 @@ logging:
     org.springframework.web: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
+# Inventory Analysis Module Configuration
+inventory-analysis:
+  # Enable/disable the entire module
+  enabled: ${INVENTORY_ANALYSIS_ENABLED:true}
+
+  # Stock alert thresholds
+  thresholds:
+    # Alert when stock will last fewer than N days (CRITICAL level)
+    critical-stock-days: ${CRITICAL_STOCK_DAYS:3}
+    # Alert when stock will last fewer than N days (WARNING level)
+    warning-stock-days: ${WARNING_STOCK_DAYS:7}
+    # Informational alert threshold
+    info-stock-days: ${INFO_STOCK_DAYS:14}
+
+  # Safety stock calculation
+  safety:
+    # Additional days of stock to maintain as buffer
+    safety-stock-days: ${SAFETY_STOCK_DAYS:7}
+    # Multiplier for safety stock (higher = more conservative)
+    # Formula: Safety Stock = Daily Velocity × Safety Days × Multiplier
+    safety-multiplier: ${SAFETY_MULTIPLIER:1.5}
+
+  # Sales velocity configuration
+  velocity:
+    # Default window for velocity calculation (days)
+    default-window-days: ${VELOCITY_WINDOW_DAYS:30}
+    # Minimum sales for reliable calculation
+    minimum-sales-threshold: ${MIN_SALES_THRESHOLD:5}
+    # Trend detection threshold (percentage change)
+    # Changes above this threshold are considered INCREASING or DECREASING
+    trend-threshold-percentage: ${TREND_THRESHOLD:15.0}
+
+  # AI-powered analysis settings
+  ai:
+    # Enable AI-powered insights via Claude
+    enabled: ${AI_ANALYSIS_ENABLED:true}
+    # Temperature for AI recommendations (0.0-1.0)
+    # Lower = more focused/deterministic, Higher = more creative
+    temperature: ${AI_TEMPERATURE:0.3}
+    # Max tokens for AI response
+    max-tokens: ${AI_MAX_TOKENS:1000}
+
+  # Scheduled jobs configuration (Cron expressions)
+  schedule:
+    # Update sales velocity every hour
+    # Cron: second minute hour day month weekday
+    velocity-update-cron: ${VELOCITY_CRON:0 0 * * * *}
+
+    # Check for low stock every 6 hours
+    low-stock-check-cron: ${LOW_STOCK_CRON:0 0 */6 * * *}
+
+    # Generate recommendations daily at 8 AM
+    recommendations-cron: ${RECOMMENDATIONS_CRON:0 0 8 * * *}
+
+  # Performance tuning
+  performance:
+    # Max products to analyze in parallel
+    parallel-analysis-limit: ${PARALLEL_LIMIT:10}
+    # Timeout for MCP calls (milliseconds)
+    mcp-timeout-ms: ${MCP_TIMEOUT:10000}
+    # Cache TTL for analysis results (seconds)
+    cache-ttl-seconds: ${CACHE_TTL:3600}

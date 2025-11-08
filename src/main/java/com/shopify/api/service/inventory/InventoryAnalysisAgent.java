@@ -169,7 +169,12 @@ public class InventoryAnalysisAgent {
         // Supplier analysis
         if (messageLower.contains("supplier") ||
             messageLower.contains("order from") ||
-            messageLower.contains("vendor")) {
+            messageLower.contains("vendor") ||
+            messageLower.contains("for hobbyman") ||
+            messageLower.contains("from hobbyman") ||
+            messageLower.contains("for hearns") ||
+            messageLower.contains("from hearns") ||
+            (messageLower.contains(" for ") && !messageLower.contains("for me") && !messageLower.contains("for you"))) {
             intents.add("analyzeBySupplier");
         }
 
@@ -198,6 +203,21 @@ public class InventoryAnalysisAgent {
             messageLower.contains("versus") ||
             messageLower.contains("vs")) {
             intents.add("compareProducts");
+        }
+
+        // Bulk order planning - when multiple filters are present with order intent
+        // Examples: "tamiya paints for hobbyman", "order gundam kits from bandai"
+        boolean hasBrand = messageLower.contains("tamiya") || messageLower.contains("bandai") ||
+                          messageLower.contains("gundam") || messageLower.contains("vallejo");
+        boolean hasCategory = messageLower.contains("paint") || messageLower.contains("kit") ||
+                             messageLower.contains("model");
+        boolean hasSupplier = messageLower.contains("hobbyman") || messageLower.contains("hearns") ||
+                             messageLower.contains(" for ") || messageLower.contains(" from ");
+        boolean hasOrderIntent = messageLower.contains("order") || messageLower.contains("stock") ||
+                                messageLower.contains("suggest") || messageLower.contains("need");
+
+        if ((hasBrand || hasCategory || hasSupplier) && hasOrderIntent) {
+            intents.add("generateBulkOrderPlan");
         }
 
         // Default to low stock if no specific intent
@@ -265,6 +285,20 @@ public class InventoryAnalysisAgent {
                     toolResult.put("result", tools.compareProducts(skus));
                     break;
 
+                case "generateBulkOrderPlan":
+                    brand = extractBrand(message);
+                    String category = extractCategory(message);
+                    String supplier = extractSupplier(message);
+                    int targetDays = extractTargetDays(message, context);
+                    toolResult.put("parameters", Map.of(
+                            "brand", brand,
+                            "category", category,
+                            "supplier", supplier,
+                            "targetDays", targetDays
+                    ));
+                    toolResult.put("result", tools.generateBulkOrderPlan(brand, category, supplier, targetDays));
+                    break;
+
                 default:
                     toolResult.put("result", Map.of("error", "Unknown intent: " + intent));
             }
@@ -329,6 +363,15 @@ public class InventoryAnalysisAgent {
             case "generateOrderPlan":
                 formatted.append("Recommended Quantity: ").append(result.get("recommendedQuantity")).append("\n");
                 formatted.append("Total Cost: $").append(result.get("totalCost")).append("\n");
+                break;
+
+            case "generateBulkOrderPlan":
+                formatted.append("Total Products: ").append(result.get("totalProducts")).append("\n");
+                formatted.append("Total Order Value: $").append(result.get("totalOrderValue")).append("\n");
+                formatted.append("Total Quantity: ").append(result.get("totalQuantity")).append("\n");
+                if (result.containsKey("message")) {
+                    formatted.append("Note: ").append(result.get("message")).append("\n");
+                }
                 break;
 
             default:
@@ -463,8 +506,34 @@ public class InventoryAnalysisAgent {
 
     private String extractSupplier(String message) {
         String messageLower = message.toLowerCase();
+
+        // Check for supplier names
+        if (messageLower.contains("hobbyman")) return "Hobbyman";
+        if (messageLower.contains("hearns")) return "Hearns Hobbies";
         if (messageLower.contains("bandai")) return "Bandai";
         if (messageLower.contains("tamiya")) return "Tamiya";
+        if (messageLower.contains("vallejo")) return "Vallejo";
+        if (messageLower.contains("games workshop")) return "Games Workshop";
+
+        // Pattern matching: "for [supplier]" or "from [supplier]"
+        // Extract word after "for" or "from"
+        String[] forPattern = messageLower.split("\\bfor\\s+");
+        if (forPattern.length > 1) {
+            String afterFor = forPattern[1].split("\\s+")[0];
+            if (afterFor.length() > 3 && !afterFor.equals("days") && !afterFor.equals("weeks")) {
+                // Capitalize first letter
+                return afterFor.substring(0, 1).toUpperCase() + afterFor.substring(1);
+            }
+        }
+
+        String[] fromPattern = messageLower.split("\\bfrom\\s+");
+        if (fromPattern.length > 1) {
+            String afterFrom = fromPattern[1].split("\\s+")[0];
+            if (afterFrom.length() > 3) {
+                return afterFrom.substring(0, 1).toUpperCase() + afterFrom.substring(1);
+            }
+        }
+
         return "Unknown";
     }
 
@@ -594,6 +663,12 @@ public class InventoryAnalysisAgent {
                 "name", "compareProducts",
                 "description", "Compare multiple products",
                 "parameters", List.of("skuList")
+        ));
+
+        toolsList.add(Map.of(
+                "name", "generateBulkOrderPlan",
+                "description", "Generate comprehensive order plan with multiple filters (brand, category, supplier)",
+                "parameters", List.of("brand", "category", "supplier", "targetDays")
         ));
 
         return toolsList;

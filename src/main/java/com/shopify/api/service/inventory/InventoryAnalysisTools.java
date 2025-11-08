@@ -549,6 +549,193 @@ public class InventoryAnalysisTools {
     }
 
     /**
+     * Tool 9: Generate bulk order plan with multiple filters
+     * Combines brand, category, and supplier filters to generate comprehensive order plans
+     * Uses real-time ERP data via MCP
+     */
+    public Map<String, Object> generateBulkOrderPlan(String brand, String category, String supplier, int targetDays) {
+        logger.info("generateBulkOrderPlan: brand={}, category={}, supplier={}, targetDays={} - Using ERP data via MCP",
+                brand, category, supplier, targetDays);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("brand", brand);
+        result.put("category", category);
+        result.put("supplier", supplier);
+        result.put("targetDays", targetDays);
+
+        try {
+            // Step 1: Get all SKUs from database that match brand/category filters
+            List<SalesVelocity> allVelocities = velocityRepository.findAll();
+
+            List<String> candidateSkus = allVelocities.stream()
+                    .filter(v -> v.getSku() != null)
+                    .filter(v -> brand == null || brand.equals("Unknown") || matchesBrand(v.getSku(), brand))
+                    .filter(v -> category == null || category.equals("Unknown") || matchesCategory(v.getSku(), category))
+                    .map(SalesVelocity::getSku)
+                    .collect(Collectors.toList());
+
+            logger.info("Found {} candidate SKUs matching brand '{}' and category '{}'",
+                    candidateSkus.size(), brand, category);
+
+            if (candidateSkus.isEmpty()) {
+                result.put("totalProducts", 0);
+                result.put("totalOrderValue", BigDecimal.ZERO);
+                result.put("message", "No products found matching filters. Products may need to be analyzed first.");
+                result.put("success", true);
+                return result;
+            }
+
+            // Step 2: For each SKU, get real-time data from ERP and generate order plan
+            List<Map<String, Object>> orderItems = new ArrayList<>();
+            BigDecimal grandTotal = BigDecimal.ZERO;
+            int totalQuantity = 0;
+
+            for (String sku : candidateSkus) {
+                try {
+                    // Get real sales history from ERP
+                    List<SaleRecord> salesHistory = erpService.getSalesHistory(sku, Math.max(targetDays, 30)).block();
+
+                    if (salesHistory == null || salesHistory.isEmpty()) {
+                        logger.debug("Skipping SKU {} - no sales history in ERP", sku);
+                        continue;
+                    }
+
+                    // Calculate velocity from real ERP data
+                    SalesVelocity velocity = velocityCalculator.calculateDetailed(salesHistory, sku);
+                    BigDecimal dailyVelocity = velocity.getDailyAverage();
+
+                    if (dailyVelocity == null || dailyVelocity.compareTo(BigDecimal.ZERO) <= 0) {
+                        logger.debug("Skipping SKU {} - zero velocity", sku);
+                        continue;
+                    }
+
+                    // Get real current stock from ERP
+                    Integer currentStock = erpService.getInventoryLevel(sku).block();
+                    if (currentStock == null) currentStock = 0;
+
+                    // Get real cost from ERP
+                    BigDecimal unitCost = erpService.getProductCost(sku).block();
+                    if (unitCost == null) unitCost = BigDecimal.ZERO;
+
+                    // Get real supplier info from ERP
+                    SupplierInfo supplierInfo = erpService.getSupplierInfo(sku).block();
+                    String actualSupplier = supplierInfo != null ? supplierInfo.getSupplierName() : "Unknown";
+
+                    // Filter by supplier if specified
+                    if (supplier != null && !supplier.equals("Unknown") &&
+                            !actualSupplier.equalsIgnoreCase(supplier)) {
+                        logger.debug("Skipping SKU {} - supplier mismatch (wanted: {}, actual: {})",
+                                sku, supplier, actualSupplier);
+                        continue;
+                    }
+
+                    // Calculate days of stock remaining
+                    BigDecimal daysOfStock = currentStock > 0 ?
+                            BigDecimal.valueOf(currentStock).divide(dailyVelocity, 2, RoundingMode.HALF_UP) :
+                            BigDecimal.ZERO;
+
+                    // Only include items that are low stock (< 14 days) or will need reordering soon
+                    if (daysOfStock.compareTo(BigDecimal.valueOf(14)) >= 0) {
+                        logger.debug("Skipping SKU {} - sufficient stock ({} days)", sku, daysOfStock);
+                        continue;
+                    }
+
+                    // Calculate quantity needed for target days
+                    BigDecimal quantityNeeded = dailyVelocity.multiply(BigDecimal.valueOf(targetDays));
+                    int recommendedQuantity = quantityNeeded.setScale(0, RoundingMode.UP).intValue();
+
+                    BigDecimal itemTotal = unitCost.multiply(BigDecimal.valueOf(recommendedQuantity));
+
+                    // Determine urgency
+                    String urgency;
+                    if (daysOfStock.compareTo(BigDecimal.valueOf(3)) < 0) {
+                        urgency = "CRITICAL";
+                    } else if (daysOfStock.compareTo(BigDecimal.valueOf(7)) < 0) {
+                        urgency = "HIGH";
+                    } else {
+                        urgency = "MEDIUM";
+                    }
+
+                    // Build order item
+                    Map<String, Object> orderItem = new HashMap<>();
+                    orderItem.put("sku", sku);
+                    orderItem.put("supplier", actualSupplier);
+                    orderItem.put("currentStock", currentStock);
+                    orderItem.put("daysOfStock", daysOfStock);
+                    orderItem.put("dailyVelocity", dailyVelocity);
+                    orderItem.put("recommendedQuantity", recommendedQuantity);
+                    orderItem.put("unitCost", unitCost);
+                    orderItem.put("totalCost", itemTotal);
+                    orderItem.put("urgency", urgency);
+                    orderItem.put("leadTimeDays", supplierInfo != null ? supplierInfo.getLeadTimeDays() : null);
+
+                    orderItems.add(orderItem);
+                    grandTotal = grandTotal.add(itemTotal);
+                    totalQuantity += recommendedQuantity;
+
+                    logger.debug("Added order item: {} - {} units @ ${} = ${}",
+                            sku, recommendedQuantity, unitCost, itemTotal);
+
+                } catch (Exception e) {
+                    logger.warn("Error processing SKU {} for bulk order: {}", sku, e.getMessage());
+                }
+            }
+
+            // Step 3: Group by supplier for summary
+            Map<String, List<Map<String, Object>>> bySupplier = orderItems.stream()
+                    .collect(Collectors.groupingBy(item -> (String) item.get("supplier")));
+
+            Map<String, Map<String, Object>> supplierSummaries = new HashMap<>();
+            for (Map.Entry<String, List<Map<String, Object>>> entry : bySupplier.entrySet()) {
+                String sup = entry.getKey();
+                List<Map<String, Object>> items = entry.getValue();
+
+                BigDecimal supplierTotal = items.stream()
+                        .map(item -> (BigDecimal) item.get("totalCost"))
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                int supplierQuantity = items.stream()
+                        .mapToInt(item -> (Integer) item.get("recommendedQuantity"))
+                        .sum();
+
+                Map<String, Object> summary = new HashMap<>();
+                summary.put("totalCost", supplierTotal);
+                summary.put("totalQuantity", supplierQuantity);
+                summary.put("productCount", items.size());
+
+                supplierSummaries.put(sup, summary);
+            }
+
+            // Sort order items by urgency (CRITICAL -> HIGH -> MEDIUM)
+            orderItems.sort((a, b) -> {
+                String urgencyA = (String) a.get("urgency");
+                String urgencyB = (String) b.get("urgency");
+                int priorityA = urgencyA.equals("CRITICAL") ? 3 : urgencyA.equals("HIGH") ? 2 : 1;
+                int priorityB = urgencyB.equals("CRITICAL") ? 3 : urgencyB.equals("HIGH") ? 2 : 1;
+                return Integer.compare(priorityB, priorityA); // Descending
+            });
+
+            result.put("totalProducts", orderItems.size());
+            result.put("totalOrderValue", grandTotal);
+            result.put("totalQuantity", totalQuantity);
+            result.put("orderItems", orderItems);
+            result.put("supplierSummaries", supplierSummaries);
+            result.put("dataSource", "ERP via MCP");
+            result.put("success", true);
+
+            logger.info("Bulk order plan complete: {} products, {} units, ${} total",
+                    orderItems.size(), totalQuantity, grandTotal);
+
+        } catch (Exception e) {
+            logger.error("Error in generateBulkOrderPlan: {}", e.getMessage(), e);
+            result.put("success", false);
+            result.put("error", "Failed to generate bulk order plan: " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    /**
      * Helper: Check if SKU matches brand (simplified)
      * In production, this would query ERP metadata
      */

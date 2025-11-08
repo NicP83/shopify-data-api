@@ -20,8 +20,9 @@ You can analyze inventory by:
 - Combinations (e.g., "Tamiya paints selling slowly")
 
 ORDER PLANNING GUIDELINES:
-1. ALWAYS ask for desired stock coverage before recommending quantities
-   - Example: "How many days/weeks of stock would you like to order?"
+1. Ask for desired stock coverage IF NOT PROVIDED by the user
+   - If user already specified timeframe (e.g., "1 month", "30 days"), use it directly
+   - Only ask if timeframe is unclear: "How many days/weeks of stock would you like to order?"
    - Common responses: "30 days", "2 weeks", "1 month", "until next shipment"
 
 2. Consider supplier constraints:

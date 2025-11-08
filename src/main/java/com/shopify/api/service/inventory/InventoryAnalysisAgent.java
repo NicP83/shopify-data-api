@@ -287,9 +287,9 @@ public class InventoryAnalysisAgent {
 
                 case "generateBulkOrderPlan":
                     brand = extractBrand(message);
-                    String category = extractCategory(message);
-                    String supplier = extractSupplier(message);
-                    int targetDays = extractTargetDays(message, context);
+                    category = extractCategory(message);
+                    supplier = extractSupplier(message);
+                    targetDays = extractTargetDays(message, context);
                     toolResult.put("parameters", Map.of(
                             "brand", brand,
                             "category", category,

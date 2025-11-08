@@ -564,18 +564,15 @@ public class InventoryAnalysisTools {
         result.put("targetDays", targetDays);
 
         try {
-            // Step 1: Get all SKUs from database that match brand/category filters
-            List<SalesVelocity> allVelocities = velocityRepository.findAll();
+            // Step 1: Get SKUs from ERP using proper search filters (NOT local database!)
+            List<String> candidateSkus = erpService.searchProductsFiltered(brand, category, supplier).block();
 
-            List<String> candidateSkus = allVelocities.stream()
-                    .filter(v -> v.getSku() != null)
-                    .filter(v -> brand == null || brand.equals("Unknown") || matchesBrand(v.getSku(), brand))
-                    .filter(v -> category == null || category.equals("Unknown") || matchesCategory(v.getSku(), category))
-                    .map(SalesVelocity::getSku)
-                    .collect(Collectors.toList());
+            logger.info("Found {} candidate SKUs from ERP matching brand '{}', category '{}', supplier '{}'",
+                    candidateSkus != null ? candidateSkus.size() : 0, brand, category, supplier);
 
-            logger.info("Found {} candidate SKUs matching brand '{}' and category '{}'",
-                    candidateSkus.size(), brand, category);
+            if (candidateSkus == null) {
+                candidateSkus = new ArrayList<>();
+            }
 
             if (candidateSkus.isEmpty()) {
                 result.put("totalProducts", 0);
@@ -585,15 +582,31 @@ public class InventoryAnalysisTools {
                 return result;
             }
 
-            // Step 2: For each SKU, get real-time data from ERP and generate order plan
+            // Step 2: Get ALL data in 4 bulk MCP calls (not 400 individual calls!)
+            logger.info("Fetching bulk data for {} SKUs", candidateSkus.size());
+
+            Map<String, Integer> inventoryMap = erpService.getInventoryLevelsBulk(candidateSkus).block();
+            Map<String, List<SaleRecord>> salesMap = erpService.getSalesHistoryBulk(candidateSkus, Math.max(targetDays, 30)).block();
+            Map<String, BigDecimal> costsMap = erpService.getCostsBulk(candidateSkus).block();
+            Map<String, SupplierInfo> suppliersMap = erpService.getSuppliersBulk(candidateSkus).block();
+
+            if (inventoryMap == null) inventoryMap = new HashMap<>();
+            if (salesMap == null) salesMap = new HashMap<>();
+            if (costsMap == null) costsMap = new HashMap<>();
+            if (suppliersMap == null) suppliersMap = new HashMap<>();
+
+            logger.info("Bulk data retrieved: {} inventory, {} sales, {} costs, {} suppliers",
+                    inventoryMap.size(), salesMap.size(), costsMap.size(), suppliersMap.size());
+
+            // Step 3: Process each SKU using the bulk data
             List<Map<String, Object>> orderItems = new ArrayList<>();
             BigDecimal grandTotal = BigDecimal.ZERO;
             int totalQuantity = 0;
 
             for (String sku : candidateSkus) {
                 try {
-                    // Get real sales history from ERP
-                    List<SaleRecord> salesHistory = erpService.getSalesHistory(sku, Math.max(targetDays, 30)).block();
+                    // Get sales history from bulk data
+                    List<SaleRecord> salesHistory = salesMap.get(sku);
 
                     if (salesHistory == null || salesHistory.isEmpty()) {
                         logger.debug("Skipping SKU {} - no sales history in ERP", sku);
@@ -609,19 +622,17 @@ public class InventoryAnalysisTools {
                         continue;
                     }
 
-                    // Get real current stock from ERP
-                    Integer currentStock = erpService.getInventoryLevel(sku).block();
-                    if (currentStock == null) currentStock = 0;
+                    // Get current stock from bulk data
+                    Integer currentStock = inventoryMap.getOrDefault(sku, 0);
 
-                    // Get real cost from ERP
-                    BigDecimal unitCost = erpService.getProductCost(sku).block();
-                    if (unitCost == null) unitCost = BigDecimal.ZERO;
+                    // Get cost from bulk data
+                    BigDecimal unitCost = costsMap.getOrDefault(sku, BigDecimal.ZERO);
 
-                    // Get real supplier info from ERP
-                    SupplierInfo supplierInfo = erpService.getSupplierInfo(sku).block();
+                    // Get supplier info from bulk data
+                    SupplierInfo supplierInfo = suppliersMap.get(sku);
                     String actualSupplier = supplierInfo != null ? supplierInfo.getSupplierName() : "Unknown";
 
-                    // Filter by supplier if specified
+                    // Filter by supplier if specified (should be done by search_products_filtered, but double-check)
                     if (supplier != null && !supplier.equals("Unknown") &&
                             !actualSupplier.equalsIgnoreCase(supplier)) {
                         logger.debug("Skipping SKU {} - supplier mismatch (wanted: {}, actual: {})",
@@ -681,7 +692,7 @@ public class InventoryAnalysisTools {
                 }
             }
 
-            // Step 3: Group by supplier for summary
+            // Step 4: Group by supplier for summary
             Map<String, List<Map<String, Object>>> bySupplier = orderItems.stream()
                     .collect(Collectors.groupingBy(item -> (String) item.get("supplier")));
 

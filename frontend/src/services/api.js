@@ -269,6 +269,84 @@ const api = {
     if (activeOnly !== null) params.activeOnly = activeOnly
     return apiClient.get('/tools', { params })
   },
+
+  // ===== INVENTORY MANAGEMENT MODULE =====
+
+  // Dashboard and Overview
+  getInventoryDashboard: () => apiClient.get('/inventory-management/dashboard'),
+
+  getInventoryHealth: () => apiClient.get('/inventory-management/health'),
+
+  // Alerts
+  getLowStockAlerts: (level = 'WARNING', limit = 50) => {
+    return apiClient.get('/inventory-management/low-stock', {
+      params: { level, limit }
+    })
+  },
+
+  resolveStockAlert: (id) => apiClient.put(`/inventory-management/alerts/${id}/resolve`),
+
+  // Recommendations
+  getOrderRecommendations: (status = null, urgency = null) => {
+    const params = {}
+    if (status) params.status = status
+    if (urgency) params.urgency = urgency
+    return apiClient.get('/inventory-management/recommendations', { params })
+  },
+
+  approveOrderRecommendation: (id, approvedBy = 'user') => {
+    return apiClient.put(`/inventory-management/recommendations/${id}/approve`, { approvedBy })
+  },
+
+  dismissOrderRecommendation: (id, reason = null, dismissedBy = 'user') => {
+    return apiClient.delete(`/inventory-management/recommendations/${id}`, {
+      data: { reason, dismissedBy }
+    })
+  },
+
+  // Velocity and Analysis
+  getProductVelocity: (sku) => apiClient.get(`/inventory-management/velocity/${sku}`),
+
+  analyzeInventoryProduct: (sku, velocityDays = 30) => {
+    return apiClient.post(`/inventory-management/analyze/${sku}`, null, {
+      params: { velocityDays }
+    })
+  },
+
+  // Filtered Analysis
+  getInventoryByBrand: (brand, days = 30) => {
+    return apiClient.get(`/inventory-management/by-brand/${brand}`, {
+      params: { days }
+    })
+  },
+
+  getInventoryByCategory: (category, days = 30) => {
+    return apiClient.get(`/inventory-management/by-category/${category}`, {
+      params: { days }
+    })
+  },
+
+  getInventoryBySupplier: (supplier) => {
+    return apiClient.get(`/inventory-management/by-supplier/${supplier}`)
+  },
+
+  // Metadata
+  getInventoryBrands: () => apiClient.get('/inventory-management/brands'),
+
+  getInventoryCategories: () => apiClient.get('/inventory-management/categories'),
+
+  // AI Agent
+  sendInventoryAgentMessage: (message, conversationHistory = [], context = null) => {
+    return apiClient.post('/inventory-management/agent/chat', {
+      message,
+      conversationHistory,
+      context
+    })
+  },
+
+  getInventoryAgentTools: () => apiClient.get('/inventory-management/agent/tools'),
+
+  resetInventoryAgent: () => apiClient.post('/inventory-management/agent/reset'),
 }
 
 export default api

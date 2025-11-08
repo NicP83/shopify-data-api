@@ -6,7 +6,9 @@ function Navigation() {
   const location = useLocation()
   const [approvalCount, setApprovalCount] = useState(0)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [inventoryDropdownOpen, setInventoryDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const inventoryDropdownRef = useRef(null)
 
   useEffect(() => {
     loadApprovalCount()
@@ -20,6 +22,9 @@ function Navigation() {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false)
+      }
+      if (inventoryDropdownRef.current && !inventoryDropdownRef.current.contains(event.target)) {
+        setInventoryDropdownOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -48,6 +53,15 @@ function Navigation() {
     { path: '/market-intel', label: 'Market Intel', icon: '💰' },
   ]
 
+  const inventoryItems = [
+    { path: '/inventory', label: 'Dashboard', icon: '📊' },
+    { path: '/inventory/assistant', label: 'AI Assistant', icon: '🤖' },
+    { path: '/inventory/alerts', label: 'Stock Alerts', icon: '🚨' },
+    { path: '/inventory/recommendations', label: 'Recommendations', icon: '💡' },
+    { path: '/inventory/velocity', label: 'Velocity Tracking', icon: '📈' },
+    { path: '/inventory/order-builder', label: 'Order Builder', icon: '🛒' },
+  ]
+
   const tempDevItems = [
     { path: '/workflows', label: 'Workflows', icon: '🔄' },
     { path: '/workflow-gallery', label: 'Workflow Gallery', icon: '🎨' },
@@ -72,6 +86,10 @@ function Navigation() {
       return location.pathname.startsWith('/seo-agent')
     }
     return location.pathname === path
+  }
+
+  const isInventoryActive = () => {
+    return location.pathname.startsWith('/inventory')
   }
 
   const isTempDevActive = () => {
@@ -107,6 +125,49 @@ function Navigation() {
                 )}
               </Link>
             ))}
+
+            {/* Inventory Management Dropdown */}
+            <div ref={inventoryDropdownRef} className="relative">
+              <button
+                onClick={() => setInventoryDropdownOpen(!inventoryDropdownOpen)}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${
+                  isInventoryActive()
+                    ? 'bg-primary-100 text-primary-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                <span className="mr-2">📦</span>
+                Inventory
+                <svg
+                  className={`ml-1 h-4 w-4 transition-transform ${inventoryDropdownOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {inventoryDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                  {inventoryItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setInventoryDropdownOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${
+                        isActive(item.path)
+                          ? 'bg-primary-100 text-primary-700'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="mr-2">{item.icon}</span>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Temp Dev Dropdown */}
             <div ref={dropdownRef} className="relative">

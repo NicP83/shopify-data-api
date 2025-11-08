@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * REST API Controller for Inventory Analysis Module
+ * REST API Controller for Inventory Management Module
  * Provides endpoints for inventory analysis, recommendations, and alerts
  */
 @RestController
-@RequestMapping("/api/inventory-analysis")
+@RequestMapping("/api/inventory-management")
 public class InventoryAnalysisController {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryAnalysisController.class);
@@ -326,12 +326,12 @@ public class InventoryAnalysisController {
     }
 
     /**
-     * GET /api/inventory-analysis/health
+     * GET /api/inventory-management/health
      * Health check for the analysis module
      */
     @GetMapping("/health")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getHealth() {
-        logger.debug("GET /api/inventory-analysis/health");
+        logger.debug("GET /api/inventory-management/health");
 
         try {
             Map<String, Object> health = Map.of(
@@ -352,5 +352,198 @@ public class InventoryAnalysisController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ApiResponse.error("Health check failed", e.getMessage()));
         }
+    }
+
+    /**
+     * GET /api/inventory-management/by-brand/{brand}
+     * Get inventory analysis filtered by brand
+     */
+    @GetMapping("/by-brand/{brand}")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getByBrand(
+            @PathVariable String brand,
+            @RequestParam(defaultValue = "30") int days) {
+
+        logger.info("GET /api/inventory-management/by-brand/{}?days={}", brand, days);
+
+        try {
+            // Get all velocities and filter by brand (simplified)
+            List<SalesVelocity> allVelocities = velocityRepository.findAll();
+
+            List<SalesVelocity> brandVelocities = allVelocities.stream()
+                    .filter(v -> v.getSku() != null && matchesBrand(v.getSku(), brand))
+                    .toList();
+
+            long lowStockCount = brandVelocities.stream()
+                    .filter(v -> {
+                        List<StockAlert> alerts = alertRepository.findBySkuOrderByCreatedAtDesc(v.getSku());
+                        return !alerts.isEmpty() && alerts.stream().anyMatch(a -> !a.getResolved());
+                    })
+                    .count();
+
+            Map<String, Object> result = Map.of(
+                    "brand", brand,
+                    "days", days,
+                    "totalProducts", brandVelocities.size(),
+                    "lowStockCount", lowStockCount,
+                    "products", brandVelocities
+            );
+
+            return ResponseEntity.ok(ApiResponse.success(result));
+
+        } catch (Exception e) {
+            logger.error("Error analyzing brand {}: {}", brand, e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to analyze brand", e.getMessage()));
+        }
+    }
+
+    /**
+     * GET /api/inventory-management/by-category/{category}
+     * Get inventory analysis filtered by category
+     */
+    @GetMapping("/by-category/{category}")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getByCategory(
+            @PathVariable String category,
+            @RequestParam(defaultValue = "30") int days) {
+
+        logger.info("GET /api/inventory-management/by-category/{}?days={}", category, days);
+
+        try {
+            List<SalesVelocity> allVelocities = velocityRepository.findAll();
+
+            List<SalesVelocity> categoryVelocities = allVelocities.stream()
+                    .filter(v -> v.getSku() != null && matchesCategory(v.getSku(), category))
+                    .toList();
+
+            long lowStockCount = categoryVelocities.stream()
+                    .filter(v -> {
+                        List<StockAlert> alerts = alertRepository.findBySkuOrderByCreatedAtDesc(v.getSku());
+                        return !alerts.isEmpty() && alerts.stream().anyMatch(a -> !a.getResolved());
+                    })
+                    .count();
+
+            Map<String, Object> result = Map.of(
+                    "category", category,
+                    "days", days,
+                    "totalProducts", categoryVelocities.size(),
+                    "lowStockCount", lowStockCount,
+                    "products", categoryVelocities
+            );
+
+            return ResponseEntity.ok(ApiResponse.success(result));
+
+        } catch (Exception e) {
+            logger.error("Error analyzing category {}: {}", category, e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to analyze category", e.getMessage()));
+        }
+    }
+
+    /**
+     * GET /api/inventory-management/by-supplier/{supplier}
+     * Get order analysis filtered by supplier
+     */
+    @GetMapping("/by-supplier/{supplier}")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getBySupplier(
+            @PathVariable String supplier) {
+
+        logger.info("GET /api/inventory-management/by-supplier/{}", supplier);
+
+        try {
+            List<OrderRecommendation> supplierRecs = recommendationRepository
+                    .findAll()
+                    .stream()
+                    .filter(r -> r.getSupplierName() != null &&
+                                r.getSupplierName().equalsIgnoreCase(supplier))
+                    .toList();
+
+            Map<String, Object> result = Map.of(
+                    "supplier", supplier,
+                    "totalProducts", supplierRecs.size(),
+                    "recommendations", supplierRecs
+            );
+
+            return ResponseEntity.ok(ApiResponse.success(result));
+
+        } catch (Exception e) {
+            logger.error("Error analyzing supplier {}: {}", supplier, e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to analyze supplier", e.getMessage()));
+        }
+    }
+
+    /**
+     * GET /api/inventory-management/brands
+     * Get list of all brands
+     */
+    @GetMapping("/brands")
+    public ResponseEntity<ApiResponse<List<String>>> getBrands() {
+        logger.info("GET /api/inventory-management/brands");
+
+        try {
+            // In production, this would come from ERP metadata
+            List<String> brands = List.of(
+                    "Tamiya", "Bandai", "Gundam", "Vallejo", "Citadel",
+                    "Testors", "Mr. Hobby", "Games Workshop", "Revell", "Italeri"
+            );
+
+            return ResponseEntity.ok(ApiResponse.success(brands));
+
+        } catch (Exception e) {
+            logger.error("Error getting brands: {}", e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to get brands", e.getMessage()));
+        }
+    }
+
+    /**
+     * GET /api/inventory-management/categories
+     * Get list of all categories
+     */
+    @GetMapping("/categories")
+    public ResponseEntity<ApiResponse<List<String>>> getCategories() {
+        logger.info("GET /api/inventory-management/categories");
+
+        try {
+            // In production, this would come from ERP metadata
+            List<String> categories = List.of(
+                    "Model Kits", "Acrylic Paints", "Enamel Paints", "Tools",
+                    "Brushes", "Accessories", "Decals", "Weathering Supplies",
+                    "Airbrushes", "Glues & Adhesives"
+            );
+
+            return ResponseEntity.ok(ApiResponse.success(categories));
+
+        } catch (Exception e) {
+            logger.error("Error getting categories: {}", e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to get categories", e.getMessage()));
+        }
+    }
+
+    // ===== HELPER METHODS =====
+
+    private boolean matchesBrand(String sku, String brand) {
+        if (sku == null || brand == null) return false;
+        String skuUpper = sku.toUpperCase();
+        String brandUpper = brand.toUpperCase();
+        return skuUpper.contains(brandUpper) ||
+               skuUpper.startsWith(brandUpper.substring(0, Math.min(3, brandUpper.length())));
+    }
+
+    private boolean matchesCategory(String sku, String category) {
+        if (sku == null || category == null) return false;
+        String categoryUpper = category.toUpperCase();
+        if (categoryUpper.contains("PAINT")) {
+            return sku.toUpperCase().contains("PAINT") || sku.toUpperCase().contains("CLR");
+        } else if (categoryUpper.contains("KIT") || categoryUpper.contains("MODEL")) {
+            return sku.toUpperCase().contains("KIT") || sku.toUpperCase().contains("MDL");
+        }
+        return false;
     }
 }

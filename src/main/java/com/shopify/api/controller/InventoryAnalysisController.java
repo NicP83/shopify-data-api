@@ -182,6 +182,133 @@ public class InventoryAnalysisController {
     }
 
     /**
+     * POST /api/inventory-management/analyze-batch
+     * Analyze multiple products in batch
+     *
+     * @param request Map containing "skus" array
+     */
+    @PostMapping("/analyze-batch")
+    public Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> analyzeBatch(
+            @RequestBody Map<String, Object> request) {
+
+        @SuppressWarnings("unchecked")
+        List<String> skus = (List<String>) request.get("skus");
+
+        if (skus == null || skus.isEmpty()) {
+            return Mono.just(ResponseEntity
+                    .badRequest()
+                    .body(ApiResponse.error("No SKUs provided", "Request must contain 'skus' array")));
+        }
+
+        logger.info("POST /api/inventory-management/analyze-batch - Processing {} SKUs", skus.size());
+
+        if (!analysisService.isEnabled()) {
+            return Mono.just(ResponseEntity
+                    .status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(ApiResponse.error("Inventory analysis service is disabled", null)));
+        }
+
+        // Process each SKU sequentially (to avoid overwhelming the ERP/MCP)
+        return reactor.core.publisher.Flux.fromIterable(skus)
+                .flatMap(sku -> analysisService.analyzeSingleProduct(sku)
+                        .map(result -> Map.of("sku", sku, "status", "success", "result", result))
+                        .onErrorResume(error -> {
+                            logger.error("Error analyzing SKU {} in batch: {}", sku, error.getMessage());
+                            return Mono.just(Map.of(
+                                    "sku", sku,
+                                    "status", "error",
+                                    "error", error.getMessage()
+                            ));
+                        }), 3) // Process 3 at a time
+                .collectList()
+                .map(results -> {
+                    long successCount = results.stream()
+                            .filter(r -> "success".equals(r.get("status")))
+                            .count();
+
+                    Map<String, Object> summary = Map.of(
+                            "totalRequested", skus.size(),
+                            "successCount", successCount,
+                            "errorCount", results.size() - successCount,
+                            "results", results
+                    );
+
+                    logger.info("Batch analysis completed: {}/{} successful", successCount, skus.size());
+
+                    return ResponseEntity.ok(ApiResponse.success(summary));
+                });
+    }
+
+    /**
+     * POST /api/inventory-management/analyze-all
+     * Analyze all tracked products
+     * This fetches all existing SKUs from the velocity table and re-analyzes them
+     *
+     * @param limit Maximum number of products to analyze (default: 100)
+     */
+    @PostMapping("/analyze-all")
+    public Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> analyzeAll(
+            @RequestParam(defaultValue = "100") int limit) {
+
+        logger.info("POST /api/inventory-management/analyze-all - Limit: {}", limit);
+
+        if (!analysisService.isEnabled()) {
+            return Mono.just(ResponseEntity
+                    .status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(ApiResponse.error("Inventory analysis service is disabled", null)));
+        }
+
+        // Get all SKUs from existing velocity records
+        List<String> skus = velocityRepository.findAll()
+                .stream()
+                .map(SalesVelocity::getSku)
+                .distinct()
+                .limit(limit)
+                .toList();
+
+        if (skus.isEmpty()) {
+            Map<String, Object> result = Map.of(
+                    "message", "No products found to analyze",
+                    "hint", "Use POST /api/inventory-management/analyze/{sku} to analyze individual products first"
+            );
+            return Mono.just(ResponseEntity.ok(ApiResponse.success(result)));
+        }
+
+        logger.info("Found {} SKUs to analyze", skus.size());
+
+        // Process in batches
+        return reactor.core.publisher.Flux.fromIterable(skus)
+                .flatMap(sku -> analysisService.analyzeSingleProduct(sku)
+                        .map(result -> Map.of("sku", sku, "status", "success"))
+                        .onErrorResume(error -> {
+                            logger.error("Error analyzing SKU {} in full analysis: {}", sku, error.getMessage());
+                            return Mono.just(Map.of(
+                                    "sku", sku,
+                                    "status", "error",
+                                    "error", error.getMessage()
+                            ));
+                        }), 3) // Process 3 at a time
+                .collectList()
+                .map(results -> {
+                    long successCount = results.stream()
+                            .filter(r -> "success".equals(r.get("status")))
+                            .count();
+
+                    Map<String, Object> summary = Map.of(
+                            "totalAnalyzed", skus.size(),
+                            "successCount", successCount,
+                            "errorCount", results.size() - successCount,
+                            "message", String.format("Analyzed %d products: %d successful, %d errors",
+                                    skus.size(), successCount, results.size() - successCount)
+                    );
+
+                    logger.info("Full analysis completed: {}/{} successful", successCount, skus.size());
+
+                    return ResponseEntity.ok(ApiResponse.success(summary));
+                });
+    }
+
+    /**
      * GET /api/inventory-analysis/velocity/{sku}
      * Get sales velocity for a product
      *
@@ -326,6 +453,48 @@ public class InventoryAnalysisController {
     }
 
     /**
+     * POST /api/inventory-management/seed-test-data
+     * Seed database with test data for development/testing
+     * WARNING: This is for testing only!
+     */
+    @PostMapping("/seed-test-data")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> seedTestData() {
+        logger.info("POST /api/inventory-management/seed-test-data");
+
+        try {
+            // Create sample velocity data
+            java.util.List<SalesVelocity> velocities = createSampleVelocities();
+            velocities = velocityRepository.saveAll(velocities);
+
+            // Create sample alerts
+            java.util.List<StockAlert> alerts = createSampleAlerts();
+            alerts = alertRepository.saveAll(alerts);
+
+            // Create sample recommendations
+            java.util.List<OrderRecommendation> recommendations = createSampleRecommendations();
+            recommendations = recommendationRepository.saveAll(recommendations);
+
+            Map<String, Object> result = Map.of(
+                    "message", "Test data seeded successfully",
+                    "velocitiesCreated", velocities.size(),
+                    "alertsCreated", alerts.size(),
+                    "recommendationsCreated", recommendations.size()
+            );
+
+            logger.info("Test data seeded: {} velocities, {} alerts, {} recommendations",
+                    velocities.size(), alerts.size(), recommendations.size());
+
+            return ResponseEntity.ok(ApiResponse.success(result));
+
+        } catch (Exception e) {
+            logger.error("Error seeding test data: {}", e.getMessage(), e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("Failed to seed test data", e.getMessage()));
+        }
+    }
+
+    /**
      * GET /api/inventory-management/health
      * Health check for the analysis module
      */
@@ -352,6 +521,141 @@ public class InventoryAnalysisController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ApiResponse.error("Health check failed", e.getMessage()));
         }
+    }
+
+    // ===== TEST DATA GENERATION =====
+
+    private java.util.List<SalesVelocity> createSampleVelocities() {
+        return java.util.List.of(
+                SalesVelocity.builder()
+                        .sku("TAM-31114")
+                        .productId("TAM-31114")
+                        .dailyAverage(new java.math.BigDecimal("2.5"))
+                        .weeklyAverage(new java.math.BigDecimal("17.5"))
+                        .monthlyAverage(new java.math.BigDecimal("75.0"))
+                        .trend(TrendDirection.INCREASING)
+                        .trendPercentage(new java.math.BigDecimal("15.5"))
+                        .dataSampleSize(120)
+                        .calculationPeriodDays(30)
+                        .lastCalculated(LocalDateTime.now())
+                        .build(),
+                SalesVelocity.builder()
+                        .sku("GUN-RG-001")
+                        .productId("GUN-RG-001")
+                        .dailyAverage(new java.math.BigDecimal("4.2"))
+                        .weeklyAverage(new java.math.BigDecimal("29.4"))
+                        .monthlyAverage(new java.math.BigDecimal("126.0"))
+                        .trend(TrendDirection.STABLE)
+                        .trendPercentage(new java.math.BigDecimal("2.1"))
+                        .dataSampleSize(85)
+                        .calculationPeriodDays(30)
+                        .lastCalculated(LocalDateTime.now())
+                        .build(),
+                SalesVelocity.builder()
+                        .sku("VAL-70101")
+                        .productId("VAL-70101")
+                        .dailyAverage(new java.math.BigDecimal("1.8"))
+                        .weeklyAverage(new java.math.BigDecimal("12.6"))
+                        .monthlyAverage(new java.math.BigDecimal("54.0"))
+                        .trend(TrendDirection.DECREASING)
+                        .trendPercentage(new java.math.BigDecimal("-8.3"))
+                        .dataSampleSize(95)
+                        .calculationPeriodDays(30)
+                        .lastCalculated(LocalDateTime.now())
+                        .build()
+        );
+    }
+
+    private java.util.List<StockAlert> createSampleAlerts() {
+        return java.util.List.of(
+                StockAlert.builder()
+                        .sku("TAM-31114")
+                        .productTitle("Tamiya 1/48 P-51D Mustang")
+                        .currentStock(12)
+                        .reorderPoint(25)
+                        .alertLevel(AlertLevel.WARNING)
+                        .daysUntilStockout(5)
+                        .estimatedStockoutDate(java.time.LocalDate.now().plusDays(5))
+                        .message("Stock running low - only 5 days remaining")
+                        .resolved(false)
+                        .build(),
+                StockAlert.builder()
+                        .sku("GUN-RG-001")
+                        .productTitle("Gundam RG RX-78-2 Ver 2.0")
+                        .currentStock(3)
+                        .reorderPoint(15)
+                        .alertLevel(AlertLevel.CRITICAL)
+                        .daysUntilStockout(1)
+                        .estimatedStockoutDate(java.time.LocalDate.now().plusDays(1))
+                        .message("CRITICAL: Stock out in 1 day!")
+                        .resolved(false)
+                        .build()
+        );
+    }
+
+    private java.util.List<OrderRecommendation> createSampleRecommendations() {
+        return java.util.List.of(
+                OrderRecommendation.builder()
+                        .sku("TAM-31114")
+                        .productTitle("Tamiya 1/48 P-51D Mustang")
+                        .currentStock(12)
+                        .erpStock(12)
+                        .shopifyStock(0)
+                        .recommendedQuantity(50)
+                        .reorderPoint(25)
+                        .safetyStockLevel(15)
+                        .leadTimeDays(14)
+                        .supplierName("Tamiya USA")
+                        .costPerUnit(new java.math.BigDecimal("45.99"))
+                        .totalCost(new java.math.BigDecimal("2299.50"))
+                        .urgency(UrgencyLevel.HIGH)
+                        .confidenceScore(new java.math.BigDecimal("0.92"))
+                        .aiReasoning("Strong sales trend with upcoming holiday season. Current stock will deplete in 5 days.")
+                        .estimatedStockoutDate(java.time.LocalDate.now().plusDays(5))
+                        .daysUntilStockout(5)
+                        .status(RecommendationStatus.PENDING)
+                        .build(),
+                OrderRecommendation.builder()
+                        .sku("GUN-RG-001")
+                        .productTitle("Gundam RG RX-78-2 Ver 2.0")
+                        .currentStock(3)
+                        .erpStock(3)
+                        .shopifyStock(0)
+                        .recommendedQuantity(30)
+                        .reorderPoint(15)
+                        .safetyStockLevel(10)
+                        .leadTimeDays(21)
+                        .supplierName("Bluefin Distribution")
+                        .costPerUnit(new java.math.BigDecimal("32.99"))
+                        .totalCost(new java.math.BigDecimal("989.70"))
+                        .urgency(UrgencyLevel.CRITICAL)
+                        .confidenceScore(new java.math.BigDecimal("0.88"))
+                        .aiReasoning("URGENT: Best-selling Gundam kit with high velocity. Stock critically low.")
+                        .estimatedStockoutDate(java.time.LocalDate.now().plusDays(1))
+                        .daysUntilStockout(1)
+                        .status(RecommendationStatus.PENDING)
+                        .build(),
+                OrderRecommendation.builder()
+                        .sku("VAL-70101")
+                        .productTitle("Vallejo Model Color Basic Set")
+                        .currentStock(8)
+                        .erpStock(8)
+                        .shopifyStock(0)
+                        .recommendedQuantity(20)
+                        .reorderPoint(12)
+                        .safetyStockLevel(8)
+                        .leadTimeDays(10)
+                        .supplierName("Acrylicos Vallejo")
+                        .costPerUnit(new java.math.BigDecimal("24.99"))
+                        .totalCost(new java.math.BigDecimal("499.80"))
+                        .urgency(UrgencyLevel.MEDIUM)
+                        .confidenceScore(new java.math.BigDecimal("0.75"))
+                        .aiReasoning("Steady seller approaching reorder point. Moderate urgency.")
+                        .estimatedStockoutDate(java.time.LocalDate.now().plusDays(4))
+                        .daysUntilStockout(4)
+                        .status(RecommendationStatus.PENDING)
+                        .build()
+        );
     }
 
     /**

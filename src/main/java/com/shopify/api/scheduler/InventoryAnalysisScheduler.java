@@ -198,15 +198,91 @@ public class InventoryAnalysisScheduler {
         try {
             long startTime = System.currentTimeMillis();
 
-            // TODO: Implement full analysis
-            // This would analyze all products in the inventory
-            logger.info("Full analysis triggered - implementation pending");
+            // Get all existing SKUs from velocity table
+            var allSkus = velocityRepository.findAll()
+                    .stream()
+                    .map(v -> v.getSku())
+                    .distinct()
+                    .toList();
+
+            if (allSkus.isEmpty()) {
+                logger.warn("No SKUs found in velocity table to analyze");
+                return;
+            }
+
+            logger.info("Found {} unique SKUs to analyze", allSkus.size());
+
+            int successCount = 0;
+            int errorCount = 0;
+
+            // Process in batches of 5
+            for (int i = 0; i < allSkus.size(); i += 5) {
+                int end = Math.min(i + 5, allSkus.size());
+                var batch = allSkus.subList(i, end);
+
+                logger.info("Processing batch {}-{} of {}", i + 1, end, allSkus.size());
+
+                for (String sku : batch) {
+                    try {
+                        analysisService.analyzeSingleProduct(sku).block();
+                        successCount++;
+                        logger.debug("Analyzed SKU: {}", sku);
+                    } catch (Exception e) {
+                        errorCount++;
+                        logger.error("Error analyzing SKU {}: {}", sku, e.getMessage());
+                    }
+                }
+
+                // Small delay between batches to avoid overwhelming the system
+                if (end < allSkus.size()) {
+                    try {
+                        Thread.sleep(1000); // 1 second delay
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
 
             long elapsed = System.currentTimeMillis() - startTime;
-            logger.info("Full analysis completed in {}ms", elapsed);
+            logger.info("Full analysis completed in {}ms: {} successful, {} errors",
+                    elapsed, successCount, errorCount);
 
         } catch (Exception e) {
             logger.error("Error during full analysis: {}", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Batch analyze specific SKUs
+     * Used for targeted analysis of a subset of products
+     */
+    public void analyzeBatch(java.util.List<String> skus) {
+        logger.info("=== Batch Analysis: {} SKUs ===", skus.size());
+
+        if (!analysisService.isEnabled()) {
+            logger.warn("Inventory analysis disabled");
+            return;
+        }
+
+        try {
+            int successCount = 0;
+            int errorCount = 0;
+
+            for (String sku : skus) {
+                try {
+                    analysisService.analyzeSingleProduct(sku).block();
+                    successCount++;
+                    logger.debug("Analyzed SKU: {}", sku);
+                } catch (Exception e) {
+                    errorCount++;
+                    logger.error("Error analyzing SKU {}: {}", sku, e.getMessage());
+                }
+            }
+
+            logger.info("Batch analysis completed: {} successful, {} errors", successCount, errorCount);
+
+        } catch (Exception e) {
+            logger.error("Error during batch analysis: {}", e.getMessage(), e);
         }
     }
 }

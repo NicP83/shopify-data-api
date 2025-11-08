@@ -1,5 +1,9 @@
 package com.shopify.api.service.inventory;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.service.ChatAgentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -23,6 +29,8 @@ public class InventoryAnalysisAgent {
 
     private final ChatAgentService chatAgentService;
     private final InventoryAnalysisTools tools;
+    private final WebClient webClient;
+    private final ObjectMapper objectMapper;
 
     @Value("${inventory-management.ai.system-prompt-file:classpath:prompts/inventory-agent-prompt.txt}")
     private Resource systemPromptResource;
@@ -30,13 +38,33 @@ public class InventoryAnalysisAgent {
     @Value("${inventory-management.ai.enabled:true}")
     private boolean aiEnabled;
 
+    @Value("${anthropic.api.key:}")
+    private String anthropicApiKey;
+
+    @Value("${anthropic.api.version:2023-06-01}")
+    private String anthropicApiVersion;
+
+    @Value("${anthropic.model:claude-3-7-sonnet-20250219}")
+    private String anthropicModel;
+
+    @Value("${anthropic.max-tokens:2048}")
+    private int maxTokens;
+
+    @Value("${anthropic.temperature:0.7}")
+    private double temperature;
+
     private String systemPrompt;
 
     public InventoryAnalysisAgent(
             ChatAgentService chatAgentService,
-            InventoryAnalysisTools tools) {
+            InventoryAnalysisTools tools,
+            WebClient.Builder webClientBuilder) {
         this.chatAgentService = chatAgentService;
         this.tools = tools;
+        this.webClient = webClientBuilder
+                .baseUrl("https://api.anthropic.com/v1")
+                .build();
+        this.objectMapper = new ObjectMapper();
     }
 
     /**
@@ -336,33 +364,76 @@ public class InventoryAnalysisAgent {
     }
 
     /**
-     * Generate AI response using ChatAgentService
+     * Generate AI response using Claude API
      */
     private String generateAIResponse(String prompt, List<Map<String, String>> history) {
         try {
-            // Build conversation for ChatAgentService
-            List<Map<String, String>> conversation = new ArrayList<>();
+            // Check if API key is configured
+            if (anthropicApiKey == null || anthropicApiKey.trim().isEmpty()) {
+                logger.warn("Anthropic API key not configured");
+                return "I apologize, but the AI service is not configured. Please contact support.";
+            }
 
-            // Add system prompt
-            conversation.add(Map.of(
-                    "role", "system",
-                    "content", systemPrompt
-            ));
+            // Build messages array
+            ArrayNode messages = objectMapper.createArrayNode();
 
-            // Add history if available
-            if (history != null) {
-                conversation.addAll(history);
+            // Add conversation history
+            if (history != null && !history.isEmpty()) {
+                for (Map<String, String> msg : history) {
+                    ObjectNode messageNode = objectMapper.createObjectNode();
+                    messageNode.put("role", msg.get("role"));
+                    messageNode.put("content", msg.get("content"));
+                    messages.add(messageNode);
+                }
             }
 
             // Add current prompt
-            conversation.add(Map.of(
-                    "role", "user",
-                    "content", prompt
-            ));
+            ObjectNode userMessage = objectMapper.createObjectNode();
+            userMessage.put("role", "user");
+            userMessage.put("content", prompt);
+            messages.add(userMessage);
 
-            // Call ChatAgentService (this is simplified - adjust based on actual API)
-            // For now, return a placeholder response
-            return "Based on the analysis, I can help you with inventory management. The tool results show inventory data that I can use to provide recommendations.";
+            // Create request body
+            ObjectNode requestBody = objectMapper.createObjectNode();
+            requestBody.put("model", anthropicModel);
+            requestBody.put("max_tokens", maxTokens);
+            requestBody.put("temperature", temperature);
+            requestBody.put("system", systemPrompt);
+            requestBody.set("messages", messages);
+
+            logger.debug("Calling Claude API with {} messages", messages.size());
+
+            // Call Claude API synchronously
+            JsonNode response = webClient.post()
+                    .uri("/messages")
+                    .header("x-api-key", anthropicApiKey)
+                    .header("anthropic-version", anthropicApiVersion)
+                    .header("Content-Type", "application/json")
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .bodyToMono(JsonNode.class)
+                    .block(); // Block for synchronous response
+
+            // Extract text from response
+            if (response != null) {
+                JsonNode content = response.get("content");
+                if (content != null && content.isArray() && content.size() > 0) {
+                    StringBuilder fullText = new StringBuilder();
+                    for (JsonNode block : content) {
+                        if ("text".equals(block.get("type").asText())) {
+                            fullText.append(block.get("text").asText());
+                        }
+                    }
+
+                    if (fullText.length() > 0) {
+                        logger.info("Generated AI response: {} characters", fullText.length());
+                        return fullText.toString();
+                    }
+                }
+            }
+
+            logger.warn("No text content in Claude response");
+            return "I apologize, but I couldn't generate a proper response. Please try again.";
 
         } catch (Exception e) {
             logger.error("Error generating AI response: {}", e.getMessage(), e);

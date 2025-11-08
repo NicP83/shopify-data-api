@@ -116,42 +116,93 @@ public class InventoryAnalysisTools {
 
     /**
      * Tool 2: Analyze inventory by category
+     * Uses real-time ERP data via MCP for accurate analysis
      */
     public Map<String, Object> analyzeByCategory(String category, int days) {
-        logger.info("analyzeByCategory: category={}, days={}", category, days);
+        logger.info("analyzeByCategory: category={}, days={} - Using real-time ERP data", category, days);
 
         Map<String, Object> result = new HashMap<>();
         result.put("category", category);
         result.put("days", days);
 
         try {
-            // Similar to analyzeByBrand, but filter by category
+            // Get SKUs from local database (these have been analyzed before)
+            // In production, this would call MCP to get all SKUs in category from ERP
             List<SalesVelocity> allVelocities = velocityRepository.findAll();
 
-            List<SalesVelocity> categoryVelocities = allVelocities.stream()
+            List<String> categorySkus = allVelocities.stream()
                     .filter(v -> v.getSku() != null && matchesCategory(v.getSku(), category))
+                    .map(SalesVelocity::getSku)
                     .collect(Collectors.toList());
 
-            result.put("totalProducts", categoryVelocities.size());
+            logger.info("Found {} SKUs in category '{}' from database", categorySkus.size(), category);
 
-            long lowStockCount = categoryVelocities.stream()
-                    .filter(v -> {
-                        List<StockAlert> alerts = alertRepository.findBySkuOrderByCreatedAtDesc(v.getSku());
-                        return !alerts.isEmpty() && alerts.stream().anyMatch(a -> !a.getResolved());
-                    })
-                    .count();
+            if (categorySkus.isEmpty()) {
+                result.put("totalProducts", 0);
+                result.put("lowStockCount", 0);
+                result.put("averageVelocity", BigDecimal.ZERO);
+                result.put("message", "No products found in category. Note: Category analysis requires products to be analyzed first.");
+                result.put("success", true);
+                return result;
+            }
 
+            // For each SKU, fetch FRESH data from ERP via MCP
+            List<Map<String, Object>> productAnalysis = new ArrayList<>();
+            int lowStockCount = 0;
+            BigDecimal totalVelocity = BigDecimal.ZERO;
+            int validVelocityCount = 0;
+
+            for (String sku : categorySkus) {
+                try {
+                    // Get REAL current stock from ERP
+                    Integer currentStock = erpService.getInventoryLevel(sku).block();
+
+                    // Get REAL sales history from ERP
+                    List<SaleRecord> salesHistory = erpService.getSalesHistory(sku, days).block();
+
+                    if (salesHistory != null && !salesHistory.isEmpty()) {
+                        SalesVelocity velocity = velocityCalculator.calculateDetailed(salesHistory, sku);
+                        BigDecimal dailyVelocity = velocity.getDailyAverage();
+
+                        if (dailyVelocity != null && dailyVelocity.compareTo(BigDecimal.ZERO) > 0) {
+                            totalVelocity = totalVelocity.add(dailyVelocity);
+                            validVelocityCount++;
+
+                            // Check if low stock based on REAL ERP data
+                            BigDecimal daysOfStock = currentStock != null && currentStock > 0 ?
+                                BigDecimal.valueOf(currentStock).divide(dailyVelocity, 2, RoundingMode.HALF_UP) :
+                                BigDecimal.ZERO;
+
+                            if (daysOfStock.compareTo(BigDecimal.valueOf(7)) < 0) {
+                                lowStockCount++;
+                            }
+
+                            Map<String, Object> productData = new HashMap<>();
+                            productData.put("sku", sku);
+                            productData.put("currentStock", currentStock);
+                            productData.put("dailyVelocity", dailyVelocity);
+                            productData.put("daysOfStock", daysOfStock);
+                            productAnalysis.add(productData);
+                        }
+                    }
+                } catch (Exception e) {
+                    logger.warn("Error analyzing SKU {} in category: {}", sku, e.getMessage());
+                }
+            }
+
+            BigDecimal avgVelocity = validVelocityCount > 0 ?
+                totalVelocity.divide(BigDecimal.valueOf(validVelocityCount), 2, RoundingMode.HALF_UP) :
+                BigDecimal.ZERO;
+
+            result.put("totalProducts", categorySkus.size());
             result.put("lowStockCount", lowStockCount);
-
-            double avgVelocity = categoryVelocities.stream()
-                    .filter(v -> v.getDailyAverage() != null)
-                    .mapToDouble(v -> v.getDailyAverage().doubleValue())
-                    .average()
-                    .orElse(0.0);
-
-            result.put("averageVelocity", BigDecimal.valueOf(avgVelocity).setScale(2, RoundingMode.HALF_UP));
-
+            result.put("averageVelocity", avgVelocity);
+            result.put("products", productAnalysis);
+            result.put("dataSource", "ERP via MCP");
             result.put("success", true);
+
+            logger.info("Category analysis complete: {} products, {} low stock, avg velocity {}",
+                categorySkus.size(), lowStockCount, avgVelocity);
 
         } catch (Exception e) {
             logger.error("Error in analyzeByCategory: {}", e.getMessage(), e);
@@ -256,57 +307,78 @@ public class InventoryAnalysisTools {
 
     /**
      * Tool 5: Generate order plan for a product
+     * Uses ONLY objective data from MCP/ERP - no invention!
      */
     public Map<String, Object> generateOrderPlan(String sku, int targetDays) {
-        logger.info("generateOrderPlan: sku={}, targetDays={}", sku, targetDays);
+        logger.info("generateOrderPlan: sku={}, targetDays={} - Fetching real ERP data via MCP", sku, targetDays);
 
         Map<String, Object> result = new HashMap<>();
         result.put("sku", sku);
         result.put("targetDays", targetDays);
 
         try {
-            // Get sales velocity
-            Optional<SalesVelocity> velocityOpt = velocityRepository.findBySku(sku);
-            if (velocityOpt.isEmpty()) {
+            // Get real data from ERP via MCP
+            logger.info("Calling MCP to get sales history for SKU: {}", sku);
+            List<SaleRecord> salesHistory = erpService.getSalesHistory(sku, Math.max(targetDays, 30)).block();
+
+            if (salesHistory == null || salesHistory.isEmpty()) {
                 result.put("success", false);
-                result.put("error", "No velocity data for SKU: " + sku);
+                result.put("error", "No sales history available in ERP for SKU: " + sku);
                 return result;
             }
 
-            SalesVelocity velocity = velocityOpt.get();
+            // Calculate velocity from REAL ERP sales data
+            SalesVelocity velocity = velocityCalculator.calculateDetailed(salesHistory, sku);
             BigDecimal dailyVelocity = velocity.getDailyAverage();
 
             if (dailyVelocity == null || dailyVelocity.compareTo(BigDecimal.ZERO) <= 0) {
                 result.put("success", false);
-                result.put("error", "Invalid velocity for SKU: " + sku);
+                result.put("error", "No sales velocity (0 sales) for SKU: " + sku);
                 return result;
             }
 
-            // Calculate quantity needed
+            // Get REAL current stock from ERP
+            logger.info("Calling MCP to get inventory level for SKU: {}", sku);
+            Integer currentStock = erpService.getInventoryLevel(sku).block();
+            if (currentStock == null) currentStock = 0;
+
+            // Get REAL cost from ERP
+            logger.info("Calling MCP to get product cost for SKU: {}", sku);
+            BigDecimal unitCost = erpService.getProductCost(sku).block();
+            if (unitCost == null) unitCost = BigDecimal.ZERO;
+
+            // Get REAL supplier info from ERP
+            logger.info("Calling MCP to get supplier info for SKU: {}", sku);
+            SupplierInfo supplierInfo = erpService.getSupplierInfo(sku).block();
+            String supplierName = supplierInfo != null ? supplierInfo.getSupplierName() : "Unknown";
+
+            // Calculate quantity needed based on REAL ERP data
             BigDecimal quantityNeeded = dailyVelocity.multiply(BigDecimal.valueOf(targetDays));
             int recommendedQuantity = quantityNeeded.setScale(0, RoundingMode.UP).intValue();
-
-            // Get current stock (would come from ERP in production)
-            int currentStock = 0; // Placeholder
-
-            // Get cost (would come from ERP in production)
-            BigDecimal unitCost = BigDecimal.valueOf(10.00); // Placeholder
 
             BigDecimal totalCost = unitCost.multiply(BigDecimal.valueOf(recommendedQuantity));
 
             result.put("sku", sku);
             result.put("currentStock", currentStock);
             result.put("dailyVelocity", dailyVelocity);
+            result.put("weeklyVelocity", velocity.getWeeklyAverage());
+            result.put("monthlyVelocity", velocity.getMonthlyAverage());
+            result.put("trend", velocity.getTrend().toString());
             result.put("recommendedQuantity", recommendedQuantity);
             result.put("unitCost", unitCost);
             result.put("totalCost", totalCost);
-            result.put("supplier", "TBD"); // Would come from ERP
+            result.put("supplier", supplierName);
+            result.put("leadTimeDays", supplierInfo != null ? supplierInfo.getLeadTimeDays() : null);
+            result.put("dataSource", "ERP via MCP");
             result.put("success", true);
 
+            logger.info("Generated order plan from ERP data: {} units @ ${} = ${}",
+                recommendedQuantity, unitCost, totalCost);
+
         } catch (Exception e) {
-            logger.error("Error in generateOrderPlan: {}", e.getMessage(), e);
+            logger.error("Error in generateOrderPlan for SKU {}: {}", sku, e.getMessage(), e);
             result.put("success", false);
-            result.put("error", e.getMessage());
+            result.put("error", "Failed to fetch ERP data: " + e.getMessage());
         }
 
         return result;
@@ -355,34 +427,46 @@ public class InventoryAnalysisTools {
 
     /**
      * Tool 7: Predict stockout date
+     * Uses ONLY real ERP data - no invented stock levels!
      */
     public Map<String, Object> predictStockout(String sku, int forecastDays) {
-        logger.info("predictStockout: sku={}, forecastDays={}", sku, forecastDays);
+        logger.info("predictStockout: sku={}, forecastDays={} - Using real ERP data", sku, forecastDays);
 
         Map<String, Object> result = new HashMap<>();
         result.put("sku", sku);
 
         try {
-            Optional<SalesVelocity> velocityOpt = velocityRepository.findBySku(sku);
-            if (velocityOpt.isEmpty()) {
+            // Get REAL sales history from ERP
+            logger.info("Calling MCP to get sales history for SKU: {}", sku);
+            List<SaleRecord> salesHistory = erpService.getSalesHistory(sku, 30).block();
+
+            if (salesHistory == null || salesHistory.isEmpty()) {
                 result.put("success", false);
-                result.put("error", "No velocity data for SKU: " + sku);
+                result.put("error", "No sales history in ERP for SKU: " + sku);
                 return result;
             }
 
-            SalesVelocity velocity = velocityOpt.get();
+            // Calculate velocity from REAL ERP data
+            SalesVelocity velocity = velocityCalculator.calculateDetailed(salesHistory, sku);
             BigDecimal dailyVelocity = velocity.getDailyAverage();
 
             if (dailyVelocity == null || dailyVelocity.compareTo(BigDecimal.ZERO) <= 0) {
-                result.put("prediction", "No sales activity - stockout unlikely");
+                result.put("prediction", "No sales activity in ERP - stockout unlikely");
+                result.put("dataSource", "ERP via MCP");
                 result.put("success", true);
                 return result;
             }
 
-            // Current stock (would come from ERP)
-            int currentStock = 100; // Placeholder
+            // Get REAL current stock from ERP
+            logger.info("Calling MCP to get current stock for SKU: {}", sku);
+            Integer currentStock = erpService.getInventoryLevel(sku).block();
+            if (currentStock == null) {
+                result.put("success", false);
+                result.put("error", "No inventory level data in ERP for SKU: " + sku);
+                return result;
+            }
 
-            // Days until stockout
+            // Days until stockout based on REAL ERP data
             BigDecimal daysUntilStockout = BigDecimal.valueOf(currentStock)
                     .divide(dailyVelocity, 2, RoundingMode.HALF_UP);
 
@@ -402,12 +486,16 @@ public class InventoryAnalysisTools {
                 result.put("urgency", "LOW");
             }
 
+            result.put("dataSource", "ERP via MCP");
             result.put("success", true);
 
+            logger.info("Stockout prediction from ERP: {} units, {} days until stockout",
+                currentStock, daysUntilStockout);
+
         } catch (Exception e) {
-            logger.error("Error in predictStockout: {}", e.getMessage(), e);
+            logger.error("Error in predictStockout for SKU {}: {}", sku, e.getMessage(), e);
             result.put("success", false);
-            result.put("error", e.getMessage());
+            result.put("error", "Failed to fetch ERP data: " + e.getMessage());
         }
 
         return result;

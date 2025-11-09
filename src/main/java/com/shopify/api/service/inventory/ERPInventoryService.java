@@ -578,19 +578,29 @@ public class ERPInventoryService {
 
     /**
      * Parse SKU list from search_products_filtered response
+     * MCP returns data in content[0].text as a JSON string
      */
     private List<String> parseSkuList(JsonNode response) {
         List<String> skus = new ArrayList<>();
 
         try {
-            if (response.has("skus") && response.get("skus").isArray()) {
-                for (JsonNode skuNode : response.get("skus")) {
-                    skus.add(skuNode.asText());
+            // MCP response format: { "content": [{ "type": "text", "text": "{...}" }] }
+            if (response.has("content") && response.get("content").isArray() && response.get("content").size() > 0) {
+                JsonNode firstContent = response.get("content").get(0);
+                if (firstContent.has("text")) {
+                    String textContent = firstContent.get("text").asText();
+                    // Parse the nested JSON string
+                    JsonNode parsedContent = objectMapper.readTree(textContent);
+                    if (parsedContent.has("skus") && parsedContent.get("skus").isArray()) {
+                        for (JsonNode skuNode : parsedContent.get("skus")) {
+                            skus.add(skuNode.asText());
+                        }
+                    }
                 }
             }
-            logger.debug("Parsed {} SKUs from search response", skus.size());
+            logger.info("Parsed {} SKUs from search response", skus.size());
         } catch (Exception e) {
-            logger.error("Error parsing SKU list: {}", e.getMessage());
+            logger.error("Error parsing SKU list: {}", e.getMessage(), e);
         }
 
         return skus;

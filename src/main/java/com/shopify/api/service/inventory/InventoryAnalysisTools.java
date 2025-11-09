@@ -550,25 +550,25 @@ public class InventoryAnalysisTools {
 
     /**
      * Tool 9: Generate bulk order plan with multiple filters
-     * Combines brand, category, and supplier filters to generate comprehensive order plans
+     * Combines brand, category, and company (location) filters to generate comprehensive order plans
      * Uses real-time ERP data via MCP
      */
-    public Map<String, Object> generateBulkOrderPlan(String brand, String category, String supplier, int targetDays) {
-        logger.info("generateBulkOrderPlan: brand={}, category={}, supplier={}, targetDays={} - Using ERP data via MCP",
-                brand, category, supplier, targetDays);
+    public Map<String, Object> generateBulkOrderPlan(String brand, String category, String company, int targetDays) {
+        logger.info("generateBulkOrderPlan: brand={}, category={}, company={}, targetDays={} - Using ERP data via MCP",
+                brand, category, company, targetDays);
 
         Map<String, Object> result = new HashMap<>();
         result.put("brand", brand);
         result.put("category", category);
-        result.put("supplier", supplier);
+        result.put("company", company);
         result.put("targetDays", targetDays);
 
         try {
             // Step 1: Get SKUs from ERP using proper search filters (NOT local database!)
-            List<String> candidateSkus = erpService.searchProductsFiltered(brand, category, supplier).block();
+            List<String> candidateSkus = erpService.searchProductsFiltered(brand, category, company).block();
 
-            logger.info("Found {} candidate SKUs from ERP matching brand '{}', category '{}', supplier '{}'",
-                    candidateSkus != null ? candidateSkus.size() : 0, brand, category, supplier);
+            logger.info("Found {} candidate SKUs from ERP matching brand '{}', category '{}', company '{}'",
+                    candidateSkus != null ? candidateSkus.size() : 0, brand, category, company);
 
             if (candidateSkus == null) {
                 candidateSkus = new ArrayList<>();
@@ -628,17 +628,12 @@ public class InventoryAnalysisTools {
                     // Get cost from bulk data
                     BigDecimal unitCost = costsMap.getOrDefault(sku, BigDecimal.ZERO);
 
-                    // Get supplier info from bulk data
+                    // Get supplier info from bulk data (for display purposes)
                     SupplierInfo supplierInfo = suppliersMap.get(sku);
                     String actualSupplier = supplierInfo != null ? supplierInfo.getSupplierName() : "Unknown";
 
-                    // Filter by supplier if specified (should be done by search_products_filtered, but double-check)
-                    if (supplier != null && !supplier.equals("Unknown") &&
-                            !actualSupplier.equalsIgnoreCase(supplier)) {
-                        logger.debug("Skipping SKU {} - supplier mismatch (wanted: {}, actual: {})",
-                                sku, supplier, actualSupplier);
-                        continue;
-                    }
+                    // NOTE: Company/location filtering is done by search_products_filtered in MCP
+                    // No need to filter by supplier here - we're filtering by company (location) instead
 
                     // Calculate days of stock remaining
                     BigDecimal daysOfStock = currentStock > 0 ?

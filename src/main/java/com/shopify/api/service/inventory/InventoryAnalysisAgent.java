@@ -166,16 +166,22 @@ public class InventoryAnalysisAgent {
             intents.add("analyzeByCategory");
         }
 
-        // Supplier analysis
+        // Company/Location analysis (NEW - for multi-location inventory)
+        // "for Hearns Hobbies" or "for Hobbyman" means filter by store location
+        if (messageLower.contains("hobbyman") ||
+            messageLower.contains("hearns hobbies") ||
+            messageLower.contains("hearns")) {
+            intents.add("analyzeByCompany");
+        }
+
+        // Supplier analysis - ONLY for actual suppliers (not company names)
         if (messageLower.contains("supplier") ||
             messageLower.contains("order from") ||
-            messageLower.contains("vendor") ||
-            messageLower.contains("for hobbyman") ||
-            messageLower.contains("from hobbyman") ||
-            messageLower.contains("for hearns") ||
-            messageLower.contains("from hearns") ||
-            (messageLower.contains(" for ") && !messageLower.contains("for me") && !messageLower.contains("for you"))) {
-            intents.add("analyzeBySupplier");
+            messageLower.contains("vendor")) {
+            // Skip if it's a company name (not a supplier)
+            if (!messageLower.contains("hobbyman") && !messageLower.contains("hearns")) {
+                intents.add("analyzeBySupplier");
+            }
         }
 
         // Low stock
@@ -288,15 +294,15 @@ public class InventoryAnalysisAgent {
                 case "generateBulkOrderPlan":
                     brand = extractBrand(message);
                     category = extractCategory(message);
-                    supplier = extractSupplier(message);
+                    String company = extractCompany(message);  // CHANGED: use company instead of supplier
                     targetDays = extractTargetDays(message, context);
                     toolResult.put("parameters", Map.of(
                             "brand", brand,
                             "category", category,
-                            "supplier", supplier,
+                            "company", company,  // CHANGED: company parameter
                             "targetDays", targetDays
                     ));
-                    toolResult.put("result", tools.generateBulkOrderPlan(brand, category, supplier, targetDays));
+                    toolResult.put("result", tools.generateBulkOrderPlan(brand, category, company, targetDays));
                     break;
 
                 default:
@@ -507,32 +513,39 @@ public class InventoryAnalysisAgent {
     private String extractSupplier(String message) {
         String messageLower = message.toLowerCase();
 
-        // Check for supplier names
-        if (messageLower.contains("hobbyman")) return "Hobbyman";
-        if (messageLower.contains("hearns")) return "Hearns Hobbies";
+        // CRITICAL: Hearns Hobbies and Hobbyman are COMPANY NAMES (store locations), NOT suppliers!
+        // Don't use company names as supplier filters
+        if (messageLower.contains("hearns") || messageLower.contains("hobbyman")) {
+            return "Unknown";
+        }
+
+        // Check for actual supplier/manufacturer names
         if (messageLower.contains("bandai")) return "Bandai";
         if (messageLower.contains("tamiya")) return "Tamiya";
         if (messageLower.contains("vallejo")) return "Vallejo";
         if (messageLower.contains("games workshop")) return "Games Workshop";
 
-        // Pattern matching: "for [supplier]" or "from [supplier]"
-        // Extract word after "for" or "from"
-        String[] forPattern = messageLower.split("\\bfor\\s+");
-        if (forPattern.length > 1) {
-            String afterFor = forPattern[1].split("\\s+")[0];
-            if (afterFor.length() > 3 && !afterFor.equals("days") && !afterFor.equals("weeks")) {
-                // Capitalize first letter
-                return afterFor.substring(0, 1).toUpperCase() + afterFor.substring(1);
-            }
-        }
-
+        // Pattern matching: "from [supplier]" (actual suppliers only)
         String[] fromPattern = messageLower.split("\\bfrom\\s+");
         if (fromPattern.length > 1) {
             String afterFrom = fromPattern[1].split("\\s+")[0];
-            if (afterFrom.length() > 3) {
+            // Skip if it's a company name
+            if (afterFrom.length() > 3 &&
+                !afterFrom.equals("hearns") &&
+                !afterFrom.equals("hobbyman")) {
                 return afterFrom.substring(0, 1).toUpperCase() + afterFrom.substring(1);
             }
         }
+
+        return "Unknown";
+    }
+
+    private String extractCompany(String message) {
+        String messageLower = message.toLowerCase();
+
+        // Extract company/location name (our two store locations)
+        if (messageLower.contains("hobbyman")) return "The Hobbyman";
+        if (messageLower.contains("hearns")) return "Hearns Hobbies";
 
         return "Unknown";
     }

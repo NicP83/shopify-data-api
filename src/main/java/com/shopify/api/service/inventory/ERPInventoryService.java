@@ -164,19 +164,19 @@ public class ERPInventoryService {
      * Search products with filters (NEW - uses MCP tool #20)
      * Returns list of SKUs matching the filters
      *
-     * @param brand Filter by brand/supplier name (optional)
+     * @param brand Filter by brand/manufacturer name (optional)
      * @param category Filter by category (Paint, Model Kit, etc) (optional)
-     * @param supplier Filter by supplier name (optional)
+     * @param company Filter by company/location (Hearns Hobbies or The Hobbyman) (optional)
      * @return List of matching SKUs
      */
-    public Mono<List<String>> searchProductsFiltered(String brand, String category, String supplier) {
+    public Mono<List<String>> searchProductsFiltered(String brand, String category, String company) {
         if (!enabled || !mcpClient.isEnabled()) {
             logger.warn("ERP service disabled, returning empty SKU list");
             return Mono.just(new ArrayList<>());
         }
 
-        logger.info("Searching products with filters - brand: {}, category: {}, supplier: {}",
-                brand, category, supplier);
+        logger.info("Searching products with filters - brand: {}, category: {}, company: {}",
+                brand, category, company);
 
         Map<String, Object> arguments = new HashMap<>();
         if (brand != null && !brand.equals("Unknown")) {
@@ -185,8 +185,8 @@ public class ERPInventoryService {
         if (category != null && !category.equals("Unknown")) {
             arguments.put("category", category);
         }
-        if (supplier != null && !supplier.equals("Unknown")) {
-            arguments.put("supplier", supplier);
+        if (company != null && !company.equals("Unknown")) {
+            arguments.put("company", company);
         }
         arguments.put("limit", 100); // Default limit
 

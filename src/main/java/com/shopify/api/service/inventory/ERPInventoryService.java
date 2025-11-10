@@ -598,7 +598,7 @@ public class ERPInventoryService {
                     }
                 }
             }
-            logger.info("Parsed {} SKUs from search response", skus.size());
+            logger.info("Parsed {} SKUs from search response [v2-nested-json-fix]", skus.size());
         } catch (Exception e) {
             logger.error("Error parsing SKU list: {}", e.getMessage(), e);
         }

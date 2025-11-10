@@ -680,8 +680,8 @@ public class InventoryAnalysisAgent {
 
         toolsList.add(Map.of(
                 "name", "generateBulkOrderPlan",
-                "description", "Generate comprehensive order plan with multiple filters (brand, category, supplier)",
-                "parameters", List.of("brand", "category", "supplier", "targetDays")
+                "description", "Generate comprehensive order plan with multiple filters (brand, category, company)",
+                "parameters", List.of("brand", "category", "company", "targetDays")
         ));
 
         return toolsList;

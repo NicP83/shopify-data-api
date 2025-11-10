@@ -469,22 +469,35 @@ public class ERPInventoryService {
 
     /**
      * Parse bulk inventory levels response
+     * MCP returns data in content[0].text as a JSON string
      */
     private Map<String, Integer> parseInventoryLevelsBulk(JsonNode response) {
         Map<String, Integer> result = new HashMap<>();
 
         try {
-            // Response format: { "TAM-31114": { "quantity": 45, "reorderLevel": 20 }, ... }
-            response.fields().forEachRemaining(entry -> {
+            // MCP response format: { "content": [{ "type": "text", "text": "{...}" }] }
+            JsonNode dataNode = response;
+
+            // Extract nested JSON if in MCP format
+            if (response.has("content") && response.get("content").isArray() && response.get("content").size() > 0) {
+                JsonNode firstContent = response.get("content").get(0);
+                if (firstContent.has("text")) {
+                    String textContent = firstContent.get("text").asText();
+                    dataNode = objectMapper.readTree(textContent);
+                }
+            }
+
+            // Process data: { "TAM-31114": { "quantity": 45, "reorderLevel": 20 }, ... }
+            dataNode.fields().forEachRemaining(entry -> {
                 String sku = entry.getKey();
                 JsonNode data = entry.getValue();
                 if (data.has("quantity")) {
                     result.put(sku, data.get("quantity").asInt());
                 }
             });
-            logger.debug("Parsed {} inventory levels", result.size());
+            logger.info("Parsed {} inventory levels from bulk response", result.size());
         } catch (Exception e) {
-            logger.error("Error parsing bulk inventory levels: {}", e.getMessage());
+            logger.error("Error parsing bulk inventory levels: {}", e.getMessage(), e);
         }
 
         return result;
@@ -492,13 +505,26 @@ public class ERPInventoryService {
 
     /**
      * Parse bulk sales history response
+     * MCP returns data in content[0].text as a JSON string
      */
     private Map<String, List<SaleRecord>> parseSalesHistoryBulk(JsonNode response) {
         Map<String, List<SaleRecord>> result = new HashMap<>();
 
         try {
-            // Response format: { "TAM-31114": [ {sale1}, {sale2} ], "TAM-31115": [...] }
-            response.fields().forEachRemaining(entry -> {
+            // MCP response format: { "content": [{ "type": "text", "text": "{...}" }] }
+            JsonNode dataNode = response;
+
+            // Extract nested JSON if in MCP format
+            if (response.has("content") && response.get("content").isArray() && response.get("content").size() > 0) {
+                JsonNode firstContent = response.get("content").get(0);
+                if (firstContent.has("text")) {
+                    String textContent = firstContent.get("text").asText();
+                    dataNode = objectMapper.readTree(textContent);
+                }
+            }
+
+            // Process data: { "TAM-31114": [ {sale1}, {sale2} ], "TAM-31115": [...] }
+            dataNode.fields().forEachRemaining(entry -> {
                 String sku = entry.getKey();
                 JsonNode salesArray = entry.getValue();
 
@@ -518,9 +544,9 @@ public class ERPInventoryService {
                 }
                 result.put(sku, sales);
             });
-            logger.debug("Parsed sales history for {} SKUs", result.size());
+            logger.info("Parsed sales history for {} SKUs from bulk response", result.size());
         } catch (Exception e) {
-            logger.error("Error parsing bulk sales history: {}", e.getMessage());
+            logger.error("Error parsing bulk sales history: {}", e.getMessage(), e);
         }
 
         return result;
@@ -528,22 +554,35 @@ public class ERPInventoryService {
 
     /**
      * Parse bulk costs response
+     * MCP returns data in content[0].text as a JSON string
      */
     private Map<String, BigDecimal> parseCostsBulk(JsonNode response) {
         Map<String, BigDecimal> result = new HashMap<>();
 
         try {
-            // Response format: { "TAM-31114": { "costPerUnit": 7.99, ... }, ... }
-            response.fields().forEachRemaining(entry -> {
+            // MCP response format: { "content": [{ "type": "text", "text": "{...}" }] }
+            JsonNode dataNode = response;
+
+            // Extract nested JSON if in MCP format
+            if (response.has("content") && response.get("content").isArray() && response.get("content").size() > 0) {
+                JsonNode firstContent = response.get("content").get(0);
+                if (firstContent.has("text")) {
+                    String textContent = firstContent.get("text").asText();
+                    dataNode = objectMapper.readTree(textContent);
+                }
+            }
+
+            // Process data: { "TAM-31114": { "costPerUnit": 7.99, ... }, ... }
+            dataNode.fields().forEachRemaining(entry -> {
                 String sku = entry.getKey();
                 JsonNode data = entry.getValue();
                 if (data.has("costPerUnit")) {
                     result.put(sku, new BigDecimal(data.get("costPerUnit").asText()));
                 }
             });
-            logger.debug("Parsed {} costs", result.size());
+            logger.info("Parsed {} costs from bulk response", result.size());
         } catch (Exception e) {
-            logger.error("Error parsing bulk costs: {}", e.getMessage());
+            logger.error("Error parsing bulk costs: {}", e.getMessage(), e);
         }
 
         return result;
@@ -551,13 +590,26 @@ public class ERPInventoryService {
 
     /**
      * Parse bulk suppliers response
+     * MCP returns data in content[0].text as a JSON string
      */
     private Map<String, SupplierInfo> parseSuppliersBulk(JsonNode response) {
         Map<String, SupplierInfo> result = new HashMap<>();
 
         try {
-            // Response format: { "TAM-31114": { "supplierName": "Tamiya Inc.", ... }, ... }
-            response.fields().forEachRemaining(entry -> {
+            // MCP response format: { "content": [{ "type": "text", "text": "{...}" }] }
+            JsonNode dataNode = response;
+
+            // Extract nested JSON if in MCP format
+            if (response.has("content") && response.get("content").isArray() && response.get("content").size() > 0) {
+                JsonNode firstContent = response.get("content").get(0);
+                if (firstContent.has("text")) {
+                    String textContent = firstContent.get("text").asText();
+                    dataNode = objectMapper.readTree(textContent);
+                }
+            }
+
+            // Process data: { "TAM-31114": { "supplierName": "Tamiya Inc.", ... }, ... }
+            dataNode.fields().forEachRemaining(entry -> {
                 String sku = entry.getKey();
                 JsonNode data = entry.getValue();
 
@@ -568,9 +620,9 @@ public class ERPInventoryService {
                         .build();
                 result.put(sku, info);
             });
-            logger.debug("Parsed supplier info for {} SKUs", result.size());
+            logger.info("Parsed supplier info for {} SKUs from bulk response", result.size());
         } catch (Exception e) {
-            logger.error("Error parsing bulk suppliers: {}", e.getMessage());
+            logger.error("Error parsing bulk suppliers: {}", e.getMessage(), e);
         }
 
         return result;

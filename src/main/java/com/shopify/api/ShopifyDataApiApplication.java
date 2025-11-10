@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * - Product data extraction
  * - Order management
  * - Customer information
- * - Inventory tracking
+ * - Inventory tracking (with multi-location support)
  * - Automatic rate limiting
  * - OAuth token management
  * - AOP-based activity logging

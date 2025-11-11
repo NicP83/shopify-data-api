@@ -78,8 +78,7 @@ shopify:
 anthropic:
   api:
     key: ${ANTHROPIC_API_KEY:}
-    # Version 2024-07-15 required for prompt caching feature
-    version: ${ANTHROPIC_API_VERSION:2024-07-15}
+    version: ${ANTHROPIC_API_VERSION:2023-06-01}
   # Valid Claude models (see ModelConfig.java for complete list):
   # Claude 4.5: claude-sonnet-4-5-20250929, claude-opus-4-1-20250805, claude-haiku-4-5-20251001
   # Claude 4: claude-sonnet-4-20250514, claude-opus-4-20250514

@@ -175,21 +175,7 @@ public class ChatAgentService {
         requestBody.put("model", modelToUse);
         requestBody.put("max_tokens", tokensToUse);
         requestBody.put("temperature", tempToUse);
-
-        // Use array format with cache_control for prompt caching
-        // This caches the system prompt for 5 minutes (Anthropic default)
-        ArrayNode systemArray = objectMapper.createArrayNode();
-        ObjectNode systemBlock = objectMapper.createObjectNode();
-        systemBlock.put("type", "text");
-        systemBlock.put("text", systemPrompt);
-
-        // Add cache control breakpoint to cache this system prompt
-        ObjectNode cacheControl = objectMapper.createObjectNode();
-        cacheControl.put("type", "ephemeral");
-        systemBlock.set("cache_control", cacheControl);
-
-        systemArray.add(systemBlock);
-        requestBody.set("system", systemArray);
+        requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
         // Add tools array if product search is enabled

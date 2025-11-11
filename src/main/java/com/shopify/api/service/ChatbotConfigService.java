@@ -6,6 +6,8 @@ import com.shopify.api.repository.ChatbotConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -91,7 +93,9 @@ public class ChatbotConfigService {
     /**
      * Get current chatbot configuration
      * Loads from database first, falls back to @Value defaults
+     * Cached to avoid database query on every chat request
      */
+    @Cacheable(value = "chatbotConfig", key = "'global'")
     public ChatbotConfig getConfig() {
         return getConfig(null); // Use global config by default
     }
@@ -100,6 +104,7 @@ public class ChatbotConfigService {
      * Get chatbot configuration for a specific shop
      * @param shopId Shop ID (null for global config)
      */
+    @Cacheable(value = "chatbotConfig", key = "#shopId == null ? 'global' : #shopId")
     public ChatbotConfig getConfig(Long shopId) {
         // Try to load from database
         Optional<ChatbotConfigEntity> configEntity;
@@ -148,18 +153,22 @@ public class ChatbotConfigService {
 
     /**
      * Update chatbot configuration and persist to database
+     * Evicts cache to ensure fresh config is loaded
      * @param config The updated configuration
      */
+    @CacheEvict(value = "chatbotConfig", key = "'global'")
     public ChatbotConfig updateConfig(ChatbotConfig config) {
         return updateConfig(config, null, "system");
     }
 
     /**
      * Update chatbot configuration and persist to database
+     * Evicts cache to ensure fresh config is loaded
      * @param config The updated configuration
      * @param shopId Shop ID (null for global config)
      * @param updatedBy Username of who made the update
      */
+    @CacheEvict(value = "chatbotConfig", key = "#shopId == null ? 'global' : #shopId")
     public ChatbotConfig updateConfig(ChatbotConfig config, Long shopId, String updatedBy) {
         logger.info("Updating chatbot config for shop: {}", shopId);
 

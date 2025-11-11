@@ -673,6 +673,7 @@ public class ChatAgentService {
     /**
      * Extract assistant message from Claude API response
      * Handles both text-only and mixed content responses
+     * Also captures token usage for cost tracking
      */
     private ChatMessage extractAssistantMessage(JsonNode response) {
         try {
@@ -688,7 +689,23 @@ public class ChatAgentService {
                 }
 
                 if (fullText.length() > 0) {
-                    return new ChatMessage("assistant", fullText.toString());
+                    ChatMessage message = new ChatMessage("assistant", fullText.toString());
+
+                    // Extract token usage from response
+                    JsonNode usage = response.get("usage");
+                    if (usage != null) {
+                        JsonNode inputTokens = usage.get("input_tokens");
+                        JsonNode outputTokens = usage.get("output_tokens");
+
+                        if (inputTokens != null && outputTokens != null) {
+                            message.setInputTokens(inputTokens.asInt());
+                            message.setOutputTokens(outputTokens.asInt());
+                            logger.debug("Token usage - Input: {}, Output: {}",
+                                inputTokens.asInt(), outputTokens.asInt());
+                        }
+                    }
+
+                    return message;
                 }
             }
             return createErrorResponse();

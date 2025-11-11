@@ -105,9 +105,10 @@ public class ShopifyChatController {
                     // Calculate response time
                     long responseTime = System.currentTimeMillis() - startTime;
 
-                    // Track successful interaction
+                    // Track successful interaction with token usage
                     trackSuccessfulInteraction(shopConfig, request, chatMessage.getContent(),
-                        responseTime, userAgent, xForwardedFor, xRealIp, referer);
+                        responseTime, chatMessage.getInputTokens(), chatMessage.getOutputTokens(),
+                        userAgent, xForwardedFor, xRealIp, referer);
 
                     Map<String, Object> response = new HashMap<>();
                     response.put("response", chatMessage.getContent());
@@ -156,9 +157,11 @@ public class ShopifyChatController {
 
     /**
      * Track successful chat interaction in analytics database
+     * Includes token usage and API cost calculation
      */
     private void trackSuccessfulInteraction(ShopifyShop shop, ChatRequest request,
                                            String assistantResponse, long responseTimeMs,
+                                           Integer inputTokens, Integer outputTokens,
                                            String userAgent, String xForwardedFor,
                                            String xRealIp, String referer) {
         try {
@@ -177,6 +180,16 @@ public class ShopifyChatController {
                 .ipAddress(extractClientIp(xForwardedFor, xRealIp))
                 .refererUrl(referer)
                 .build();
+
+            // Calculate and set token usage and API cost
+            if (inputTokens != null && outputTokens != null) {
+                analytics.setTokensUsed(inputTokens + outputTokens);
+                analytics.calculateApiCost(inputTokens, outputTokens);
+                logger.debug("Token usage - Input: {}, Output: {}, Total: {}, Cost: ${}",
+                    inputTokens, outputTokens, analytics.getTokensUsed(), analytics.getApiCostUsd());
+            } else {
+                logger.warn("Token usage not available from Claude API response");
+            }
 
             chatAnalyticsService.trackInteraction(analytics);
             logger.debug("Analytics tracked for session: {}", request.getSessionId());

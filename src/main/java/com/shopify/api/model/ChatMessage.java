@@ -12,6 +12,10 @@ public class ChatMessage {
     private String content;   // Message text
     private Long timestamp;   // Unix timestamp
 
+    // Token usage for API cost tracking
+    private Integer inputTokens;
+    private Integer outputTokens;
+
     public ChatMessage(String role, String content) {
         this.role = role;
         this.content = content;

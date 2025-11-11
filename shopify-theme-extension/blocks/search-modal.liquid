@@ -21,9 +21,9 @@
     <div class="ai-modal-header">
       <div class="ai-modal-title-wrapper">
         <svg class="ai-assistant-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="{{ block.settings.primary_color }}" stroke="{{ block.settings.primary_color }}" stroke-width="2"/>
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="{{ block.settings.primary_color }}" stroke="{{ block.settings.primary_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <h2 id="ai-modal-title" class="ai-modal-title">AI Product Assistant</h2>
+        <h2 id="ai-modal-title" class="ai-modal-title">Camilla - Product Support</h2>
       </div>
       <button
         type="button"
@@ -43,17 +43,17 @@
         <div class="ai-message ai-message-assistant">
           <div class="ai-message-avatar">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="ai-message-content">
-            <p>Hi! I'm your AI shopping assistant for {{ shop.name }}. Ask me to help you find products like:</p>
+            <p>Hi! I'm Camilla, your product support assistant for {{ shop.name }}. I can help you find products like:</p>
             <ul class="ai-suggestion-list">
               <li>"Show me Gundam model kits under $50"</li>
               <li>"I need hobby paints for plastic models"</li>
               <li>"What tools do I need for scale modeling?"</li>
             </ul>
-            <p class="ai-tip">💡 Be as specific as you'd like - I can search by brand, price, category, or even project type!</p>
+            <p class="ai-tip">Be as specific as you'd like - I can search by brand, price, category, or project type.</p>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
       <div class="ai-message ai-message-assistant">
         <div class="ai-message-avatar">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="ai-message-content">
@@ -94,7 +94,7 @@
         <textarea
           id="ai-chat-input"
           class="ai-chat-input"
-          placeholder="Ask me anything about our products..."
+          placeholder="Ask Camilla about products..."
           rows="1"
           aria-label="Product search query"
           required
@@ -111,7 +111,7 @@
         </button>
       </form>
       <div class="ai-chat-footer">
-        <span class="ai-powered-by">Powered by Claude AI</span>
+        <span class="ai-powered-by">Powered by Camilla</span>
       </div>
     </div>
   </div>
@@ -174,8 +174,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 24px;
-    border-bottom: 1px solid #e5e7eb;
-    background: linear-gradient(135deg, {{ block.settings.primary_color | default: '#4A90E2' }}15 0%, white 100%);
+    border-bottom: 1px solid #cbcbcb;
+    background: linear-gradient(135deg, {{ block.settings.primary_color | default: '#212b36' }}08 0%, white 100%);
   }
 
   .ai-modal-title-wrapper {
@@ -192,7 +192,7 @@
     margin: 0;
     font-size: 20px;
     font-weight: 600;
-    color: {{ block.settings.text_color | default: '#333333' }};
+    color: {{ block.settings.text_color | default: '#191919' }};
   }
 
   .ai-modal-close {
@@ -207,16 +207,20 @@
 
   .ai-modal-close:hover {
     background: #f3f4f6;
-    color: {{ block.settings.text_color | default: '#333333' }};
+    color: {{ block.settings.text_color | default: '#191919' }};
   }
 
   /* Chat Messages */
   .ai-chat-messages {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 24px;
     background: #f9fafb;
     scroll-behavior: smooth;
+    /* Ensure scrollbar is always visible */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #d1d5db #f3f4f6; /* Firefox */
   }
 
   .ai-message {
@@ -248,12 +252,12 @@
   }
 
   .ai-message-assistant .ai-message-avatar {
-    background: {{ block.settings.primary_color | default: '#4A90E2' }};
+    background: {{ block.settings.primary_color | default: '#212b36' }};
     color: white;
   }
 
   .ai-message-user .ai-message-avatar {
-    background: #6b7280;
+    background: #262626;
     color: white;
   }
 
@@ -270,7 +274,7 @@
   }
 
   .ai-message-user .ai-message-content {
-    background: {{ block.settings.primary_color | default: '#4A90E2' }};
+    background: {{ block.settings.primary_color | default: '#212b36' }};
     color: white;
     margin-left: auto;
   }
@@ -316,7 +320,7 @@
   }
 
   .ai-product-card:hover {
-    border-color: {{ block.settings.primary_color | default: '#4A90E2' }};
+    border-color: {{ block.settings.primary_color | default: '#212b36' }};
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -333,13 +337,13 @@
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
-    color: {{ block.settings.text_color | default: '#333333' }};
+    color: {{ block.settings.text_color | default: '#191919' }};
   }
 
   .ai-product-price {
     font-size: 16px;
     font-weight: 700;
-    color: {{ block.settings.primary_color | default: '#4A90E2' }};
+    color: #c30000;
   }
 
   /* Typing Indicator */
@@ -353,7 +357,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: {{ block.settings.primary_color | default: '#4A90E2' }};
+    background: {{ block.settings.primary_color | default: '#212b36' }};
     animation: typing 1.4s ease-in-out infinite;
   }
 
@@ -387,7 +391,7 @@
 
   /* Chat Input */
   .ai-chat-input-container {
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #cbcbcb;
     background: white;
   }
 
@@ -412,14 +416,14 @@
 
   .ai-chat-input:focus {
     outline: none;
-    border-color: {{ block.settings.primary_color | default: '#4A90E2' }};
+    border-color: {{ block.settings.primary_color | default: '#212b36' }};
   }
 
   .ai-chat-submit {
     width: 44px;
     height: 44px;
     padding: 0;
-    background: {{ block.settings.primary_color | default: '#4A90E2' }};
+    background: {{ block.settings.primary_color | default: '#212b36' }};
     border: none;
     border-radius: 12px;
     color: white;
@@ -432,7 +436,7 @@
   }
 
   .ai-chat-submit:hover:not(:disabled) {
-    background: {{ block.settings.primary_color | default: '#3A7BC2' }};
+    background: #2c6ecb;
     transform: scale(1.05);
   }
 
@@ -470,22 +474,28 @@
     }
   }
 
-  /* Scrollbar Styling */
+  /* Scrollbar Styling - Enhanced visibility */
   .ai-chat-messages::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
   }
 
   .ai-chat-messages::-webkit-scrollbar-track {
-    background: #f3f4f6;
+    background: #e5e7eb;
+    border-radius: 8px;
   }
 
   .ai-chat-messages::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 4px;
+    background: #9ca3af;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
   }
 
   .ai-chat-messages::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: #6b7280;
+  }
+
+  .ai-chat-messages::-webkit-scrollbar-thumb:active {
+    background: #4b5563;
   }
 </style>
 
@@ -498,13 +508,13 @@
       "type": "color",
       "id": "primary_color",
       "label": "Primary Color",
-      "default": "#4A90E2"
+      "default": "#212b36"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#333333"
+      "default": "#191919"
     },
     {
       "type": "text",

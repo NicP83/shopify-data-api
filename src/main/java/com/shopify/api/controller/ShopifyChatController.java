@@ -11,15 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * REST API for shop-scoped chat with AI assistant
@@ -51,7 +47,10 @@ public class ShopifyChatController {
     public Mono<ResponseEntity<Map<String, Object>>> sendMessage(
             @RequestParam String shop,
             @RequestBody ChatRequest request,
-            ServerHttpRequest httpRequest) {
+            @RequestHeader(value = "User-Agent", required = false) String userAgent,
+            @RequestHeader(value = "X-Forwarded-For", required = false) String xForwardedFor,
+            @RequestHeader(value = "X-Real-IP", required = false) String xRealIp,
+            @RequestHeader(value = "Referer", required = false) String referer) {
 
         logger.info("Chat message received for shop: {} (session: {})", shop, request.getSessionId());
 
@@ -108,7 +107,7 @@ public class ShopifyChatController {
 
                     // Track successful interaction
                     trackSuccessfulInteraction(shopConfig, request, chatMessage.getContent(),
-                        responseTime, httpRequest);
+                        responseTime, userAgent, xForwardedFor, xRealIp, referer);
 
                     Map<String, Object> response = new HashMap<>();
                     response.put("response", chatMessage.getContent());
@@ -160,7 +159,8 @@ public class ShopifyChatController {
      */
     private void trackSuccessfulInteraction(ShopifyShop shop, ChatRequest request,
                                            String assistantResponse, long responseTimeMs,
-                                           ServerHttpRequest httpRequest) {
+                                           String userAgent, String xForwardedFor,
+                                           String xRealIp, String referer) {
         try {
             ChatAnalytics analytics = ChatAnalytics.builder()
                 .shop(shop)
@@ -173,9 +173,9 @@ public class ShopifyChatController {
                 .maxTokensUsed(shop.getAiMaxTokens())
                 .responseTimeMs((int) responseTimeMs)
                 .wasSuccessful(true)
-                .userAgent(httpRequest.getHeaders().getFirst("User-Agent"))
-                .ipAddress(extractClientIp(httpRequest))
-                .refererUrl(httpRequest.getHeaders().getFirst("Referer"))
+                .userAgent(userAgent)
+                .ipAddress(extractClientIp(xForwardedFor, xRealIp))
+                .refererUrl(referer)
                 .build();
 
             chatAnalyticsService.trackInteraction(analytics);
@@ -234,21 +234,14 @@ public class ShopifyChatController {
      * Extract client IP address from request headers
      * Handles common proxy headers (X-Forwarded-For, X-Real-IP)
      */
-    private String extractClientIp(ServerHttpRequest request) {
-        String xForwardedFor = request.getHeaders().getFirst("X-Forwarded-For");
+    private String extractClientIp(String xForwardedFor, String xRealIp) {
         if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
             // X-Forwarded-For can contain multiple IPs, take the first one
             return xForwardedFor.split(",")[0].trim();
         }
 
-        String xRealIp = request.getHeaders().getFirst("X-Real-IP");
         if (xRealIp != null && !xRealIp.isEmpty()) {
             return xRealIp;
-        }
-
-        // Fallback to remote address
-        if (request.getRemoteAddress() != null) {
-            return request.getRemoteAddress().getAddress().getHostAddress();
         }
 
         return "unknown";

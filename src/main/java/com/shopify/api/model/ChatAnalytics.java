@@ -81,8 +81,8 @@ public class ChatAnalytics {
     /**
      * Tool usage
      */
-    @Column(name = "tools_called")
-    @Convert(converter = StringListConverter.class)
+    @Column(name = "tools_called", columnDefinition = "TEXT[]")
+    @Convert(converter = StringArrayConverter.class)
     private List<String> toolsCalled;
 
     @Column(name = "tool_results_count")
@@ -166,26 +166,24 @@ public class ChatAnalytics {
 }
 
 /**
- * JPA Converter for String List (PostgreSQL TEXT[] array)
+ * JPA Converter for String List to PostgreSQL TEXT[] array
  */
 @Converter
-class StringListConverter implements AttributeConverter<List<String>, String> {
-
-    private static final String DELIMITER = ",";
+class StringArrayConverter implements AttributeConverter<List<String>, String[]> {
 
     @Override
-    public String convertToDatabaseColumn(List<String> attribute) {
+    public String[] convertToDatabaseColumn(List<String> attribute) {
         if (attribute == null || attribute.isEmpty()) {
-            return null;
+            return new String[0];
         }
-        return String.join(DELIMITER, attribute);
+        return attribute.toArray(new String[0]);
     }
 
     @Override
-    public List<String> convertToEntityAttribute(String dbData) {
-        if (dbData == null || dbData.trim().isEmpty()) {
+    public List<String> convertToEntityAttribute(String[] dbData) {
+        if (dbData == null || dbData.length == 0) {
             return List.of();
         }
-        return List.of(dbData.split(DELIMITER));
+        return List.of(dbData);
     }
 }

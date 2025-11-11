@@ -17,6 +17,7 @@ import WorkflowChatExecutor from './pages/WorkflowChatExecutor'
 import WorkflowGallery from './pages/WorkflowGallery'
 import SeoAgent from './pages/SeoAgent'
 import Logs from './pages/Logs'
+import ChatAnalytics from './pages/ChatAnalytics'
 import InventoryDashboard from './pages/InventoryDashboard'
 import InventoryAssistant from './pages/InventoryAssistant'
 import StockAlerts from './pages/StockAlerts'
@@ -51,6 +52,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/logs" element={<Logs />} />
+            <Route path="/chat-analytics" element={<ChatAnalytics />} />
             <Route path="/market-intel" element={<div className="text-center py-20 text-gray-500">Market Intelligence - Coming Soon</div>} />
             <Route path="/inventory" element={<InventoryDashboard />} />
             <Route path="/inventory/assistant" element={<InventoryAssistant />} />

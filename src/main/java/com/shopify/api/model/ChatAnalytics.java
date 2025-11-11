@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Entity for tracking chat analytics and performance metrics
@@ -79,12 +78,10 @@ public class ChatAnalytics {
     private BigDecimal apiCostUsd;
 
     /**
-     * Tool usage
+     * Tool usage tracking
+     * Note: tools_called column exists in DB but not mapped here due to PostgreSQL array type complexity
+     * Tool count is tracked via tool_results_count instead
      */
-    @Column(name = "tools_called", columnDefinition = "TEXT[]")
-    @Convert(converter = StringArrayConverter.class)
-    private List<String> toolsCalled;
-
     @Column(name = "tool_results_count")
     @Builder.Default
     private Integer toolResultsCount = 0;
@@ -165,25 +162,3 @@ public class ChatAnalytics {
     }
 }
 
-/**
- * JPA Converter for String List to PostgreSQL TEXT[] array
- */
-@Converter
-class StringArrayConverter implements AttributeConverter<List<String>, String[]> {
-
-    @Override
-    public String[] convertToDatabaseColumn(List<String> attribute) {
-        if (attribute == null || attribute.isEmpty()) {
-            return new String[0];
-        }
-        return attribute.toArray(new String[0]);
-    }
-
-    @Override
-    public List<String> convertToEntityAttribute(String[] dbData) {
-        if (dbData == null || dbData.length == 0) {
-            return List.of();
-        }
-        return List.of(dbData);
-    }
-}

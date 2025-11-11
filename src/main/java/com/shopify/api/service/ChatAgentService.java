@@ -175,7 +175,21 @@ public class ChatAgentService {
         requestBody.put("model", modelToUse);
         requestBody.put("max_tokens", tokensToUse);
         requestBody.put("temperature", tempToUse);
-        requestBody.put("system", systemPrompt);
+
+        // Use array format with cache_control for prompt caching
+        // This caches the system prompt for 5 minutes (Anthropic default)
+        ArrayNode systemArray = objectMapper.createArrayNode();
+        ObjectNode systemBlock = objectMapper.createObjectNode();
+        systemBlock.put("type", "text");
+        systemBlock.put("text", systemPrompt);
+
+        // Add cache control breakpoint to cache this system prompt
+        ObjectNode cacheControl = objectMapper.createObjectNode();
+        cacheControl.put("type", "ephemeral");
+        systemBlock.set("cache_control", cacheControl);
+
+        systemArray.add(systemBlock);
+        requestBody.set("system", systemArray);
         requestBody.set("messages", messages);
 
         // Add tools array if product search is enabled
@@ -702,6 +716,19 @@ public class ChatAgentService {
                             message.setOutputTokens(outputTokens.asInt());
                             logger.debug("Token usage - Input: {}, Output: {}",
                                 inputTokens.asInt(), outputTokens.asInt());
+                        }
+
+                        // Log prompt caching metrics (API version 2024-07-15+)
+                        JsonNode cacheCreationTokens = usage.get("cache_creation_input_tokens");
+                        JsonNode cacheReadTokens = usage.get("cache_read_input_tokens");
+
+                        if (cacheCreationTokens != null && cacheCreationTokens.asInt() > 0) {
+                            logger.info("Prompt Cache CREATED - {} tokens cached for future requests",
+                                cacheCreationTokens.asInt());
+                        }
+                        if (cacheReadTokens != null && cacheReadTokens.asInt() > 0) {
+                            logger.info("Prompt Cache HIT - {} tokens read from cache (90% cost savings!)",
+                                cacheReadTokens.asInt());
                         }
                     }
 

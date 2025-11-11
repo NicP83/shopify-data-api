@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -54,13 +55,23 @@ public class ShopifyShopService {
             shop.setUninstalledAt(null); // Clear uninstall timestamp
             logger.info("Updating existing shop: {}", shopDomain);
         } else {
-            // Create new shop
+            // Create new shop with default AI configuration
             shop = ShopifyShop.builder()
                 .shopDomain(shopDomain)
                 .accessToken(accessToken)
                 .scope(scope)
                 .isActive(true)
                 .installedAt(LocalDateTime.now())
+                // AI configuration defaults
+                .aiEnabled(true)
+                .aiModel("claude-sonnet-4-5-20250929")
+                .aiTemperature(new BigDecimal("0.70"))
+                .aiMaxTokens(4096)
+                // Analytics defaults
+                .analyticsEnabled(true)
+                .trackChatUsage(true)
+                // Currency default
+                .currency("USD")
                 .build();
             logger.info("Creating new shop: {}", shopDomain);
         }

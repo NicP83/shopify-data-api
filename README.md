@@ -194,3 +194,6 @@ For issues or questions:
 1. Check [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 2. Review Shopify API documentation
 3. Open an issue in the repository
+
+---
+*Last updated: 2025-11-11 - Added Chat Analytics Dashboard*

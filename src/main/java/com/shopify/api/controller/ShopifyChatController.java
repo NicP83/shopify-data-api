@@ -19,9 +19,20 @@ import java.util.Map;
 
 /**
  * REST API for shop-scoped chat with AI assistant
+ * Accessible from Shopify storefronts (CORS enabled)
  */
 @RestController
 @RequestMapping("/api/shopify/chat")
+@CrossOrigin(
+    origins = {
+        "https://hearnshobbies.com",
+        "https://www.hearnshobbies.com",
+        "https://*.myshopify.com"
+    },
+    allowedHeaders = "*",
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS},
+    allowCredentials = "true"
+)
 public class ShopifyChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopifyChatController.class);

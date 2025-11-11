@@ -24,7 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/shopify/chat")
 @CrossOrigin(
-    origins = {
+    originPatterns = {
         "https://hearnshobbies.com",
         "https://www.hearnshobbies.com",
         "https://*.myshopify.com"

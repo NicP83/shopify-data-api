@@ -53,6 +53,30 @@ public class ShopifyShopService {
             shop.setScope(scope);
             shop.setIsActive(true);
             shop.setUninstalledAt(null); // Clear uninstall timestamp
+
+            // Ensure AI configuration defaults are set (in case they were null)
+            if (shop.getAiEnabled() == null) {
+                shop.setAiEnabled(true);
+            }
+            if (shop.getAiModel() == null) {
+                shop.setAiModel("claude-sonnet-4-5-20250929");
+            }
+            if (shop.getAiTemperature() == null) {
+                shop.setAiTemperature(new BigDecimal("0.70"));
+            }
+            if (shop.getAiMaxTokens() == null) {
+                shop.setAiMaxTokens(4096);
+            }
+            if (shop.getAnalyticsEnabled() == null) {
+                shop.setAnalyticsEnabled(true);
+            }
+            if (shop.getTrackChatUsage() == null) {
+                shop.setTrackChatUsage(true);
+            }
+            if (shop.getCurrency() == null) {
+                shop.setCurrency("USD");
+            }
+
             logger.info("Updating existing shop: {}", shopDomain);
         } else {
             // Create new shop with default AI configuration

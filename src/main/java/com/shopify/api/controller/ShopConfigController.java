@@ -281,6 +281,59 @@ public class ShopConfigController {
     }
 
     /**
+     * Update existing system prompt (creates new version)
+     * PUT /api/shopify/config/prompts/{promptId}?shop=hearnshobbies.myshopify.com
+     */
+    @PutMapping("/prompts/{promptId}")
+    public ResponseEntity<Map<String, Object>> updatePrompt(
+            @PathVariable Long promptId,
+            @RequestParam String shop,
+            @RequestBody Map<String, String> request) {
+
+        logger.info("Updating prompt {} for shop: {}", promptId, shop);
+
+        try {
+            if (!shopifyShopService.isShopActive(shop)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Shop not found or inactive"));
+            }
+
+            String newPromptText = request.get("promptText");
+            String description = request.get("description");
+
+            if (newPromptText == null || newPromptText.isBlank()) {
+                return ResponseEntity.badRequest()
+                    .body(Map.of("error", "promptText is required"));
+            }
+
+            SystemPrompt updatedPrompt = systemPromptService.updatePrompt(
+                promptId,
+                newPromptText,
+                description
+            );
+
+            logger.info("Prompt updated successfully - new version: {}", updatedPrompt.getVersion());
+
+            return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Prompt updated successfully",
+                "prompt", Map.of(
+                    "id", updatedPrompt.getId(),
+                    "name", updatedPrompt.getPromptName(),
+                    "type", updatedPrompt.getPromptType(),
+                    "version", updatedPrompt.getVersion(),
+                    "description", updatedPrompt.getPromptDescription()
+                )
+            ));
+
+        } catch (Exception e) {
+            logger.error("Error updating prompt: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Failed to update prompt: " + e.getMessage()));
+        }
+    }
+
+    /**
      * Update shop analytics settings
      * PUT /api/shopify/config/analytics?shop=hearnshobbies.myshopify.com
      */

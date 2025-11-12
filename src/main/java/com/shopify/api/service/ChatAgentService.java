@@ -575,9 +575,8 @@ public class ChatAgentService {
             prompt.append("- ALWAYS generate 'Add to Cart' links for each product variant you recommend\n");
             prompt.append("- Extract the numeric ID from variant.id (e.g., 'gid://shopify/ProductVariant/12345' -> use '12345')\n");
             prompt.append("- Cart link format: https://").append(shopUrl).append("/cart/{NUMERIC_ID}:1\n");
-            prompt.append("- Example: If variant.id = 'gid://shopify/ProductVariant/44488028725445'\n");
-            prompt.append("  Then cart link = https://").append(shopUrl).append("/cart/44488028725445:1\n");
-            prompt.append("- Present links as clickable markdown: [Add to Cart](https://...)\n");
+            prompt.append("- Example: variant.id = 'gid://shopify/ProductVariant/44488028725445' -> use: https://").append(shopUrl).append("/cart/44488028725445:1\n");
+            prompt.append("- Present as clickable markdown: [Add to Cart](https://").append(shopUrl).append("/cart/44488028725445:1)\n");
         }
         if (config.isShowPrices()) {
             prompt.append("- Always include product prices from search results\n");

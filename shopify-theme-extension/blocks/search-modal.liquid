@@ -346,6 +346,32 @@
     color: #c30000;
   }
 
+  /* Cart Links */
+  .ai-message-content a.ai-cart-link {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 4px;
+    background: {{ block.settings.primary_color | default: '#212b36' }};
+    color: white !important;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+    border: 2px solid {{ block.settings.primary_color | default: '#212b36' }};
+  }
+
+  .ai-message-content a.ai-cart-link:hover {
+    background: #2c6ecb;
+    border-color: #2c6ecb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-message-content a.ai-cart-link:active {
+    transform: translateY(0);
+  }
+
   /* Typing Indicator */
   .ai-typing-dots {
     display: flex;

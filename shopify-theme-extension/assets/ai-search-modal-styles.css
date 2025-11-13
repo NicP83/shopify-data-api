@@ -94,13 +94,26 @@
 /* Chat Messages */
 .ai-chat-messages {
   flex: 1;
-  overflow-y: scroll; /* Changed from auto to scroll - always show scrollbar */
+  overflow-y: scroll !important; /* Force scrollbar to always show */
   overflow-x: hidden;
   padding: 24px;
+  padding-right: 16px; /* Account for scrollbar width */
   background: #f9fafb;
   scroll-behavior: smooth;
-  scrollbar-width: auto; /* Changed from thin - make scrollbar more visible on Firefox */
-  scrollbar-color: #9ca3af #e5e7eb; /* Darker colors for better visibility */
+  scrollbar-width: auto; /* Firefox - make scrollbar visible */
+  scrollbar-color: #6b7280 #d1d5db; /* Firefox - darker thumb and track */
+  /* Force scrollbar on macOS */
+  -webkit-overflow-scrolling: touch;
+  /* Add shadow indicators for scroll */
+  background:
+    linear-gradient(#f9fafb 30%, rgba(249, 250, 251, 0)),
+    linear-gradient(rgba(249, 250, 251, 0), #f9fafb 70%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.12), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.12), rgba(0,0,0,0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: #f9fafb;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
 }
 
 .ai-message {
@@ -382,32 +395,39 @@
 
 /* Scrollbar Styling - Enhanced Visibility */
 .ai-chat-messages::-webkit-scrollbar {
-  width: 14px; /* Increased from 12px for better visibility */
+  width: 16px !important; /* Increased to 16px for maximum visibility */
+  -webkit-appearance: none; /* Remove default macOS styling */
 }
 
 .ai-chat-messages::-webkit-scrollbar-track {
-  background: #d1d5db; /* Darker track for contrast */
+  background: #e5e7eb; /* Light gray track */
   border-radius: 8px;
-  margin: 4px 0; /* Add margin at top/bottom */
+  margin: 8px 0; /* Add margin at top/bottom */
+  border: 1px solid #d1d5db; /* Add border for definition */
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
 }
 
 .ai-chat-messages::-webkit-scrollbar-thumb {
-  background: #6b7280; /* Darker default color */
+  background: #6b7280; /* Medium gray thumb */
   border-radius: 8px;
-  border: 3px solid #d1d5db; /* Thicker border for definition */
-  min-height: 40px; /* Minimum thumb size for easier grabbing */
+  border: 3px solid #e5e7eb; /* Thicker border matching track */
+  min-height: 50px; /* Larger minimum for easier grabbing */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
 .ai-chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #4b5563; /* Even darker on hover */
-  border-color: #d1d5db;
+  background: #4b5563; /* Darker on hover */
+  border-color: #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
 }
 
 .ai-chat-messages::-webkit-scrollbar-thumb:active {
   background: #374151; /* Darkest when dragging */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Inset shadow when pressed */
 }
 
 /* Scrollbar corner */
 .ai-chat-messages::-webkit-scrollbar-corner {
-  background: #d1d5db;
+  background: #e5e7eb;
+  border-radius: 8px;
 }

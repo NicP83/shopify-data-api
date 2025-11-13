@@ -6,6 +6,9 @@
   {% render 'ai-search-assets' %}
 {% endcomment %}
 
+{% comment %} Load the AI Search CSS {% endcomment %}
+<link rel="stylesheet" href="{{ 'ai-search-modal-styles.css' | asset_url }}">
+
 {% comment %} Load the AI Search JavaScript {% endcomment %}
 <script src="{{ 'ai-search-client.js' | asset_url }}" defer></script>
 

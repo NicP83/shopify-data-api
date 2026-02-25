@@ -26,6 +26,7 @@ function Settings() {
     maxSearchResults: 5,
     toneOfVoice: 'friendly',
     includeCartLinks: true,
+    includeProductLinks: true,
     showPrices: true,
     showSkus: true,
     customInstructions: '',
@@ -567,6 +568,19 @@ function Settings() {
                   />
                   <label htmlFor="includeCartLinks" className="ml-2 block text-sm text-gray-700">
                     Include 'Add to Cart' links in responses
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="includeProductLinks"
+                    checked={chatbotConfig.includeProductLinks}
+                    onChange={(e) => setChatbotConfig({ ...chatbotConfig, includeProductLinks: e.target.checked })}
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="includeProductLinks" className="ml-2 block text-sm text-gray-700">
+                    Include 'View Product' links in responses
                   </label>
                 </div>
 

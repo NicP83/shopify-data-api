@@ -378,7 +378,7 @@ public class ChatAgentService {
             searchTool.put("name", "search_products");
             searchTool.put("description", "Search the product catalog to find items matching a query. " +
                     "Use this to find specific products, check availability, get prices, or browse categories. " +
-                    "Returns product details including title, description, price, SKU, variants, and image URL.");
+                    "Returns product details including title, description, price, SKU, variants, image URL, and onlineStoreUrl for product page links.");
 
             ObjectNode inputSchema = objectMapper.createObjectNode();
             inputSchema.put("type", "object");
@@ -528,6 +528,7 @@ public class ChatAgentService {
             prompt.append("- Product title, description, and handle\n");
             prompt.append("- Price and SKU information\n");
             prompt.append("- Variant IDs for generating cart links\n");
+            prompt.append("- onlineStoreUrl for direct product page links\n");
             prompt.append("- Image URLs\n\n");
 
             prompt.append("WHEN TO USE search_products:\n");
@@ -577,6 +578,12 @@ public class ChatAgentService {
             prompt.append("- Cart link format: https://").append(shopUrl).append("/cart/{NUMERIC_ID}:1\n");
             prompt.append("- Example: variant.id = 'gid://shopify/ProductVariant/44488028725445' -> use: https://").append(shopUrl).append("/cart/44488028725445:1\n");
             prompt.append("- Present as clickable markdown: [Add to Cart](https://").append(shopUrl).append("/cart/44488028725445:1)\n");
+        }
+        if (config.isIncludeProductLinks()) {
+            prompt.append("- ALWAYS include a 'View Product' link for each product you recommend\n");
+            prompt.append("- Use onlineStoreUrl from search results when available\n");
+            prompt.append("- If onlineStoreUrl is empty, construct from handle: https://").append(shopUrl).append("/products/{HANDLE}\n");
+            prompt.append("- Present as: [View Product](URL)\n");
         }
         if (config.isShowPrices()) {
             prompt.append("- Always include product prices from search results\n");

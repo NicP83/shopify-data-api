@@ -15,17 +15,22 @@ function ChatMessageBubble({ message }) {
 
     return parts.map((part, index) => {
       if (part.match(urlRegex)) {
-        // Check if it's a cart link
+        // Check if it's a cart link or product link
         const isCartLink = part.includes('/cart/')
+        const isProductLink = part.includes('/products/')
         return (
           <a
             key={index}
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            className={`underline ${isCartLink ? 'text-blue-600 font-semibold' : 'text-blue-500'}`}
+            className={`underline ${
+              isCartLink ? 'text-blue-600 font-semibold' :
+              isProductLink ? 'text-green-600 font-semibold' :
+              'text-blue-500'
+            }`}
           >
-            {isCartLink ? '🛒 Add to Cart' : part}
+            {isCartLink ? '🛒 Add to Cart' : isProductLink ? '🔍 View Product' : part}
           </a>
         )
       }

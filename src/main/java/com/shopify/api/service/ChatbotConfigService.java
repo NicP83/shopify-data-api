@@ -62,6 +62,9 @@ public class ChatbotConfigService {
     @Value("${chatbot.response.include-cart-links}")
     private boolean includeCartLinks;
 
+    @Value("${chatbot.response.include-product-links}")
+    private boolean includeProductLinks;
+
     @Value("${chatbot.response.show-prices}")
     private boolean showPrices;
 
@@ -141,6 +144,7 @@ public class ChatbotConfigService {
                 .maxSearchResults(maxSearchResults)
                 .toneOfVoice(tone)
                 .includeCartLinks(includeCartLinks)
+                .includeProductLinks(includeProductLinks)
                 .showPrices(showPrices)
                 .showSkus(showSkus)
                 .customInstructions(customInstructions)
@@ -230,6 +234,7 @@ public class ChatbotConfigService {
             entity.setToneOfVoice(config.getToneOfVoice());
         }
         entity.setIncludeCartLinks(config.isIncludeCartLinks());
+        entity.setIncludeProductLinks(config.isIncludeProductLinks());
         entity.setShowPrices(config.isShowPrices());
         entity.setShowSkus(config.isShowSkus());
         if (config.getCustomInstructions() != null) {
@@ -319,6 +324,10 @@ public class ChatbotConfigService {
 
     public boolean isIncludeCartLinks() {
         return includeCartLinks;
+    }
+
+    public boolean isIncludeProductLinks() {
+        return includeProductLinks;
     }
 
     public boolean isShowPrices() {

@@ -68,6 +68,9 @@ public class ChatbotConfigEntity {
     @Column(name = "include_cart_links")
     private Boolean includeCartLinks = true;
 
+    @Column(name = "include_product_links")
+    private Boolean includeProductLinks = true;
+
     @Column(name = "show_prices")
     private Boolean showPrices = true;
 
@@ -175,6 +178,7 @@ public class ChatbotConfigEntity {
         config.setMaxSearchResults(maxSearchResults != null ? maxSearchResults : 5);
         config.setToneOfVoice(toneOfVoice);
         config.setIncludeCartLinks(includeCartLinks != null ? includeCartLinks : true);
+        config.setIncludeProductLinks(includeProductLinks != null ? includeProductLinks : true);
         config.setShowPrices(showPrices != null ? showPrices : true);
         config.setShowSkus(showSkus != null ? showSkus : false);
         config.setCustomInstructions(customInstructions);
@@ -200,6 +204,7 @@ public class ChatbotConfigEntity {
         entity.setMaxSearchResults(config.getMaxSearchResults());
         entity.setToneOfVoice(config.getToneOfVoice());
         entity.setIncludeCartLinks(config.isIncludeCartLinks());
+        entity.setIncludeProductLinks(config.isIncludeProductLinks());
         entity.setShowPrices(config.isShowPrices());
         entity.setShowSkus(config.isShowSkus());
         entity.setCustomInstructions(config.getCustomInstructions());

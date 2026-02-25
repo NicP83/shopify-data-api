@@ -19,7 +19,7 @@ public class ModelConfig {
     /**
      * Default model for all services (stable, recommended)
      */
-    public static final String DEFAULT_MODEL = "claude-3-7-sonnet-20250219";
+    public static final String DEFAULT_MODEL = "claude-sonnet-4-6";
 
     /**
      * Valid Anthropic Claude models
@@ -28,15 +28,20 @@ public class ModelConfig {
      * Do NOT add models that don't exist (e.g., "claude-3-5-sonnet-20241022" is INVALID).
      *
      * Model families:
-     * - Claude 4.5: Latest generation (2025)
+     * - Claude 4.6: Latest generation (2025-2026)
+     * - Claude 4.5: Previous generation (2025)
      * - Claude 4: Previous generation (2025)
      * - Claude 3.7: Enhanced version (2025)
      * - Claude 3.5: Previous version (2024)
      * - Claude 3: Original version (2024)
      */
     public static final List<String> VALID_ANTHROPIC_MODELS = Arrays.asList(
-        // Claude 4.5 (Latest - 2025)
-        "claude-sonnet-4-5-20250929",    // Balanced - Latest Sonnet
+        // Claude 4.6 (Latest - 2025-2026)
+        "claude-sonnet-4-6",             // DEFAULT - Latest Sonnet
+        "claude-opus-4-6",               // Most capable - Claude Opus 4.6
+
+        // Claude 4.5 (2025)
+        "claude-sonnet-4-5-20250929",    // Balanced - Sonnet 4.5
         "claude-opus-4-1-20250805",      // Most capable - Claude Opus 4.1
         "claude-haiku-4-5-20251001",     // Fastest - Latest Haiku
 
@@ -45,7 +50,7 @@ public class ModelConfig {
         "claude-opus-4-20250514",        // Most capable - Claude Opus 4
 
         // Claude 3.7 (Enhanced - 2025)
-        "claude-3-7-sonnet-20250219",    // DEFAULT - Stable, well-tested
+        "claude-3-7-sonnet-20250219",    // Stable, well-tested
 
         // Claude 3.5 (2024)
         "claude-3-5-haiku-20241022",     // Fast - Note: This is HAIKU, not Sonnet!
@@ -60,12 +65,14 @@ public class ModelConfig {
      * Model display names for UI (user-friendly labels)
      */
     private static final Map<String, String> MODEL_DISPLAY_NAMES = Map.ofEntries(
-        Map.entry("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5 (Latest)"),
+        Map.entry("claude-sonnet-4-6", "Claude Sonnet 4.6 (Latest)"),
+        Map.entry("claude-opus-4-6", "Claude Opus 4.6 (Most Capable)"),
+        Map.entry("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5"),
         Map.entry("claude-opus-4-1-20250805", "Claude Opus 4.1"),
         Map.entry("claude-haiku-4-5-20251001", "Claude Haiku 4.5"),
         Map.entry("claude-sonnet-4-20250514", "Claude Sonnet 4"),
         Map.entry("claude-opus-4-20250514", "Claude Opus 4"),
-        Map.entry("claude-3-7-sonnet-20250219", "Claude 3.7 Sonnet (Default)"),
+        Map.entry("claude-3-7-sonnet-20250219", "Claude 3.7 Sonnet"),
         Map.entry("claude-3-5-haiku-20241022", "Claude 3.5 Haiku"),
         Map.entry("claude-3-opus-20240229", "Claude 3 Opus"),
         Map.entry("claude-3-sonnet-20240229", "Claude 3 Sonnet"),
@@ -77,10 +84,10 @@ public class ModelConfig {
      * These will be migrated to the default model
      */
     public static final Map<String, String> INVALID_MODEL_MIGRATIONS = Map.of(
-        "claude-3-5-sonnet-20241022", "claude-3-7-sonnet-20250219",  // Common mistake - doesn't exist!
-        "claude-3.5-sonnet", "claude-3-7-sonnet-20250219",
-        "claude-sonnet", "claude-3-7-sonnet-20250219",
-        "claude-opus", "claude-opus-4-1-20250805",
+        "claude-3-5-sonnet-20241022", "claude-sonnet-4-6",  // Common mistake - doesn't exist!
+        "claude-3.5-sonnet", "claude-sonnet-4-6",
+        "claude-sonnet", "claude-sonnet-4-6",
+        "claude-opus", "claude-opus-4-6",
         "claude-haiku", "claude-haiku-4-5-20251001"
     );
 

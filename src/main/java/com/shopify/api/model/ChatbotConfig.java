@@ -25,6 +25,7 @@ public class ChatbotConfig {
     // ===== Response Style =====
     private String toneOfVoice;  // "professional", "friendly", "enthusiastic"
     private boolean includeCartLinks;
+    private boolean includeProductLinks = true;
     private boolean showPrices;
     private boolean showSkus;
 
@@ -125,6 +126,14 @@ public class ChatbotConfig {
 
     public void setIncludeCartLinks(boolean includeCartLinks) {
         this.includeCartLinks = includeCartLinks;
+    }
+
+    public boolean isIncludeProductLinks() {
+        return includeProductLinks;
+    }
+
+    public void setIncludeProductLinks(boolean includeProductLinks) {
+        this.includeProductLinks = includeProductLinks;
     }
 
     public boolean isShowPrices() {
@@ -242,6 +251,11 @@ public class ChatbotConfig {
             return this;
         }
 
+        public Builder includeProductLinks(boolean includeProductLinks) {
+            config.includeProductLinks = includeProductLinks;
+            return this;
+        }
+
         public Builder showPrices(boolean showPrices) {
             config.showPrices = showPrices;
             return this;
@@ -295,6 +309,7 @@ public class ChatbotConfig {
                 ", maxSearchResults=" + maxSearchResults +
                 ", toneOfVoice='" + toneOfVoice + '\'' +
                 ", includeCartLinks=" + includeCartLinks +
+                ", includeProductLinks=" + includeProductLinks +
                 ", showPrices=" + showPrices +
                 ", showSkus=" + showSkus +
                 ", customInstructions='" + customInstructions + '\'' +

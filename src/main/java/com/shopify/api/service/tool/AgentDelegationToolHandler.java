@@ -67,8 +67,15 @@ public class AgentDelegationToolHandler implements ToolHandler {
                     log.info("Delegating to agent ID: {}, Name: {}", agent.getId(), agent.getName());
 
                     // Build input JSON for agent execution
+                    // Append product-first instruction so specialist agents always show products
+                    String enrichedTask = task +
+                        "\n\nIMPORTANT: You MUST search for and include real product recommendations " +
+                        "with prices and Add to Cart links in your response. You can ask ONE brief " +
+                        "clarifying question alongside the products, but NEVER respond with only " +
+                        "questions and no products. Show products first, refine later.";
+
                     ObjectNode agentInput = objectMapper.createObjectNode();
-                    agentInput.put("task", task);
+                    agentInput.put("task", enrichedTask);
 
                     // Execute the agent and format the response
                     return agentExecutionService.executeAgent(agent.getId(), agentInput)

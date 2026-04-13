@@ -150,9 +150,14 @@ public class ChatAgentService {
      * maxIterations prevents infinite loops
      */
     private Mono<ChatMessage> callClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration) {
-        if (iteration >= 8) {
-            logger.warn("Max tool use iterations reached");
-            return Mono.just(new ChatMessage("assistant", "I apologize, but I'm having trouble completing your request. Please try rephrasing."));
+        if (iteration >= 15) {
+            logger.warn("Max tool use iterations reached ({}), returning graceful response", iteration);
+            // Instead of an error, ask Claude to summarize what it has so far without using tools
+            return callClaudeWithoutTools(systemPrompt, messages,
+                "You have used the maximum number of tool calls for this turn. " +
+                "Based on whatever information you have gathered so far, give the customer a helpful response. " +
+                "If you found products, show them. If not, suggest they refine their question or try a different search. " +
+                "Do NOT say 'having trouble' — be helpful with what you have.");
         }
 
         // Get chatbot config
@@ -300,6 +305,46 @@ public class ChatAgentService {
     private Mono<String> executeToolCallReactive(String toolName, JsonNode input) {
         logger.info("=== EXECUTING TOOL: {} ===", toolName);
         return chatToolRegistry.executeTool(toolName, input);
+    }
+
+    /**
+     * Call Claude WITHOUT tools to force a final text response.
+     * Used when the iteration limit is reached — Claude summarizes
+     * whatever it has gathered so far instead of returning an error.
+     */
+    private Mono<ChatMessage> callClaudeWithoutTools(String systemPrompt, ArrayNode messages, String instruction) {
+        ChatbotConfig config = chatbotConfigService.getConfig();
+        String modelToUse = config.getModelName() != null ? config.getModelName() : anthropicModel;
+        double tempToUse = config.getTemperature() != null ? config.getTemperature() : temperature;
+        int tokensToUse = config.getMaxTokens() != null ? config.getMaxTokens() : maxTokens;
+
+        // Add instruction as a system-level nudge in the user messages
+        ObjectNode instructionMessage = objectMapper.createObjectNode();
+        instructionMessage.put("role", "user");
+        instructionMessage.put("content", "[SYSTEM NOTE: " + instruction + "]");
+        messages.add(instructionMessage);
+
+        ObjectNode requestBody = objectMapper.createObjectNode();
+        requestBody.put("model", modelToUse);
+        requestBody.put("max_tokens", tokensToUse);
+        requestBody.put("temperature", tempToUse);
+        requestBody.put("system", systemPrompt);
+        requestBody.set("messages", messages);
+        // No tools — forces a text-only response
+
+        return webClient.post()
+                .uri("/messages")
+                .header("x-api-key", anthropicApiKey)
+                .header("anthropic-version", anthropicApiVersion)
+                .header("Content-Type", "application/json")
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(JsonNode.class)
+                .map(this::extractAssistantMessage)
+                .onErrorResume(error -> {
+                    logger.error("Error in fallback Claude call: {}", error.getMessage());
+                    return Mono.just(createErrorResponse());
+                });
     }
 
     /**
@@ -528,14 +573,15 @@ public class ChatAgentService {
         prompt.append("=== CONVERSION & CUSTOMER EXPERIENCE ===\n");
         prompt.append("You are a knowledgeable hobby expert and sales assistant. Your goal is to help customers find exactly what they need and make purchasing easy.\n\n");
 
-        prompt.append("SHOW PRODUCTS FIRST (CRITICAL RULE):\n");
-        prompt.append("- NEVER ask more than ONE clarifying question before showing products\n");
-        prompt.append("- When a customer says 'I need X' or 'show me X', SEARCH AND SHOW PRODUCTS IMMEDIATELY\n");
-        prompt.append("- If you don't have enough info, make reasonable assumptions and show a range of options\n");
-        prompt.append("- Example: 'I need an RC car for my son' → immediately search and show beginner-friendly RC cars, don't ask 4 questions first\n");
-        prompt.append("- Example: 'give me some options' → this means STOP ASKING and SEARCH NOW\n");
-        prompt.append("- You can suggest refinements AFTER showing products: 'Here are some great options. If you want, I can narrow it down by budget or type.'\n");
-        prompt.append("- Customers lose patience with too many questions — products on screen is what converts\n\n");
+        prompt.append("SHOW PRODUCTS WHILE YOU ASK (CRITICAL RULE):\n");
+        prompt.append("- ALWAYS search and show products within your FIRST response, even if you also ask a question\n");
+        prompt.append("- You CAN ask ONE clarifying question, but include product examples alongside it\n");
+        prompt.append("- Example: 'I need an RC car for my son' → search RC cars, show 3-5 beginner options, AND ask 'Is he into off-road or on-road?'\n");
+        prompt.append("- Example: 'give me some options' or 'show me something' → STOP ASKING and SEARCH IMMEDIATELY\n");
+        prompt.append("- NEVER respond with ONLY questions and no products — always include real product examples\n");
+        prompt.append("- Make reasonable assumptions to show products: if they say 'beginner', show entry-level; if 'kid', show age-appropriate\n");
+        prompt.append("- After showing products, you can offer to refine: 'Want me to narrow it down by budget or style?'\n");
+        prompt.append("- Products on screen convert — questions without products lose customers\n\n");
 
         prompt.append("STOCK URGENCY:\n");
         prompt.append("- When a product has low inventory (5 or fewer), mention it naturally: 'This is a popular item — only 3 left in stock!'\n");

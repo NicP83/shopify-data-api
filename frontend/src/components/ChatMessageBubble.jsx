@@ -1,4 +1,6 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 function ChatMessageBubble({ message }) {
   const isUser = message.role === 'user'
@@ -7,35 +9,32 @@ function ChatMessageBubble({ message }) {
     minute: '2-digit'
   }) : ''
 
-  // Parse content to detect and highlight cart links
-  const renderContent = (content) => {
-    // Detect URLs in the content
-    const urlRegex = /(https?:\/\/[^\s]+)/g
-    const parts = content.split(urlRegex)
+  const linkRenderer = ({ href, children }) => {
+    const isCartLink = href?.includes('/cart/')
+    const isProductLink = href?.includes('/products/')
 
-    return parts.map((part, index) => {
-      if (part.match(urlRegex)) {
-        // Check if it's a cart link or product link
-        const isCartLink = part.includes('/cart/')
-        const isProductLink = part.includes('/products/')
-        return (
-          <a
-            key={index}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`underline ${
-              isCartLink ? 'text-blue-600 font-semibold' :
-              isProductLink ? 'text-green-600 font-semibold' :
-              'text-blue-500'
-            }`}
-          >
-            {isCartLink ? '🛒 Add to Cart' : isProductLink ? '🔍 View Product' : part}
-          </a>
-        )
-      }
-      return <span key={index}>{part}</span>
-    })
+    if (isCartLink) {
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer"
+          className="text-blue-600 font-bold underline">
+          🛒 Add to Cart
+        </a>
+      )
+    }
+    if (isProductLink) {
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer"
+          className="text-green-600 font-bold underline">
+          🔍 View Product
+        </a>
+      )
+    }
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer"
+        className="text-blue-500 underline">
+        {children}
+      </a>
+    )
   }
 
   return (
@@ -48,8 +47,10 @@ function ChatMessageBubble({ message }) {
               : 'bg-gray-200 text-gray-900'
           }`}
         >
-          <div className="whitespace-pre-wrap break-words">
-            {renderContent(message.content)}
+          <div className="prose prose-sm max-w-none break-words prose-headings:mt-2 prose-headings:mb-1 prose-p:my-1 prose-table:my-2 prose-li:my-0">
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ a: linkRenderer }}>
+              {message.content}
+            </ReactMarkdown>
           </div>
         </div>
         {timestamp && (

@@ -1,0 +1,242 @@
+/**
+ * Dual Search Styles
+ * Loading overlay and additional styles for dual-mode search
+ */
+
+/* ========================================
+   Loading Overlay
+   ======================================== */
+
+.camilla-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.camilla-loading-overlay.fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Loading Content */
+.loading-content {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Spinner */
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+}
+
+.spinner-path {
+  stroke: #212b36;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Loading Text */
+.loading-title {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.loading-subtitle {
+  margin: 0 0 24px;
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Loading Dots Animation */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #212b36;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   Mobile Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+  .loading-content {
+    padding: 32px 24px;
+    max-width: calc(100% - 40px);
+    margin: 0 20px;
+  }
+
+  .loading-title {
+    font-size: 20px;
+  }
+
+  .loading-subtitle {
+    font-size: 14px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-content {
+    padding: 28px 20px;
+  }
+
+  .loading-title {
+    font-size: 18px;
+  }
+
+  .loading-subtitle {
+    font-size: 13px;
+  }
+}
+
+/* ========================================
+   Reduced Motion Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .camilla-loading-overlay,
+  .loading-content {
+    animation: none;
+  }
+
+  .spinner {
+    animation: rotate 4s linear infinite;
+  }
+
+  .loading-dots span {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+/* ========================================
+   Additional Utility Classes
+   ======================================== */
+
+/* Hide scrollbar when loading overlay is active */
+body:has(.camilla-loading-overlay) {
+  overflow: hidden;
+}
+
+/* Focus trap for accessibility */
+.camilla-loading-overlay:focus {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .loading-content {
+    border: 2px solid #191919;
+  }
+
+  .spinner-path {
+    stroke-width: 6;
+  }
+}

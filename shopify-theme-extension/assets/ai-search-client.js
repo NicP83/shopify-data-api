@@ -178,7 +178,14 @@ class AISearchModal {
 
     // Close modal handlers
     this.closeBtn?.addEventListener('click', () => this.close());
-    this.overlay?.addEventListener('click', () => this.close());
+
+    // Handle clicks outside modal content (on the modal container)
+    this.modal?.addEventListener('click', (e) => {
+      // Only close if clicking directly on the modal container (not modal content)
+      if (e.target === this.modal) {
+        this.close();
+      }
+    });
 
     // Form submission
     this.form?.addEventListener('submit', (e) => {
@@ -292,9 +299,9 @@ class AISearchModal {
 
     // Parse content and add product cards if present
     if (role === 'assistant' && data?.products && data.products.length > 0) {
-      const textP = document.createElement('p');
-      textP.textContent = content;
-      contentDiv.appendChild(textP);
+      const textDiv = document.createElement('div');
+      textDiv.innerHTML = this.formatMessageContent(content);
+      contentDiv.appendChild(textDiv);
 
       const productsGrid = this.createProductGrid(data.products);
       contentDiv.appendChild(productsGrid);
@@ -360,14 +367,135 @@ class AISearchModal {
   }
 
   formatMessageContent(content) {
-    // Simple markdown-like formatting
-    let formatted = content
-      .replace(/\n/g, '<br>')
+    // Split into lines for block-level parsing
+    const lines = content.split('\n');
+    let html = '';
+    let inTable = false;
+    let inList = false;
+    let listType = 'ul';
+    let tableRows = [];
+    let listItems = [];
+
+    const flushTable = () => {
+      if (tableRows.length === 0) return '';
+      // Filter out null separator placeholders for safety
+      const validRows = tableRows.filter(r => r !== null);
+      if (validRows.length === 0) { tableRows = []; return ''; }
+
+      let t = '<table class="ai-md-table"><thead><tr>';
+      validRows[0].forEach(h => { t += `<th>${this.formatInline(h.trim())}</th>`; });
+      t += '</tr></thead><tbody>';
+      for (let i = 1; i < validRows.length; i++) {
+        t += '<tr>';
+        validRows[i].forEach(cell => { t += `<td>${this.formatInline(cell.trim())}</td>`; });
+        t += '</tr>';
+      }
+      t += '</tbody></table>';
+      tableRows = [];
+      return t;
+    };
+
+    const flushList = () => {
+      if (listItems.length === 0) return '';
+      const tag = listType === 'ol' ? 'ol' : 'ul';
+      const cls = listType === 'ol' ? 'ai-md-ol' : 'ai-md-list';
+      let l = `<${tag} class="${cls}">`;
+      listItems.forEach(item => { l += `<li>${this.formatInline(item)}</li>`; });
+      l += `</${tag}>`;
+      listItems = [];
+      listType = 'ul';
+      return l;
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Table row detection (pipes)
+      if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+        // Flush list if we were in one
+        if (inList) { html += flushList(); inList = false; }
+        // Skip separator rows like |---|---|
+        if (/^\|[\s\-:|]+\|$/.test(line.trim())) {
+          if (!inTable) continue; // stray separator
+          tableRows.push(null); // placeholder for separator
+          inTable = true;
+          continue;
+        }
+        const cells = line.trim().slice(1, -1).split('|');
+        tableRows.push(cells);
+        inTable = true;
+        continue;
+      }
+
+      // End of table
+      if (inTable) { html += flushTable(); inTable = false; }
+
+      // Headers
+      if (line.startsWith('### ')) {
+        if (inList) { html += flushList(); inList = false; }
+        html += `<h4 class="ai-md-h4">${this.formatInline(line.slice(4))}</h4>`;
+        continue;
+      }
+      if (line.startsWith('## ')) {
+        if (inList) { html += flushList(); inList = false; }
+        html += `<h3 class="ai-md-h3">${this.formatInline(line.slice(3))}</h3>`;
+        continue;
+      }
+
+      // Horizontal rule (---, ***, ___)
+      if (/^(-{3,}|\*{3,}|_{3,})$/.test(line.trim())) {
+        if (inList) { html += flushList(); inList = false; }
+        html += '<hr class="ai-md-hr">';
+        continue;
+      }
+
+      // Ordered list items (1. 2. 3.)
+      if (/^\d+\.\s+/.test(line.trim())) {
+        if (inList && listType !== 'ol') { html += flushList(); }
+        const itemText = line.trim().replace(/^\d+\.\s+/, '');
+        listItems.push(itemText);
+        listType = 'ol';
+        inList = true;
+        continue;
+      }
+
+      // Unordered list items
+      if (/^[\-\*]\s+/.test(line.trim())) {
+        if (inList && listType !== 'ul') { html += flushList(); }
+        const itemText = line.trim().replace(/^[\-\*]\s+/, '');
+        listItems.push(itemText);
+        listType = 'ul';
+        inList = true;
+        continue;
+      }
+
+      // End of list
+      if (inList) { html += flushList(); inList = false; }
+
+      // Empty line → break
+      if (line.trim() === '') {
+        html += '<br>';
+        continue;
+      }
+
+      // Regular paragraph line
+      html += `<p>${this.formatInline(line)}</p>`;
+    }
+
+    // Flush any remaining block
+    if (inTable) html += flushTable();
+    if (inList) html += flushList();
+
+    return html;
+  }
+
+  formatInline(text) {
+    return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-cart-link">$1</a>');
-
-    return `<p>${formatted}</p>`;
+      .replace(/\[([^\]]+)\]\(([^\)]*\/cart\/[^\)]*)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-cart-link">🛒 $1</a>')
+      .replace(/\[([^\]]+)\]\(([^\)]*\/products\/[^\)]*)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-product-link">🔍 $1</a>')
+      .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-link">$1</a>');
   }
 
   showTyping(show) {

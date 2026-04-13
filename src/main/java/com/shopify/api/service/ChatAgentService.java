@@ -455,6 +455,8 @@ public class ChatAgentService {
      * Dynamically generates prompt from database or ChatbotConfig
      */
     private String buildSystemPrompt() {
+        String basePrompt;
+
         // Try to get dynamic prompt from database if shop context is set
         if (currentShop != null && systemPromptService != null) {
             try {
@@ -467,7 +469,8 @@ public class ChatAgentService {
                     SystemPrompt prompt = promptOpt.get();
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
-                    return prompt.getPromptText();
+                    basePrompt = prompt.getPromptText();
+                    return basePrompt + buildLinkInstructions();
                 }
             } catch (Exception e) {
                 logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
@@ -477,6 +480,44 @@ public class ChatAgentService {
         // Fall back to building prompt from ChatbotConfig
         logger.debug("Using ChatbotConfig-based system prompt");
         return buildSystemPromptFromConfig();
+    }
+
+    /**
+     * Build mandatory link instructions appended to every prompt
+     */
+    private String buildLinkInstructions() {
+        ChatbotConfig config = chatbotConfigService.getConfig();
+        StringBuilder instructions = new StringBuilder();
+
+        if (config.isIncludeCartLinks() || config.isIncludeProductLinks()) {
+            instructions.append("\n\n=== MANDATORY PRODUCT LINK RULES ===\n");
+            instructions.append("Store URL: https://").append(shopUrl).append("\n\n");
+        }
+
+        if (config.isIncludeCartLinks()) {
+            instructions.append("- ALWAYS generate 'Add to Cart' links for each product you recommend\n");
+            instructions.append("- Extract the numeric ID from variant.id (e.g., 'gid://shopify/ProductVariant/12345' -> use '12345')\n");
+            instructions.append("- Cart link format: https://").append(shopUrl).append("/cart/{NUMERIC_ID}:1\n");
+            instructions.append("- Present as clickable markdown: [Add to Cart](https://").append(shopUrl).append("/cart/VARIANT_ID:1)\n");
+        }
+
+        if (config.isIncludeProductLinks()) {
+            instructions.append("- ALWAYS include a 'View Product' link for each product\n");
+            instructions.append("- Use onlineStoreUrl from search results when available\n");
+            instructions.append("- If onlineStoreUrl is empty, construct from handle: https://").append(shopUrl).append("/products/{HANDLE}\n");
+            instructions.append("- Present as: [View Product](URL)\n");
+        }
+
+        if (config.isIncludeCartLinks() || config.isIncludeProductLinks()) {
+            instructions.append("\n=== TABLE FORMAT WITH LINKS ===\n");
+            instructions.append("When using a table, MUST include a Links column. Example:\n\n");
+            instructions.append("| Product | Price | Links |\n");
+            instructions.append("| --- | --- | --- |\n");
+            instructions.append("| Product Name | $29.99 | [View Product](https://").append(shopUrl).append("/products/handle) [Add to Cart](https://").append(shopUrl).append("/cart/VARIANT_ID:1) |\n\n");
+            instructions.append("ANY time you mention a product by name — in a table, list, paragraph, 'Current Specials', or anywhere else — you MUST include [View Product] and [Add to Cart] links. No exceptions.\n");
+        }
+
+        return instructions.toString();
     }
 
     /**
@@ -578,18 +619,32 @@ public class ChatAgentService {
             prompt.append("- Cart link format: https://").append(shopUrl).append("/cart/{NUMERIC_ID}:1\n");
             prompt.append("- Example: variant.id = 'gid://shopify/ProductVariant/44488028725445' -> use: https://").append(shopUrl).append("/cart/44488028725445:1\n");
             prompt.append("- Present as clickable markdown: [Add to Cart](https://").append(shopUrl).append("/cart/44488028725445:1)\n");
+            prompt.append("- Even when presenting products in a table, include [Add to Cart] links for EVERY product — either as a column in the table or as links below each product entry\n");
         }
         if (config.isIncludeProductLinks()) {
             prompt.append("- ALWAYS include a 'View Product' link for each product you recommend\n");
             prompt.append("- Use onlineStoreUrl from search results when available\n");
             prompt.append("- If onlineStoreUrl is empty, construct from handle: https://").append(shopUrl).append("/products/{HANDLE}\n");
             prompt.append("- Present as: [View Product](URL)\n");
+            prompt.append("- Even when presenting products in a table, include [View Product] links for EVERY product — either as a column in the table or as links below each product entry\n");
         }
         if (config.isShowPrices()) {
             prompt.append("- Always include product prices from search results\n");
         }
         if (config.isShowSkus()) {
             prompt.append("- Include SKU information from search results\n");
+        }
+        // Concrete table example so AI always includes clickable links
+        if (config.isIncludeCartLinks() || config.isIncludeProductLinks()) {
+            prompt.append("\n=== TABLE FORMAT WITH LINKS (MANDATORY) ===\n");
+            prompt.append("When using a table to present products, you MUST include Links column with clickable markdown links. Example:\n\n");
+            prompt.append("| Product | Price | Links |\n");
+            prompt.append("| --- | --- | --- |\n");
+            prompt.append("| Product Name | $29.99 | [View Product](https://").append(shopUrl).append("/products/handle) [Add to Cart](https://").append(shopUrl).append("/cart/VARIANT_ID:1) |\n\n");
+            prompt.append("NEVER present a product table without a Links column. Every row MUST have clickable [View Product] and [Add to Cart] links.\n\n");
+            prompt.append("=== ALL PRODUCT MENTIONS NEED LINKS (MANDATORY) ===\n");
+            prompt.append("ANY time you mention a product by name — in a table, list, paragraph, \"Current Specials\" section, or anywhere else — you MUST include [View Product] and [Add to Cart] links.\n");
+            prompt.append("No exceptions. Never mention a product without its links.\n");
         }
         prompt.append("\n");
 

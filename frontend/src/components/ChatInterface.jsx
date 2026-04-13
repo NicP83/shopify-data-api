@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Loader2, AlertCircle, Sparkles, User, Bot } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import ProductCard from './ProductCard';
 
 /**
@@ -122,7 +124,7 @@ const ChatInterface = ({ shopDomain }) => {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-900">AI Product Assistant</h3>
-            <p className="text-sm text-gray-500">Powered by Claude Sonnet 4.5</p>
+            <p className="text-sm text-gray-500">Powered by Claude Sonnet 4.6</p>
           </div>
         </div>
       </div>
@@ -166,7 +168,23 @@ const ChatInterface = ({ shopDomain }) => {
                     : 'bg-white text-gray-900 border border-gray-200'
                 }`}
               >
-                <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                <div className="prose prose-sm max-w-none break-words prose-headings:mt-2 prose-headings:mb-1 prose-p:my-1 prose-table:my-2 prose-li:my-0">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                    a: ({ href, children }) => {
+                      const isCartLink = href?.includes('/cart/');
+                      const isProductLink = href?.includes('/products/');
+                      if (isCartLink) {
+                        return <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold underline">🛒 Add to Cart</a>;
+                      }
+                      if (isProductLink) {
+                        return <a href={href} target="_blank" rel="noopener noreferrer" className="text-green-600 font-bold underline">🔍 View Product</a>;
+                      }
+                      return <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{children}</a>;
+                    }
+                  }}>
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
 
                 {/* Product Cards */}
                 {message.products && message.products.length > 0 && (

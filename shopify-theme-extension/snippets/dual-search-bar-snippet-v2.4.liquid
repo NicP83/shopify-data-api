@@ -1,0 +1,350 @@
+{% comment %}
+  Dual-Mode Search Bar - THEME-COMPATIBLE VERSION v2.4
+  This version prevents theme SearchBar initialization conflicts
+
+  Key changes from v2.3:
+  - Form does NOT use action="/search" to avoid theme SearchBar detection
+  - JavaScript handles navigation to /search page directly
+  - Theme's SearchBar will not try to initialize on this form
+{% endcomment %}
+
+<div class="dual-search-container" id="ai-dual-search-container" data-ai-search-bar="true">
+  <!-- Mode Toggle -->
+  <div class="search-mode-toggle" role="group" aria-label="Search mode selector">
+    <button
+      type="button"
+      class="mode-toggle-btn active"
+      id="ai-standard-mode-btn"
+      data-mode="standard"
+      role="tab"
+      aria-selected="true"
+      aria-controls="ai-search-input">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <path d="M9 17 A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Search</span>
+    </button>
+
+    <button
+      type="button"
+      class="mode-toggle-btn"
+      id="ai-camilla-mode-btn"
+      data-mode="camilla"
+      role="tab"
+      aria-selected="false"
+      aria-controls="ai-search-input">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" opacity="0.3"/>
+      </svg>
+      <span>Ask Camilla</span>
+    </button>
+  </div>
+
+  <!-- Search Form - NO action="/search" to avoid theme SearchBar detection -->
+  <form
+    class="dual-search-form"
+    id="ai-dual-search-form"
+    role="search"
+    data-theme-safe="true">
+
+    <!-- Hidden input to track search mode -->
+    <input type="hidden" name="search_mode" value="standard" data-search-mode-input>
+
+    <div class="search-input-wrapper">
+      <input
+        type="search"
+        name="q"
+        id="ai-search-input"
+        class="search-input"
+        placeholder="Search products..."
+        autocomplete="off"
+        aria-label="Search"
+        aria-describedby="ai-search-mode-hint"
+        required>
+
+      <span class="search-mode-hint" id="ai-search-mode-hint" aria-live="polite"></span>
+
+      <button
+        type="submit"
+        class="search-submit-btn"
+        aria-label="Submit search">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </form>
+</div>
+
+<style>
+  /* Scoped styles for dual search bar snippet - header-safe */
+  .dual-search-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Mode Toggle Buttons */
+  .search-mode-toggle {
+    display: flex;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .mode-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .mode-toggle-btn svg {
+    flex-shrink: 0;
+  }
+
+  .mode-toggle-btn:hover:not(.active) {
+    background: #e5e7eb;
+    color: #374151;
+  }
+
+  .mode-toggle-btn.active {
+    background: #212b36;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .mode-toggle-btn:focus {
+    outline: 2px solid #212b36;
+    outline-offset: 2px;
+  }
+
+  /* Search Form */
+  .dual-search-form {
+    flex: 1;
+    position: relative;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 50px 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    background: white;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #212b36;
+    box-shadow: 0 0 0 3px rgba(33, 43, 54, 0.1);
+  }
+
+  .search-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .search-submit-btn {
+    position: absolute;
+    right: 8px;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #212b36;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-submit-btn:hover {
+    background: #f3f4f6;
+  }
+
+  .search-submit-btn:focus {
+    outline: 2px solid #212b36;
+    outline-offset: 2px;
+  }
+
+  .search-mode-hint {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .dual-search-container {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .search-mode-toggle {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .mode-toggle-btn {
+      flex: 1;
+      justify-content: center;
+      padding: 10px 12px;
+    }
+
+    .mode-toggle-btn span {
+      font-size: 13px;
+    }
+
+    .search-input {
+      font-size: 14px;
+      padding: 10px 45px 10px 14px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+
+    const container = document.getElementById('ai-dual-search-container');
+    if (!container) return;
+
+    const standardBtn = document.getElementById('ai-standard-mode-btn');
+    const camillaBtn = document.getElementById('ai-camilla-mode-btn');
+    const searchForm = document.getElementById('ai-dual-search-form');
+    const searchInput = document.getElementById('ai-search-input');
+    const modeHint = document.getElementById('ai-search-mode-hint');
+    const searchModeInput = searchForm.querySelector('[data-search-mode-input]');
+
+    let currentMode = 'standard';
+
+    // Configuration (hardcoded for snippet version)
+    const config = {
+      standardPlaceholder: 'Search products...',
+      camillaPlaceholder: 'Ask Camilla to find products...'
+    };
+
+    // Switch mode
+    function switchMode(mode) {
+      currentMode = mode;
+
+      // Update button states
+      standardBtn.classList.toggle('active', mode === 'standard');
+      camillaBtn.classList.toggle('active', mode === 'camilla');
+
+      // Update ARIA
+      standardBtn.setAttribute('aria-selected', mode === 'standard');
+      camillaBtn.setAttribute('aria-selected', mode === 'camilla');
+
+      // Update hidden input value for dual-search-enhanced.js
+      if (searchModeInput) {
+        searchModeInput.value = mode === 'camilla' ? 'ai' : 'standard';
+      }
+
+      // Update placeholder and accessibility
+      if (mode === 'standard') {
+        searchInput.placeholder = config.standardPlaceholder;
+        searchInput.setAttribute('aria-labelledby', 'ai-standard-mode-btn');
+        modeHint.textContent = 'Standard product search mode active';
+      } else {
+        searchInput.placeholder = config.camillaPlaceholder;
+        searchInput.setAttribute('aria-labelledby', 'ai-camilla-mode-btn');
+        modeHint.textContent = 'Ask Camilla AI search mode active';
+      }
+
+      // Save preference
+      try {
+        sessionStorage.setItem('searchMode', mode);
+      } catch (e) {
+        // Ignore if sessionStorage not available
+      }
+    }
+
+    // Handle form submission - navigate manually since we don't use action="/search"
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const query = searchInput.value.trim();
+      if (!query) return;
+
+      const searchMode = searchModeInput.value;
+
+      // Build URL with query parameters
+      const params = new URLSearchParams();
+      params.set('q', query);
+      if (searchMode === 'ai') {
+        params.set('search_mode', 'ai');
+      }
+
+      // Navigate to search page
+      // This will be intercepted by dual-search-enhanced.js for AI search
+      window.location.href = '/search?' + params.toString();
+    }
+
+    // Event listeners
+    standardBtn.addEventListener('click', () => switchMode('standard'));
+    camillaBtn.addEventListener('click', () => switchMode('camilla'));
+    searchForm.addEventListener('submit', handleFormSubmit);
+
+    // Restore previous mode
+    try {
+      const savedMode = sessionStorage.getItem('searchMode');
+      if (savedMode === 'camilla') {
+        switchMode('camilla');
+      }
+    } catch (e) {
+      // Ignore if sessionStorage not available
+    }
+
+    // Keyboard shortcut (Cmd/Ctrl + Shift + K for quick switch)
+    // Safety: only if not in any input field
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'k') {
+        // Don't interfere if user is typing
+        const activeEl = document.activeElement;
+        if (activeEl && (
+          activeEl.tagName === 'INPUT' ||
+          activeEl.tagName === 'TEXTAREA' ||
+          activeEl.tagName === 'SELECT' ||
+          activeEl.isContentEditable
+        )) {
+          return; // Let browser handle normally
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        switchMode(currentMode === 'standard' ? 'camilla' : 'standard');
+        searchInput.focus();
+      }
+    });
+
+    console.log('✅ Dual search bar snippet initialized (v2.4 theme-compatible)');
+
+  })();
+</script>

@@ -1,0 +1,212 @@
+{% comment %}
+  Dual-Mode Search Bar Snippet (self-contained) - WORKING VERSION
+  This is the version that's live and working on the site.
+
+  Key features:
+  - NOT a <form> tag - uses <div> to avoid theme SearchBar detection
+  - JavaScript handles navigation instead of form submission
+  - Z-index fixes for dropdowns/popovers
+  - Pointer-events fix for loading overlay
+{% endcomment %}
+
+{%- assign dual_primary_color = primary_color | default: '#212b36' -%}
+{%- assign dual_standard_placeholder = standard_placeholder | default: 'Search products...' -%}
+{%- assign dual_camilla_placeholder = camilla_placeholder | default: 'Ask Camilla to find products...' -%}
+
+<div class="dual-search-container" id="dual-search-container">
+  <!-- Mode Toggle -->
+  <div class="search-mode-toggle" role="group" aria-label="Search mode selector">
+    <button
+      type="button"
+      class="mode-toggle-btn active"
+      id="ai-standard-mode-btn"
+      data-mode="standard"
+      role="tab"
+      aria-selected="true"
+      aria-controls="ai-search-input">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Search</span>
+    </button>
+    <button
+      type="button"
+      class="mode-toggle-btn"
+      id="ai-camilla-mode-btn"
+      data-mode="camilla"
+      role="tab"
+      aria-selected="false"
+      aria-controls="ai-search-input">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" opacity="0.3"/>
+      </svg>
+      <span>Ask Camilla</span>
+    </button>
+  </div>
+
+  <!-- NOTE: this is NOT a <form> to avoid nested form issues and theme SearchBar detection -->
+  <div class="dual-search-inner" id="ai-dual-search-inner">
+    <div class="search-input-wrapper">
+      <!-- unique name to avoid collisions -->
+      <input
+        type="search"
+        id="ai-search-input"
+        class="search-input"
+        name="ai_q"
+        placeholder="{{ dual_standard_placeholder }}"
+        autocomplete="off"
+        aria-label="Search"
+        aria-describedby="ai-search-mode-hint">
+      <span class="search-mode-hint" id="ai-search-mode-hint" aria-live="polite"></span>
+
+      <button
+        type="button"
+        id="ai-search-submit"
+        class="search-submit-btn"
+        aria-label="Submit search">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Results / panel placeholder (keeps same structure) -->
+    <div class="dual-search-panel" id="ai-dual-search-panel" aria-hidden="true">
+      <div class="search-bar__results">
+        <div class="search-bar__results-inner"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* keep your original styles; adjusted selectors to ai- prefix where needed */
+  .dual-search-container { display:flex; align-items:center; gap:12px; width:100%; max-width:100%; margin:0; }
+  .header__search-bar-wrapper .dual-search-container { width:100%; }
+  .search-mode-toggle { display:flex; background:#f3f4f6; border-radius:8px; padding:4px; gap:4px; }
+  .mode-toggle-btn { display:flex; align-items:center; gap:6px; padding:8px 12px; background:transparent; border:none; border-radius:6px; color:#6b7280; font-size:14px; font-weight:500; cursor:pointer; transition:all .2s }
+  .mode-toggle-btn.active { background: {{ dual_primary_color }}; color:#fff; }
+  .dual-search-inner { flex:1; position:relative; }
+  .search-input-wrapper { position:relative; display:flex; align-items:center; }
+  .search-input { width:100%; padding:12px 50px 12px 16px; border:2px solid #e5e7eb; border-radius:12px; font-size:15px; font-family:inherit; background:#fff; }
+  .search-submit-btn { position:absolute; right:8px; padding:8px; background:transparent; border:none; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .search-mode-hint { position:absolute; clip:rect(0 0 0 0); clip-path:inset(50%); height:1px; overflow:hidden; white-space:nowrap; width:1px; }
+  @media (max-width:768px) { .dual-search-container { gap:8px } .search-mode-toggle { width:60%; justify-content:center; margin: 8px 0; border-radius:12px;} .mode-toggle-btn { flex:1; justify-content:center; padding:6px } .search-input { padding:10px 14px } }
+  @media (max-width:415px) { .search-mode-toggle { margin: 12px 0; padding: 8px; width: 50%; } .mode-toggle-btn span { display: none; } }
+
+  /* CRITICAL FIX: Keep header popovers above search */
+  .popover, .shop-dropdown-content, .nav-bar__linklist > li .desktop-menu, .header__desktop-nav .popover, .mega-menu { z-index:99999 !important; }
+
+  /* CRITICAL FIX: Inactive global overlays must not block pointer events */
+  .dual-search-loading-overlay { pointer-events:none; }
+  .dual-search-loading-overlay .loading-content { pointer-events:auto; }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+    const container = document.getElementById('dual-search-container');
+    if (!container) return;
+
+    const standardBtn = document.getElementById('ai-standard-mode-btn');
+    const camillaBtn = document.getElementById('ai-camilla-mode-btn');
+    const searchInput = document.getElementById('ai-search-input');
+    const submitBtn = document.getElementById('ai-search-submit');
+    const modeHint = document.getElementById('ai-search-mode-hint');
+    const panel = document.getElementById('ai-dual-search-panel');
+
+    let currentMode = 'standard';
+
+    const config = {
+      standardPlaceholder: {{ dual_standard_placeholder | json }},
+      camillaPlaceholder: {{ dual_camilla_placeholder | json }}
+    };
+
+    function switchMode(mode) {
+      currentMode = mode;
+      standardBtn.classList.toggle('active', mode === 'standard');
+      camillaBtn.classList.toggle('active', mode === 'camilla');
+      standardBtn.setAttribute('aria-selected', mode === 'standard');
+      camillaBtn.setAttribute('aria-selected', mode === 'camilla');
+
+      if (mode === 'standard') {
+        searchInput.placeholder = config.standardPlaceholder;
+        searchInput.setAttribute('aria-labelledby', 'ai-standard-mode-btn');
+        modeHint.textContent = 'Standard product search mode active';
+        // ensure panel hidden for now
+        if (panel) panel.setAttribute('aria-hidden', 'true');
+      } else {
+        searchInput.placeholder = config.camillaPlaceholder;
+        searchInput.setAttribute('aria-labelledby', 'ai-camilla-mode-btn');
+        modeHint.textContent = 'Ask Camilla AI search mode active';
+      }
+
+      try { sessionStorage.setItem('searchMode', mode); } catch(e){}
+    }
+
+    function submitSearch() {
+      const query = (searchInput.value || '').trim();
+      if (!query) {
+        searchInput.focus();
+        return;
+      }
+
+      if (currentMode === 'standard') {
+        // Build a Shopify search URL and navigate. Uses type=product.
+        const params = new URLSearchParams({ q: query, type: 'product' });
+        window.location.href = '/search?' + params.toString();
+      } else {
+        // Camilla mode: open AI modal if available, otherwise fallback to a search page
+        const modal = document.getElementById('ai-search-modal');
+        if (modal && window.aiSearchModal) {
+          modal.style.display = 'flex';
+          setTimeout(() => {
+            const aiInput = document.getElementById('ai-chat-input');
+            if (aiInput) {
+              aiInput.value = query;
+              const submitBtn = document.getElementById('ai-chat-submit');
+              if (submitBtn) submitBtn.click();
+            }
+          }, 100);
+        } else {
+          // fallback: go to a special search page if you want
+          const params = new URLSearchParams({ q: query, type: 'product', ai: '1' });
+          window.location.href = '/search?' + params.toString();
+        }
+      }
+
+      // clear the ui input
+      searchInput.value = '';
+    }
+
+    // Event bindings
+    standardBtn.addEventListener('click', () => switchMode('standard'));
+    camillaBtn.addEventListener('click', () => switchMode('camilla'));
+    submitBtn.addEventListener('click', submitSearch);
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitSearch();
+      }
+    });
+
+    // restore saved mode
+    try {
+      const saved = sessionStorage.getItem('searchMode');
+      if (saved === 'camilla') switchMode('camilla');
+    } catch (e) {}
+
+    // keyboard toggle: Cmd/Ctrl + Shift + K
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'k') {
+        e.preventDefault();
+        switchMode(currentMode === 'standard' ? 'camilla' : 'standard');
+        searchInput.focus();
+      }
+    });
+
+    console.log('✅ Dual search bar initialized (working non-form version)');
+  })();
+</script>

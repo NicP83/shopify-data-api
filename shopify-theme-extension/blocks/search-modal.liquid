@@ -140,6 +140,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
+    pointer-events: none; /* Allow events to pass through to modal content */
   }
 
   .ai-modal-content {
@@ -153,8 +154,10 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: scroll;
     animation: modalSlideIn 0.3s ease-out;
+    pointer-events: auto;
+    padding: 0 15px;
   }
 
   @keyframes modalSlideIn {

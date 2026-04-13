@@ -21,6 +21,7 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
+  pointer-events: none; /* Allow events to pass through to modal content */
 }
 
 .ai-modal-content {
@@ -36,6 +37,7 @@
   flex-direction: column;
   overflow: hidden;
   animation: modalSlideIn 0.3s ease-out;
+  pointer-events: auto; /* Restore pointer events for modal content */
 }
 
 @keyframes modalSlideIn {
@@ -237,6 +239,120 @@
   font-size: 16px;
   font-weight: 700;
   color: #c30000;
+}
+
+/* Markdown Headers */
+.ai-message-content .ai-md-h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 12px 0 6px;
+  color: #191919;
+}
+
+.ai-message-content .ai-md-h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 0 4px;
+  color: #374151;
+}
+
+/* Markdown Tables */
+.ai-message-content .ai-md-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.ai-message-content .ai-md-table th {
+  background: #f3f4f6;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #d1d5db;
+  color: #191919;
+}
+
+.ai-message-content .ai-md-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.ai-message-content .ai-md-table tr:hover td {
+  background: #f9fafb;
+}
+
+/* Markdown Lists */
+.ai-message-content .ai-md-list {
+  margin: 8px 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.ai-message-content .ai-md-list li {
+  margin-bottom: 4px;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* Ordered Lists */
+.ai-message-content .ai-md-ol {
+  margin: 8px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.ai-message-content .ai-md-ol li {
+  margin-bottom: 4px;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* Horizontal Rule */
+.ai-message-content .ai-md-hr {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin: 12px 0;
+}
+
+/* Product Links (green) */
+.ai-message-content a.ai-product-link {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-top: 4px;
+  background: #065f46;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  border: 2px solid #065f46;
+}
+
+.ai-message-content a.ai-product-link:hover {
+  background: #047857;
+  border-color: #047857;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Generic Links */
+.ai-message-content a.ai-link {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ai-message-content a.ai-link:hover {
+  color: #1d4ed8;
+}
+
+/* Markdown paragraphs inside messages */
+.ai-message-content p {
+  margin: 4px 0;
+  line-height: 1.6;
 }
 
 /* Cart Links - THE FIX */

@@ -8,8 +8,10 @@
 
 {% comment %} Load the AI Search CSS {% endcomment %}
 <link rel="stylesheet" href="{{ 'ai-search-modal-styles.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'dual-search.css' | asset_url }}?v=2.0">
 
 {% comment %} Load the AI Search JavaScript {% endcomment %}
+<script src="{{ 'dual-search.js' | asset_url }}?v=2.0"></script>
 <script src="{{ 'ai-search-client.js' | asset_url }}" defer></script>
 
 {% comment %} Optional: Add keyboard shortcut hint {% endcomment %}

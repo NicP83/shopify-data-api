@@ -1,0 +1,342 @@
+{% comment %}
+  Floating AI Button
+  Always-accessible button to open Ask Camilla modal from anywhere on site
+{% endcomment %}
+
+<div
+  class="floating-ai-button"
+  id="floating-ai-button"
+  {% unless block.settings.show_on_mobile %}data-hide-mobile="true"{% endunless %}>
+
+  <button
+    type="button"
+    class="floating-btn"
+    id="floating-camilla-btn"
+    aria-label="Ask Camilla - AI Product Assistant"
+    aria-haspopup="dialog">
+
+    <!-- Chat bubble icon with sparkle -->
+    <svg class="floating-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+            fill="white"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+
+    <!-- Sparkle indicator -->
+    <span class="sparkle-indicator"></span>
+  </button>
+
+  <!-- Tooltip -->
+  <div class="floating-tooltip" role="tooltip" id="floating-tooltip">
+    <span class="tooltip-text">Ask Camilla</span>
+    <span class="tooltip-shortcut">⌘K</span>
+  </div>
+</div>
+
+<style>
+  /* Scoped styles for AI floating button - won't affect theme */
+  .floating-ai-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50; /* Very low to ensure it never covers theme elements */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: auto; /* Ensure button is clickable */
+    isolation: isolate; /* CSS isolation to prevent interference */
+  }
+
+  .floating-ai-button.hidden {
+    transform: translateY(100px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Hide on mobile if setting enabled */
+  @media (max-width: 768px) {
+    .floating-ai-button[data-hide-mobile="true"] {
+      display: none;
+    }
+  }
+
+  .floating-btn {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: {{ block.settings.button_color | default: '#212b36' }};
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .floating-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .floating-btn:active {
+    transform: scale(0.95);
+  }
+
+  .floating-btn:focus {
+    outline: 3px solid {{ block.settings.button_color | default: '#212b36' }};
+    outline-offset: 4px;
+  }
+
+  /* Icon */
+  .floating-icon {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sparkle indicator */
+  .sparkle-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    background: #fbbf24;
+    border-radius: 50%;
+    border: 2px solid {{ block.settings.button_color | default: '#212b36' }};
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  @keyframes sparkle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Tooltip */
+  .floating-tooltip {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(5px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .floating-btn:hover + .floating-tooltip,
+  .floating-btn:focus + .floating-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tooltip-text {
+    font-weight: 600;
+  }
+
+  .tooltip-shortcut {
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  /* Tooltip arrow */
+  .floating-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.9);
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .floating-ai-button {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .floating-btn {
+      width: 56px;
+      height: 56px;
+    }
+
+    .floating-tooltip {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+
+    .tooltip-shortcut {
+      display: none;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-btn {
+      animation: none;
+    }
+
+    .sparkle-indicator {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+
+    const floatingBtn = document.getElementById('floating-camilla-btn');
+    const container = document.getElementById('floating-ai-button');
+
+    if (!floatingBtn) return;
+
+    // Open modal on click
+    floatingBtn.addEventListener('click', function() {
+      const modal = document.getElementById('ai-search-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+
+        // Focus input
+        const input = document.getElementById('ai-chat-input');
+        if (input) {
+          setTimeout(() => input.focus(), 100);
+        }
+
+        // Track analytics
+        if (window.trackEvent) {
+          window.trackEvent('floating_button_clicked', {
+            source: 'floating_button'
+          });
+        }
+      }
+    });
+
+    // Hide on scroll up (optional feature)
+    {% if block.settings.hide_on_scroll_up %}
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateFloatingButton() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down - show button
+        container.classList.remove('hidden');
+      } else if (currentScrollY < lastScrollY - 50) {
+        // Scrolling up significantly - hide button
+        container.classList.add('hidden');
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateFloatingButton);
+        ticking = true;
+      }
+    });
+    {% endif %}
+
+    // Note: Keyboard shortcut Cmd/Ctrl + K is handled by dual-search-enhanced.js
+    // to avoid duplicate preventDefault() calls that could interfere with other functionality
+
+    // Pulse animation on first visit
+    function showPulseHint() {
+      const hasSeenHint = localStorage.getItem('camilla-button-hint-seen');
+
+      if (!hasSeenHint) {
+        setTimeout(() => {
+          floatingBtn.style.animation = 'float 3s ease-in-out infinite, pulse 2s ease-in-out 3';
+
+          setTimeout(() => {
+            floatingBtn.style.animation = 'float 3s ease-in-out infinite';
+            localStorage.setItem('camilla-button-hint-seen', 'true');
+          }, 6000);
+        }, 2000);
+      }
+    }
+
+    // Add pulse animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pulse {
+        0%, 100% { transform: scale(1) translateY(0px); }
+        25%, 75% { transform: scale(1.15) translateY(-5px); }
+        50% { transform: scale(1) translateY(0px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    showPulseHint();
+
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Floating AI Button",
+  "target": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#212b36"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on Mobile",
+      "default": true,
+      "info": "Display floating button on mobile devices"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll_up",
+      "label": "Hide when scrolling up",
+      "default": false,
+      "info": "Automatically hide button when user scrolls up"
+    }
+  ]
+}
+{% endschema %}

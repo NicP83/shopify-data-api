@@ -8,10 +8,10 @@ ALTER TABLE chat_analytics ADD COLUMN IF NOT EXISTS add_to_cart_clicked BOOLEAN 
 ALTER TABLE chat_analytics ADD COLUMN IF NOT EXISTS conversion_event VARCHAR(100);
 
 -- Register Phase 3 tools
-INSERT INTO tools (name, description, handler_class, input_schema, is_active, created_at, updated_at)
+INSERT INTO tools (name, type, description, input_schema_json, handler_class, is_active, created_at)
 VALUES
-    ('compare_products', 'Compare two or three products side by side',
+    ('compare_products', 'CHAT', 'Compare two or three products side by side',
+     '{"type":"object","properties":{"product_queries":{"type":"array","items":{"type":"string"}}},"required":["product_queries"]}'::jsonb,
      'com.shopify.api.handler.tool.CompareProductsChatToolHandler',
-     '{"type":"object","properties":{"product_queries":{"type":"array","items":{"type":"string"}}},"required":["product_queries"]}',
-     true, NOW(), NOW())
+     true, NOW())
 ON CONFLICT (name) DO NOTHING;

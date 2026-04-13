@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS conversation_sessions (
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_conv_sessions_session_id ON conversation_sessions(session_id);
-CREATE INDEX idx_conv_sessions_customer_email ON conversation_sessions(customer_email);
-CREATE INDEX idx_conv_sessions_last_active ON conversation_sessions(last_active_at);
+CREATE INDEX IF NOT EXISTS idx_conv_sessions_session_id ON conversation_sessions(session_id);
+CREATE INDEX IF NOT EXISTS idx_conv_sessions_customer_email ON conversation_sessions(customer_email);
+CREATE INDEX IF NOT EXISTS idx_conv_sessions_last_active ON conversation_sessions(last_active_at);
 
 -- Individual messages within a session
 CREATE TABLE IF NOT EXISTS conversation_messages (
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS conversation_messages (
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_conv_messages_session ON conversation_messages(session_id);
-CREATE INDEX idx_conv_messages_created ON conversation_messages(created_at);
+CREATE INDEX IF NOT EXISTS idx_conv_messages_session ON conversation_messages(session_id);
+CREATE INDEX IF NOT EXISTS idx_conv_messages_created ON conversation_messages(created_at);
 
 -- Customer preferences learned over time
 CREATE TABLE IF NOT EXISTS customer_preferences (
@@ -47,25 +47,25 @@ CREATE TABLE IF NOT EXISTS customer_preferences (
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_cust_prefs_email ON customer_preferences(customer_email);
+CREATE INDEX IF NOT EXISTS idx_cust_prefs_email ON customer_preferences(customer_email);
 
 -- Register Phase 2 tools
-INSERT INTO tools (name, description, handler_class, input_schema, is_active, created_at, updated_at)
+INSERT INTO tools (name, type, description, input_schema_json, handler_class, is_active, created_at)
 VALUES
-    ('get_stock_insights', 'Get sales velocity and trend insights for a product by SKU',
+    ('get_stock_insights', 'CHAT', 'Get sales velocity and trend insights for a product by SKU',
+     '{"type":"object","properties":{"sku":{"type":"string"}},"required":["sku"]}'::jsonb,
      'com.shopify.api.handler.tool.GetStockInsightsChatToolHandler',
-     '{"type":"object","properties":{"sku":{"type":"string"}},"required":["sku"]}',
-     true, NOW(), NOW()),
-    ('get_complementary_products', 'Get complementary product suggestions for a given product',
+     true, NOW()),
+    ('get_complementary_products', 'CHAT', 'Get complementary product suggestions for a given product',
+     '{"type":"object","properties":{"product_title":{"type":"string"},"product_type":{"type":"string"},"vendor":{"type":"string"}},"required":["product_title"]}'::jsonb,
      'com.shopify.api.handler.tool.GetComplementaryProductsChatToolHandler',
-     '{"type":"object","properties":{"product_title":{"type":"string"},"product_type":{"type":"string"},"vendor":{"type":"string"}},"required":["product_title"]}',
-     true, NOW(), NOW()),
-    ('get_customer_history', 'Look up customer purchase history by email',
+     true, NOW()),
+    ('get_customer_history', 'CHAT', 'Look up customer purchase history by email',
+     '{"type":"object","properties":{"email":{"type":"string"}},"required":["email"]}'::jsonb,
      'com.shopify.api.handler.tool.CustomerHistoryChatToolHandler',
-     '{"type":"object","properties":{"email":{"type":"string"}},"required":["email"]}',
-     true, NOW(), NOW()),
-    ('get_promotions', 'Find products currently on sale or promotion',
+     true, NOW()),
+    ('get_promotions', 'CHAT', 'Find products currently on sale or promotion',
+     '{"type":"object","properties":{"category":{"type":"string"},"limit":{"type":"integer"}},"required":[]}'::jsonb,
      'com.shopify.api.handler.tool.GetPromotionsChatToolHandler',
-     '{"type":"object","properties":{"category":{"type":"string"},"limit":{"type":"integer"}},"required":[]}',
-     true, NOW(), NOW())
+     true, NOW())
 ON CONFLICT (name) DO NOTHING;

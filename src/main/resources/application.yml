@@ -109,6 +109,7 @@ chatbot:
   tools:
     enable-product-search: ${CHATBOT_ENABLE_SEARCH:true}
     max-search-results: ${CHATBOT_MAX_RESULTS:10}
+    low-stock-threshold: ${CHATBOT_LOW_STOCK_THRESHOLD:5}
 
   # Response Style
   response:

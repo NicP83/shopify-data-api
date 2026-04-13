@@ -8,7 +8,6 @@ import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
 import com.shopify.api.model.agent.Agent;
 import com.shopify.api.repository.agent.AgentRepository;
-import com.shopify.api.service.tool.AgentDelegationToolHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -59,7 +58,7 @@ public class ChatAgentService {
     private final SystemPromptService systemPromptService;
     private final ModelValidationService modelValidationService;
     private final AgentRepository agentRepository;
-    private final AgentDelegationToolHandler agentDelegationHandler;
+    private final ChatToolRegistry chatToolRegistry;
     private final ObjectMapper objectMapper;
     private final String shopUrl;
     private final ResourceLoader resourceLoader;
@@ -75,7 +74,7 @@ public class ChatAgentService {
                            SystemPromptService systemPromptService,
                            ModelValidationService modelValidationService,
                            AgentRepository agentRepository,
-                           AgentDelegationToolHandler agentDelegationHandler,
+                           ChatToolRegistry chatToolRegistry,
                            ResourceLoader resourceLoader,
                            @Value("${shopify.shop-url}") String shopUrl) {
         this.webClient = webClientBuilder
@@ -86,7 +85,7 @@ public class ChatAgentService {
         this.systemPromptService = systemPromptService;
         this.modelValidationService = modelValidationService;
         this.agentRepository = agentRepository;
-        this.agentDelegationHandler = agentDelegationHandler;
+        this.chatToolRegistry = chatToolRegistry;
         this.resourceLoader = resourceLoader;
         this.objectMapper = new ObjectMapper();
         this.shopUrl = shopUrl;
@@ -178,9 +177,10 @@ public class ChatAgentService {
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
-        // Add tools array if product search is enabled
-        if (config.isEnableProductSearch()) {
-            requestBody.set("tools", buildToolsArray(config));
+        // Add tools array from the dynamic registry (each tool controls its own isEnabled)
+        ArrayNode tools = buildToolsArray(config);
+        if (tools.size() > 0) {
+            requestBody.set("tools", tools);
         }
 
         // Call Claude API
@@ -294,144 +294,20 @@ public class ChatAgentService {
     }
 
     /**
-     * Execute a tool call reactively and return results
-     * Uses handler pattern for clean separation of concerns
+     * Execute a tool call reactively via the dynamic tool registry.
+     * No hardcoded routing — all tools are auto-discovered.
      */
     private Mono<String> executeToolCallReactive(String toolName, JsonNode input) {
         logger.info("=== EXECUTING TOOL: {} ===", toolName);
-
-        try {
-            // Route to appropriate handler based on tool name
-            if ("search_products".equals(toolName)) {
-                return executeProductSearch(input);
-            } else if ("delegate_to_agent".equals(toolName)) {
-                return executeDelegateToAgent(input);
-            }
-
-            logger.warn("Unknown tool requested: {}", toolName);
-            return Mono.just("{\"error\": \"Unknown tool: " + toolName + "\"}");
-
-        } catch (Exception e) {
-            logger.error("Error in executeToolCallReactive {}: {}", toolName, e.getMessage(), e);
-            return Mono.just("{\"error\": \"" + e.getMessage() + "\"}");
-        }
+        return chatToolRegistry.executeTool(toolName, input);
     }
 
     /**
-     * Execute product search tool
-     */
-    private Mono<String> executeProductSearch(JsonNode input) {
-        String query = input.get("query").asText();
-        int maxResults = chatbotConfigService.getConfig().getMaxSearchResults();
-
-        logger.info("Query: '{}', Max Results: {}", query, maxResults);
-
-        return productService.searchProductsReactive(query, maxResults)
-                .map(results -> {
-                    try {
-                        logger.info("Search completed - Results type: {}",
-                            results != null ? results.getClass().getSimpleName() : "null");
-
-                        String jsonResult = objectMapper.writeValueAsString(results);
-                        logger.debug("Returning {} characters of JSON to Claude", jsonResult.length());
-
-                        return jsonResult;
-                    } catch (Exception e) {
-                        logger.error("Error formatting search results: {}", e.getMessage(), e);
-                        return "{\"error\": \"Error formatting results: " + e.getMessage() + "\"}";
-                    }
-                })
-                .onErrorResume(e -> {
-                    logger.error("Error executing product search: {}", e.getMessage(), e);
-                    return Mono.just("{\"error\": \"Error executing search: " + e.getMessage() + "\"}");
-                });
-    }
-
-    /**
-     * Execute agent delegation tool using handler
-     */
-    private Mono<String> executeDelegateToAgent(JsonNode input) {
-        // Validate input first
-        if (!agentDelegationHandler.validateInput(input)) {
-            logger.warn("Invalid input for delegate_to_agent tool");
-            return Mono.just("{\"error\": \"Invalid input: agent_name and task are required\"}");
-        }
-
-        // Execute using the dedicated handler
-        return agentDelegationHandler.execute(input)
-                .map(JsonNode::toString)
-                .onErrorResume(e -> {
-                    logger.error("Error delegating to agent: {}", e.getMessage(), e);
-                    return Mono.just("{\"error\": \"Delegation failed: " + e.getMessage() + "\"}");
-                });
-    }
-
-    /**
-     * Build tools array for Claude API
+     * Build tools array for Claude API using the dynamic tool registry.
+     * Tools are auto-discovered — no manual registration needed.
      */
     private ArrayNode buildToolsArray(ChatbotConfig config) {
-        ArrayNode tools = objectMapper.createArrayNode();
-
-        // Add search_products tool if enabled
-        if (config.isEnableProductSearch()) {
-            ObjectNode searchTool = objectMapper.createObjectNode();
-            searchTool.put("name", "search_products");
-            searchTool.put("description", "Search the product catalog to find items matching a query. " +
-                    "Use this to find specific products, check availability, get prices, or browse categories. " +
-                    "Returns product details including title, description, price, SKU, variants, image URL, and onlineStoreUrl for product page links.");
-
-            ObjectNode inputSchema = objectMapper.createObjectNode();
-            inputSchema.put("type", "object");
-
-            ObjectNode properties = objectMapper.createObjectNode();
-            ObjectNode queryProperty = objectMapper.createObjectNode();
-            queryProperty.put("type", "string");
-            queryProperty.put("description", "Search query to find products (searches title, description, tags, vendor)");
-            properties.set("query", queryProperty);
-
-            inputSchema.set("properties", properties);
-            ArrayNode required = objectMapper.createArrayNode();
-            required.add("query");
-            inputSchema.set("required", required);
-
-            searchTool.set("input_schema", inputSchema);
-            tools.add(searchTool);
-        }
-
-        // Add delegate_to_agent tool if agents are linked
-        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
-            ObjectNode delegateTool = objectMapper.createObjectNode();
-            delegateTool.put("name", "delegate_to_agent");
-            delegateTool.put("description", "Delegate a task to a specialist agent. " +
-                    "Use this when you need expert knowledge or specialized capabilities. " +
-                    "The agent will process the task and return results.");
-
-            ObjectNode delegateSchema = objectMapper.createObjectNode();
-            delegateSchema.put("type", "object");
-
-            ObjectNode delegateProps = objectMapper.createObjectNode();
-
-            ObjectNode agentNameProp = objectMapper.createObjectNode();
-            agentNameProp.put("type", "string");
-            agentNameProp.put("description", "Name of the specialist agent to delegate to");
-            delegateProps.set("agent_name", agentNameProp);
-
-            ObjectNode taskProp = objectMapper.createObjectNode();
-            taskProp.put("type", "string");
-            taskProp.put("description", "The task or question to send to the specialist agent");
-            delegateProps.set("task", taskProp);
-
-            delegateSchema.set("properties", delegateProps);
-            ArrayNode delegateRequired = objectMapper.createArrayNode();
-            delegateRequired.add("agent_name");
-            delegateRequired.add("task");
-            delegateSchema.set("required", delegateRequired);
-
-            delegateTool.set("input_schema", delegateSchema);
-            tools.add(delegateTool);
-        }
-
-        return tools;
+        return chatToolRegistry.buildToolDefinitions(config);
     }
 
     /**
@@ -648,24 +524,62 @@ public class ChatAgentService {
         }
         prompt.append("\n");
 
+        // === CONVERSION & CUSTOMER EXPERIENCE RULES ===
+        prompt.append("=== CONVERSION & CUSTOMER EXPERIENCE ===\n");
+        prompt.append("You are a knowledgeable hobby expert and sales assistant. Your goal is to help customers find exactly what they need and make purchasing easy.\n\n");
+
+        prompt.append("STOCK URGENCY:\n");
+        prompt.append("- When a product has low inventory (5 or fewer), mention it naturally: 'This is a popular item — only 3 left in stock!'\n");
+        prompt.append("- Use check_inventory to verify stock when customers ask about availability\n");
+        prompt.append("- Never pressure, but do create honest urgency for genuinely low-stock items\n\n");
+
+        prompt.append("COMPLEMENTARY SUGGESTIONS:\n");
+        prompt.append("- After helping a customer find a model kit, ask if they need supplies: paints, cement, tools, primer, or a cutter\n");
+        prompt.append("- For paints, suggest complementary colours or thinners\n");
+        prompt.append("- For airbrushes, suggest compressors, cleaning kits, or paints\n");
+        prompt.append("- Keep suggestions relevant — don't suggest random products\n\n");
+
+        prompt.append("CLOSING & CONVERSION:\n");
+        prompt.append("- After presenting products, ask a closing question: 'Would you like me to find anything else for your project?' or 'Shall I check if we have the matching paint set?'\n");
+        prompt.append("- If a customer seems undecided, offer to compare options or check stock\n");
+        prompt.append("- Make the path to purchase frictionless — always include Add to Cart links\n\n");
+
+        prompt.append("BROWSING & DISCOVERY:\n");
+        prompt.append("- Use browse_products when customers want to explore categories or filter by price\n");
+        prompt.append("- If a customer seems to be browsing, offer to show new arrivals or popular items\n");
+        prompt.append("- Present options from most affordable to premium, noting the value of each\n\n");
+
+        prompt.append("ORDER SUPPORT:\n");
+        prompt.append("- Use lookup_order when customers ask about order status — you need both order number AND email\n");
+        prompt.append("- If they only provide one, politely ask for the other for security verification\n");
+        prompt.append("- Be empathetic with order issues and suggest contacting support for complex problems\n\n");
+
         // Custom instructions (including agent routing logic)
         if (config.getCustomInstructions() != null && !config.getCustomInstructions().isEmpty()) {
             prompt.append("=== ADDITIONAL INSTRUCTIONS ===\n");
             prompt.append(config.getCustomInstructions()).append("\n\n");
         }
 
-        // Final reminder
-        StringBuilder reminder = new StringBuilder("Remember: ");
-        if (config.isEnableProductSearch()) {
-            reminder.append("USE search_products for product-related questions");
-        }
-        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
-            if (config.isEnableProductSearch()) {
-                reminder.append(", and ");
-            }
-            reminder.append("delegate to specialist agents when their expertise is needed");
-        }
-        prompt.append(reminder).append("!");
+        // Proactive engagement
+        prompt.append("=== PROACTIVE ENGAGEMENT ===\n");
+        prompt.append("- Greet returning customers by name if known from customer context\n");
+        prompt.append("- If a returning customer previously bought model kits, ask if they need supplies for it\n");
+        prompt.append("- When appropriate, mention current promotions or new arrivals\n");
+        prompt.append("- If a customer seems like a beginner, offer guidance and suggest starter kits or tools\n");
+        prompt.append("- Be genuinely helpful, not pushy — build trust and the sales will follow\n\n");
+
+        // Final reminder with all tools
+        prompt.append("=== TOOL USAGE SUMMARY ===\n");
+        prompt.append("- search_products: Find specific products by name, keyword, or description\n");
+        prompt.append("- browse_products: Browse by category, vendor, price range, or sort order\n");
+        prompt.append("- check_inventory: Check stock levels and availability\n");
+        prompt.append("- lookup_order: Look up order status (requires order number + email)\n");
+        prompt.append("- get_stock_insights: Get sales velocity and trend data for a product SKU (social proof)\n");
+        prompt.append("- get_complementary_products: Suggest complementary items for a product\n");
+        prompt.append("- get_customer_history: Look up customer purchase history (only when they provide email)\n");
+        prompt.append("- get_promotions: Find products currently on sale or special\n");
+        prompt.append("- compare_products: Compare 2-3 products side by side\n");
+        prompt.append("Always use the right tool for the job. Search before recommending. Never make up products.");
 
         return prompt.toString();
     }

@@ -495,6 +495,8 @@ public class ProductService {
                           title
                           sku
                           price
+                          compareAtPrice
+                          inventoryQuantity
                         }
                       }
                     }

@@ -150,7 +150,7 @@ public class ChatAgentService {
      * maxIterations prevents infinite loops
      */
     private Mono<ChatMessage> callClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration) {
-        if (iteration >= 5) {
+        if (iteration >= 8) {
             logger.warn("Max tool use iterations reached");
             return Mono.just(new ChatMessage("assistant", "I apologize, but I'm having trouble completing your request. Please try rephrasing."));
         }
@@ -527,6 +527,15 @@ public class ChatAgentService {
         // === CONVERSION & CUSTOMER EXPERIENCE RULES ===
         prompt.append("=== CONVERSION & CUSTOMER EXPERIENCE ===\n");
         prompt.append("You are a knowledgeable hobby expert and sales assistant. Your goal is to help customers find exactly what they need and make purchasing easy.\n\n");
+
+        prompt.append("SHOW PRODUCTS FIRST (CRITICAL RULE):\n");
+        prompt.append("- NEVER ask more than ONE clarifying question before showing products\n");
+        prompt.append("- When a customer says 'I need X' or 'show me X', SEARCH AND SHOW PRODUCTS IMMEDIATELY\n");
+        prompt.append("- If you don't have enough info, make reasonable assumptions and show a range of options\n");
+        prompt.append("- Example: 'I need an RC car for my son' → immediately search and show beginner-friendly RC cars, don't ask 4 questions first\n");
+        prompt.append("- Example: 'give me some options' → this means STOP ASKING and SEARCH NOW\n");
+        prompt.append("- You can suggest refinements AFTER showing products: 'Here are some great options. If you want, I can narrow it down by budget or type.'\n");
+        prompt.append("- Customers lose patience with too many questions — products on screen is what converts\n\n");
 
         prompt.append("STOCK URGENCY:\n");
         prompt.append("- When a product has low inventory (5 or fewer), mention it naturally: 'This is a popular item — only 3 left in stock!'\n");

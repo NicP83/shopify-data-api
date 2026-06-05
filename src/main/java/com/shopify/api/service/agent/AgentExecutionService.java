@@ -12,6 +12,7 @@ import com.shopify.api.model.agent.AgentTool;
 import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentExecutionRepository;
 import com.shopify.api.repository.agent.AgentRepository;
+import com.shopify.api.repository.agent.AgentToolRepository;
 import com.shopify.api.service.ModelValidationService;
 import com.shopify.api.service.tool.ToolHandler;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ import java.util.Map;
 public class AgentExecutionService {
 
     private final AgentRepository agentRepository;
+    private final AgentToolRepository agentToolRepository;
     private final AgentExecutionRepository agentExecutionRepository;
     private final WebClient.Builder webClientBuilder;
     private final ObjectMapper objectMapper;
@@ -466,7 +468,11 @@ public class AgentExecutionService {
     private ArrayNode buildToolsArrayForAgent(Agent agent) {
         ArrayNode tools = objectMapper.createArrayNode();
 
-        for (AgentTool agentTool : agent.getAgentTools()) {
+        // Load assignments via the repository with an explicit fetch-join rather than
+        // agent.getAgentTools(): the lazy collection can come back empty here (the
+        // call assembles a reactive pipeline, detaching from the JPA session).
+        List<AgentTool> agentTools = agentToolRepository.findByAgentIdWithTool(agent.getId());
+        for (AgentTool agentTool : agentTools) {
             Tool tool = agentTool.getTool();
 
             if (!tool.getIsActive()) {

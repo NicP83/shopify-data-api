@@ -13,9 +13,11 @@ import com.shopify.api.model.agent.Tool;
 import com.shopify.api.repository.agent.AgentExecutionRepository;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.shopify.api.service.ModelValidationService;
+import com.shopify.api.service.tool.ToolHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -50,6 +52,8 @@ public class AgentExecutionService {
     private final ObjectMapper objectMapper;
     private final MCPClient mcpClient;
     private final ModelValidationService modelValidationService;
+    private final ToolRegistryService toolRegistryService;
+    private final ApplicationContext applicationContext;
 
     @Value("${anthropic.api.key:}")
     private String anthropicApiKey;
@@ -255,6 +259,15 @@ public class AgentExecutionService {
                 // Handle tool calls and continue
                 return handleToolUseAndContinue(
                     webClient, validatedModel, agent, systemPrompt, messages, tools, response, iteration, executionId);
+            } else if ("pause_turn".equals(stopReason)) {
+                // Native server tool (e.g. web_search) paused mid-turn — append the
+                // assistant turn so far and let Claude continue where it left off.
+                ObjectNode assistantMessage = objectMapper.createObjectNode();
+                assistantMessage.put("role", "assistant");
+                assistantMessage.set("content", response.get("content"));
+                messages.add(assistantMessage);
+                return callClaudeWithTools(
+                    webClient, validatedModel, agent, systemPrompt, messages, tools, iteration + 1, executionId);
             } else {
                 // Extract final response
                 return extractFinalResult(response, inputTokens, outputTokens);
@@ -279,15 +292,16 @@ public class AgentExecutionService {
             int iteration,
             Long executionId) {
 
+        // Collect client tool_use blocks first. Native server tools (server_tool_use,
+        // e.g. web_search) are run by Anthropic and must not be executed here.
+        JsonNode content = response.get("content");
+        List<Mono<ObjectNode>> toolCallMonos = new ArrayList<>();
+
         // Add assistant's message with tool_use to messages
         ObjectNode assistantMessage = objectMapper.createObjectNode();
         assistantMessage.put("role", "assistant");
-        assistantMessage.set("content", response.get("content"));
+        assistantMessage.set("content", content);
         messages.add(assistantMessage);
-
-        // Execute tool calls
-        JsonNode content = response.get("content");
-        List<Mono<ObjectNode>> toolCallMonos = new ArrayList<>();
 
         for (JsonNode block : content) {
             if ("tool_use".equals(block.get("type").asText())) {
@@ -308,6 +322,15 @@ public class AgentExecutionService {
 
                 toolCallMonos.add(toolResultMono);
             }
+        }
+
+        // No client tools to run (e.g. only server-tool blocks) — nothing to fulfil;
+        // return whatever text Claude has produced so far.
+        if (toolCallMonos.isEmpty()) {
+            JsonNode usage = response.get("usage");
+            int it = usage != null && usage.has("input_tokens") ? usage.get("input_tokens").asInt() : 0;
+            int ot = usage != null && usage.has("output_tokens") ? usage.get("output_tokens").asInt() : 0;
+            return extractFinalResult(response, it, ot);
         }
 
         // Execute all tools and continue conversation
@@ -333,9 +356,13 @@ public class AgentExecutionService {
     /**
      * Execute a tool call
      *
-     * Currently implements:
      * - mcp_call: Call external MCP server tools
-     * - Other tools: Return placeholder (TODO: implement handler loading)
+     * - Any other tool: look up its Tool record, resolve the Spring bean named by
+     *   handler_class, validate input, and run handler.execute(). Errors are
+     *   returned as JSON (never thrown) so Claude can react and the turn continues.
+     *
+     * Note: native Anthropic server tools (e.g. web_search, type=BUILTIN) are
+     * executed by Anthropic itself and never reach this method.
      */
     private Mono<String> executeToolCall(String toolName, JsonNode input, Agent agent) {
         log.info("Tool execution: {} with input: {}", toolName, input);
@@ -345,9 +372,41 @@ public class AgentExecutionService {
             return executeMCPToolCall(input);
         }
 
-        // TODO: Implement actual tool execution by loading tool handler classes
-        // For now, return a placeholder for other tools
-        return Mono.just("{\"message\": \"Tool '" + toolName + "' executed successfully\", \"input\": " + input.toString() + "}");
+        return Mono.defer(() -> {
+            Tool tool = toolRegistryService.getToolByName(toolName).orElse(null);
+            if (tool == null || tool.getHandlerClass() == null || tool.getHandlerClass().isBlank()) {
+                log.warn("No handler registered for tool '{}'", toolName);
+                return Mono.just(toolErrorJson("No handler registered for tool '" + toolName + "'"));
+            }
+
+            ToolHandler handler;
+            try {
+                Class<?> handlerClass = Class.forName(tool.getHandlerClass());
+                handler = (ToolHandler) applicationContext.getBean(handlerClass);
+            } catch (Exception e) {
+                log.error("Could not load tool handler '{}' for tool '{}': {}",
+                    tool.getHandlerClass(), toolName, e.getMessage());
+                return Mono.just(toolErrorJson("Tool handler not available for '" + toolName + "'"));
+            }
+
+            if (!handler.validateInput(input)) {
+                return Mono.just(toolErrorJson("Invalid input for tool '" + toolName + "'"));
+            }
+
+            return handler.execute(input)
+                .map(JsonNode::toString)
+                .onErrorResume(err -> {
+                    log.error("Tool '{}' execution failed: {}", toolName, err.getMessage());
+                    return Mono.just(toolErrorJson("Tool '" + toolName + "' failed: " + err.getMessage()));
+                });
+        });
+    }
+
+    /** Build a safe JSON error string for a failed tool call. */
+    private String toolErrorJson(String message) {
+        ObjectNode err = objectMapper.createObjectNode();
+        err.put("error", message);
+        return err.toString();
     }
 
     /**
@@ -411,6 +470,15 @@ public class AgentExecutionService {
             Tool tool = agentTool.getTool();
 
             if (!tool.getIsActive()) {
+                continue;
+            }
+
+            // Native Anthropic server tools (e.g. web_search). For these, input_schema_json
+            // already holds the full server-tool definition (e.g. {"type":"web_search_20250305",
+            // "name":"web_search","max_uses":5}); emit it verbatim. Anthropic executes them.
+            if ("BUILTIN".equalsIgnoreCase(tool.getType())) {
+                tools.add(tool.getInputSchemaJson());
+                log.debug("Added native server tool: {} to agent: {}", tool.getName(), agent.getName());
                 continue;
             }
 

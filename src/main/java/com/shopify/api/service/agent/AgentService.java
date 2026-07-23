@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service for managing AI agents
@@ -198,6 +200,34 @@ public class AgentService {
     @Transactional(readOnly = true)
     public List<AgentTool> getAgentTools(Long agentId) {
         return agentToolRepository.findByAgentId(agentId);
+    }
+
+    /**
+     * Reconcile an agent's tool assignments with the given list.
+     * A null list means "leave assignments untouched" (backward compatible
+     * with callers that manage tools via the attach/detach endpoints).
+     */
+    @Transactional
+    public void syncAgentTools(Long agentId, List<Long> toolIds) {
+        if (toolIds == null) {
+            return;
+        }
+        log.info("Syncing tools for agent {}: {}", agentId, toolIds);
+
+        Set<Long> desired = new HashSet<>(toolIds);
+        List<AgentTool> current = agentToolRepository.findByAgentId(agentId);
+
+        for (AgentTool assignment : current) {
+            Long toolId = assignment.getTool().getId();
+            if (!desired.contains(toolId)) {
+                removeToolFromAgent(agentId, toolId);
+            } else {
+                desired.remove(toolId);
+            }
+        }
+        for (Long toolId : desired) {
+            assignToolToAgent(agentId, toolId);
+        }
     }
 
     /**

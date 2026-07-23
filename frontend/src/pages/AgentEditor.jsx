@@ -84,10 +84,9 @@ function AgentEditor() {
 
       setAgent(loadedAgent)
 
-      // Extract tool IDs from agentTools relationship
-      if (response.data.agentTools) {
-        const toolIds = response.data.agentTools.map(at => at.tool.id)
-        setSelectedToolIds(toolIds)
+      // Pre-select assigned tools from the flat tools list on AgentResponse
+      if (response.data.tools) {
+        setSelectedToolIds(response.data.tools.map(t => t.id))
       }
     } catch (error) {
       console.error('Error loading agent:', error)

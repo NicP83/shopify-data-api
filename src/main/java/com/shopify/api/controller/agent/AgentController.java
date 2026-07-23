@@ -59,8 +59,10 @@ public class AgentController {
             .build();
 
         Agent createdAgent = agentService.createAgent(agent);
+        agentService.syncAgentTools(createdAgent.getId(), request.getToolIds());
+        Agent withTools = agentService.getAgentByIdWithTools(createdAgent.getId()).orElse(createdAgent);
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(AgentResponse.fromEntity(createdAgent));
+            .body(AgentResponse.fromEntity(withTools));
     }
 
     /**
@@ -143,7 +145,9 @@ public class AgentController {
             .build();
 
         Agent agent = agentService.updateAgent(id, updatedAgent);
-        return ResponseEntity.ok(AgentResponse.fromEntity(agent));
+        agentService.syncAgentTools(id, request.getToolIds());
+        Agent withTools = agentService.getAgentByIdWithTools(id).orElse(agent);
+        return ResponseEntity.ok(AgentResponse.fromEntity(withTools));
     }
 
     /**

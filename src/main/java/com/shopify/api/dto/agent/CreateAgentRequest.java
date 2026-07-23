@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * DTO for creating a new agent
@@ -48,4 +49,10 @@ public class CreateAgentRequest {
 
     @Builder.Default
     private Boolean isActive = true;
+
+    /**
+     * Tool IDs to assign to the agent. Null means "leave existing assignments
+     * untouched" so callers using the attach/detach endpoints are unaffected.
+     */
+    private List<Long> toolIds;
 }

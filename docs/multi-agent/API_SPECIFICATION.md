@@ -52,6 +52,7 @@ Used by both create and update.
 | `maxTokens` | integer | No | |
 | `configJson` | object | No | Free-form JSON config |
 | `isActive` | boolean | No | Defaults to `true` |
+| `toolIds` | long[] | No | Tool assignments to reconcile (add missing, remove absent). `null`/omitted = leave existing assignments untouched. |
 
 ### Response Body: `AgentResponse`
 
@@ -299,7 +300,7 @@ Schedule endpoints return the `WorkflowSchedule` **entity** directly:
 | Method | Path | Description |
 |--------|------|-------------|
 | POST | `/api/schedules` | Create schedule. Body: `{ "workflowId": 1, "cronExpression": "0 0 * * * *", "triggerData": { ... } }`. |
-| GET | `/api/schedules` | List schedules. Query param `active` (default `true`). Note: currently returns active schedules regardless of the flag (marked `TODO` in code). |
+| GET | `/api/schedules` | List schedules. Query param `active` (default `true`); `active=false` returns all schedules including disabled ones. |
 | GET | `/api/schedules/workflow/{workflowId}` | List schedules for a workflow. |
 | DELETE | `/api/schedules/{id}` | Cancel (disable) a schedule. Returns `{ "message": "...", "scheduleId": "..." }`. |
 | PUT | `/api/schedules/{id}/activate` | Reactivate a cancelled schedule. Returns `200` with empty body. |
@@ -316,14 +317,40 @@ Schedule endpoints return the `WorkflowSchedule` **entity** directly:
 
 ---
 
+## Executions API
+
+Served by `ExecutionController`. Response body `WorkflowExecutionResponse`:
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `id` | long | |
+| `workflowId` / `workflowName` | long / string | Flattened from the workflow association |
+| `status` | string | `PENDING` / `RUNNING` / `PAUSED` / `COMPLETED` / `FAILED` |
+| `triggerDataJson` / `contextDataJson` | object | |
+| `errorMessage` | string | |
+| `startedAt` / `completedAt` / `createdAt` | timestamp | |
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/executions` | Recent executions across all workflows, newest first, capped at 200. |
+| GET | `/api/executions/{id}` | Single execution; `404` when absent. |
+| GET | `/api/workflows/{workflowId}/executions` | Executions for one workflow, newest first. |
+
+---
+
+## Chatbot Workflow Delegation
+
+The storefront chatbot exposes a `delegate_to_workflow` tool (input `{workflow_name, task}`) when `chatbot_configs.linked_workflow_ids` is non-empty (configured in Settings → Automated Workflows). Guard rails: only explicitly linked workflows are runnable; workflows containing `APPROVAL` steps are refused from chat; 90-second execution timeout; result context truncated to ~6000 chars. See `WorkflowDelegationToolHandler` / `DelegateToWorkflowChatToolHandler`.
+
+`PARALLEL` steps now execute sibling steps referenced via `input_mapping_json` `{"stepIds": [...]}` through `executeStepsInParallel`; referenced steps are excluded from the top-level sequential pass. Unconfigured `PARALLEL` steps still return the legacy `{ "parallel": "not_fully_implemented" }` placeholder. `APPROVAL` steps read `approval_config_json`, falling back to `input_mapping_json` for older workflows.
+
+---
+
 ## Known Gaps
 
-Real discrepancies between the frontend client (`frontend/src/services/api.js`) and the backend:
+(Resolved July 2026: executions controller, `toolIds` on agent create/update, `active=false` schedules listing, PARALLEL wiring — see sections above.)
 
-1. **No executions controller exists.** The frontend calls `GET /api/executions`, `GET /api/executions/{id}` and `GET /api/workflows/{workflowId}/executions`, but no backend controller maps these paths. The only execution-history endpoint that exists is `GET /api/agents/{agentId}/executions`.
-2. **Agent tool assignment via editor payload is ignored.** `AgentEditor.jsx` sends `toolIds` inside the create/update agent body, but `CreateAgentRequest` has no `toolIds` field. The working endpoints for tool assignment are `POST`/`DELETE /api/agents/{agentId}/tools/{toolId}`, which `api.js` does not currently wrap.
-3. **`GET /api/schedules?active=false` still returns only active schedules** (unimplemented branch in `ScheduleController`).
-4. **`PARALLEL` step type is a placeholder** — see `WorkflowOrchestratorService`; it returns `{ "parallel": "not_fully_implemented" }`.
+1. **Shop context is not passed into chat-triggered workflows** — trigger data carries `source: "chatbot"` but no shop domain.
 
 ---
 

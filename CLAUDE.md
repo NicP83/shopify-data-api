@@ -7,7 +7,7 @@
 ## Tech Stack
 
 - **Backend:** Java 17, Spring Boot 3.2 (Maven, `pom.xml`), reactive WebClient throughout
-- **Database:** PostgreSQL via JPA (`ddl-auto: none`) + Flyway migrations `src/main/resources/db/migration/` (V002–V019; `repair-on-migrate: true`)
+- **Database:** PostgreSQL via JPA (`ddl-auto: none`) + Flyway migrations `src/main/resources/db/migration/` (V002–V020; `repair-on-migrate: true`)
 - **AI:** Anthropic Claude API, default model `claude-sonnet-4-6` (env `ANTHROPIC_MODEL`; validated by `ModelValidationService` against `config/ModelConfig.java`)
 - **Integrations:** Shopify GraphQL Admin API (`client/ShopifyGraphQLClient.java`), external ERP MCP server over JSON-RPC (`client/MCPClient.java`, env `CRS_MCP_URL`)
 - **Frontend:** React 18 + Vite SPA in `frontend/` (Tailwind, react-router v6, axios, recharts, reactflow)
@@ -39,6 +39,8 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 ### Multi-agent system (`service/agent/`, `controller/agent/`, schema V002)
 - `AgentExecutionService.java` — executes DB-defined agents (max 10 iterations). Loads agents with **fetch-join queries** (`AgentRepository.findByIdWithTools`, `AgentToolRepository.findByAgentIdWithTool`) — lazy collections break in the reactive pipeline; keep using fetch-joins.
 - Chatbot → agent delegation: `handler/tool/DelegateToAgentChatToolHandler` → `service/tool/AgentDelegationToolHandler`, which **injects a product-first instruction** (show real products + cart links, don't just ask questions) into every delegated task. Enabled only when `ChatbotConfig.linkedAgentIds` is set.
+- Chatbot → workflow delegation: `handler/tool/DelegateToWorkflowChatToolHandler` → `service/tool/WorkflowDelegationToolHandler`, gated by `ChatbotConfig.linkedWorkflowIds` (Settings → Automated Workflows). Only linked workflows runnable, approval-step workflows refused from chat, 90s timeout. Deliberately zero-touch on `ChatAgentService`: linked workflows are advertised via the tool's own description.
+- Execution history: `controller/agent/ExecutionController` (`/api/executions`, `/api/workflows/{id}/executions`) using fetch-join repository queries.
 - `WorkflowOrchestratorService.java` — ordered workflow steps with shared context, approval steps (`ApprovalService`, resumed via `ApprovalController`), timeouts; cron scheduling via `SchedulerService` + `WorkflowSchedule`.
 - REST: `/api/agents`, `/api/workflows` (+ `/public/{id}/execute`), `/api/tools`, `/api/schedules`, `/api/approvals`. Spec: `docs/multi-agent/API_SPECIFICATION.md`; architecture: `docs/multi-agent/ARCHITECTURE.md`, `DATABASE_SCHEMA.md`.
 
@@ -60,13 +62,22 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 - All secrets/env via `.env` (see `.env.example`); nothing hardcoded in `application.yml`.
 - MVC async timeout is 120s to accommodate long agent orchestration.
 
-## Known loose ends (flagged in July 2026 review — future cleanup)
+## Known loose ends (July 2026 review — future cleanup)
 
 - `frontend/src/pages/ProductSearchPage.jsx` and `frontend/src/pages/WorkflowEditorVisual.jsx` (reactflow visual builder) exist but are not wired into any route.
 - `frontend/src/components/ChatInterface.jsx` hardcodes `http://localhost:8080` and bypasses the api.js service layer.
 - Two inconsistent frontend API clients (`api.js` axios vs `adminApi.js` fetch).
 - OpenAI/Gemini providers in `AgentExecutionService` are stubs (unsupported).
 - Market Discount Tracking (Vision Module 4, `/market-intel` route) was never built — placeholder page only.
+- Shop context is not injected into chat tool inputs, so chat-triggered workflows run in the store's global context.
+- Agent id 23 ("Product Enrichment", used in production) exists only in the live DB — no seeding migration; fresh DBs won't have it (V019 guards on its existence).
+
+## Planned evolution (agreed with user, separate tasks)
+
+1. System-prompt workflow awareness in `ChatAgentService` (deliberately deferred; zero-touch decision July 2026).
+2. Staging Railway environment + DB clone.
+3. Shop-context injection into chat tools.
+4. Async long-running workflows from chat (execution id + polling; would allow approval-gated workflows).
 
 ## Documentation Index
 

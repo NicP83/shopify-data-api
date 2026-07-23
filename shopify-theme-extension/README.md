@@ -1,289 +1,99 @@
-# AI Product Search Assistant - Shopify Theme Extension
+# Ask Camilla - AI Search / Chat Theme Extension
 
-AI-powered product search assistant for Shopify storefronts, specifically designed for Hearn's Hobbies.
+**Status: LIVE in production (December 2025). This README is the single authoritative deployment doc.**
+All previous guides (v2.0 - v2.5, snippet/header variants, fix notes) are superseded and moved to [`archive/`](archive/).
 
-## Features
+## What This Is
 
-- **Conversational AI Search**: Natural language product search powered by Claude AI
-- **Smart Product Recommendations**: AI understands context and suggests relevant products
-- **Beautiful UI**: Modern, responsive chat modal with smooth animations
-- **Message History**: Maintains conversation context for better results
-- **Keyboard Shortcuts**: Quick access with `Cmd/Ctrl + K`
-- **Mobile Optimized**: Fully responsive design
-- **Easy Integration**: Simple theme blocks that work with any Shopify theme
+A storefront AI chat/search widget for Hearn's Hobbies. It adds a **dual search bar** to the theme header with two modes:
 
-## Installation
+- **Standard search** - navigates to Shopify's native `/search?q=...&type=product`
+- **Ask Camilla (AI search)** - opens the AI search modal (or falls back to `/search?...&ai=1`), which calls the Railway backend:
+  - **Endpoint**: `POST /api/shopify/chat/message?shop=hearnshobbies.myshopify.com`
+  - **Body**: `{ "message": "...", "conversationHistory": [...], "maxResults": 10 }`
+  - **Response**: `{ "response": "...", "products": [...], "role": "assistant", "timestamp": "..." }`
+  - The backend uses Claude AI plus the Shopify product catalog to return recommendations rendered as product cards in the modal.
 
-### Method 1: Using Shopify CLI (Recommended)
+## The Working Solution (why it looks the way it does)
 
-1. **Install Shopify CLI** (if not already installed):
-   ```bash
-   npm install -g @shopify/cli @shopify/theme
-   ```
+Earlier versions (v2.0 - v2.5) rendered the search bar as a `<form action="/search">`. The theme's own SearchBar JavaScript detects any such form, tries `this.element.closest(".header")`, gets `null`, and crashes - breaking dropdown menus, gift card variant selection, and "View more" buttons. Multiple workarounds (timing delays, retries, `closest()` overrides) only partially helped.
 
-2. **Navigate to the extension directory**:
-   ```bash
-   cd /path/to/shopify-theme-extension
-   ```
+The fix that finally worked and is live:
 
-3. **Deploy to your Shopify store**:
-   ```bash
-   shopify theme push
-   ```
+1. **No `<form>` tag** - the bar is a `<div class="dual-search-inner">`, so the theme's SearchBar never detects it. No conflict, no crash.
+2. **JavaScript navigation** - submit is handled in JS via `window.location.href`.
+3. **Unique input name** - `ai_q` instead of `q`, and all element IDs are `ai-` prefixed to avoid ID collisions with gift card / variant forms.
+4. **CSS fixes** - theme popovers/mega-menus forced to `z-index: 99999`, and the loading overlay uses `pointer-events: none` so it never blocks clicks.
+5. **Simple init** - plain DOM-ready initialization; no retry/timing logic is needed once the form conflict is gone.
 
-4. **Follow the prompts** to connect to your Shopify store
+## Key Files
 
-### Method 2: Manual Installation
+| File | Purpose |
+|------|---------|
+| `Dual Search Naihra final files /dual-search-bar-snippet.liquid` | **Production snippet** - the non-form dual search bar (deploy this) |
+| `Dual Search Naihra final files /dual-search.js` | **Production JS** - navigation, personalized loading messages, timer, analytics (deploy this) |
+| `snippets/dual-search-bar-snippet-WORKING.liquid` | Commented copy of the working snippet (reference) |
+| `dual-search-WORKING.js` | Commented copy of the working JS (reference) |
+| `assets/ai-search-client.js` | AI modal API client - `fetch`es `POST {apiUrl}?shop=...` |
+| `assets/ai-search-modal-styles.css` | Modal styles |
+| `blocks/search-modal.liquid` | AI Search Modal block (holds the `api_url` setting, default `https://your-app.railway.app/api/shopify/chat/message`) |
+| `blocks/floating-ai-button.liquid` | Optional floating "Ask Camilla" button |
+| `snippets/ai-search-assets.liquid` | Loads modal assets from `theme.liquid` |
+| `snippets/dual-search-bar-snippet-v2.3/2.4/2.5.liquid`, `dual-search-enhanced*.js`, `blocks/dual-search-bar.liquid`, `blocks/search-bar.liquid` | Superseded form-based attempts - **do not deploy** |
 
-1. **Copy extension files** to your Shopify theme:
-   - Copy `blocks/search-bar.liquid` → `sections/` in your theme
-   - Copy `blocks/search-modal.liquid` → `sections/` in your theme
-   - Copy `assets/ai-search-client.js` → `assets/` in your theme
-   - Copy `snippets/ai-search-assets.liquid` → `snippets/` in your theme
+## Deployment (current working steps)
 
-2. **Add to theme.liquid**:
-   Add this line before the closing `</body>` tag:
+1. **Snippet**: Shopify Admin → Online Store → Themes → Edit code → **Snippets** → create `dual-search-bar-snippet.liquid` and paste the content of `Dual Search Naihra final files /dual-search-bar-snippet.liquid`.
+2. **JavaScript**: **Assets** → create/replace `dual-search.js` with `Dual Search Naihra final files /dual-search.js`.
+3. **Render the bar in the header** (e.g. the theme's header liquid file):
    ```liquid
-   {% render 'ai-search-assets' %}
+   {% render 'dual-search-bar-snippet',
+     primary_color: '#212b36',
+     standard_placeholder: 'Search products...',
+     camilla_placeholder: 'Ask Camilla to find products...'
+   %}
    ```
+   All parameters are optional; the defaults shown above are built in.
+4. **Include the JS in `theme.liquid`** (before `</head>` or `</body>`):
+   ```liquid
+   {{ 'dual-search.js' | asset_url | script_tag }}
+   ```
+5. **AI modal**: add the "AI Search Modal" block via the theme customizer and set its **API URL** to the Railway backend, e.g. `https://<your-app>.railway.app/api/shopify/chat/message`. The shop domain is auto-detected from `{{ shop.permanent_domain }}`.
 
-3. **Add blocks to your theme** via the Shopify theme editor:
-   - Go to Online Store → Themes → Customize
-   - Add the "AI Search Bar" block to your header
-   - Add the "AI Search Modal" block to your theme (anywhere)
+No timing hacks and no theme code modifications are required.
 
-## Configuration
+## Post-Deploy Test Checklist
 
-### Backend API Setup
-
-1. **Update API URL** in the theme customizer:
-   - Navigate to theme settings
-   - Find "AI Search Modal" settings
-   - Update `api_url` to your Railway backend URL:
-     ```
-     https://your-app.railway.app/api/shopify/chat/message
-     ```
-
-2. **Configure Shop Domain**:
-   - The shop domain is automatically detected from `{{ shop.permanent_domain }}`
-   - For hearnshobbies.com, this will be: `hearnshobbies.myshopify.com`
-
-### Customization Options
-
-#### Search Bar Settings
-
-- **Primary Color**: Brand color for buttons and accents
-- **Text Color**: Text color for content
-- **Position**:
-  - `header` - Displays in header section
-  - `fixed-bottom` - Floating button at bottom right
-  - `inline` - Inline with other content
-- **Auto-focus**: Automatically focus search on page load
-
-#### Search Modal Settings
-
-- **Primary Color**: Brand color for UI elements
-- **Text Color**: Text color for messages
-- **API URL**: Backend API endpoint
-- **Maximum Results**: Max products to display (3-20)
-
-### Theme Integration
-
-The extension provides two main blocks:
-
-1. **AI Search Bar** (`search-bar.liquid`)
-   - Triggers the chat modal
-   - Can be placed in header, as floating button, or inline
-   - Fully customizable appearance
-
-2. **AI Search Modal** (`search-modal.liquid`)
-   - Full-screen chat interface
-   - Message history
-   - Product cards with images and prices
-   - Typing indicators and error handling
-
-## Usage
-
-### For Customers
-
-1. **Click the search bar** or press `Cmd/Ctrl + K`
-2. **Ask natural language questions** like:
-   - "Show me Gundam model kits under $50"
-   - "I need hobby paints for plastic models"
-   - "What tools do I need for scale modeling?"
-3. **Browse AI-recommended products** directly in the chat
-4. **Click product cards** to view product pages
-
-### For Developers
-
-#### JavaScript API
-
-Access the modal programmatically:
-
-```javascript
-// Open modal
-window.aiSearchModal.open();
-
-// Close modal
-window.aiSearchModal.close();
-
-// Send message programmatically
-window.aiSearchModal.client.sendMessage("Show me model kits")
-  .then(response => console.log(response));
-
-// Clear conversation history
-window.aiSearchModal.client.clearHistory();
-```
-
-#### Custom Styling
-
-All CSS classes are prefixed with `ai-` for easy customization:
-
-```css
-/* Customize search bar */
-.ai-search-trigger {
-  /* Your custom styles */
-}
-
-/* Customize modal */
-.ai-modal-content {
-  /* Your custom styles */
-}
-
-/* Customize messages */
-.ai-message-assistant .ai-message-content {
-  /* Your custom styles */
-}
-```
-
-#### Event Hooks
-
-Listen for modal events:
-
-```javascript
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('ai-search-modal');
-
-  // Modal opened
-  modal.addEventListener('open', function() {
-    console.log('Modal opened');
-  });
-
-  // Modal closed
-  modal.addEventListener('close', function() {
-    console.log('Modal closed');
-  });
-});
-```
-
-## Architecture
-
-### Flow Diagram
-
-```
-Customer → Search Bar → Modal → API Client → Backend (Railway)
-                                              ↓
-                                         Claude AI (Anthropic)
-                                              ↓
-                                    Product Search (Shopify API)
-                                              ↓
-Customer ← Product Cards ← Modal ← API Response
-```
-
-### API Communication
-
-The extension communicates with your backend using:
-
-- **Endpoint**: `POST /api/shopify/chat/message`
-- **Query Param**: `shop=hearnshobbies.myshopify.com`
-- **Body**:
-  ```json
-  {
-    "message": "Show me Gundam kits",
-    "conversationHistory": [...],
-    "maxResults": 10
-  }
-  ```
-- **Response**:
-  ```json
-  {
-    "response": "Here are some Gundam kits...",
-    "products": [
-      {
-        "id": "123",
-        "title": "RG 1/144 RX-78-2 Gundam",
-        "handle": "rg-rx-78-2-gundam",
-        "price": 29.99,
-        "image": "https://..."
-      }
-    ],
-    "role": "assistant",
-    "timestamp": "2025-10-30T..."
-  }
-  ```
+- Search bar visible in header; Standard / Ask Camilla toggle works
+- Standard search navigates to `/search?q=...`
+- AI search opens the modal (or navigates with `ai=1` as fallback)
+- **Gift card pages: variant selection works** (see troubleshooting below)
+- Header dropdown/mega menus open; product "View more" buttons work
+- Other forms (newsletter, contact) unaffected; no console errors
+- Loading overlay shows personalized messages; timer turns orange at 10s, green at 20s
+- Mobile layout OK
 
 ## Troubleshooting
 
-### Search bar not appearing
+**Gift card / product variant selection breaks after install**
+Historic cause: duplicate generic IDs (`#search-input`, `#dual-search-form`) from the search bar loading in the header on every page - `getElementById` then targets the wrong element. The working snippet already uses `ai-` prefixed IDs and the `ai_q` input name, so this cannot recur unless an old form-based snippet (v2.x, `blocks/dual-search-bar.liquid`) is deployed. If it happens, confirm only the WORKING snippet is rendered and no v2.x file is still referenced.
 
-1. Ensure `ai-search-assets.liquid` is rendered in `theme.liquid`
-2. Check that both blocks are added via theme customizer
-3. Clear browser cache and reload
+**Dropdown menus / theme features break, or console shows `Cannot read properties of null` in SearchBar**
+An old `<form action="/search">` variant is deployed. Replace it with the working non-form snippet. Do not try to fix this with load-order tricks - placing the code in a section instead of the header only masked the problem by loading after the theme JS; the non-form snippet removes the conflict entirely regardless of placement.
 
-### Modal not opening
+**Dropdowns render underneath the search bar** - the z-index CSS fix in the snippet is missing; redeploy the full snippet.
 
-1. Check browser console for JavaScript errors
-2. Ensure `ai-search-client.js` is loaded
-3. Verify modal element exists: `document.getElementById('ai-search-modal')`
+**Clicks on the page do nothing while/after AI search** - the loading overlay's `pointer-events: none` rule is missing; redeploy the full snippet.
 
-### API errors
+**Modal / API errors**
+1. Check the backend is up on Railway and the block's API URL is correct.
+2. CORS must allow `hearnshobbies.com`; requests include `?shop=hearnshobbies.myshopify.com`.
+3. Check the browser network tab; the response must contain a `products` array for cards to render.
 
-1. Verify backend is running on Railway
-2. Check API URL is correct in theme settings
-3. Ensure CORS is configured for `hearnshobbies.com`
-4. Check browser network tab for request/response details
+## Emergency Rollback
 
-### Products not displaying
+If anything breaks the live site, follow [`EMERGENCY-ROLLBACK.md`](EMERGENCY-ROLLBACK.md) - it removes all Ask Camilla blocks/snippets in about 5 minutes via the theme customizer or code editor.
 
-1. Verify backend returns `products` array in response
-2. Check product object structure matches expected format
-3. Ensure product handles/IDs are valid
+## History
 
-## Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-- Mobile browsers (iOS Safari 14+, Chrome Mobile)
-
-## Performance
-
-- **Initial Load**: ~15KB (JS + CSS inline)
-- **Lazy Loading**: Product images load on-demand
-- **Optimized**: Modal only renders when opened
-- **Responsive**: Smooth animations with CSS transitions
-
-## Security
-
-- **CORS**: Backend validates origin
-- **Shop Verification**: Backend verifies shop is installed
-- **No Credentials**: Extension doesn't store sensitive data
-- **XSS Protection**: All user input is sanitized
-
-## Support
-
-For issues or questions:
-- Check troubleshooting section above
-- Review browser console for errors
-- Contact development team
-
-## Version
-
-**Current Version**: 1.0.0
-**Last Updated**: October 2025
-**Shopify API Version**: 2024-01
-
-## License
-
-Proprietary - Hearn's Hobbies © 2025
+The full write-up of the fix and the comparison of all v2.0 - v2.5 attempts is preserved in `archive/WORKING-SOLUTION-DOCUMENTED.md`. Everything else in `archive/` is obsolete.

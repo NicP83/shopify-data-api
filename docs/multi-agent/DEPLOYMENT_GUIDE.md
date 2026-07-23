@@ -1,5 +1,7 @@
 # Multi-Agent System - Deployment Guide
 
+> **Model note (July 2026):** Claude model IDs in this document are historical. The runtime model is set by the `ANTHROPIC_MODEL` env var (currently `claude-sonnet-4-6`) — see CLAUDE.md.
+
 **Version:** 1.0
 **Date:** 2025-10-14
 **Status:** Ready for Staging Deployment

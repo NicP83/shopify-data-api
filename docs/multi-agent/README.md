@@ -58,25 +58,29 @@ This folder contains complete documentation for the Multi-Agent System - a flexi
    - Blockers and issues
    - **Update this** after completing tasks
 
-### 📚 Additional Documentation (To Be Created)
+### 📚 Additional Documentation
 
-5. **API_SPECIFICATION.md** - REST API Endpoints
-   - All endpoint specifications
-   - Request/response examples
-   - Authentication requirements
-   - Rate limiting details
+5. **[API_SPECIFICATION.md](./API_SPECIFICATION.md)** - REST API Endpoints
+   - All endpoint specifications (agents, tools, workflows, approvals, schedules)
+   - Request/response shapes from the actual DTOs
+   - Public workflow execution behavior
+   - Known gaps between frontend client and backend
 
-6. **FRONTEND_COMPONENTS.md** - React UI Components
-   - Complete list of components to build
-   - Component responsibilities
-   - Props and state management
-   - UI/UX patterns
+6. **[FRONTEND_COMPONENTS.md](./FRONTEND_COMPONENTS.md)** - React UI Components
+   - Route map for the agent/workflow UI
+   - Page and component responsibilities
+   - Props, state, and API methods used
+   - Known issues (unrouted visual editor, missing endpoints)
 
-7. **WORKFLOW_EXAMPLES.md** - Sample Workflows
+7. **[WORKFLOW_EXAMPLES.md](./WORKFLOW_EXAMPLES.md)** - Sample Workflows
    - Real-world workflow configurations
-   - JSON examples
-   - Use case scenarios
-   - Best practices
+   - JSON examples using the actual step schema
+   - Use case scenarios (approval, scheduled, conditional)
+   - Best practices and gotchas
+
+8. **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - Deployment Instructions
+
+9. **[MVP_ASSESSMENT.md](./MVP_ASSESSMENT.md)** - MVP Status Assessment
 
 ---
 
@@ -184,9 +188,11 @@ Example: To create a new agent type, you just add a database record. No code cha
 ├── DATABASE_SCHEMA.md             ← Database schema (40KB)
 ├── IMPLEMENTATION_ROADMAP.md      ← 10-phase plan (15KB)
 ├── PROGRESS.md                    ← Progress tracker (current status)
-├── API_SPECIFICATION.md           ← (To be created)
-├── FRONTEND_COMPONENTS.md         ← (To be created)
-└── WORKFLOW_EXAMPLES.md           ← (To be created)
+├── API_SPECIFICATION.md           ← REST API endpoints
+├── FRONTEND_COMPONENTS.md         ← React UI components & routes
+├── WORKFLOW_EXAMPLES.md           ← Sample workflow configurations
+├── DEPLOYMENT_GUIDE.md            ← Deployment instructions
+└── MVP_ASSESSMENT.md              ← MVP status assessment
 ```
 
 ---
@@ -324,6 +330,6 @@ The system is complete when:
 
 ---
 
-**Last Updated**: 2025-10-14
-**Version**: 1.0
-**Status**: Documentation Phase - In Progress
+**Last Updated**: 2026-07-23
+**Version**: 1.1
+**Status**: Documentation Complete

@@ -1,5 +1,7 @@
 # Shopify Chat Widget Performance Optimization
 
+> **Model note (July 2026):** Claude model IDs in this document are historical. The runtime model is set by the `ANTHROPIC_MODEL` env var (currently `claude-sonnet-4-6`) — see CLAUDE.md.
+
 ## Current Performance Status (WORKING10)
 
 ### Configuration

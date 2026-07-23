@@ -1,5 +1,7 @@
 # Project Vision: Customer Service & Sales Hub
 
+> **⚠️ Historical document (Oct 2025).** Modules 1–3 (Product Search, AI Chat Agent, Analytics) have since been built and extended well beyond this vision (multi-agent system, workflows, inventory analysis, theme extension). Module 4 (Market Discount Tracking) was never started. For current state see [`CLAUDE.md`](CLAUDE.md).
+
 **Project Name:** Shopify Data API & Customer Service Hub
 **Store:** hearnshobbies.myshopify.com
 **Created:** 2025-10-11

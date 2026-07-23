@@ -1,5 +1,7 @@
 # Multi-Agent System - Database Schema
 
+> **Model note (July 2026):** Claude model IDs in this document are historical. The runtime model is set by the `ANTHROPIC_MODEL` env var (currently `claude-sonnet-4-6`) — see CLAUDE.md.
+
 **Project:** Shopify Data API - Multi-Agent Orchestration
 **Created:** 2025-10-14
 **Version:** 1.0

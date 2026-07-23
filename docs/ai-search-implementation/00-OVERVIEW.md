@@ -1,4 +1,6 @@
 # Hearn's Hobbies AI-Enhanced Search System
+
+> **Model note (July 2026):** Claude model IDs in this document are historical. The runtime model is set by the `ANTHROPIC_MODEL` env var (currently `claude-sonnet-4-6`) — see CLAUDE.md.
 ## Implementation Documentation
 
 ---

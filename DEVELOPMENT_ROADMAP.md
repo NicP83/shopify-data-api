@@ -1,5 +1,7 @@
 # Development Roadmap
 
+> **⚠️ Historical document (Oct 2025).** Development moved far past this roadmap (checkpoints reached WORKING10+; chatbot v2 with dynamic tool registry, multi-agent system, workflows, inventory analysis all shipped). Phase 4 (Market Intel) was never started. For current state see [`CLAUDE.md`](CLAUDE.md).
+
 **Project:** Customer Service & Sales Hub
 **Current Checkpoint:** WORKING3
 **Last Updated:** 2025-10-11

@@ -39,6 +39,7 @@ public class ChatbotConfig {
 
     // ===== Agent Integration =====
     private List<Long> linkedAgentIds;  // Optional: Link to multiple Agents for delegation
+    private List<Long> linkedWorkflowIds;  // Optional: Link to Workflows for chat delegation
 
     // ===== Constructors =====
 
@@ -192,6 +193,14 @@ public class ChatbotConfig {
         this.linkedAgentIds = linkedAgentIds;
     }
 
+    public List<Long> getLinkedWorkflowIds() {
+        return linkedWorkflowIds;
+    }
+
+    public void setLinkedWorkflowIds(List<Long> linkedWorkflowIds) {
+        this.linkedWorkflowIds = linkedWorkflowIds;
+    }
+
     // ===== Builder Pattern (Optional but helpful) =====
 
     public static Builder builder() {
@@ -286,6 +295,11 @@ public class ChatbotConfig {
             return this;
         }
 
+        public Builder linkedWorkflowIds(List<Long> linkedWorkflowIds) {
+            config.linkedWorkflowIds = linkedWorkflowIds;
+            return this;
+        }
+
         public Builder linkedAgentIds(List<Long> linkedAgentIds) {
             config.linkedAgentIds = linkedAgentIds;
             return this;
@@ -317,6 +331,7 @@ public class ChatbotConfig {
                 ", temperature=" + temperature +
                 ", maxTokens=" + maxTokens +
                 ", linkedAgentIds=" + linkedAgentIds +
+                ", linkedWorkflowIds=" + linkedWorkflowIds +
                 '}';
     }
 }

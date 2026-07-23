@@ -89,6 +89,10 @@ public class ChatbotConfigService {
     @Value("${chatbot.agent.linked-ids:#{null}}")
     private String linkedAgentIdsConfig;
 
+    // Workflow Integration (optional) - comma-separated list of workflow IDs
+    @Value("${chatbot.workflow.linked-ids:#{null}}")
+    private String linkedWorkflowIdsConfig;
+
     public ChatbotConfigService(ChatbotConfigRepository configRepository) {
         this.configRepository = configRepository;
     }
@@ -152,6 +156,7 @@ public class ChatbotConfigService {
                 .temperature(temperature)
                 .maxTokens(maxTokens)
                 .linkedAgentIds(parseLinkedAgentIds(linkedAgentIdsConfig))
+                .linkedWorkflowIds(parseLinkedAgentIds(linkedWorkflowIdsConfig))
                 .build();
     }
 
@@ -253,6 +258,10 @@ public class ChatbotConfigService {
         // Update agent integration settings
         if (config.getLinkedAgentIds() != null) {
             entity.setLinkedAgentIds(config.getLinkedAgentIds());
+        }
+        // Update workflow integration settings
+        if (config.getLinkedWorkflowIds() != null) {
+            entity.setLinkedWorkflowIds(config.getLinkedWorkflowIds());
         }
     }
 

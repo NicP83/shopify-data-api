@@ -35,11 +35,13 @@ function Settings() {
     temperature: null,
     maxTokens: null,
     // Agent Integration
-    linkedAgentIds: []
+    linkedAgentIds: [],
+    linkedWorkflowIds: []
   })
   const [originalChatbotConfig, setOriginalChatbotConfig] = useState(null)
   const [generatedPrompt, setGeneratedPrompt] = useState('')
   const [availableAgents, setAvailableAgents] = useState([])
+  const [availableWorkflows, setAvailableWorkflows] = useState([])
 
   // UI State
   const [loading, setLoading] = useState(true)
@@ -71,11 +73,12 @@ function Settings() {
         setPrompt(promptRes.data.prompt)
         setAvailableModels(modelsRes.data.models)
       } else if (activeTab === 'chatbot') {
-        const [configRes, previewRes, modelsRes, agentsRes] = await Promise.all([
+        const [configRes, previewRes, modelsRes, agentsRes, workflowsRes] = await Promise.all([
           api.getChatbotConfig(),
           api.previewSystemPrompt(),
           api.getAvailableModels(),
-          fetch('/api/config/agents').then(r => r.json())
+          fetch('/api/config/agents').then(r => r.json()),
+          api.getWorkflows(true).catch(() => ({ data: [] }))
         ])
 
         setChatbotConfig(configRes.data)
@@ -83,6 +86,7 @@ function Settings() {
         setGeneratedPrompt(previewRes.data.prompt)
         setAvailableModels(modelsRes.data.models)
         setAvailableAgents(agentsRes.agents || [])
+        setAvailableWorkflows(workflowsRes.data || [])
       }
     } catch (error) {
       console.error('Error loading settings:', error)
@@ -700,6 +704,60 @@ Only delegate when specialist knowledge is needed. Handle general product questi
                     </pre>
                   </div>
                 </>
+              )}
+            </div>
+          </div>
+
+          {/* Workflow Integration */}
+          <div className="card">
+            <h2 className="text-xl font-semibold mb-6">Automated Workflows (Workflow Delegation)</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Select Workflows (Optional)
+                </label>
+                <div className="space-y-2 max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-3">
+                  {availableWorkflows.length === 0 ? (
+                    <p className="text-sm text-gray-500 italic">No active workflows available</p>
+                  ) : (
+                    availableWorkflows.map((workflow) => (
+                      <div key={workflow.id} className="flex items-start">
+                        <input
+                          type="checkbox"
+                          id={`workflow-${workflow.id}`}
+                          checked={chatbotConfig.linkedWorkflowIds?.includes(workflow.id) || false}
+                          onChange={(e) => {
+                            const currentIds = chatbotConfig.linkedWorkflowIds || [];
+                            const newIds = e.target.checked
+                              ? [...currentIds, workflow.id]
+                              : currentIds.filter(id => id !== workflow.id);
+                            setChatbotConfig({ ...chatbotConfig, linkedWorkflowIds: newIds });
+                          }}
+                          className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mt-1"
+                        />
+                        <label htmlFor={`workflow-${workflow.id}`} className="ml-2 block text-sm text-gray-700">
+                          <span className="font-medium">{workflow.name}</span>
+                          {workflow.description && (
+                            <span className="text-gray-500"> - {workflow.description}</span>
+                          )}
+                        </label>
+                      </div>
+                    ))
+                  )}
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Select workflows the chatbot can run via the <code>delegate_to_workflow</code> tool.
+                  Workflows with approval steps are automatically refused from chat.
+                </p>
+              </div>
+
+              {chatbotConfig.linkedWorkflowIds && chatbotConfig.linkedWorkflowIds.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm text-blue-800">
+                    <strong>Note:</strong> Chat-triggered workflows have a 90 second time limit.
+                    Keep linked workflows short (1-3 fast steps) for a good customer experience.
+                  </p>
+                </div>
               )}
             </div>
           </div>

@@ -95,6 +95,9 @@ public class ChatbotConfigEntity {
     @Column(name = "linked_agent_ids", columnDefinition = "TEXT")
     private String linkedAgentIdsString;
 
+    @Column(name = "linked_workflow_ids", columnDefinition = "TEXT")
+    private String linkedWorkflowIdsString;
+
     // Configuration metadata
     @Column(name = "is_active")
     private Boolean isActive = true;
@@ -164,6 +167,37 @@ public class ChatbotConfigEntity {
     }
 
     /**
+     * Convert comma-separated string to List of workflow IDs
+     */
+    public List<Long> getLinkedWorkflowIds() {
+        if (linkedWorkflowIdsString == null || linkedWorkflowIdsString.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+        try {
+            return Arrays.stream(linkedWorkflowIdsString.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            return Collections.emptyList();
+        }
+    }
+
+    /**
+     * Convert List of workflow IDs to comma-separated string
+     */
+    public void setLinkedWorkflowIds(List<Long> workflowIds) {
+        if (workflowIds == null || workflowIds.isEmpty()) {
+            this.linkedWorkflowIdsString = null;
+        } else {
+            this.linkedWorkflowIdsString = workflowIds.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(","));
+        }
+    }
+
+    /**
      * Convert entity to ChatbotConfig DTO
      */
     public ChatbotConfig toConfig() {
@@ -186,6 +220,7 @@ public class ChatbotConfigEntity {
         config.setTemperature(temperature != null ? temperature.doubleValue() : null);
         config.setMaxTokens(maxTokens);
         config.setLinkedAgentIds(getLinkedAgentIds());
+        config.setLinkedWorkflowIds(getLinkedWorkflowIds());
         return config;
     }
 
@@ -212,6 +247,7 @@ public class ChatbotConfigEntity {
         entity.setTemperature(config.getTemperature() != null ? BigDecimal.valueOf(config.getTemperature()) : null);
         entity.setMaxTokens(config.getMaxTokens());
         entity.setLinkedAgentIds(config.getLinkedAgentIds());
+        entity.setLinkedWorkflowIds(config.getLinkedWorkflowIds());
         return entity;
     }
 

@@ -17,8 +17,10 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Service for orchestrating multi-agent workflows
@@ -83,8 +85,12 @@ public class WorkflowOrchestratorService {
             ObjectNode context = objectMapper.createObjectNode();
             context.set("trigger", triggerData);
 
-            // Get workflow steps ordered by step_order
+            // Get workflow steps ordered by step_order. Steps referenced as
+            // PARALLEL sub-steps run only inside their parallel group, not
+            // in the top-level sequential pass.
+            Set<Long> parallelSubStepIds = collectParallelSubStepIds(workflow.getWorkflowSteps());
             List<WorkflowStep> steps = workflow.getWorkflowSteps().stream()
+                .filter(s -> !parallelSubStepIds.contains(s.getId()))
                 .sorted((s1, s2) -> Integer.compare(s1.getStepOrder(), s2.getStepOrder()))
                 .toList();
 
@@ -197,11 +203,7 @@ public class WorkflowOrchestratorService {
                 return executeApprovalStep(step, context, execution);
 
             case "PARALLEL":
-                // Parallel execution: run multiple sub-steps concurrently
-                // Note: Sub-steps would need to be defined in a separate relationship
-                // For now, this is a placeholder for future enhancement
-                log.warn("PARALLEL step type requires sub-steps configuration: {}", step.getName());
-                return Mono.just(objectMapper.createObjectNode().put("parallel", "not_fully_implemented"));
+                return executeParallelStep(step, context, execution);
 
             default:
                 log.error("Unknown step type: {}", stepType);
@@ -240,8 +242,11 @@ public class WorkflowOrchestratorService {
         log.info("Creating approval request for step: {}", step.getName());
 
         return Mono.fromCallable(() -> {
-            // Parse approval config from input_mapping_json
-            JsonNode approvalConfig = step.getInputMappingJson();
+            // Approval config lives in approval_config_json; fall back to
+            // input_mapping_json for workflows created before it was honoured
+            JsonNode approvalConfig = step.getApprovalConfigJson() != null && !step.getApprovalConfigJson().isNull()
+                ? step.getApprovalConfigJson()
+                : step.getInputMappingJson();
             String requiredRole = approvalConfig != null && approvalConfig.has("requiredRole")
                 ? approvalConfig.get("requiredRole").asText()
                 : null;
@@ -481,6 +486,57 @@ public class WorkflowOrchestratorService {
                     attemptNumber + 1, step.getName(), error.getMessage());
                 return executeStepWithRetry(step, context, execution, attemptNumber + 1);
             });
+    }
+
+    /**
+     * Collect IDs of steps referenced as PARALLEL sub-steps via
+     * input_mapping_json {"stepIds": [...]}.
+     */
+    private Set<Long> collectParallelSubStepIds(List<WorkflowStep> steps) {
+        Set<Long> ids = new HashSet<>();
+        for (WorkflowStep step : steps) {
+            if ("PARALLEL".equals(step.getStepType())
+                    && step.getInputMappingJson() != null
+                    && step.getInputMappingJson().has("stepIds")
+                    && step.getInputMappingJson().get("stepIds").isArray()) {
+                step.getInputMappingJson().get("stepIds").forEach(n -> ids.add(n.asLong()));
+            }
+        }
+        return ids;
+    }
+
+    /**
+     * Execute a PARALLEL step. Sub-steps are sibling workflow steps referenced
+     * by ID from the step's input_mapping_json: {"stepIds": [12, 13]}.
+     * Unconfigured PARALLEL steps keep the legacy placeholder result so
+     * existing workflows do not start failing.
+     */
+    private Mono<JsonNode> executeParallelStep(WorkflowStep step, ObjectNode context, WorkflowExecution execution) {
+        JsonNode mapping = step.getInputMappingJson();
+        if (mapping == null || !mapping.has("stepIds") || !mapping.get("stepIds").isArray()
+                || mapping.get("stepIds").isEmpty()) {
+            log.warn("PARALLEL step type requires sub-steps configuration: {}", step.getName());
+            return Mono.just(objectMapper.createObjectNode().put("parallel", "not_fully_implemented"));
+        }
+
+        Set<Long> subStepIds = new HashSet<>();
+        mapping.get("stepIds").forEach(n -> subStepIds.add(n.asLong()));
+
+        List<WorkflowStep> subSteps = step.getWorkflow().getWorkflowSteps().stream()
+            .filter(s -> subStepIds.contains(s.getId()))
+            .sorted((a, b) -> Integer.compare(a.getStepOrder(), b.getStepOrder()))
+            .toList();
+
+        if (subSteps.isEmpty()) {
+            return Mono.error(new IllegalStateException(
+                "PARALLEL step references unknown stepIds: " + step.getName()));
+        }
+        if (subSteps.stream().anyMatch(s -> "PARALLEL".equals(s.getStepType()))) {
+            return Mono.error(new IllegalStateException(
+                "Nested PARALLEL steps are not supported: " + step.getName()));
+        }
+
+        return executeStepsInParallel(subSteps, context, execution);
     }
 
     /**

@@ -74,7 +74,7 @@ public class ScheduleController {
 
         List<WorkflowSchedule> schedules = active
             ? schedulerService.getActiveSchedules()
-            : schedulerService.getActiveSchedules(); // TODO: Add getAll() if needed
+            : schedulerService.getAllSchedules();
 
         return ResponseEntity.ok(schedules);
     }

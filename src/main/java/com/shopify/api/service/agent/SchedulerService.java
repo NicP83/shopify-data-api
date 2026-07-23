@@ -134,6 +134,13 @@ public class SchedulerService {
     }
 
     /**
+     * Get all schedules, enabled or not
+     */
+    public List<WorkflowSchedule> getAllSchedules() {
+        return scheduleRepository.findAll();
+    }
+
+    /**
      * Process scheduled workflows
      * Runs every minute to check for workflows that need to be executed
      */

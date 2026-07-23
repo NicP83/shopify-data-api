@@ -39,6 +39,20 @@ public interface WorkflowExecutionRepository extends JpaRepository<WorkflowExecu
     List<WorkflowExecution> findTop10ByWorkflowIdOrderByCreatedAtDesc(Long workflowId);
 
     /**
+     * Fetch-join variants for serving execution DTOs: the lazy workflow
+     * association must be loaded inside the query or reading
+     * workflow.getName() during mapping throws LazyInitializationException.
+     */
+    @Query("SELECT we FROM WorkflowExecution we JOIN FETCH we.workflow ORDER BY we.createdAt DESC")
+    List<WorkflowExecution> findAllWithWorkflow(org.springframework.data.domain.Pageable pageable);
+
+    @Query("SELECT we FROM WorkflowExecution we JOIN FETCH we.workflow WHERE we.workflow.id = :workflowId ORDER BY we.createdAt DESC")
+    List<WorkflowExecution> findByWorkflowIdWithWorkflow(Long workflowId);
+
+    @Query("SELECT we FROM WorkflowExecution we JOIN FETCH we.workflow WHERE we.id = :id")
+    java.util.Optional<WorkflowExecution> findByIdWithWorkflow(Long id);
+
+    /**
      * Find executions created within a time range
      */
     List<WorkflowExecution> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);

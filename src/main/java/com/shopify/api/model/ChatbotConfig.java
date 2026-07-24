@@ -40,6 +40,8 @@ public class ChatbotConfig {
     // ===== Agent Integration =====
     private List<Long> linkedAgentIds;  // Optional: Link to multiple Agents for delegation
     private List<Long> linkedWorkflowIds;  // Optional: Link to Workflows for chat delegation
+    private String slug;  // Non-null for named persona profiles
+    private String displayName;  // Human-friendly persona name
 
     // ===== Constructors =====
 
@@ -199,6 +201,22 @@ public class ChatbotConfig {
 
     public void setLinkedWorkflowIds(List<Long> linkedWorkflowIds) {
         this.linkedWorkflowIds = linkedWorkflowIds;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     // ===== Builder Pattern (Optional but helpful) =====

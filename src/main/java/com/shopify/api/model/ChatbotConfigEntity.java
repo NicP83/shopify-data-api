@@ -34,6 +34,13 @@ public class ChatbotConfigEntity {
     @JoinColumn(name = "shop_id")
     private ShopifyShop shop;
 
+    // Named persona (NULL for the global/shop default row)
+    @Column(name = "slug", length = 100)
+    private String slug;
+
+    @Column(name = "display_name")
+    private String displayName;
+
     // Store Identity
     @Column(name = "store_name")
     private String storeName;
@@ -221,6 +228,8 @@ public class ChatbotConfigEntity {
         config.setMaxTokens(maxTokens);
         config.setLinkedAgentIds(getLinkedAgentIds());
         config.setLinkedWorkflowIds(getLinkedWorkflowIds());
+        config.setSlug(slug);
+        config.setDisplayName(displayName);
         return config;
     }
 
@@ -248,6 +257,8 @@ public class ChatbotConfigEntity {
         entity.setMaxTokens(config.getMaxTokens());
         entity.setLinkedAgentIds(config.getLinkedAgentIds());
         entity.setLinkedWorkflowIds(config.getLinkedWorkflowIds());
+        entity.setSlug(config.getSlug());
+        entity.setDisplayName(config.getDisplayName());
         return entity;
     }
 

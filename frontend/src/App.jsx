@@ -18,6 +18,7 @@ import WorkflowGallery from './pages/WorkflowGallery'
 import SeoAgent from './pages/SeoAgent'
 import Logs from './pages/Logs'
 import ApiKeys from './pages/ApiKeys'
+import Assistants from './pages/Assistants'
 import ChatAnalytics from './pages/ChatAnalytics'
 import InventoryDashboard from './pages/InventoryDashboard'
 import InventoryAssistant from './pages/InventoryAssistant'
@@ -52,6 +53,7 @@ function App() {
             <Route path="/approvals" element={<ApprovalQueue />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/api-keys" element={<ApiKeys />} />
+            <Route path="/assistants" element={<Assistants />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/logs" element={<Logs />} />
             <Route path="/chat-analytics" element={<ChatAnalytics />} />

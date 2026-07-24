@@ -33,6 +33,7 @@ public class WebController {
         "/approvals",
         "/settings",
         "/api-keys",
+        "/assistants",
         "/analytics",
         "/market-intel"
     })

@@ -127,6 +127,17 @@ public class ChatAgentService {
      * Supports Claude tool use for product search
      */
     public Mono<ChatMessage> processChat(ChatRequest chatRequest) {
+        // Storefront path: resolve the global config exactly as before.
+        return processChat(chatRequest, null);
+    }
+
+    /**
+     * Process a chat request with an optional persona config override.
+     * The config is threaded through as a parameter (no shared mutable state),
+     * so a persona request cannot affect a concurrent storefront request.
+     * A null override resolves the global config — identical to storefront.
+     */
+    public Mono<ChatMessage> processChat(ChatRequest chatRequest, ChatbotConfig configOverride) {
         logger.info("Processing chat message: {}", chatRequest.getMessage());
 
         // Check if API key is configured
@@ -135,21 +146,23 @@ public class ChatAgentService {
             return Mono.just(createMockResponse(chatRequest.getMessage()));
         }
 
+        ChatbotConfig config = configOverride != null ? configOverride : chatbotConfigService.getConfig();
+
         // Build the system prompt for the AI
-        String systemPrompt = buildSystemPrompt();
+        String systemPrompt = buildSystemPrompt(config);
 
         // Build the messages array for Claude API
         ArrayNode messages = buildMessagesArray(chatRequest);
 
         // Call Claude API with tool support
-        return callClaudeWithTools(systemPrompt, messages, 0);
+        return callClaudeWithTools(systemPrompt, messages, 0, config);
     }
 
     /**
      * Call Claude API with tool support (recursive for multi-turn conversations)
      * maxIterations prevents infinite loops
      */
-    private Mono<ChatMessage> callClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration) {
+    private Mono<ChatMessage> callClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration, ChatbotConfig config) {
         if (iteration >= 15) {
             logger.warn("Max tool use iterations reached ({}), returning graceful response", iteration);
             // Instead of an error, ask Claude to summarize what it has so far without using tools
@@ -157,11 +170,8 @@ public class ChatAgentService {
                 "You have used the maximum number of tool calls for this turn. " +
                 "Based on whatever information you have gathered so far, give the customer a helpful response. " +
                 "If you found products, show them. If not, suggest they refine their question or try a different search. " +
-                "Do NOT say 'having trouble' — be helpful with what you have.");
+                "Do NOT say 'having trouble' — be helpful with what you have.", config);
         }
-
-        // Get chatbot config
-        ChatbotConfig config = chatbotConfigService.getConfig();
 
         // Determine model to use (chatbot config overrides defaults)
         String modelToUse = config.getModelName() != null ? config.getModelName() : anthropicModel;
@@ -197,7 +207,7 @@ public class ChatAgentService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .flatMap(response -> handleClaudeResponse(response, systemPrompt, messages, iteration))
+                .flatMap(response -> handleClaudeResponse(response, systemPrompt, messages, iteration, config))
                 .onErrorResume(error -> {
                     logger.error("Error calling Claude API: {}", error.getMessage());
                     return Mono.just(createErrorResponse());
@@ -207,7 +217,7 @@ public class ChatAgentService {
     /**
      * Handle Claude API response - either extract message or handle tool use
      */
-    private Mono<ChatMessage> handleClaudeResponse(JsonNode response, String systemPrompt, ArrayNode messages, int iteration) {
+    private Mono<ChatMessage> handleClaudeResponse(JsonNode response, String systemPrompt, ArrayNode messages, int iteration, ChatbotConfig config) {
         try {
             String stopReason = response.get("stop_reason").asText();
             JsonNode content = response.get("content");
@@ -218,7 +228,7 @@ public class ChatAgentService {
             if ("tool_use".equals(stopReason) && content != null && content.isArray()) {
                 // Claude wants to use a tool
                 logger.info("Claude requested tool use - processing tool calls");
-                return handleToolUseAndContinue(response, systemPrompt, messages, iteration);
+                return handleToolUseAndContinue(response, systemPrompt, messages, iteration, config);
             } else if ("end_turn".equals(stopReason)) {
                 // Regular text response
                 logger.debug("Claude completed turn - extracting assistant message");
@@ -237,7 +247,7 @@ public class ChatAgentService {
     /**
      * Execute tool calls and continue conversation with results
      */
-    private Mono<ChatMessage> handleToolUseAndContinue(JsonNode response, String systemPrompt, ArrayNode messages, int iteration) {
+    private Mono<ChatMessage> handleToolUseAndContinue(JsonNode response, String systemPrompt, ArrayNode messages, int iteration, ChatbotConfig config) {
         try {
             // Add assistant's response with tool_use to messages
             ObjectNode assistantMessage = objectMapper.createObjectNode();
@@ -289,7 +299,7 @@ public class ChatAgentService {
                 messages.add(userMessage);
 
                 // Continue conversation with tool results
-                return callClaudeWithTools(systemPrompt, messages, iteration + 1);
+                return callClaudeWithTools(systemPrompt, messages, iteration + 1, config);
             });
 
         } catch (Exception e) {
@@ -312,8 +322,7 @@ public class ChatAgentService {
      * Used when the iteration limit is reached — Claude summarizes
      * whatever it has gathered so far instead of returning an error.
      */
-    private Mono<ChatMessage> callClaudeWithoutTools(String systemPrompt, ArrayNode messages, String instruction) {
-        ChatbotConfig config = chatbotConfigService.getConfig();
+    private Mono<ChatMessage> callClaudeWithoutTools(String systemPrompt, ArrayNode messages, String instruction, ChatbotConfig config) {
         String modelToUse = config.getModelName() != null ? config.getModelName() : anthropicModel;
         double tempToUse = config.getTemperature() != null ? config.getTemperature() : temperature;
         int tokensToUse = config.getMaxTokens() != null ? config.getMaxTokens() : maxTokens;
@@ -375,7 +384,7 @@ public class ChatAgentService {
      * Build system prompt that defines the AI's role and capabilities
      * Dynamically generates prompt from database or ChatbotConfig
      */
-    private String buildSystemPrompt() {
+    private String buildSystemPrompt(ChatbotConfig config) {
         String basePrompt;
 
         // Try to get dynamic prompt from database if shop context is set
@@ -391,7 +400,7 @@ public class ChatAgentService {
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
                     basePrompt = prompt.getPromptText();
-                    return basePrompt + buildLinkInstructions();
+                    return basePrompt + buildLinkInstructions(config);
                 }
             } catch (Exception e) {
                 logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
@@ -400,14 +409,13 @@ public class ChatAgentService {
 
         // Fall back to building prompt from ChatbotConfig
         logger.debug("Using ChatbotConfig-based system prompt");
-        return buildSystemPromptFromConfig();
+        return buildSystemPromptFromConfig(config);
     }
 
     /**
      * Build mandatory link instructions appended to every prompt
      */
-    private String buildLinkInstructions() {
-        ChatbotConfig config = chatbotConfigService.getConfig();
+    private String buildLinkInstructions(ChatbotConfig config) {
         StringBuilder instructions = new StringBuilder();
 
         if (config.isIncludeCartLinks() || config.isIncludeProductLinks()) {
@@ -445,8 +453,7 @@ public class ChatAgentService {
      * Build system prompt from ChatbotConfig
      * Includes list of available specialist agents if configured
      */
-    private String buildSystemPromptFromConfig() {
-        ChatbotConfig config = chatbotConfigService.getConfig();
+    private String buildSystemPromptFromConfig(ChatbotConfig config) {
         StringBuilder prompt = new StringBuilder();
 
         // Identity
@@ -643,7 +650,7 @@ public class ChatAgentService {
      * Get the currently generated system prompt (for preview/debugging)
      */
     public String getGeneratedSystemPrompt() {
-        return buildSystemPrompt();
+        return buildSystemPrompt(chatbotConfigService.getConfig());
     }
 
     // Getters and setters for runtime configuration

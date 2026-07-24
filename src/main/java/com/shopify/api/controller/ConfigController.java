@@ -187,6 +187,42 @@ public class ConfigController {
     }
 
     /**
+     * List named persona profiles (assistants).
+     * GET /api/config/chatbot/profiles
+     */
+    @GetMapping("/chatbot/profiles")
+    public ResponseEntity<java.util.List<ChatbotConfig>> listProfiles() {
+        return ResponseEntity.ok(chatbotConfigService.listProfiles());
+    }
+
+    /**
+     * Create or update a persona profile (keyed by slug).
+     * POST /api/config/chatbot/profiles
+     */
+    @PostMapping("/chatbot/profiles")
+    public ResponseEntity<Map<String, Object>> saveProfile(@RequestBody ChatbotConfig config) {
+        try {
+            ChatbotConfig saved = chatbotConfigService.saveProfile(config);
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("profile", saved);
+            resp.put("message", "Profile saved");
+            return ResponseEntity.ok(resp);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    /**
+     * Delete a persona profile by slug.
+     * DELETE /api/config/chatbot/profiles/{slug}
+     */
+    @DeleteMapping("/chatbot/profiles/{slug}")
+    public ResponseEntity<Map<String, Object>> deleteProfile(@PathVariable String slug) {
+        chatbotConfigService.deleteProfile(slug);
+        return ResponseEntity.ok(Map.of("message", "Profile deleted", "slug", slug));
+    }
+
+    /**
      * Update chatbot configuration (persisted to database)
      * PUT /api/config/chatbot
      */

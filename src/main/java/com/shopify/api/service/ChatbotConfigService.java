@@ -134,6 +134,63 @@ public class ChatbotConfigService {
     }
 
     /**
+     * Resolve a named persona profile by slug, falling back to the global
+     * config when the slug is null/blank or not found. The storefront never
+     * passes a slug, so its behaviour is unchanged.
+     */
+    @Cacheable(value = "chatbotConfig", key = "'persona:' + #slug")
+    public ChatbotConfig getConfigBySlug(String slug) {
+        if (slug == null || slug.isBlank()) {
+            return getConfig();
+        }
+        return configRepository.findBySlug(slug)
+            .map(ChatbotConfigEntity::toConfig)
+            .orElseGet(this::getConfig);
+    }
+
+    /**
+     * List all named persona profiles.
+     */
+    public List<ChatbotConfig> listProfiles() {
+        return configRepository.findAllProfiles().stream()
+            .map(ChatbotConfigEntity::toConfig)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Create or update a named persona profile (keyed by slug). Evicts the
+     * persona cache entry so the next chat picks up the change.
+     */
+    @CacheEvict(value = "chatbotConfig", allEntries = true)
+    public ChatbotConfig saveProfile(ChatbotConfig config) {
+        if (config.getSlug() == null || config.getSlug().isBlank()) {
+            throw new IllegalArgumentException("Profile slug is required");
+        }
+        ChatbotConfigEntity entity = configRepository.findBySlug(config.getSlug())
+            .orElseGet(() -> ChatbotConfigEntity.fromConfig(config));
+        // For an existing profile, update fields in place
+        if (entity.getId() != null) {
+            updateEntityFromConfig(entity, config);
+            entity.setSlug(config.getSlug());
+            entity.setDisplayName(config.getDisplayName());
+            if (config.getLinkedWorkflowIds() != null) {
+                entity.setLinkedWorkflowIds(config.getLinkedWorkflowIds());
+            }
+        }
+        entity.setSlug(config.getSlug());
+        entity.setDisplayName(config.getDisplayName());
+        return configRepository.save(entity).toConfig();
+    }
+
+    /**
+     * Delete a named persona profile by slug.
+     */
+    @CacheEvict(value = "chatbotConfig", allEntries = true)
+    public void deleteProfile(String slug) {
+        configRepository.findBySlug(slug).ifPresent(configRepository::delete);
+    }
+
+    /**
      * Get default configuration from application.yml properties
      */
     private ChatbotConfig getDefaultConfig() {

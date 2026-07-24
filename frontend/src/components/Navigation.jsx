@@ -51,6 +51,7 @@ function Navigation() {
     { path: '/chat-analytics', label: 'Chat Analytics', icon: '📈' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
     { path: '/api-keys', label: 'API Keys', icon: '🔑' },
+    { path: '/assistants', label: 'Assistants', icon: '🎭' },
     { path: '/analytics', label: 'Analytics', icon: '📊' },
     { path: '/market-intel', label: 'Market Intel', icon: '💰' },
   ]

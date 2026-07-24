@@ -92,6 +92,11 @@ const api = {
 
   updateChatbotConfig: (config) => apiClient.put('/config/chatbot', config),
 
+  // Persona profiles (named assistants)
+  getProfiles: () => apiClient.get('/config/chatbot/profiles'),
+  saveProfile: (config) => apiClient.post('/config/chatbot/profiles', config),
+  deleteProfile: (slug) => apiClient.delete(`/config/chatbot/profiles/${slug}`),
+
   resetChatbotConfig: () => apiClient.post('/config/chatbot/reset'),
 
   previewSystemPrompt: () => apiClient.get('/config/chatbot/preview-prompt'),

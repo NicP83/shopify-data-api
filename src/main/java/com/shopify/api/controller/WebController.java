@@ -32,6 +32,7 @@ public class WebController {
         "/executions/**",
         "/approvals",
         "/settings",
+        "/api-keys",
         "/analytics",
         "/market-intel"
     })

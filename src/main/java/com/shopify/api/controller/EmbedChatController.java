@@ -77,11 +77,27 @@ public class EmbedChatController {
             "This embed key is not bound to an agent or workflow"));
     }
 
+    /**
+     * Host-based Referer check. Allowlist entries are hostnames (e.g.
+     * "hearnshobbies.com"); a request is allowed when the Referer host equals
+     * an entry or is a subdomain of it. Uses host equality/suffix rather than
+     * string prefix so "hearnshobbies.com.evil.com" cannot pass.
+     */
     private boolean refererAllowed(ApiKey key, String referer) {
         var allow = key.getRefererAllowlistEntries();
         if (allow.isEmpty()) return true;      // unrestricted
         if (referer == null) return false;     // restricted but no referer sent
-        return allow.stream().anyMatch(referer::startsWith);
+        String host;
+        try {
+            host = java.net.URI.create(referer).getHost();
+        } catch (IllegalArgumentException e) {
+            return false;                      // unparseable Referer -> reject
+        }
+        if (host == null) return false;
+        final String h = host.toLowerCase().replaceAll("\\.$", "");
+        return allow.stream()
+            .map(e -> e.toLowerCase().replaceAll("\\.$", ""))
+            .anyMatch(e -> h.equals(e) || h.endsWith("." + e));
     }
 
     private String textOf(JsonNode output) {

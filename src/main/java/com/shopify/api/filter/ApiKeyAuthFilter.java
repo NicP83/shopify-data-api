@@ -52,8 +52,9 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
         String rawKey = request.getHeader(HEADER);
 
-        // Bootstrap key: synthetic admin key, only if configured and non-empty
-        if (bootstrapKey != null && !bootstrapKey.isBlank() && bootstrapKey.equals(rawKey)) {
+        // Bootstrap key: synthetic admin key, only if configured and non-empty.
+        // Constant-time compare so a timing side channel can't reveal the key.
+        if (bootstrapKey != null && !bootstrapKey.isBlank() && constantTimeEquals(bootstrapKey, rawKey)) {
             ApiKey synthetic = ApiKey.builder()
                 .id(-1L)
                 .name("bootstrap")
@@ -84,6 +85,12 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
         apiKeyService.touchLastUsed(key.getId());
         request.setAttribute(ATTR_API_KEY, key);
         chain.doFilter(request, response);
+    }
+
+    private boolean constantTimeEquals(String a, String b) {
+        byte[] ab = a == null ? new byte[0] : a.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        byte[] bb = b == null ? new byte[0] : b.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        return java.security.MessageDigest.isEqual(ab, bb);
     }
 
     private void unauthorized(HttpServletResponse response, String message) throws IOException {

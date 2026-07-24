@@ -50,6 +50,7 @@ function Navigation() {
     { path: '/logs', label: 'Logs', icon: '📋' },
     { path: '/chat-analytics', label: 'Chat Analytics', icon: '📈' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/api-keys', label: 'API Keys', icon: '🔑' },
     { path: '/analytics', label: 'Analytics', icon: '📊' },
     { path: '/market-intel', label: 'Market Intel', icon: '💰' },
   ]

@@ -1,5 +1,6 @@
 package com.shopify.api.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,8 +12,31 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    /**
+     * Comma-separated origin patterns allowed to call the external API
+     * (/api/v1/**) and the embeddable widget endpoint (/api/embed/**).
+     * Defaults to "*" since these are authenticated by API key, not by origin.
+     */
+    @Value("${external-api.allowed-origins:*}")
+    private String externalAllowedOrigins;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // External API + embeddable widget: key-authenticated, so origin is
+        // not the security boundary. Credentials off (no cookies).
+        registry.addMapping("/api/v1/**")
+                .allowedOriginPatterns(externalAllowedOrigins.split(","))
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
+        registry.addMapping("/api/embed/**")
+                .allowedOriginPatterns(externalAllowedOrigins.split(","))
+                .allowedMethods("GET", "POST", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
+
         // API endpoints - for hearnshobbies.com storefront and Shopify chat
         registry.addMapping("/api/**")
                 .allowedOriginPatterns(

@@ -10,8 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -164,6 +167,53 @@ public class ShopifyChatController {
             error.put("message", e.getMessage());
             return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error));
         }
+    }
+
+    /**
+     * Streaming variant of {@link #sendMessage}: returns Server-Sent Events so the
+     * storefront widget can render the answer as it is generated. The blocking
+     * endpoint above is unchanged; the widget falls back to it on any stream error.
+     * POST /api/shopify/chat/message/stream?shop=hearnshobbies.myshopify.com
+     */
+    @PostMapping(value = "/message/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> streamMessage(
+            @RequestParam String shop,
+            @RequestBody ChatRequest request) {
+        try {
+            if (!shopifyShopService.isShopActive(shop)) {
+                logger.warn("Stream: shop not found or inactive: {}", shop);
+                return Flux.just(sseError("Shop not found or inactive"));
+            }
+            ShopifyShop shopConfig = shopifyShopService.getShop(shop);
+            if (!shopConfig.getAiEnabled()) {
+                logger.warn("Stream: AI disabled for shop: {}", shop);
+                return Flux.just(sseError("AI assistant is disabled for this shop"));
+            }
+
+            // Apply shop-specific AI configuration (mirrors the blocking endpoint)
+            chatAgentService.setAnthropicModel(shopConfig.getAiModel());
+            chatAgentService.setTemperature(shopConfig.getAiTemperatureValue());
+            chatAgentService.setMaxTokens(shopConfig.getAiMaxTokensValue());
+            chatAgentService.setShopContext(shopConfig);
+
+            return chatAgentService.streamChat(request)
+                    .doFinally(sig -> chatAgentService.clearShopContext())
+                    .onErrorResume(e -> {
+                        logger.error("Stream error for shop {}: {}", shop, e.getMessage());
+                        chatAgentService.clearShopContext();
+                        return Flux.just(sseError("Chat processing failed"));
+                    });
+        } catch (Exception e) {
+            logger.error("Error in streamMessage: {}", e.getMessage(), e);
+            return Flux.just(sseError("Internal server error"));
+        }
+    }
+
+    private ServerSentEvent<String> sseError(String message) {
+        return ServerSentEvent.<String>builder()
+                .event("error")
+                .data("{\"message\":\"" + message.replace("\"", "'") + "\"}")
+                .build();
     }
 
     /**

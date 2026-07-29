@@ -20,15 +20,21 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.core.ParameterizedTypeReference;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.shopify.api.util.PreorderTagUtil;
 
@@ -165,6 +171,288 @@ public class ChatAgentService {
 
         // Call Claude API with tool support
         return callClaudeWithTools(systemPrompt, messages, 0, config);
+    }
+
+    // ==================================================================
+    // Streaming (Server-Sent Events) — parallel to the blocking path above.
+    // The storefront widget uses this so the answer renders as it is
+    // generated instead of after the whole tool loop finishes. The blocking
+    // path is deliberately left untouched; the widget falls back to it on any
+    // streaming error. SSE events emitted to the client:
+    //   event: status  {"text": "..."}   real progress during the tool phase
+    //   event: token   {"text": "..."}   answer text as it streams
+    //   event: done    {}                turn complete
+    //   event: error   {"message": "..."} failure (widget falls back to blocking)
+    // ==================================================================
+
+    public Flux<ServerSentEvent<String>> streamChat(ChatRequest chatRequest) {
+        return streamChat(chatRequest, null);
+    }
+
+    public Flux<ServerSentEvent<String>> streamChat(ChatRequest chatRequest, ChatbotConfig configOverride) {
+        if (anthropicApiKey == null || anthropicApiKey.trim().isEmpty()) {
+            return Flux.just(sseError("AI assistant is not configured"));
+        }
+        ChatbotConfig config = configOverride != null ? configOverride : chatbotConfigService.getConfig();
+        String systemPrompt = buildSystemPrompt(config);
+        ArrayNode messages = buildMessagesArray(chatRequest);
+        return streamClaudeWithTools(systemPrompt, messages, 0, config)
+                .onErrorResume(err -> {
+                    logger.error("Error in streaming chat: {}", err.getMessage(), err);
+                    return Flux.just(sseError(err.getMessage()));
+                });
+    }
+
+    /**
+     * Streaming counterpart of {@link #callClaudeWithTools}. Streams one Claude
+     * call, forwarding text as it arrives; when the call ends in tool_use it emits
+     * a status update, runs the tools, and recurses (streaming the next call).
+     */
+    private Flux<ServerSentEvent<String>> streamClaudeWithTools(String systemPrompt, ArrayNode messages, int iteration, ChatbotConfig config) {
+        if (iteration >= 15) {
+            logger.warn("Max tool use iterations reached ({}) in streaming path, summarizing", iteration);
+            // Rare: hit the tool ceiling. Reuse the existing blocking no-tools summary
+            // and deliver it as a single token + done (not incrementally, but this path is rare).
+            return callClaudeWithoutTools(systemPrompt, messages,
+                    "You have used the maximum number of tool calls for this turn. " +
+                    "Based on whatever information you have gathered so far, give the customer a helpful response. " +
+                    "If you found products, show them. If not, suggest they refine their question or try a different search. " +
+                    "Do NOT say 'having trouble' — be helpful with what you have.", config)
+                    .flatMapMany(msg -> Flux.just(sseToken(msg.getContent()), sseDone()));
+        }
+
+        ObjectNode requestBody = buildStreamingRequestBody(systemPrompt, messages, config);
+        StreamState state = new StreamState();
+
+        Flux<ServerSentEvent<String>> live = webClient.post()
+                .uri("/messages")
+                .header("x-api-key", anthropicApiKey)
+                .header("anthropic-version", anthropicApiVersion)
+                .header("Content-Type", "application/json")
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<JsonNode>>() {})
+                .concatMap(sse -> handleAnthropicStreamEvent(sse.data(), state));
+
+        return live.concatWith(Flux.defer(() -> afterStream(systemPrompt, messages, iteration, config, state)));
+    }
+
+    /** Process one Anthropic stream event, mutating {@code state}; emit a token SSE for text deltas. */
+    private Flux<ServerSentEvent<String>> handleAnthropicStreamEvent(JsonNode data, StreamState state) {
+        if (data == null || !data.hasNonNull("type")) {
+            return Flux.empty();
+        }
+        String type = data.get("type").asText();
+        switch (type) {
+            case "content_block_start": {
+                int idx = data.get("index").asInt();
+                JsonNode block = data.get("content_block");
+                String bt = block.get("type").asText();
+                state.blockType.put(idx, bt);
+                if ("tool_use".equals(bt)) {
+                    state.toolId.put(idx, block.get("id").asText());
+                    state.toolName.put(idx, block.get("name").asText());
+                    state.toolJson.put(idx, new StringBuilder());
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    if (block.hasNonNull("text")) sb.append(block.get("text").asText());
+                    state.text.put(idx, sb);
+                }
+                return Flux.empty();
+            }
+            case "content_block_delta": {
+                int idx = data.get("index").asInt();
+                JsonNode delta = data.get("delta");
+                String dt = delta.get("type").asText();
+                if ("text_delta".equals(dt)) {
+                    String t = delta.get("text").asText();
+                    state.text.computeIfAbsent(idx, k -> new StringBuilder()).append(t);
+                    return Flux.just(sseToken(t));
+                } else if ("input_json_delta".equals(dt)) {
+                    state.toolJson.computeIfAbsent(idx, k -> new StringBuilder())
+                            .append(delta.get("partial_json").asText());
+                }
+                return Flux.empty();
+            }
+            case "message_delta": {
+                JsonNode delta = data.get("delta");
+                if (delta != null && delta.hasNonNull("stop_reason")) {
+                    state.stopReason = delta.get("stop_reason").asText();
+                }
+                return Flux.empty();
+            }
+            default:
+                return Flux.empty();
+        }
+    }
+
+    /** After a streamed call completes: rebuild the assistant message, then recurse (tool_use) or finish. */
+    private Flux<ServerSentEvent<String>> afterStream(String systemPrompt, ArrayNode messages, int iteration, ChatbotConfig config, StreamState state) {
+        try {
+            ArrayNode assistantContent = objectMapper.createArrayNode();
+            List<ObjectNode> toolUses = new ArrayList<>();
+            for (Map.Entry<Integer, String> e : state.blockType.entrySet()) {
+                int idx = e.getKey();
+                if ("tool_use".equals(e.getValue())) {
+                    ObjectNode tu = objectMapper.createObjectNode();
+                    tu.put("type", "tool_use");
+                    tu.put("id", state.toolId.get(idx));
+                    tu.put("name", state.toolName.get(idx));
+                    JsonNode input;
+                    try {
+                        String js = state.toolJson.getOrDefault(idx, new StringBuilder()).toString();
+                        input = js.isEmpty() ? objectMapper.createObjectNode() : objectMapper.readTree(js);
+                    } catch (Exception ex) {
+                        input = objectMapper.createObjectNode();
+                    }
+                    tu.set("input", input);
+                    assistantContent.add(tu);
+                    toolUses.add(tu);
+                } else {
+                    ObjectNode tb = objectMapper.createObjectNode();
+                    tb.put("type", "text");
+                    tb.put("text", state.text.getOrDefault(idx, new StringBuilder()).toString());
+                    assistantContent.add(tb);
+                }
+            }
+
+            ObjectNode assistantMessage = objectMapper.createObjectNode();
+            assistantMessage.put("role", "assistant");
+            assistantMessage.set("content", assistantContent);
+            messages.add(assistantMessage);
+
+            if ("tool_use".equals(state.stopReason) && !toolUses.isEmpty()) {
+                ServerSentEvent<String> status = sseStatus(statusMessageFor(toolUses.get(0).get("name").asText()));
+                Mono<Void> runTools = runToolsAndAppend(toolUses, messages, config);
+                return Flux.concat(
+                        Flux.just(status),
+                        runTools.thenMany(Flux.defer(() -> streamClaudeWithTools(systemPrompt, messages, iteration + 1, config)))
+                );
+            }
+            return Flux.just(sseDone());
+        } catch (Exception e) {
+            logger.error("Error finalizing streamed turn: {}", e.getMessage(), e);
+            return Flux.just(sseError("Something went wrong"));
+        }
+    }
+
+    /** Execute the streamed tool calls and append the tool_result user message to the conversation. */
+    private Mono<Void> runToolsAndAppend(List<ObjectNode> toolUses, ArrayNode messages, ChatbotConfig config) {
+        List<Mono<ObjectNode>> monos = new ArrayList<>();
+        for (ObjectNode tu : toolUses) {
+            String toolName = tu.get("name").asText();
+            String toolUseId = tu.get("id").asText();
+            JsonNode toolInput = tu.get("input");
+            monos.add(executeToolCallReactive(toolName, toolInput)
+                    .map(result -> {
+                        ObjectNode trb = objectMapper.createObjectNode();
+                        trb.put("type", "tool_result");
+                        trb.put("tool_use_id", toolUseId);
+                        trb.put("content", result);
+                        return trb;
+                    }));
+        }
+        return Mono.zip(monos, arr -> {
+            ArrayNode toolResults = objectMapper.createArrayNode();
+            for (Object o : arr) toolResults.add((ObjectNode) o);
+            return toolResults;
+        }).doOnNext(toolResults -> {
+            ObjectNode userMessage = objectMapper.createObjectNode();
+            userMessage.put("role", "user");
+            userMessage.set("content", toolResults);
+            messages.add(userMessage);
+        }).then();
+    }
+
+    /** Map a tool name to a friendly, customer-facing progress line. */
+    private String statusMessageFor(String toolName) {
+        if (toolName == null) return "Working on it…";
+        switch (toolName) {
+            case "search_products":
+            case "browse_products":
+            case "compare_products":
+                return "Searching our catalogue…";
+            case "check_inventory":
+            case "get_stock_insights":
+                return "Checking stock and prices…";
+            case "get_promotions":
+                return "Checking current specials…";
+            case "get_complementary_products":
+                return "Finding items that go together…";
+            case "lookup_order":
+                return "Looking up your order…";
+            case "get_customer_history":
+                return "Pulling up your details…";
+            default:
+                if (toolName.startsWith("delegate")) return "Getting some expert help…";
+                return "Working on it…";
+        }
+    }
+
+    private ObjectNode buildStreamingRequestBody(String systemPrompt, ArrayNode messages, ChatbotConfig config) {
+        String modelToUse = config.getModelName() != null ? config.getModelName() : anthropicModel;
+        double tempToUse = config.getTemperature() != null ? config.getTemperature() : temperature;
+        int tokensToUse = config.getMaxTokens() != null ? config.getMaxTokens() : maxTokens;
+
+        ObjectNode requestBody = objectMapper.createObjectNode();
+        requestBody.put("model", modelToUse);
+        requestBody.put("max_tokens", tokensToUse);
+        requestBody.put("temperature", tempToUse);
+        requestBody.put("stream", true);
+
+        // Prompt caching (identical to the blocking path).
+        ArrayNode systemBlocks = objectMapper.createArrayNode();
+        ObjectNode systemBlock = objectMapper.createObjectNode();
+        systemBlock.put("type", "text");
+        systemBlock.put("text", systemPrompt);
+        ObjectNode cacheControl = objectMapper.createObjectNode();
+        cacheControl.put("type", "ephemeral");
+        systemBlock.set("cache_control", cacheControl);
+        systemBlocks.add(systemBlock);
+        requestBody.set("system", systemBlocks);
+        requestBody.set("messages", messages);
+
+        ArrayNode tools = buildToolsArray(config);
+        if (tools.size() > 0) {
+            requestBody.set("tools", tools);
+        }
+        return requestBody;
+    }
+
+    private ServerSentEvent<String> sseToken(String text) {
+        return sseEvent("token", jsonPayload("text", text));
+    }
+
+    private ServerSentEvent<String> sseStatus(String text) {
+        return sseEvent("status", jsonPayload("text", text));
+    }
+
+    private ServerSentEvent<String> sseDone() {
+        return sseEvent("done", "{}");
+    }
+
+    private ServerSentEvent<String> sseError(String message) {
+        return sseEvent("error", jsonPayload("message", message));
+    }
+
+    private ServerSentEvent<String> sseEvent(String event, String data) {
+        return ServerSentEvent.<String>builder().event(event).data(data).build();
+    }
+
+    private String jsonPayload(String key, String value) {
+        ObjectNode o = objectMapper.createObjectNode();
+        o.put(key, value == null ? "" : value);
+        return o.toString();
+    }
+
+    /** Mutable accumulator for one streamed Claude call. */
+    private static class StreamState {
+        final TreeMap<Integer, String> blockType = new TreeMap<>();
+        final Map<Integer, String> toolId = new HashMap<>();
+        final Map<Integer, String> toolName = new HashMap<>();
+        final Map<Integer, StringBuilder> text = new HashMap<>();
+        final Map<Integer, StringBuilder> toolJson = new HashMap<>();
+        String stopReason = null;
     }
 
     /**

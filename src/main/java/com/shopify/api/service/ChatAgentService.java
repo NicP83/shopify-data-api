@@ -198,7 +198,21 @@ public class ChatAgentService {
         requestBody.put("model", modelToUse);
         requestBody.put("max_tokens", tokensToUse);
         requestBody.put("temperature", tempToUse);
-        requestBody.put("system", systemPrompt);
+        // Prompt caching: send the large, static system prompt as a cache-controlled
+        // content block so repeated tool-loop calls read it (and, since render order is
+        // tools -> system, the tool definitions) from cache instead of reprocessing them
+        // on every iteration. Cuts input-processing latency and cost per call. GA feature
+        // (no beta header); the array form of `system` is accepted just like the string form,
+        // and it's harmless if the model ever doesn't support caching.
+        ArrayNode systemBlocks = objectMapper.createArrayNode();
+        ObjectNode systemBlock = objectMapper.createObjectNode();
+        systemBlock.put("type", "text");
+        systemBlock.put("text", systemPrompt);
+        ObjectNode cacheControl = objectMapper.createObjectNode();
+        cacheControl.put("type", "ephemeral");
+        systemBlock.set("cache_control", cacheControl);
+        systemBlocks.add(systemBlock);
+        requestBody.set("system", systemBlocks);
         requestBody.set("messages", messages);
 
         // Add tools array from the dynamic registry (each tool controls its own isEnabled)
@@ -346,7 +360,21 @@ public class ChatAgentService {
         requestBody.put("model", modelToUse);
         requestBody.put("max_tokens", tokensToUse);
         requestBody.put("temperature", tempToUse);
-        requestBody.put("system", systemPrompt);
+        // Prompt caching: send the large, static system prompt as a cache-controlled
+        // content block so repeated tool-loop calls read it (and, since render order is
+        // tools -> system, the tool definitions) from cache instead of reprocessing them
+        // on every iteration. Cuts input-processing latency and cost per call. GA feature
+        // (no beta header); the array form of `system` is accepted just like the string form,
+        // and it's harmless if the model ever doesn't support caching.
+        ArrayNode systemBlocks = objectMapper.createArrayNode();
+        ObjectNode systemBlock = objectMapper.createObjectNode();
+        systemBlock.put("type", "text");
+        systemBlock.put("text", systemPrompt);
+        ObjectNode cacheControl = objectMapper.createObjectNode();
+        cacheControl.put("type", "ephemeral");
+        systemBlock.set("cache_control", cacheControl);
+        systemBlocks.add(systemBlock);
+        requestBody.set("system", systemBlocks);
         requestBody.set("messages", messages);
         // No tools — forces a text-only response
 

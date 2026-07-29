@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Service for managing Shopify products
@@ -18,6 +20,13 @@ import java.util.Map;
 public class ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
+    // Common words dropped from tokenized fallback search so they don't force
+    // an unmatchable AND term (e.g. a customer typing the full product name).
+    private static final Set<String> SEARCH_STOPWORDS = Set.of(
+            "the", "a", "an", "and", "or", "with", "for", "of", "in", "on", "to",
+            "is", "it", "this", "that", "please", "can", "i", "you", "me", "my",
+            "do", "have", "any", "some", "at", "by", "from", "as", "are", "be");
 
     private final ShopifyGraphQLClient graphQLClient;
 
@@ -307,20 +316,7 @@ public class ProductService {
      * Execute broad search reactively including description field
      */
     private Mono<Map<String, Object>> executeBroadSearchReactive(String userQuery, int first, boolean includeArchived) {
-        String escapedQuery = userQuery.replace("\"", "\\\"");
-        StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("(");
-        queryBuilder.append("title:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR body:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR tag:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR vendor:*").append(escapedQuery).append("*");
-        queryBuilder.append(")");
-
-        if (!includeArchived) {
-            queryBuilder.append(" AND status:active");
-        }
-
-        String query = buildGraphQLQuery(queryBuilder.toString(), first);
+        String query = buildGraphQLQuery(buildTokenizedFieldQuery(userQuery, includeArchived), first);
 
         return graphQLClient.executeQueryReactive(query)
                 .map(response -> {
@@ -385,6 +381,68 @@ public class ProductService {
     }
 
     /**
+     * Split a user query into significant, normalized search tokens.
+     *
+     * Normalizes punctuation to spaces (so "F-201" becomes "f 201"), lowercases,
+     * drops stopwords and single-character noise, and de-duplicates. This is what
+     * lets a full natural product name match — Shopify treats "title:*F-201*" as a
+     * single unmatchable token against a title reading "F 201", so we search per
+     * token instead of on the raw phrase.
+     */
+    private List<String> tokenizeQuery(String userQuery) {
+        List<String> tokens = new ArrayList<>();
+        if (userQuery == null || userQuery.isBlank()) {
+            return tokens;
+        }
+        String normalized = userQuery.toLowerCase().replaceAll("[^a-z0-9]+", " ").trim();
+        for (String token : normalized.split("\\s+")) {
+            if (token.length() < 2 || SEARCH_STOPWORDS.contains(token) || tokens.contains(token)) {
+                continue;
+            }
+            tokens.add(token);
+        }
+        return tokens;
+    }
+
+    /**
+     * Build a tokenized Shopify search query: each significant token must appear in
+     * at least one of title/body/tag/vendor (tokens AND-ed, fields OR-ed). Falls back
+     * to a raw-phrase multi-field query when no significant tokens remain. Used by the
+     * broad fallback, which only runs after the primary search returns nothing.
+     */
+    private String buildTokenizedFieldQuery(String userQuery, boolean includeArchived) {
+        List<String> tokens = tokenizeQuery(userQuery);
+
+        StringBuilder queryBuilder = new StringBuilder();
+        if (tokens.isEmpty()) {
+            // No usable tokens (e.g. all stopwords) — fall back to raw-phrase match.
+            String escapedQuery = userQuery.replace("\"", "\\\"");
+            queryBuilder.append("(title:*").append(escapedQuery).append("*")
+                    .append(" OR body:*").append(escapedQuery).append("*")
+                    .append(" OR tag:*").append(escapedQuery).append("*")
+                    .append(" OR vendor:*").append(escapedQuery).append("*)");
+        } else {
+            for (int i = 0; i < tokens.size(); i++) {
+                String tok = tokens.get(i);
+                if (i > 0) {
+                    queryBuilder.append(" AND ");
+                }
+                queryBuilder.append("(title:*").append(tok).append("*")
+                        .append(" OR body:*").append(tok).append("*")
+                        .append(" OR tag:*").append(tok).append("*")
+                        .append(" OR vendor:*").append(tok).append("*)");
+            }
+        }
+
+        if (!includeArchived) {
+            queryBuilder.append(" AND status:active");
+        }
+
+        logger.debug("Built tokenized fallback query: {}", queryBuilder);
+        return queryBuilder.toString();
+    }
+
+    /**
      * Try multi-level search with fallback strategy for better results
      * @param userQuery The user's search query
      * @param first Number of results
@@ -445,20 +503,7 @@ public class ProductService {
      * Execute broad search including description field
      */
     private Map<String, Object> executeBroadSearch(String userQuery, int first, boolean includeArchived) {
-        String escapedQuery = userQuery.replace("\"", "\\\"");
-        StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("(");
-        queryBuilder.append("title:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR body:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR tag:*").append(escapedQuery).append("*");
-        queryBuilder.append(" OR vendor:*").append(escapedQuery).append("*");
-        queryBuilder.append(")");
-
-        if (!includeArchived) {
-            queryBuilder.append(" AND status:active");
-        }
-
-        String query = buildGraphQLQuery(queryBuilder.toString(), first);
+        String query = buildGraphQLQuery(buildTokenizedFieldQuery(userQuery, includeArchived), first);
         GraphQLResponse response = graphQLClient.executeQuery(query);
 
         if (response.hasErrors()) {

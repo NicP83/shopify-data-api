@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.service.ProductService;
+import com.shopify.api.util.PreorderTagUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,6 +67,9 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
 
     @Value("${shopify.store.url:https://hearnshobbies.com.au}")
     private String storeUrl;
+
+    @Value("${chatbot.tools.preorder-tags:preorder,pre-order}")
+    private String preorderTagsCsv;
 
     @Override
     public Mono<JsonNode> execute(JsonNode input) {
@@ -140,6 +144,12 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
             String vendor = (String) productNode.get("vendor");
             String productType = (String) productNode.get("productType");
 
+            // Preorder-tagged products are purchasable even at zero inventory —
+            // include them (with cart links) instead of filtering them out.
+            boolean isPreorder = PreorderTagUtil.isPreorder(
+                    (List<String>) productNode.get("tags"),
+                    PreorderTagUtil.parsePreorderTags(preorderTagsCsv));
+
             // Process variants to check inventory
             List<Map<String, Object>> variantEdges = new ArrayList<>();
             if (productNode.containsKey("variants")) {
@@ -149,7 +159,7 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
                 }
             }
 
-            // Check if ANY variant has inventory
+            // Check if ANY variant has inventory (preorder products always qualify)
             boolean hasInventory = false;
             ArrayNode variantsArray = objectMapper.createArrayNode();
 
@@ -160,8 +170,8 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
                 Object inventoryObj = variantNode.get("inventoryQuantity");
                 Integer inventoryQuantity = inventoryObj != null ? ((Number) inventoryObj).intValue() : 0;
 
-                // Only include variants with inventory > 0
-                if (inventoryQuantity != null && inventoryQuantity > 0) {
+                // Include variants with inventory > 0, or any variant of a preorder product
+                if (isPreorder || (inventoryQuantity != null && inventoryQuantity > 0)) {
                     hasInventory = true;
 
                     ObjectNode variantJson = objectMapper.createObjectNode();
@@ -177,6 +187,9 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
                     variantJson.put("sku", sku != null ? sku : "");
                     variantJson.put("price", price);
                     variantJson.put("inventoryQuantity", inventoryQuantity);
+                    if (isPreorder) {
+                        variantJson.put("preorder", true);
+                    }
 
                     // Generate add to cart URL
                     String addToCartUrl = generateAddToCartUrl(numericVariantId);
@@ -197,6 +210,11 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
             productJson.put("productUrl", onlineStoreUrl != null ? onlineStoreUrl : storeUrl + "/products/" + handle);
             productJson.put("vendor", vendor != null ? vendor : "");
             productJson.put("productType", productType != null ? productType : "");
+            if (isPreorder) {
+                productJson.put("isPreorder", true);
+                productJson.put("preorderMessage",
+                        "Available to preorder now — present enthusiastically with the Add to Cart link; do NOT say out of stock.");
+            }
             productJson.set("variants", variantsArray);
 
             // Add primary image if available

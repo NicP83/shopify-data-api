@@ -28,6 +28,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+
+import com.shopify.api.util.PreorderTagUtil;
 
 @Service
 public class ChatAgentService {
@@ -51,6 +54,12 @@ public class ChatAgentService {
 
     @Value("${anthropic.system-prompt-file:classpath:prompts/system-prompt.txt}")
     private String systemPromptFile;
+
+    @Value("${chatbot.tools.preorder-upsell-enabled:true}")
+    private boolean preorderUpsellEnabled;
+
+    @Value("${chatbot.tools.preorder-tags:preorder,pre-order}")
+    private String preorderTagsCsv;
 
     private final WebClient webClient;
     private final ProductService productService;
@@ -400,7 +409,7 @@ public class ChatAgentService {
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
                     basePrompt = prompt.getPromptText();
-                    return basePrompt + buildLinkInstructions(config);
+                    return basePrompt + buildLinkInstructions(config) + buildPreorderInstructions();
                 }
             } catch (Exception e) {
                 logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
@@ -445,6 +454,43 @@ public class ChatAgentService {
             instructions.append("| Product Name | $29.99 | [View Product](https://").append(shopUrl).append("/products/handle) [Add to Cart](https://").append(shopUrl).append("/cart/VARIANT_ID:1) |\n\n");
             instructions.append("ANY time you mention a product by name — in a table, list, paragraph, 'Current Specials', or anywhere else — you MUST include [View Product] and [Add to Cart] links. No exceptions.\n");
         }
+
+        return instructions.toString();
+    }
+
+    /**
+     * Build preorder upsell instructions appended to every prompt (both the DB-driven
+     * and ChatbotConfig-driven paths), mirroring how link instructions are appended.
+     *
+     * Preorder products are marked with a product tag (see chatbot.tools.preorder-tags).
+     * They are genuinely purchasable even at zero inventory, so the assistant must
+     * upsell them rather than reporting them as out of stock.
+     */
+    private String buildPreorderInstructions() {
+        if (!preorderUpsellEnabled) {
+            return "";
+        }
+
+        Set<String> preorderTags = PreorderTagUtil.parsePreorderTags(preorderTagsCsv);
+        if (preorderTags.isEmpty()) {
+            return "";
+        }
+
+        String tagList = String.join("\" or \"", preorderTags);
+
+        StringBuilder instructions = new StringBuilder();
+        instructions.append("\n\n=== PREORDER PRODUCTS (UPSELL) ===\n");
+        instructions.append("Some products are available for PREORDER. A product is a preorder if its tags ")
+                .append("include \"").append(tagList).append("\" (case-insensitive), ")
+                .append("or if a tool result marks it with isPreorder/stockStatus \"PREORDER\".\n");
+        instructions.append("- Preorder items ARE available to purchase right now — they are NOT out of stock.\n");
+        instructions.append("- NEVER tell a customer a preorder-tagged item is out of stock or unavailable, ")
+                .append("even when its inventory quantity is 0 (that is normal for preorders).\n");
+        instructions.append("- Present preorder items enthusiastically as \"available to preorder\" and encourage ")
+                .append("the customer to reserve one now.\n");
+        instructions.append("- ALWAYS include the Add to Cart link for preorder items, exactly like in-stock products.\n");
+        instructions.append("- If a customer specifically asks for preorders, proactively search the catalog and ")
+                .append("surface matching preorder products with their links.\n");
 
         return instructions.toString();
     }
@@ -642,6 +688,8 @@ public class ChatAgentService {
         prompt.append("- get_promotions: Find products currently on sale or special\n");
         prompt.append("- compare_products: Compare 2-3 products side by side\n");
         prompt.append("Always use the right tool for the job. Search before recommending. Never make up products.");
+
+        prompt.append(buildPreorderInstructions());
 
         return prompt.toString();
     }

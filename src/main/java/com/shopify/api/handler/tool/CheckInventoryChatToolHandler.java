@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.service.ProductService;
+import com.shopify.api.util.PreorderTagUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,9 @@ public class CheckInventoryChatToolHandler implements ChatToolHandler {
 
     @Value("${chatbot.tools.low-stock-threshold:5}")
     private int lowStockThreshold;
+
+    @Value("${chatbot.tools.preorder-tags:preorder,pre-order}")
+    private String preorderTagsCsv;
 
     @Override
     public String getToolName() {
@@ -130,6 +134,12 @@ public class CheckInventoryChatToolHandler implements ChatToolHandler {
                 product.put("productUrl", onlineStoreUrl);
             }
 
+            // Preorder-tagged products are purchasable even at zero inventory —
+            // treat them as a sellable PREORDER state, not OUT_OF_STOCK.
+            boolean isPreorder = PreorderTagUtil.isPreorder(
+                    (List<String>) productNode.get("tags"),
+                    PreorderTagUtil.parsePreorderTags(preorderTagsCsv));
+
             ArrayNode variants = objectMapper.createArrayNode();
             int totalInventory = 0;
 
@@ -149,7 +159,7 @@ public class CheckInventoryChatToolHandler implements ChatToolHandler {
                         Object invObj = variantNode.get("inventoryQuantity");
                         int qty = invObj != null ? ((Number) invObj).intValue() : 0;
                         variant.put("inventoryQuantity", qty);
-                        variant.put("stockStatus", getStockStatus(qty));
+                        variant.put("stockStatus", isPreorder ? "PREORDER" : getStockStatus(qty));
 
                         // Extract variant ID for cart link
                         String variantId = (String) variantNode.get("id");
@@ -167,9 +177,14 @@ public class CheckInventoryChatToolHandler implements ChatToolHandler {
 
             product.set("variants", variants);
             product.put("totalInventory", totalInventory);
-            product.put("overallStatus", getStockStatus(totalInventory));
+            product.put("isPreorder", isPreorder);
+            product.put("overallStatus", isPreorder ? "PREORDER" : getStockStatus(totalInventory));
 
-            if (totalInventory > 0 && totalInventory <= lowStockThreshold) {
+            if (isPreorder) {
+                product.put("preorderMessage",
+                        "Available to preorder now — reserve yours before stock arrives. "
+                        + "Present this enthusiastically and include the Add to Cart link; do NOT say it is out of stock.");
+            } else if (totalInventory > 0 && totalInventory <= lowStockThreshold) {
                 product.put("urgencyMessage", "Only " + totalInventory + " left in stock!");
             }
 

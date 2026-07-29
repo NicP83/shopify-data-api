@@ -111,6 +111,10 @@ chatbot:
     enable-product-search: ${CHATBOT_ENABLE_SEARCH:true}
     max-search-results: ${CHATBOT_MAX_RESULTS:10}
     low-stock-threshold: ${CHATBOT_LOW_STOCK_THRESHOLD:5}
+    # Products carrying any of these tags (case-insensitive) are treated as
+    # available-to-preorder rather than out of stock, and upsold by the chatbot.
+    preorder-tags: ${CHATBOT_PREORDER_TAGS:preorder,pre-order}
+    preorder-upsell-enabled: ${CHATBOT_PREORDER_UPSELL_ENABLED:true}
 
   # Response Style
   response:

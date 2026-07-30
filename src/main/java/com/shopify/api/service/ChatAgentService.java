@@ -374,7 +374,8 @@ public class ChatAgentService {
             JsonNode input = toolUse.get("input");
             if (input != null && input.hasNonNull("agent_name")) {
                 String expert = input.get("agent_name").asText()
-                        .replace('_', ' ').replace('-', ' ').trim();
+                        .replace('_', ' ').replace('-', ' ').trim()
+                        .toLowerCase();
                 if (!expert.isEmpty()) return "Checking with our " + expert + "…";
             }
             return "Getting some expert help…";

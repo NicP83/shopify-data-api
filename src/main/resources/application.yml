@@ -52,6 +52,12 @@ shopify:
   api-version: ${SHOPIFY_API_VERSION:2025-01}
   # GraphQL endpoint will be: https://{shop-url}/admin/api/{api-version}/graphql.json
 
+  # Product-search result cache (collapses repeated identical searches to zero round-trips).
+  # Short TTL so search snapshots stay fresh; live stock is read separately and not cached.
+  search:
+    cache-ttl-ms: ${SHOPIFY_SEARCH_CACHE_TTL:90000}
+    cache-max: ${SHOPIFY_SEARCH_CACHE_MAX:500}
+
   # Rate Limiting Configuration
   rate-limit:
     # Max points per second (adjust based on your Shopify plan)

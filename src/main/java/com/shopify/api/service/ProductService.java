@@ -4,6 +4,7 @@ import com.shopify.api.client.ShopifyGraphQLClient;
 import com.shopify.api.model.GraphQLResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service for managing Shopify products
@@ -32,6 +34,30 @@ public class ProductService {
 
     public ProductService(ShopifyGraphQLClient graphQLClient) {
         this.graphQLClient = graphQLClient;
+    }
+
+    /**
+     * Short-TTL cache for product searches. A single chatbot/agent answer fires many
+     * searches — often the SAME query repeated (and each miss re-runs a 2-3x broadening
+     * cascade). Caching the whole cascade result (including empty results) collapses those
+     * repeats to zero Shopify round-trips. TTL is short so search snapshots stay fresh;
+     * live stock is read separately via check_inventory and is NOT cached here.
+     */
+    @Value("${shopify.search.cache-ttl-ms:90000}")
+    private long searchCacheTtlMs;
+
+    @Value("${shopify.search.cache-max:500}")
+    private int searchCacheMax;
+
+    private final Map<String, CacheEntry> searchCache = new ConcurrentHashMap<>();
+
+    private static final class CacheEntry {
+        final Map<String, Object> value;
+        final long expiresAt;
+        CacheEntry(Map<String, Object> value, long expiresAt) {
+            this.value = value;
+            this.expiresAt = expiresAt;
+        }
     }
 
     /**
@@ -237,8 +263,28 @@ public class ProductService {
         logger.info("Searching products (reactive) with query: '{}', includeArchived: {}, productType: {}",
                     searchQuery, includeArchived, productType);
 
-        // Use reactive fallback strategy
-        return searchWithFallbackReactive(searchQuery, first, includeArchived, productType);
+        // Serve identical repeat searches from a short-TTL cache to avoid re-running the
+        // whole broadening cascade (2-3 Shopify calls) for a query we just resolved.
+        String cacheKey = (searchQuery == null ? "" : searchQuery) + "|" + first + "|" + includeArchived
+                + "|" + (productType == null ? "" : productType);
+        long now = System.currentTimeMillis();
+        CacheEntry cached = searchCache.get(cacheKey);
+        if (cached != null && cached.expiresAt > now) {
+            logger.info("Search cache hit for '{}'", searchQuery);
+            return Mono.just(cached.value);
+        }
+
+        // Use reactive fallback strategy, caching the resolved result (including empty results).
+        return searchWithFallbackReactive(searchQuery, first, includeArchived, productType)
+                .doOnNext(result -> {
+                    if (searchCache.size() > searchCacheMax) {
+                        searchCache.entrySet().removeIf(e -> e.getValue().expiresAt <= System.currentTimeMillis());
+                        if (searchCache.size() > searchCacheMax) {
+                            searchCache.clear();
+                        }
+                    }
+                    searchCache.put(cacheKey, new CacheEntry(result, System.currentTimeMillis() + searchCacheTtlMs));
+                });
     }
 
     /**

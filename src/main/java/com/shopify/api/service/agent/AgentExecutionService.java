@@ -25,6 +25,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,6 +76,13 @@ public class AgentExecutionService {
     private String delegationModel;
 
     /**
+     * Hard cap on a single chat-triggered delegation. Kept safely below the SSE async ceiling
+     * so a stalled specialist ends as a clean error instead of hanging until the stream is reaped.
+     */
+    @Value("${crs.agent.delegation-timeout-ms:75000}")
+    private long delegationTimeoutMs;
+
+    /**
      * Execute an agent with given input and return structured result
      *
      * @param agentId The ID of the agent to execute
@@ -92,7 +100,8 @@ public class AgentExecutionService {
      */
     @Transactional
     public Mono<AgentExecutionResult> executeAgentForDelegation(Long agentId, JsonNode input) {
-        return runAgent(agentId, input, delegationModel);
+        return runAgent(agentId, input, delegationModel)
+                .timeout(Duration.ofMillis(delegationTimeoutMs));
     }
 
     /**

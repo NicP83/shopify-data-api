@@ -30,9 +30,10 @@ spring:
   # Spring MVC Configuration
   mvc:
     async:
-      # Increase timeout for long-running agent orchestration requests
-      # Multi-agent orchestration can take 60-90 seconds with tool use
-      request-timeout: 120000
+      # Total (wall-clock) ceiling on async/SSE responses. Kept above the delegation cap
+      # (crs.agent.delegation-timeout-ms) so a legitimately-progressing deep delegation isn't
+      # reaped mid-stream. A stalled request is bounded fast by the per-call timeouts instead.
+      request-timeout: 180000
 
 # Server Configuration
 server:
@@ -136,6 +137,11 @@ crs:
     enabled: ${CRS_MCP_ENABLED:true}
     # Timeout for MCP requests (milliseconds)
     timeout-ms: ${CRS_MCP_TIMEOUT:10000}
+  agent:
+    # Hard cap on a single chat-triggered "expert help" delegation (milliseconds).
+    # Must stay below spring.mvc.async.request-timeout so a stalled delegation ends
+    # as a clean event:error rather than the whole stream being reaped.
+    delegation-timeout-ms: ${CRS_AGENT_DELEGATION_TIMEOUT:75000}
 
 # Logging Configuration
 logging:

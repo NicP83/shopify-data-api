@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -196,7 +198,18 @@ public class ShopifyChatController {
             chatAgentService.setMaxTokens(shopConfig.getAiMaxTokensValue());
             chatAgentService.setShopContext(shopConfig);
 
-            return chatAgentService.streamChat(request)
+            // Merge a periodic SSE comment "heartbeat" into the stream so the connection is
+            // never idle for more than ~15s during a long token-less phase (e.g. a 40s+ expert
+            // delegation). Without it, an intermediary (Railway edge) can reap the idle socket,
+            // which surfaces as an abrupt reset and trips the client's blocking fallback.
+            // The content stream always ends with exactly one "done" or "error" frame, so an
+            // inclusive takeUntil forwards that terminal frame and then cancels the interval.
+            Flux<ServerSentEvent<String>> content = chatAgentService.streamChat(request);
+            Flux<ServerSentEvent<String>> heartbeat = Flux.interval(Duration.ofSeconds(15))
+                    .map(i -> ServerSentEvent.<String>builder().comment("hb").build());
+            return content
+                    .mergeWith(heartbeat)
+                    .takeUntil(sse -> "done".equals(sse.event()) || "error".equals(sse.event()))
                     .doFinally(sig -> chatAgentService.clearShopContext())
                     .onErrorResume(e -> {
                         logger.error("Stream error for shop {}: {}", shop, e.getMessage());

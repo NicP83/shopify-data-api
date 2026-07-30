@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -25,16 +26,19 @@ public class MCPClient {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
     private final boolean enabled;
+    private final Duration callTimeout;
 
     public MCPClient(WebClient.Builder webClientBuilder,
                     @Value("${crs.mcp.url}") String mcpUrl,
-                    @Value("${crs.mcp.enabled:true}") boolean enabled) {
+                    @Value("${crs.mcp.enabled:true}") boolean enabled,
+                    @Value("${crs.mcp.timeout-ms:10000}") long timeoutMs) {
         this.webClient = webClientBuilder
                 .baseUrl(mcpUrl)
                 .build();
         this.objectMapper = new ObjectMapper();
         this.enabled = enabled;
-        logger.info("MCPClient initialized - URL: {}, Enabled: {}", mcpUrl, enabled);
+        this.callTimeout = Duration.ofMillis(timeoutMs);
+        logger.info("MCPClient initialized - URL: {}, Enabled: {}, Timeout: {}ms", mcpUrl, enabled, timeoutMs);
     }
 
     /**
@@ -71,6 +75,7 @@ public class MCPClient {
                     .retrieve()
                     .bodyToMono(JsonNode.class)
                     .map(this::extractResult)
+                    .timeout(callTimeout)
                     .doOnSuccess(result -> logger.debug("MCP tool {} completed successfully", toolName))
                     .doOnError(error -> logger.error("MCP tool {} failed: {}", toolName, error.getMessage()));
 

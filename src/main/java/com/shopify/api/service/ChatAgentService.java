@@ -792,6 +792,7 @@ public class ChatAgentService {
             instructions.append("- Extract the numeric ID from variant.id (e.g., 'gid://shopify/ProductVariant/12345' -> use '12345')\n");
             instructions.append("- Cart link format: https://").append(shopUrl).append("/cart/{NUMERIC_ID}:1\n");
             instructions.append("- Present as clickable markdown: [Add to Cart](https://").append(shopUrl).append("/cart/VARIANT_ID:1)\n");
+            instructions.append("- WHENEVER you recommend more than one product (a shopping list, starter kit, bundle, etc.), you MUST ALSO end with a single 'Add all to cart' link that combines EVERY recommended item into one permalink: https://").append(shopUrl).append("/cart/{ID1}:1,{ID2}:1,{ID3}:1 (comma-separated, quantity 1 each). Present as: [🛒 Add all to cart](https://").append(shopUrl).append("/cart/ID1:1,ID2:1,ID3:1). This lets the customer add the whole list in one click.\n");
         }
 
         if (config.isIncludeProductLinks()) {

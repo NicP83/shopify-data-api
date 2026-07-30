@@ -322,7 +322,7 @@ public class ChatAgentService {
             messages.add(assistantMessage);
 
             if ("tool_use".equals(state.stopReason) && !toolUses.isEmpty()) {
-                ServerSentEvent<String> status = sseStatus(statusMessageFor(toolUses.get(0)));
+                ServerSentEvent<String> status = sseStatus(statusMessageFor(toolUses));
                 Mono<Void> runTools = runToolsAndAppend(toolUses, messages, config);
                 return Flux.concat(
                         Flux.just(status),
@@ -364,22 +364,49 @@ public class ChatAgentService {
         }).then();
     }
 
-    /** Map a tool call to a friendly, customer-facing progress line. */
-    private String statusMessageFor(ObjectNode toolUse) {
-        String toolName = toolUse != null && toolUse.hasNonNull("name") ? toolUse.get("name").asText() : null;
-        if (toolName == null) return "Working on it…";
-        // For delegation, name the specialist so the (longer) wait feels purposeful,
-        // e.g. "paint_expert" -> "Checking with our paint expert…".
-        if (toolName.startsWith("delegate")) {
-            JsonNode input = toolUse.get("input");
-            if (input != null && input.hasNonNull("agent_name")) {
-                String expert = input.get("agent_name").asText()
-                        .replace('_', ' ').replace('-', ' ').trim()
-                        .toLowerCase();
-                if (!expert.isEmpty()) return "Checking with our " + expert + "…";
+    /**
+     * Build a friendly, customer-facing progress line for the tool calls in this turn.
+     * Delegations get special treatment: name the specialist, and when several experts are
+     * consulted at once, tell the customer explicitly that it may take a few extra seconds.
+     */
+    private String statusMessageFor(List<ObjectNode> toolUses) {
+        if (toolUses == null || toolUses.isEmpty()) return "Working on it…";
+
+        // Gather specialist delegations happening in this turn.
+        List<String> experts = new ArrayList<>();
+        boolean hasUnnamedDelegate = false;
+        for (ObjectNode tu : toolUses) {
+            String name = tu.hasNonNull("name") ? tu.get("name").asText() : "";
+            if (name.startsWith("delegate")) {
+                JsonNode input = tu.get("input");
+                if (input != null && input.hasNonNull("agent_name")) {
+                    String expert = input.get("agent_name").asText()
+                            .replace('_', ' ').replace('-', ' ').trim()
+                            .toLowerCase();
+                    if (!expert.isEmpty()) { experts.add(expert); continue; }
+                }
+                hasUnnamedDelegate = true;
             }
-            return "Getting some expert help…";
         }
+
+        int delegateCount = experts.size() + (hasUnnamedDelegate ? 1 : 0);
+        if (delegateCount >= 2) {
+            // Multiple specialists at once — set expectations about the longer wait.
+            return "Checking with a few of our experts for you — this can take a few extra seconds…";
+        }
+        if (delegateCount == 1) {
+            String who = experts.isEmpty() ? "an expert" : "our " + experts.get(0);
+            return "Checking with " + who + " — this can take a few seconds…";
+        }
+
+        // No delegation — describe the first catalogue/data tool.
+        String toolName = toolUses.get(0).hasNonNull("name") ? toolUses.get(0).get("name").asText() : null;
+        return catalogueStatusFor(toolName);
+    }
+
+    /** Progress line for the fast, non-delegating catalogue/data tools. */
+    private String catalogueStatusFor(String toolName) {
+        if (toolName == null) return "Working on it…";
         switch (toolName) {
             case "search_products":
             case "browse_products":

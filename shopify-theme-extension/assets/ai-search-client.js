@@ -369,6 +369,7 @@ class AISearchModal {
 
     // Streaming render target — created lazily on the first token.
     let streamEl = null;
+    let streamedText = '';
     const ensureStreamEl = () => {
       if (!streamEl) {
         this.showTyping(false);
@@ -391,6 +392,7 @@ class AISearchModal {
         },
         onToken: (chunk, full) => {
           const el = ensureStreamEl();
+          streamedText = full || streamedText;
           // Text is flowing again — hide the mid-stream status indicator.
           if (this.typingIndicator && this.typingIndicator.style.display !== 'none') {
             this.showTyping(false);
@@ -399,26 +401,42 @@ class AISearchModal {
         },
         onDone: (full) => {
           const el = ensureStreamEl();
+          streamedText = full || streamedText;
           this.updateStreamingAssistant(el, full);
         }
       });
     } catch (streamError) {
-      // Streaming failed — fall back to the blocking endpoint so the customer
-      // still gets an answer. Remove any partial streamed bubble first.
-      console.warn('Streaming failed, falling back to blocking request:', streamError);
-      if (streamEl && streamEl.parentNode) {
-        streamEl.parentNode.removeChild(streamEl);
-        streamEl = null;
-      }
-      this.showTyping(true);
-      try {
-        const response = await this.client.sendMessage(message);
-        this.showTyping(false);
-        this.addMessage('assistant', response.response || response.content, response);
-      } catch (error) {
-        this.showTyping(false);
-        this.showError(error.message || 'Failed to get response. Please try again.');
-        console.error('Chat error:', error);
+      console.warn('Streaming failed:', streamError);
+      // If a substantial answer already streamed in, KEEP it — do not discard a
+      // fully-rendered reply (e.g. a product list with cart links) only to re-ask
+      // via the blocking endpoint, which returns a *different* response and makes
+      // the list appear to vanish. Only fall back to blocking when little streamed.
+      if (streamEl && streamedText.trim().length >= 80) {
+        this.updateStreamingAssistant(streamEl, streamedText);
+        // Record to history so the next turn keeps context (mirrors streamMessage.finish()).
+        if (Array.isArray(this.client.messageHistory)) {
+          this.client.messageHistory.push({ role: 'user', content: message });
+          this.client.messageHistory.push({ role: 'assistant', content: streamedText });
+          if (this.client.messageHistory.length > 20) {
+            this.client.messageHistory = this.client.messageHistory.slice(-20);
+          }
+        }
+      } else {
+        // Nothing usable streamed — remove the empty bubble and fall back.
+        if (streamEl && streamEl.parentNode) {
+          streamEl.parentNode.removeChild(streamEl);
+          streamEl = null;
+        }
+        this.showTyping(true);
+        try {
+          const response = await this.client.sendMessage(message);
+          this.showTyping(false);
+          this.addMessage('assistant', response.response || response.content, response);
+        } catch (error) {
+          this.showTyping(false);
+          this.showError(error.message || 'Failed to get response. Please try again.');
+          console.error('Chat error:', error);
+        }
       }
     } finally {
       this.showTyping(false);

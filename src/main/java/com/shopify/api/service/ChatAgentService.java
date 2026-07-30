@@ -322,7 +322,7 @@ public class ChatAgentService {
             messages.add(assistantMessage);
 
             if ("tool_use".equals(state.stopReason) && !toolUses.isEmpty()) {
-                ServerSentEvent<String> status = sseStatus(statusMessageFor(toolUses.get(0).get("name").asText()));
+                ServerSentEvent<String> status = sseStatus(statusMessageFor(toolUses.get(0)));
                 Mono<Void> runTools = runToolsAndAppend(toolUses, messages, config);
                 return Flux.concat(
                         Flux.just(status),
@@ -364,9 +364,21 @@ public class ChatAgentService {
         }).then();
     }
 
-    /** Map a tool name to a friendly, customer-facing progress line. */
-    private String statusMessageFor(String toolName) {
+    /** Map a tool call to a friendly, customer-facing progress line. */
+    private String statusMessageFor(ObjectNode toolUse) {
+        String toolName = toolUse != null && toolUse.hasNonNull("name") ? toolUse.get("name").asText() : null;
         if (toolName == null) return "Working on it…";
+        // For delegation, name the specialist so the (longer) wait feels purposeful,
+        // e.g. "paint_expert" -> "Checking with our paint expert…".
+        if (toolName.startsWith("delegate")) {
+            JsonNode input = toolUse.get("input");
+            if (input != null && input.hasNonNull("agent_name")) {
+                String expert = input.get("agent_name").asText()
+                        .replace('_', ' ').replace('-', ' ').trim();
+                if (!expert.isEmpty()) return "Checking with our " + expert + "…";
+            }
+            return "Getting some expert help…";
+        }
         switch (toolName) {
             case "search_products":
             case "browse_products":
@@ -384,7 +396,6 @@ public class ChatAgentService {
             case "get_customer_history":
                 return "Pulling up your details…";
             default:
-                if (toolName.startsWith("delegate")) return "Getting some expert help…";
                 return "Working on it…";
         }
     }

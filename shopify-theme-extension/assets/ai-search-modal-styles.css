@@ -409,6 +409,19 @@
   30% { transform: translateY(-10px); opacity: 1; }
 }
 
+.ai-typing-status {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #6d7175;
+  font-style: italic;
+  min-height: 18px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ai-typing-status:empty {
+  display: none;
+}
+
 /* Error Message */
 .ai-error-message {
   padding: 12px 24px;

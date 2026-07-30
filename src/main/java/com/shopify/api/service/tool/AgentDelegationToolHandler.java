@@ -77,8 +77,9 @@ public class AgentDelegationToolHandler implements ToolHandler {
                     ObjectNode agentInput = objectMapper.createObjectNode();
                     agentInput.put("task", enrichedTask);
 
-                    // Execute the agent and format the response
-                    return agentExecutionService.executeAgent(agent.getId(), agentInput)
+                    // Execute the agent and format the response.
+                    // Use the delegation entry point so specialist "expert help" runs on the fast model.
+                    return agentExecutionService.executeAgentForDelegation(agent.getId(), agentInput)
                             .map(result -> formatAgentResponse(agentName, result))
                             .doOnSuccess(response -> log.info("Agent {} completed successfully", agentName))
                             .onErrorResume(e -> {

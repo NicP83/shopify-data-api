@@ -63,6 +63,17 @@ public class AgentExecutionService {
     @Value("${anthropic.api.version:2023-06-01}")
     private String anthropicApiVersion;
 
+    /** Max tool-use iterations for a single agent run. Lowered from 10 to keep "expert help" snappy. */
+    @Value("${agent.max-iterations:6}")
+    private int maxAgentIterations;
+
+    /**
+     * Model used when an agent is invoked via storefront chat delegation ("expert help").
+     * Defaults to the fastest model so customers aren't left waiting; blank = keep the agent's own model.
+     */
+    @Value("${agent.delegation.model:claude-haiku-4-5-20251001}")
+    private String delegationModel;
+
     /**
      * Execute an agent with given input and return structured result
      *
@@ -72,6 +83,25 @@ public class AgentExecutionService {
      */
     @Transactional
     public Mono<AgentExecutionResult> executeAgent(Long agentId, JsonNode input) {
+        return runAgent(agentId, input, null);
+    }
+
+    /**
+     * Execute an agent invoked via storefront chat delegation. Runs on the fast delegation model
+     * (see {@code agent.delegation.model}) so "expert help" responses come back quickly.
+     */
+    @Transactional
+    public Mono<AgentExecutionResult> executeAgentForDelegation(Long agentId, JsonNode input) {
+        return runAgent(agentId, input, delegationModel);
+    }
+
+    /**
+     * Shared implementation. Called only from the @Transactional public entry points above, so the
+     * synchronous agent load + execution-record save run inside the caller's transaction.
+     *
+     * @param modelOverride if non-blank, use this model instead of the agent's configured model
+     */
+    private Mono<AgentExecutionResult> runAgent(Long agentId, JsonNode input, String modelOverride) {
         log.info("Executing agent ID: {} with input", agentId);
 
         // Load agent from database BEFORE reactive chain (within transaction context)
@@ -96,7 +126,7 @@ public class AgentExecutionService {
         log.info("Created execution record: {}", savedExecution.getId());
 
         // Execute based on provider and return reactive result
-        return executeWithProvider(agent, input, savedExecution)
+        return executeWithProvider(agent, input, savedExecution, modelOverride)
             .doOnSuccess(result -> {
                 // Update execution record with results
                 savedExecution.setStatus("COMPLETED");
@@ -121,14 +151,14 @@ public class AgentExecutionService {
     /**
      * Execute agent with the appropriate LLM provider
      */
-    private Mono<AgentExecutionResult> executeWithProvider(Agent agent, JsonNode input, AgentExecution execution) {
+    private Mono<AgentExecutionResult> executeWithProvider(Agent agent, JsonNode input, AgentExecution execution, String modelOverride) {
         String provider = agent.getModelProvider();
         log.info("Using provider: {} with model: {}", provider, agent.getModelName());
 
         switch (provider.toUpperCase()) {
             case "ANTHROPIC":
             case "CLAUDE":
-                return executeWithClaude(agent, input, execution);
+                return executeWithClaude(agent, input, execution, modelOverride);
             case "OPENAI":
             case "GPT":
                 return Mono.error(new UnsupportedOperationException("OpenAI provider not yet implemented"));
@@ -143,16 +173,20 @@ public class AgentExecutionService {
     /**
      * Execute agent using Claude API
      */
-    private Mono<AgentExecutionResult> executeWithClaude(Agent agent, JsonNode input, AgentExecution execution) {
+    private Mono<AgentExecutionResult> executeWithClaude(Agent agent, JsonNode input, AgentExecution execution, String modelOverride) {
         if (anthropicApiKey == null || anthropicApiKey.trim().isEmpty()) {
             return Mono.error(new IllegalStateException("Anthropic API key not configured"));
         }
 
+        // Prefer the delegation/override model when supplied, else the agent's own configured model.
+        String requestedModel = (modelOverride != null && !modelOverride.isBlank())
+            ? modelOverride : agent.getModelName();
+
         // Validate model before using it
-        String validatedModel = modelValidationService.validateOrDefault(agent.getModelName());
-        if (!validatedModel.equals(agent.getModelName())) {
+        String validatedModel = modelValidationService.validateOrDefault(requestedModel);
+        if (!validatedModel.equals(requestedModel)) {
             log.warn("Invalid model '{}' for agent '{}', using '{}' instead",
-                agent.getModelName(), agent.getName(), validatedModel);
+                requestedModel, agent.getName(), validatedModel);
         }
 
         WebClient webClient = webClientBuilder
@@ -200,8 +234,8 @@ public class AgentExecutionService {
             int iteration,
             Long executionId) {
 
-        if (iteration >= 10) {
-            log.warn("Max tool use iterations reached for execution {}", executionId);
+        if (iteration >= maxAgentIterations) {
+            log.warn("Max tool use iterations ({}) reached for execution {}", maxAgentIterations, executionId);
             return Mono.error(new RuntimeException("Max iterations reached"));
         }
 
@@ -210,7 +244,18 @@ public class AgentExecutionService {
         requestBody.put("model", validatedModel);
         requestBody.put("max_tokens", agent.getMaxTokens());
         requestBody.put("temperature", agent.getTemperature().doubleValue());
-        requestBody.put("system", systemPrompt);
+
+        // Prompt caching: send the system prompt as a cacheable block so the (unchanging) agent
+        // instructions + tool context aren't re-processed on every iteration. Mirrors the main chat loop.
+        ArrayNode systemBlocks = objectMapper.createArrayNode();
+        ObjectNode systemBlock = objectMapper.createObjectNode();
+        systemBlock.put("type", "text");
+        systemBlock.put("text", systemPrompt);
+        ObjectNode cacheControl = objectMapper.createObjectNode();
+        cacheControl.put("type", "ephemeral");
+        systemBlock.set("cache_control", cacheControl);
+        systemBlocks.add(systemBlock);
+        requestBody.set("system", systemBlocks);
         requestBody.set("messages", messages);
 
         if (tools.size() > 0) {

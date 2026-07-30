@@ -6,6 +6,8 @@
 class AISearchClient {
   constructor(config) {
     this.apiUrl = config.apiUrl;
+    // Streaming endpoint (Server-Sent Events) sits alongside the blocking one.
+    this.streamUrl = (config.apiUrl || '') + '/stream';
     this.shopDomain = config.shopDomain;
     this.maxResults = config.maxResults || 10;
     this.messageHistory = [];
@@ -126,6 +128,102 @@ class AISearchClient {
   }
 
   /**
+   * Stream a chat message via Server-Sent Events so the reply renders as it is
+   * generated. Calls the provided callbacks as events arrive. Throws on any
+   * transport/stream error so the caller can fall back to sendMessage().
+   * @param {string} message
+   * @param {{onStatus?:Function,onToken?:Function,onDone?:Function}} handlers
+   * @returns {Promise<string>} the full assistant text
+   */
+  async streamMessage(message, handlers = {}) {
+    const { onStatus, onToken, onDone } = handlers;
+    const requestBody = {
+      message: message,
+      conversationHistory: this.messageHistory,
+      maxResults: this.maxResults,
+      sessionId: this.sessionId,
+      userIdentifier: this.userIdentifier
+    };
+
+    const response = await fetch(`${this.streamUrl}?shop=${encodeURIComponent(this.shopDomain)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
+      credentials: 'include',
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok || !response.body) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let fullText = '';
+    let sawDone = false;
+
+    const finish = () => {
+      // Record history once, mirroring sendMessage()
+      this.messageHistory.push({ role: 'user', content: message });
+      this.messageHistory.push({ role: 'assistant', content: fullText });
+      if (this.messageHistory.length > 20) {
+        this.messageHistory = this.messageHistory.slice(-20);
+      }
+      if (onDone) onDone(fullText);
+    };
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      let sep;
+      while ((sep = buffer.indexOf('\n\n')) !== -1) {
+        const frame = buffer.slice(0, sep);
+        buffer = buffer.slice(sep + 2);
+        const parsed = this.parseSSEFrame(frame);
+        if (!parsed.event) continue;
+
+        let payload = {};
+        try { payload = parsed.data ? JSON.parse(parsed.data) : {}; } catch (e) { payload = {}; }
+
+        if (parsed.event === 'token') {
+          fullText += (payload.text || '');
+          if (onToken) onToken(payload.text || '', fullText);
+        } else if (parsed.event === 'status') {
+          if (onStatus) onStatus(payload.text || '');
+        } else if (parsed.event === 'done') {
+          sawDone = true;
+          finish();
+          return fullText;
+        } else if (parsed.event === 'error') {
+          throw new Error(payload.message || 'Streaming error');
+        }
+      }
+    }
+
+    // Stream closed without an explicit done event
+    if (!sawDone) finish();
+    return fullText;
+  }
+
+  /**
+   * Parse a single SSE frame into { event, data }.
+   */
+  parseSSEFrame(frame) {
+    let event = null;
+    const dataLines = [];
+    for (const line of frame.split('\n')) {
+      if (line.startsWith('event:')) {
+        event = line.slice(6).trim();
+      } else if (line.startsWith('data:')) {
+        dataLines.push(line.slice(5).trim());
+      }
+    }
+    return { event, data: dataLines.join('\n') };
+  }
+
+  /**
    * Clear conversation history
    */
   clearHistory() {
@@ -155,8 +253,21 @@ class AISearchModal {
     this.input = document.getElementById('ai-chat-input');
     this.submitBtn = document.getElementById('ai-chat-submit');
     this.typingIndicator = document.getElementById('ai-typing-indicator');
+    this.typingStatus = document.getElementById('ai-typing-status');
     this.errorMessage = document.getElementById('ai-error-message');
     this.errorText = document.getElementById('ai-error-text');
+
+    // Reassurance messages shown while the assistant is working, so the
+    // customer can see the system is active rather than staring at a wait.
+    this.statusMessages = [
+      'Searching our catalogue…',
+      'Looking through the range…',
+      'Checking stock and prices…',
+      'Comparing the best options for you…',
+      'Putting your answer together…'
+    ];
+    this.statusTimer = null;
+    this.statusStart = 0;
 
     // Initialize API client
     const apiUrl = this.modal?.dataset.apiUrl;
@@ -251,26 +362,113 @@ class AISearchModal {
       this.input.style.height = 'auto';
     }
 
-    // Show typing indicator
+    // Show typing indicator (dots + rotating reassurance until the first token)
     this.showTyping(true);
     this.hideError();
     this.setLoading(true);
 
+    // Streaming render target — created lazily on the first token.
+    let streamEl = null;
+    const ensureStreamEl = () => {
+      if (!streamEl) {
+        this.showTyping(false);
+        streamEl = this.addStreamingAssistant();
+      }
+      return streamEl;
+    };
+
     try {
-      const response = await this.client.sendMessage(message);
-
-      this.showTyping(false);
-
-      // Add assistant response
-      this.addMessage('assistant', response.response || response.content, response);
-
-    } catch (error) {
-      this.showTyping(false);
-      this.showError(error.message || 'Failed to get response. Please try again.');
-      console.error('Chat error:', error);
+      await this.client.streamMessage(message, {
+        onStatus: (text) => {
+          // Real backend progress. Before the first token it replaces the canned
+          // rotating messages; mid-stream (between tool calls) it re-shows the
+          // indicator with this status below the answer-so-far, so the customer
+          // can see work is continuing rather than staring at a paused reply.
+          if (text) {
+            if (streamEl) this.showStatusLine(text);
+            else this.setTypingStatus(text);
+          }
+        },
+        onToken: (chunk, full) => {
+          const el = ensureStreamEl();
+          // Text is flowing again — hide the mid-stream status indicator.
+          if (this.typingIndicator && this.typingIndicator.style.display !== 'none') {
+            this.showTyping(false);
+          }
+          this.updateStreamingAssistant(el, full);
+        },
+        onDone: (full) => {
+          const el = ensureStreamEl();
+          this.updateStreamingAssistant(el, full);
+        }
+      });
+    } catch (streamError) {
+      // Streaming failed — fall back to the blocking endpoint so the customer
+      // still gets an answer. Remove any partial streamed bubble first.
+      console.warn('Streaming failed, falling back to blocking request:', streamError);
+      if (streamEl && streamEl.parentNode) {
+        streamEl.parentNode.removeChild(streamEl);
+        streamEl = null;
+      }
+      this.showTyping(true);
+      try {
+        const response = await this.client.sendMessage(message);
+        this.showTyping(false);
+        this.addMessage('assistant', response.response || response.content, response);
+      } catch (error) {
+        this.showTyping(false);
+        this.showError(error.message || 'Failed to get response. Please try again.');
+        console.error('Chat error:', error);
+      }
     } finally {
+      this.showTyping(false);
       this.setLoading(false);
     }
+  }
+
+  /**
+   * Create an empty assistant message bubble to fill as tokens stream in.
+   * Returns the outer message element (so it can be removed on fallback).
+   */
+  addStreamingAssistant() {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'ai-message ai-message-assistant';
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'ai-message-avatar';
+    avatarDiv.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+      </svg>
+    `;
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'ai-message-content';
+    contentDiv._streamRoot = true;
+
+    messageDiv.appendChild(avatarDiv);
+    messageDiv.appendChild(contentDiv);
+
+    if (this.typingIndicator && this.typingIndicator.parentNode) {
+      this.typingIndicator.parentNode.insertBefore(messageDiv, this.typingIndicator);
+    } else {
+      this.messagesContainer?.appendChild(messageDiv);
+    }
+
+    this.scrollToBottom();
+    return messageDiv;
+  }
+
+  /**
+   * Re-render the streaming assistant bubble with the accumulated text so far.
+   */
+  updateStreamingAssistant(messageEl, fullText) {
+    if (!messageEl) return;
+    const contentDiv = messageEl.querySelector('.ai-message-content');
+    if (contentDiv) {
+      contentDiv.innerHTML = this.formatMessageContent(fullText || '');
+    }
+    this.scrollToBottom();
   }
 
   addMessage(role, content, data = null) {
@@ -501,8 +699,107 @@ class AISearchModal {
   showTyping(show) {
     if (this.typingIndicator) {
       this.typingIndicator.style.display = show ? 'block' : 'none';
-      if (show) this.scrollToBottom();
+      if (show) {
+        this.startTypingStatus();
+        this.scrollToBottom();
+      } else {
+        this.stopTypingStatus();
+      }
     }
+  }
+
+  /**
+   * Cycle reassurance messages (with an elapsed hint after a few seconds) so a
+   * multi-second wait reads as active work rather than a frozen UI.
+   */
+  startTypingStatus() {
+    if (!this.typingStatus) return;
+    this.stopTypingStatus();
+    this.statusStart = Date.now();
+
+    let index = 0;
+    const render = () => {
+      const elapsed = Math.round((Date.now() - this.statusStart) / 1000);
+      let text = this.statusMessages[index % this.statusMessages.length];
+      // After a longer wait, reassure explicitly and show elapsed seconds.
+      if (elapsed >= 8) {
+        text = `Still working on it — almost there… (${elapsed}s)`;
+      } else if (elapsed >= 4) {
+        text = `${text} (${elapsed}s)`;
+      }
+      this.typingStatus.textContent = text;
+    };
+
+    render();
+    this.statusTimer = setInterval(() => {
+      index++;
+      render();
+    }, 2500);
+  }
+
+  stopTypingStatus() {
+    if (this.statusTimer) {
+      clearInterval(this.statusTimer);
+      this.statusTimer = null;
+    }
+    if (this.typingStatus) {
+      this.typingStatus.textContent = '';
+    }
+  }
+
+  /**
+   * Show a specific status line (real backend progress). Delegates to showLiveStatus
+   * so the message keeps a ticking elapsed hint instead of freezing — important for
+   * longer phases like "Checking with our paint expert…".
+   */
+  setTypingStatus(text) {
+    this.showLiveStatus(text, false);
+  }
+
+  /**
+   * Re-show the typing indicator (dots) with a real status line during a
+   * mid-stream tool phase — i.e. after some answer text has already streamed
+   * in and the assistant goes back to using a tool. Rendered below the
+   * answer-so-far because the streaming bubble is inserted before the indicator.
+   */
+  showStatusLine(text) {
+    this.showLiveStatus(text, true);
+  }
+
+  /**
+   * Show a real backend status line and keep it alive: append an elapsed-seconds
+   * hint and escalate the wording after a few seconds, so a long tool phase
+   * (e.g. delegating to a specialist agent) never looks frozen.
+   */
+  showLiveStatus(text, withIndicator) {
+    if (this.statusTimer) {
+      clearInterval(this.statusTimer);
+      this.statusTimer = null;
+    }
+    if (withIndicator && this.typingIndicator) {
+      this.typingIndicator.style.display = 'block';
+    }
+    if (!this.typingStatus) {
+      if (withIndicator) this.scrollToBottom();
+      return;
+    }
+
+    // Strip any trailing ellipsis/punctuation so we can re-suffix cleanly.
+    const stem = (text || 'Working on it').replace(/[…\.\s]+$/, '');
+    this.statusStart = Date.now();
+    const render = () => {
+      const elapsed = Math.round((Date.now() - this.statusStart) / 1000);
+      if (elapsed >= 12) {
+        this.typingStatus.textContent = `${stem} — almost there, thanks for your patience… (${elapsed}s)`;
+      } else if (elapsed >= 4) {
+        this.typingStatus.textContent = `${stem}… (${elapsed}s)`;
+      } else {
+        this.typingStatus.textContent = `${stem}…`;
+      }
+    };
+    render();
+    this.statusTimer = setInterval(render, 1000);
+    if (withIndicator) this.scrollToBottom();
   }
 
   showError(message) {

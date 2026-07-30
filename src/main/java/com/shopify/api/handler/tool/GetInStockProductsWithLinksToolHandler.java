@@ -118,6 +118,27 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
                         inStockCount, totalFound
                     ));
 
+                    // Combined "add everything at once" Shopify cart permalink: /cart/{variant}:1,{variant}:1,…
+                    // 1 of each product's primary in-stock variant.
+                    StringBuilder lot = new StringBuilder();
+                    int lotItems = 0;
+                    for (JsonNode p : productsArray) {
+                        if (p.hasNonNull("cartToken")) {
+                            if (lot.length() > 0) lot.append(",");
+                            lot.append(p.get("cartToken").asText());
+                            lotItems++;
+                        }
+                    }
+                    if (lotItems > 0) {
+                        response.put("addAllToCartUrl", storeUrl + "/cart/" + lot);
+                        response.put("addAllToCartHint", String.format(
+                            "When you present a shopping list or recommend multiple products, end with a markdown link so the "
+                            + "customer can add the whole lot in one click, e.g. [🛒 Add all %d to cart](%s/cart/%s) — use the "
+                            + "addAllToCartUrl value. If you recommend only some items, build the link yourself as %s/cart/ "
+                            + "followed by each chosen product's cartToken joined by commas.",
+                            lotItems, storeUrl, lot, storeUrl));
+                    }
+
                     log.info("Returning {} in-stock products out of {} total", inStockCount, totalFound);
                     return (JsonNode) response;
                 })
@@ -161,6 +182,7 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
 
             // Check if ANY variant has inventory (preorder products always qualify)
             boolean hasInventory = false;
+            String primaryVariantId = null; // first purchasable variant → represents this product in "add all to cart"
             ArrayNode variantsArray = objectMapper.createArrayNode();
 
             for (Map<String, Object> variantEdge : variantEdges) {
@@ -182,6 +204,9 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
 
                     // Extract numeric variant ID from GraphQL ID (gid://shopify/ProductVariant/12345)
                     String numericVariantId = extractNumericId(variantId);
+                    if (primaryVariantId == null && !numericVariantId.isEmpty()) {
+                        primaryVariantId = numericVariantId;
+                    }
 
                     variantJson.put("title", variantTitle);
                     variantJson.put("sku", sku != null ? sku : "");
@@ -216,6 +241,11 @@ public class GetInStockProductsWithLinksToolHandler implements ToolHandler {
                         "Available to preorder now — present enthusiastically with the Add to Cart link; do NOT say out of stock.");
             }
             productJson.set("variants", variantsArray);
+
+            // Cart token for the combined "add all to cart" permalink (1 of this product's primary variant).
+            if (primaryVariantId != null && !primaryVariantId.isEmpty()) {
+                productJson.put("cartToken", primaryVariantId + ":1");
+            }
 
             // Add primary image if available
             if (productNode.containsKey("images")) {

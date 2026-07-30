@@ -72,7 +72,14 @@ public class AgentDelegationToolHandler implements ToolHandler {
                         "\n\nIMPORTANT: You MUST search for and include real product recommendations " +
                         "with prices and Add to Cart links in your response. You can ask ONE brief " +
                         "clarifying question alongside the products, but NEVER respond with only " +
-                        "questions and no products. Show products first, refine later.";
+                        "questions and no products. Show products first, refine later." +
+                        "\n\nWhenever you recommend more than one product (e.g. a shopping list or starter kit), " +
+                        "you MUST also end your reply with a single combined \"Add all to cart\" link so the " +
+                        "customer can buy the whole list in one click. Build it by joining every recommended " +
+                        "product's variant into ONE Shopify cart permalink, using the same store domain as your " +
+                        "individual product links, in the form /cart/VARIANTID:1,VARIANTID:1,... " +
+                        "(comma-separated, quantity 1 each), and present it as a markdown link: " +
+                        "[🛒 Add all to cart](that URL).";
 
                     ObjectNode agentInput = objectMapper.createObjectNode();
                     agentInput.put("task", enrichedTask);

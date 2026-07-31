@@ -764,7 +764,8 @@ public class ChatAgentService {
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
                     basePrompt = prompt.getPromptText();
-                    return basePrompt + buildLinkInstructions(config) + buildBatchSearchGuidance() + buildPreorderInstructions();
+                    return basePrompt + buildLinkInstructions(config) + buildBatchSearchGuidance()
+                            + buildStarterKitSummaryGuidance() + buildPreorderInstructions();
                 }
             } catch (Exception e) {
                 logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
@@ -830,6 +831,25 @@ public class ChatAgentService {
                 + "search_products repeatedly).\n"
                 + "Each item is still checked/searched individually and precisely — batching is only faster and "
                 + "does NOT change the results. Present everything with the same links and formatting rules as always.\n";
+    }
+
+    /**
+     * Guidance to end MULTI-PRODUCT answers with a short beginner summary + a one-click bundle offer.
+     * Applies only when several products are recommended (a kit/set/bundle); leaves single-product
+     * answers lean. The "bundle" is the existing combined "Add all to cart" link — no new mechanism.
+     */
+    private String buildStarterKitSummaryGuidance() {
+        return "\n\n=== CLOSING SUMMARY & BUNDLE OFFER (multiple products only) ===\n"
+                + "ONLY when you have recommended MORE THAN ONE product (a starter kit, set, shopping list, or "
+                + "bundle), finish your reply with these two short things (skip this entirely for single-product "
+                + "answers — keep those lean):\n"
+                + "1. A brief \"📋 Quick Summary\" — list the recommended items in a sensible order for the product "
+                + "type (e.g. for models: build → prime → paint → finish; adapt for other categories) in plain, "
+                + "scannable language. A few lines, not a wall of text.\n"
+                + "2. A friendly BUNDLE OFFER: invite the customer to add the whole combo in one click using the "
+                + "SAME combined \"Add all to cart\" link from the link rules above, give an approximate total, and "
+                + "ask if they'd like it added (e.g. \"Want me to drop this whole starter combo in your cart? 🛒\").\n"
+                + "Keep it genuinely helpful and enthusiastic, never pushy. Do NOT invent discounts.\n";
     }
 
     /**
@@ -1066,6 +1086,7 @@ public class ChatAgentService {
         prompt.append("Always use the right tool for the job. Search before recommending. Never make up products.");
 
         prompt.append(buildBatchSearchGuidance());
+        prompt.append(buildStarterKitSummaryGuidance());
         prompt.append(buildPreorderInstructions());
 
         return prompt.toString();

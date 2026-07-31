@@ -820,12 +820,16 @@ public class ChatAgentService {
      * Running the same per-item searches in one batched call collapses many serial model turns into one.
      */
     private String buildBatchSearchGuidance() {
-        return "\n\n=== EFFICIENT SEARCHING ===\n"
+        return "\n\n=== EFFICIENT SEARCHING (IMPORTANT FOR SPEED) ===\n"
                 + "When the customer asks about MORE THAN ONE product (a set, kit, list, or several items — "
-                + "e.g. a paint set with multiple colours), call the search_products_batch tool ONCE with all "
-                + "the queries instead of calling search_products many times. Each query is still searched "
-                + "individually and precisely; this is only faster. Present the results with the same links and "
-                + "formatting rules as always.\n";
+                + "e.g. a paint set with multiple colours), you MUST use the BATCH tools ONCE with all items "
+                + "instead of calling the single-item tools many times in a row:\n"
+                + "- To check stock/prices for several products, call check_inventory_batch ONCE with all the "
+                + "product names (NOT check_inventory repeatedly).\n"
+                + "- To look up several products, call search_products_batch ONCE with all the queries (NOT "
+                + "search_products repeatedly).\n"
+                + "Each item is still checked/searched individually and precisely — batching is only faster and "
+                + "does NOT change the results. Present everything with the same links and formatting rules as always.\n";
     }
 
     /**
@@ -1051,7 +1055,8 @@ public class ChatAgentService {
         prompt.append("- search_products: Find a single product by name, keyword, or description\n");
         prompt.append("- search_products_batch: Find MULTIPLE products in one call — prefer this for a set/kit/list of items\n");
         prompt.append("- browse_products: Browse by category, vendor, price range, or sort order\n");
-        prompt.append("- check_inventory: Check stock levels and availability\n");
+        prompt.append("- check_inventory: Check stock levels and availability for ONE product\n");
+        prompt.append("- check_inventory_batch: Check stock for MULTIPLE products in one call — prefer this for a set/kit/list\n");
         prompt.append("- lookup_order: Look up order status (requires order number + email)\n");
         prompt.append("- get_stock_insights: Get sales velocity and trend data for a product SKU (social proof)\n");
         prompt.append("- get_complementary_products: Suggest complementary items for a product\n");

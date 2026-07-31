@@ -764,7 +764,7 @@ public class ChatAgentService {
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
                     basePrompt = prompt.getPromptText();
-                    return basePrompt + buildLinkInstructions(config) + buildPreorderInstructions();
+                    return basePrompt + buildLinkInstructions(config) + buildBatchSearchGuidance() + buildPreorderInstructions();
                 }
             } catch (Exception e) {
                 logger.warn("Failed to load dynamic prompt, falling back to default: {}", e.getMessage());
@@ -812,6 +812,20 @@ public class ChatAgentService {
         }
 
         return instructions.toString();
+    }
+
+    /**
+     * Guidance to prefer the batch search tool for multi-product asks. This steers TOOL SELECTION
+     * only — it does NOT change any display/format rule (those live in buildLinkInstructions).
+     * Running the same per-item searches in one batched call collapses many serial model turns into one.
+     */
+    private String buildBatchSearchGuidance() {
+        return "\n\n=== EFFICIENT SEARCHING ===\n"
+                + "When the customer asks about MORE THAN ONE product (a set, kit, list, or several items — "
+                + "e.g. a paint set with multiple colours), call the search_products_batch tool ONCE with all "
+                + "the queries instead of calling search_products many times. Each query is still searched "
+                + "individually and precisely; this is only faster. Present the results with the same links and "
+                + "formatting rules as always.\n";
     }
 
     /**
@@ -1034,7 +1048,8 @@ public class ChatAgentService {
 
         // Final reminder with all tools
         prompt.append("=== TOOL USAGE SUMMARY ===\n");
-        prompt.append("- search_products: Find specific products by name, keyword, or description\n");
+        prompt.append("- search_products: Find a single product by name, keyword, or description\n");
+        prompt.append("- search_products_batch: Find MULTIPLE products in one call — prefer this for a set/kit/list of items\n");
         prompt.append("- browse_products: Browse by category, vendor, price range, or sort order\n");
         prompt.append("- check_inventory: Check stock levels and availability\n");
         prompt.append("- lookup_order: Look up order status (requires order number + email)\n");
@@ -1045,6 +1060,7 @@ public class ChatAgentService {
         prompt.append("- compare_products: Compare 2-3 products side by side\n");
         prompt.append("Always use the right tool for the job. Search before recommending. Never make up products.");
 
+        prompt.append(buildBatchSearchGuidance());
         prompt.append(buildPreorderInstructions());
 
         return prompt.toString();

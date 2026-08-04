@@ -1,0 +1,191 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3.-110-Off-Road-RC-RTR-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "c64541c4-a289-448e-960a-c8a0af86a3d7": {
+      "type": "custom-html",
+      "settings": {
+        "title": "1/10 Off-Road RC Cars & Trucks (RTR)",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nOne of the most popular types of RC car and truck on the market today are 1/10 Off-Road Cars and Trucks which are Ready to Run (RTR).  Whether you want to go off-road racing at one of the great RC race tracks around Australia or you just want to have fun driving along dirt roads or climbing hills then this is a great option to choose.  An added advantage of 1/10 RC cars and trucks is that you will generally find plenty of spare parts available to repair or upgrade your car if you need to. At Hearns Hobbies we can help you with most of these spare parts to keep your car running the way you want.We provide a range of brands and options to choose from to ensure you get the RC car you want.<br><br>You can choose between Brushed &amp; Brushless options for many of these cars &amp; trucks.  For options available for each of these click on the option you prefer below.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "1644e55d-67c9-481e-bbef-0ccf35b965b4": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Brushed-110-Off-Road.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/brushed-1-10-off-road-cars-trucks-rtr"
+          }
+        },
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Brushless-110-Off-Road.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/brushless-1-10-off-road-cars-trucks-rtr"
+          }
+        }
+      },
+      "block_order": [
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-0",
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 255px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -60px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 200px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 150px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "logo_list_wB36yX": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_2_760fefc5-99b5-414a-9314-abb588363c4e.jpg",
+            "title": "Traxxas",
+            "link": "shopify://collections/traxxas-1-10th-off-road-cars"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_2_b93182a9-7b05-4ab0-8978-94853638d857.jpg",
+            "title": "VRX",
+            "link": "shopify://collections/vrx-1-10-off-road"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_1.jpg",
+            "title": "FS Racing",
+            "link": "shopify://collections/fs-racing-1-10-off-road"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Radio_Control-13.png",
+            "title": "Arrma",
+            "link": "shopify://collections/arrma-rc-cars"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-0",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-1",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-2",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-3"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "c64541c4-a289-448e-960a-c8a0af86a3d7",
+    "1644e55d-67c9-481e-bbef-0ccf35b965b4",
+    "logo_list_wB36yX",
+    "main"
+  ]
+}

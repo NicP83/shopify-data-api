@@ -1,0 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "4d991376-02c2-497a-ae4b-0aef20ab7dd4": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15912733180065__4d991376-02c2-497a-ae4b-0aef20ab7dd4-166597198977f86acc-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/HR1-Sign-Up-Form.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15912733180065__4d991376-02c2-497a-ae4b-0aef20ab7dd4-166597198977f86acc-0"
+      ],
+      "custom_css": [],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_BdnTpV": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-bottom: -90px; padding-bottom: 0;}",
+        ".heading {color: #ff4713; text-transform: uppercase;}",
+        "@media (max-width: 768px) {.container {padding: 0 10px; }}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Join the HR1 WORKS Family!",
+        "content": "<h3>Unlock Exclusive Content and more.</h3><p>Subscribe now and get:<br/>📘 FREE Download of the Latest HR1 Manual!<br/>✨ Access to Exclusive Items</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "5f2a4706-234e-4869-9adf-51fcf812529b": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {padding-top: 0; margin-top: -60px;}"
+      ],
+      "settings": {
+        "title": "",
+        "html": "<div class=\"klaviyo-form-TW3drF\"></div>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "4d991376-02c2-497a-ae4b-0aef20ab7dd4",
+    "rich_text_BdnTpV",
+    "5f2a4706-234e-4869-9adf-51fcf812529b"
+  ]
+}

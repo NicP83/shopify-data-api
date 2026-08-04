@@ -1,0 +1,263 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/New-Model-Railway-Banners.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/auscision"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/scenery-figures.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/scenery-figures"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 250px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin: -50px auto;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 180px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 140px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-bottom: -40px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "9c7ac759-9117-4a53-9cd7-a5489a6fbce9": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_3d40b5d9-04ba-44aa-ba68-80d5e671bdcd.png",
+            "title": "Locomotives & Train Sets",
+            "link": "shopify://collections/locomotives-sets"
+          }
+        },
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_470ba02d-1cb3-4ccb-ab18-d30fcee9aeb1.png",
+            "title": "Rolling Stock",
+            "link": "shopify://collections/rolling-stock"
+          }
+        },
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_0a50f765-2519-4ad3-9de8-6e3c1605f1f3.png",
+            "title": "Scenery",
+            "link": "shopify://collections/scenery-railway"
+          }
+        },
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_e4058dc6-7dfa-48ac-89d1-74df010872d3.png",
+            "title": "Track & Accessories",
+            "link": "shopify://collections/track-accessories"
+          }
+        },
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_3eb55632-497e-44d4-809b-a0fc42128950.png",
+            "title": "Railway Tools & Maintenance",
+            "link": "shopify://collections/railway-tools-maintenance"
+          }
+        },
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6_1efff4d4-6ddf-4f17-bb13-5f7e9d0b56b2.png",
+            "title": "DCC Systems & Decoders",
+            "link": "shopify://collections/digital-systems-decoders-nce-controllers"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-1",
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-2",
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-3",
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-4",
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-5",
+        "template--16346399113377__9c7ac759-9117-4a53-9cd7-a5489a6fbce9-logo-6"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin-top: -5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "model-railway",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "1658858609f2993c42": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "blog": "model-kits",
+        "blog_posts_count": 3,
+        "title": "Latest Model Kits Blogs",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "1658858696834f4ede": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+      }
+    },
+    "rich_text_4MRcWG": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><strong>TRAIN SETS, INDIVIDUAL LOCOMOTIVES, ROLLING STOCK & MORE!</strong></p><p>HEARNS HOBBIES has, for the longest time, been recognised as \"the train shop\" partly due to where we are located (under Flinders St Station), and also for having one of the widest selections of <a href=\"https://www.hearnshobbies.com/collections/locomotives\" target=\"_blank\">locomotives</a>, <a href=\"https://www.hearnshobbies.com/collections/rolling-stock\" target=\"_blank\">rolling stock</a> and various <a href=\"https://www.hearnshobbies.com/collections/track-accessories\" target=\"_blank\">track accessories</a> (and more) in Melbourne! Our train hobbyist professionals will be able to help you from your largest projects to your smallest of problems you need help solving, and can help recommend the best product for your budget and needs.</p><p>We are leading supplier for hobbies in Melbourne and in Australia since 1947; since then we have been committed to bringing into Australia the locomotives, train sets, and everything in between to help you build the perfect collection, working diorama, or finding a special gift!<br/><br/>Key brands and leading manufacturer of our trains include: <a href=\"https://www.hearnshobbies.com/collections/bachmann\" target=\"_blank\">Bachmann</a>, <a href=\"https://www.hearnshobbies.com/collections/hornby\" target=\"_blank\">Hornby</a>, <a href=\"https://www.hearnshobbies.com/collections/graham-farish\" target=\"_blank\">Graham Farish</a>, <a href=\"https://www.hearnshobbies.com/collections/auscision\" target=\"_blank\">Auscision Models</a> and many more.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is the difference between HO and OO?",
+            "answer": "<p>Half O scale models are 1:87th scale, also known as 3.5mm scale. On the model, 3.5mm equals 1 foot (12 inches) on the prototype or full-size item and travels on 16.5mm track. While the OO scale is commonly used for models of British prototypes, they are 1:76th scale, or 4mm to the foot. The trains continue to run on the same 16.5 mm gauge track as HO models.</p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "Which scale should I choose to model Australian trains?",
+            "answer": "<p>Australian models are in HO scale, which is equivalent to 1/87 scale. This scale is also popular in the United States and Europe. The traditional Peco Code 100 track is an excellent place to begin.</p>"
+          }
+        },
+        "1658930183f010c50f-3": {
+          "type": "question",
+          "settings": {
+            "title": "Which scale should I choose to model British trains?",
+            "answer": "<p>British models are in OO scale, which is 1/76 scale. Brands like Bachman Branchline have a range of model trains and accessories in this scale, while the traditional Peco Code 100 track is a perfect starting point.</p>"
+          }
+        },
+        "1f47c62a-a824-4314-9b90-fe68a1b71627": {
+          "type": "question",
+          "settings": {
+            "title": "What product should I choose for scenery?",
+            "answer": "<p><span style=\"text-decoration:underline\">Woodland Scenics</span> have slowly grown to become one of the biggest and most well known manufacturers of Scenic products, such as, Model Railway, Grasses, HO Scale Buildings, N Scale Buildings, Rocks/Terrain, Trees, and much more!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2",
+        "1658930183f010c50f-3",
+        "1f47c62a-a824-4314-9b90-fe68a1b71627"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "16588471730e4c2da8",
+    "main",
+    "9c7ac759-9117-4a53-9cd7-a5489a6fbce9",
+    "165885854594d3994d",
+    "1658858609f2993c42",
+    "1658858696834f4ede",
+    "rich_text_4MRcWG",
+    "165893018363e32eb5"
+  ]
+}

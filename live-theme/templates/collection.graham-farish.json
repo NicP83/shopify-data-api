@@ -1,0 +1,156 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Graham-Farish-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_DLXqqN": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Graham Farish",
+        "content": "<p>Graham Farish is one of the top manufacturers of N Gauge models in the model railway hobby. Graham Farish produce locomotives, rolling stock and scenery for the N gauge market. See what we have in stock at Hearns Hobbies today!</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_RyfwNR": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train-Sets_705e359a-e71b-41cc-a48d-ed7ffbe1477f.jpg",
+            "title": "Train Sets",
+            "link": "shopify://collections/graham-farish-train-sets"
+          }
+        },
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Locomotives_bd77a305-7dc0-4596-a1cf-f96421f9b8a8.jpg",
+            "title": "Locomotives",
+            "link": "shopify://collections/graham-farish-locomotives"
+          }
+        },
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rolling-Stock.jpg",
+            "title": "Rolling Stock",
+            "link": "shopify://collections/graham-farish-rolling-stock"
+          }
+        },
+        "5a6c84cd-6919-4ae3-9907-aad0b3eb4cc7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Buildings_1dc7f324-d7e3-48b1-9a80-4a91a6680e69.jpg",
+            "title": "Buildings",
+            "link": "shopify://collections/scenecraft-n-buildings"
+          }
+        },
+        "7656d87f-d7d6-4634-8eb6-ad9c3e03f14e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Figures.jpg",
+            "title": "Figures",
+            "link": "shopify://collections/scenecraft-n-figures"
+          }
+        },
+        "fc03693e-01b2-4a0e-be0f-3d2db87a8f61": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tracks-_-Accessories.jpg",
+            "title": "Track & Accessories",
+            "link": "shopify://collections/graham-farish-track-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-0",
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-1",
+        "template--16114695798945__c4e5ca84-d647-41b1-8839-e942f0d1424a-168838626244b09c3f-2",
+        "5a6c84cd-6919-4ae3-9907-aad0b3eb4cc7",
+        "7656d87f-d7d6-4634-8eb6-ad9c3e03f14e",
+        "fc03693e-01b2-4a0e-be0f-3d2db87a8f61"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 100px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "rich_text_DLXqqN",
+    "logo_list_RyfwNR",
+    "main"
+  ]
+}

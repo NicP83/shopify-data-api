@@ -1,0 +1,238 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "1658504690bc01d78d": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {width: 100%;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/pf-481fe4f0--hearnbjk1000_490x_7accda12-3987-4e9b-b0ed-9e02b1498f89.jpg",
+        "image_position": "right",
+        "image_width": 50,
+        "title": "",
+        "content": "<p>Shortly after WWII, Hearns Hobbies was initially opened by 2 of the 3 Hearns brothers Jack & Keith, later being joined by their youngest brother Bruce—three pilots starting out with a small collection of model kits and a dream to share their passion with others.<br/><br/>This passion stemmed from their father Jack Hearn who had been a pilot in WWI which just so happened to have an interest in aviation and aero-modelling, because of this, the same interests rubbed off on the brothers.<br/><br/>Hearns Hobbies grew over the years to become one of the best-known and most highly respected hobby houses in Australia.<br/><br/>Proudly serving customers for over sixty years. With expert knowledge and outstanding customer service, Hearns Hobbies is Still open today, stocking a wide range of brands and goods for all types of hobby enthusiasts.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "16585053298f51c64a": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Hearns Hobbies - From Then to Now",
+        "content": "<p>Between 1930 - 1940, the brothers had joined the RAAF (Royal Australian Air Force) joining in the efforts as pilots during WWII. Prior to the end of the war Jack and Keith had conversed about establishing a business in making model aircraft kits as they both had experience in the hobby trade, and once hostilities in the war had settled and over the following years which were filled with further volunteer works, military and civil works, the brothers joined forces to make their dream of making model aircraft kits and opening their store in 1947 which from there on was known as \"<a href=\"https://www.hearnshobbies.com/\"><strong>HEARNS HOBBIES</strong></a>\".<br/><br/>From those pioneering days to now, <a href=\"https://www.hearnshobbies.com/\"><strong>Hearns Hobbies</strong></a> still holds that entrepreneurial spirit, intertwined with the pure passion of \"The Hobby\". Along with the realization of the  in-house manufacturing and design branch <a href=\"https://www.hearnshobbies.com/pages/hearns-workshop\" target=\"_self\"><strong>HEARNS WORKSHOP</strong></a>. This reigniting the idea of \"Australian Made\" products to each fellow Australian Enthusiast and Consumer alike, thus keeping the brothers original intent of \"self made at Hearns\" in-tact as an ode to their legacy.<br/></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "1658508060212f9728": {
+      "type": "mosaic",
+      "blocks": {
+        "16585080606c910e68-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-e207a29d--Shop19301955_500x_816bd162-7648-4cfe-b6a3-5ddc9e9e0bcb.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "link": ""
+          }
+        },
+        "16585080606c910e68-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-cbe207a2--Shop2020_500x_88d45e1f-4bc0-4cd9-a723-0193f97b3b68.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16585080606c910e68-0",
+        "16585080606c910e68-1"
+      ],
+      "settings": {
+        "section_size": "large"
+      }
+    },
+    "1658505944532c905f": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Leading Into The Future",
+        "content": "<p>We at Hearns Hobbies still hold the same ideals and philosophies as the original Hearns Brothers did, so when leading into the future we are embracing (now more than ever) the advancements of modern technology, social media, and greater connectivity between our fans, clients, consumers and everyone in between!<br/><br/>With the ever greater need for our fans to converse and interact with us and in turn us with our fans, we have adopted this in the form of weekly live streams, making ever more easier for everyone to see whats new in-store, find out more about individual products, or even ask a question that they have had on their mind for a while.<br/><br/>We also want to give our fans and consumers (along with our clients) the chance to learn and work with us, which is also what encouraged us to create video based content on such platforms like Youtube, Facebook, and Instagram of content such as:</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "1658506246e86f1d68": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><strong>Tutorial focused videos to learn the tricks of the hobby trade</strong></p><p><strong>Unboxing videos to give you an inside look at the product so you know before you buy</strong></p><p><strong>Occasional update videos to keep you in the know</strong></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165902454278e23f8e": {
+      "type": "logo-list",
+      "blocks": {
+        "16590245427d30c943-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Hearns_Old_Logo_1.png",
+            "title": "",
+            "link": ""
+          }
+        },
+        "16590245427d30c943-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/HH2020Logo-ICON-BrnCrm.jpg",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16590245427d30c943-0",
+        "16590245427d30c943-1"
+      ],
+      "custom_css": [
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {box-shadow: none; padding: 0px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".quick-links__image-container {margin-top: 0;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "1658506581be535d77": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p>In addition to this as of 2020, Hearns Hobbies has begun its internal manufacturing (<a href=\"https://www.hearnshobbies.com/pages/hearns-workshop\"><strong>HEARNS WORKSHOP</strong></a>) of Resin Models and Parts in-house in a similar fashion like the Hearn Brothers before us. Even partnering with other Australian Businesses like <a href=\"https://www.hearnshobbies.com/pages/ninesteps-industries\"><strong>NINESTEPS INDUSTRIES</strong></a>, another Australian oriented business.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165902431319cd1741": {
+      "type": "logo-list",
+      "blocks": {
+        "1659024313fb871348-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/9Si-Banner.jpg",
+            "title": "",
+            "link": "shopify://pages/ninesteps-industries"
+          }
+        },
+        "1659024313fb871348-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/tamiya-logo.jpg",
+            "title": "",
+            "link": "shopify://pages/tamiya"
+          }
+        },
+        "1659024313fb871348-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/pf-5ccb059c--HWSBrandRGBwebresize_450x_bb4f2a60-0525-499e-942c-e115bf6a8ba7.jpg",
+            "title": "",
+            "link": "shopify://pages/hearns-workshop"
+          }
+        },
+        "1659024313fb871348-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Logo-Vector.svg_992eefda-53c6-4ad2-ad93-429501268723.png",
+            "title": "",
+            "link": "shopify://collections/yokomo-australia"
+          }
+        }
+      },
+      "block_order": [
+        "1659024313fb871348-0",
+        "1659024313fb871348-1",
+        "1659024313fb871348-2",
+        "1659024313fb871348-3"
+      ],
+      "custom_css": [
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {box-shadow: none; padding: 0px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".quick-links__image-container {margin-top: 0;}"
+      ],
+      "settings": {
+        "title": "Top Brands",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "165850797396ba7580": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "educational",
+        "blog_posts_count": 3,
+        "title": "Blog posts",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1658504690bc01d78d",
+    "16585053298f51c64a",
+    "1658508060212f9728",
+    "1658505944532c905f",
+    "1658506246e86f1d68",
+    "165902454278e23f8e",
+    "1658506581be535d77",
+    "165902431319cd1741",
+    "165850797396ba7580"
+  ]
+}

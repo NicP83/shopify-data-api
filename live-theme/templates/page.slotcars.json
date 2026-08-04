@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_64m9c9": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Slot Cars",
+        "content": "<p><a href=\"https://hearnshobbies.myshopify.com/collections/slot-cars\">Slot cars</a> are an excellent choice for both beginner and advanced hobbyists. It is a thrilling, interactive hobby for car enthusiasts and anyone who enjoys speed and competition. We have top-notch slot car brands at <a href=\"https://hearnshobbies.com\">Hearns Hobbies</a>, such as <a href=\"https://hearnshobbies.myshopify.com/collections/carrera\">Carrera</a>, which is more popular with younger racers, and <a href=\"https://hearnshobbies.myshopify.com/collections/scalextric\">Scalextric</a>, which is popular with older racers.<br/><br/>Choose from a huge selection of slot cars! We stock a wide range of vehicles for the everyday driver, club racers, builders, and collectors.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_JAMiWd": {
+      "type": "logo-list",
+      "blocks": {
+        "1658857136aaddd98f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/11.png",
+            "title": "Scalextric",
+            "link": "shopify://collections/scalextric"
+          }
+        },
+        "1658857136aaddd98f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/13.png",
+            "title": "SCX",
+            "link": "shopify://collections/scx"
+          }
+        },
+        "b7da52db-009a-46ce-8ef4-bfa6e77c4e02": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/14.png",
+            "title": "Track",
+            "link": "https://www.hearnshobbies.com/collections/slot-cars/track-accessories"
+          }
+        },
+        "cc4c889f-640f-4982-86ad-c1a76aff6e59": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/15.png",
+            "title": "Sets",
+            "link": "https://www.hearnshobbies.com/collections/slot-cars/slot-car-sets"
+          }
+        },
+        "3afc244c-8f8b-48cd-9d28-91aa32077479": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/16.png",
+            "title": "Cars",
+            "link": "https://www.hearnshobbies.com/collections/slot-cars/cars"
+          }
+        }
+      },
+      "block_order": [
+        "1658857136aaddd98f-0",
+        "1658857136aaddd98f-2",
+        "b7da52db-009a-46ce-8ef4-bfa6e77c4e02",
+        "cc4c889f-640f-4982-86ad-c1a76aff6e59",
+        "3afc244c-8f8b-48cd-9d28-91aa32077479"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 180px; }}",
+        "@media (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 120px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "slot-cars",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What are slot cars?",
+            "answer": "<p>Slot cars are one of the oldest hobbies, which consist of little cars with a front guide running along a preset track. The driver has to control the speed to go as fast as possible without flipping out of the track. Traditional analog tracks allow one car per lane.</p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "How can I maintain my slot cars?",
+            "answer": "<p>The most important aspect of the maintenance is dusting the cars and replacing the contacts braids. Get the scalextric braids <a href=\"https://www.hearnshobbies.com/products/scalextric-braid-pack-6?_pos=1&_sid=887d49bf3&_ss=r\"><span style=\"text-decoration:underline\">here</span></a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_64m9c9",
+    "logo_list_JAMiWd",
+    "165885854594d3994d",
+    "165893018363e32eb5"
+  ]
+}

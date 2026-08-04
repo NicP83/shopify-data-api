@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "01bd86b6-9041-4414-9aba-561cd65038d1": {
+          "type": "featured_posts",
+          "settings": {
+            "title": "Popular posts",
+            "show_ranking": true,
+            "show_category": false,
+            "show_date": true,
+            "article_1": "news/top-3-types-of-chrome-paint",
+            "article_2": "educational/flying-rc-planes-for-the-first-time-and-picking-your-first-rc-plane",
+            "article_3": "educational/the-best-jigsaw-puzzles-of-melbourne",
+            "article_4": "",
+            "article_5": ""
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Join Us",
+            "content": "<p>Subscribe to our Newsletter for <strong>News</strong>, <strong>Promotions</strong>, <strong>Product updates </strong>and <strong>MORE</strong>!</p>",
+            "subtext": "100% free, Unsubscribe any time!",
+            "background": "#25140a",
+            "text": "#ffffff"
+          }
+        },
+        "social-media": {
+          "type": "social_media",
+          "settings": {
+            "title": "Follow us",
+            "show_rss": true
+          }
+        }
+      },
+      "block_order": [
+        "01bd86b6-9041-4414-9aba-561cd65038d1",
+        "newsletter",
+        "social-media"
+      ],
+      "settings": {
+        "articles_per_page": 12,
+        "highlight_first_article": true,
+        "show_tags": false,
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,264 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya-Paints-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "2415cb4b-13d8-4b32-bfa6-ffd53adfa542": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Tamiya Paints",
+        "content": "<p>Tamiya's main goal is to offer the world the most rewarding modeling experience possible. </p><p>This is our full listing of all Tamiya Paints such as: Lacquer, Acrylic, Enamel, along with Primers, and sealants.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "5b826f43-bb5f-493d-92ca-9df01115210c": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Acrylics.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-acrylic-paints"
+          }
+        },
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Lacquers.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-lacquer-paints"
+          }
+        },
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Enamels.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-enamel-paints"
+          }
+        },
+        "4e091b25-4b9c-46ae-ad85-b60849c91b7e": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/RC-Spray-Paints.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-rc-spray-paints"
+          }
+        },
+        "e9e7c06c-f954-4f01-866d-7a87d493231b": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Model--Spray-Paint.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-model-spray-paint"
+          }
+        },
+        "e08ea0a1-1304-4a1c-b1e5-e7a52ec4a47a": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Primers.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-primers"
+          }
+        },
+        "40d877ec-7f87-4267-af02-bda3e6b5641c": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Weathering.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-weathering-paint"
+          }
+        },
+        "a97dabe7-d480-46e6-a769-d46f2e41a057": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Washes.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-washes"
+          }
+        }
+      },
+      "block_order": [
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-0",
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-1",
+        "template--16121491423393__5b826f43-bb5f-493d-92ca-9df01115210c-1689606300bbbe9f63-2",
+        "4e091b25-4b9c-46ae-ad85-b60849c91b7e",
+        "e9e7c06c-f954-4f01-866d-7a87d493231b",
+        "e08ea0a1-1304-4a1c-b1e5-e7a52ec4a47a",
+        "40d877ec-7f87-4267-af02-bda3e6b5641c",
+        "a97dabe7-d480-46e6-a769-d46f2e41a057"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 768px) {.promo-block {min-height: 60px !important; } .block-list {flex-flow: row wrap; } .block-list__item {width: 25% !important; } .container {margin-top: -30px; margin-bottom: -30px; }}",
+        ".block-list__item {width: 25%;}",
+        ".promo-block {min-height: 200px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "medium",
+        "stack_mobile": true
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "2415cb4b-13d8-4b32-bfa6-ffd53adfa542",
+    "5b826f43-bb5f-493d-92ca-9df01115210c",
+    "main",
+    "recently-viewed-products"
+  ]
+}

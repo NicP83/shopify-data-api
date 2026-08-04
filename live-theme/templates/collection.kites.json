@@ -1,0 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "16643784384d2a6334": {
+      "type": "faq",
+      "blocks": {
+        "16643784382605f677-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "16643784382605f677-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is a kite?",
+            "answer": "<p>A kite is a large paper or cloth toy that is flown in the wind. Kites have been flown for centuries and are still popular today. Some kites are designed to look like animals or birds, while others are designed to perform stunts in the air.</p>"
+          }
+        },
+        "16643784382605f677-2": {
+          "type": "question",
+          "settings": {
+            "title": "How much does a kite need?",
+            "answer": "<p>Signle line kits are design to fly with minimal wind. Those often can be smaller in size and quite simple and therefore aimed for kids.</p><p>Dual line kits, also called Stunt Kites, will need medium to strong wind to fly properly. Those are aimed to a more adult and experienced users.</p>"
+          }
+        },
+        "16643784382605f677-3": {
+          "type": "question",
+          "settings": {
+            "title": "How much is a kite?",
+            "answer": "<p>Kites are relatively inexpensive; The kits are for sale from $19.99 upwards with a great selection around the $50 mark.</p>"
+          }
+        },
+        "16643784382605f677-5": {
+          "type": "question",
+          "settings": {
+            "title": "Can I repair my kite?",
+            "answer": "<p>As anything that fly they can break however most times they can be fixed. Hearns Hobbies stocks parts to fix you kite.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "16643784382605f677-0",
+        "16643784382605f677-1",
+        "16643784382605f677-2",
+        "16643784382605f677-3",
+        "16643784382605f677-5"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recently-viewed-products",
+    "16643784384d2a6334"
+  ]
+}

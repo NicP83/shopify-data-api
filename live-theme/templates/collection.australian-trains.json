@@ -1,0 +1,278 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Australian-Model-Railways_2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "c64541c4-a289-448e-960a-c8a0af86a3d7": {
+      "type": "custom-html",
+      "custom_css": [
+        "@media (max-width: 768px) {.expandable-content[aria-expanded] {max-height: 150px; }}",
+        " .container {margin: -30px auto;}",
+        ".expandable-content[aria-expanded] {max-height: 120px;"
+      ],
+      "settings": {
+        "title": "Australian Model Railways",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nAre you looking to set up your own ideal Australian-themed model railway layout?  These days you are no longer restricted to having to replicate model railways from the UK, USA, Europe or Japan, you can now easily create your own little piece of Australia.  Whether you are keen on reliving your experiences living or growing up in a particular state or you just want to create something which is typically Australian in look and feel then we have a great range of products which will allow you to do just that.<br><br>\nAt Hearns Hobbies we source great model railway products from all over the country which will help you to create your own uniquely Australian layout.  You will find Australian locomotives and rolling stock which accurately replicate the models of days gone by through to current day models.  You will also find scenery products which are uniquely Australian as well as products which will represent particular states or regions.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "logo_list_kYRkrh": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.png",
+            "title": "Locomotives",
+            "link": "shopify://collections/all-australian-locomotives"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train_Sets-01.png",
+            "title": "Passenger Cars",
+            "link": "shopify://collections/australian-passenger"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Freight_Cars.png",
+            "title": "Freight Cars",
+            "link": "shopify://collections/australian-freight"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_0a50f765-2519-4ad3-9de8-6e3c1605f1f3.png",
+            "title": "Scenery",
+            "link": "shopify://collections/scenery-railway"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Vehicles_1.png",
+            "title": "Vehicles",
+            "link": "shopify://collections/australian-railway-vehicles"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Trams.png",
+            "title": "Trams",
+            "link": "shopify://collections/trams"
+          }
+        },
+        "a9017460-dcdd-4eaf-9916-72afe760f1ab": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Light_Crossings.png",
+            "title": "Lights & Crossings",
+            "link": "shopify://collections/australian-lights-crossings"
+          }
+        },
+        "5c1b1124-c2df-451c-aa62-14f951677ccf": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories_1.png",
+            "title": "Accessories",
+            "link": "shopify://collections/australian-railway-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-0",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-1",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-2",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-3",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-4",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-5",
+        "a9017460-dcdd-4eaf-9916-72afe760f1ab",
+        "5c1b1124-c2df-451c-aa62-14f951677ccf"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -50px; margin-bottom: -40px; } img {width: 150px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "71b03695-8ed5-415d-a9d0-1ca787cca158": {
+      "type": "quick-links",
+      "blocks": {
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-0": {
+          "type": "link",
+          "settings": {
+            "title": "Victoria",
+            "link": "shopify://collections/victorian-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-1": {
+          "type": "link",
+          "settings": {
+            "title": "NSW",
+            "link": "shopify://collections/nsw-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-2": {
+          "type": "link",
+          "settings": {
+            "title": "Queensland",
+            "link": "shopify://collections/queensland-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-3": {
+          "type": "link",
+          "settings": {
+            "title": "Sth Aust",
+            "link": "shopify://collections/south-australia-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-4": {
+          "type": "link",
+          "settings": {
+            "title": "West Aust",
+            "link": "shopify://collections/western-australia-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-5": {
+          "type": "link",
+          "settings": {
+            "title": "Tasmania",
+            "link": "shopify://collections/tasmanian-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "8b6fb933-9154-4dcd-b494-ea05f3ac2ab6": {
+          "type": "link",
+          "settings": {
+            "title": "National",
+            "link": "shopify://collections/national-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-0",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-1",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-2",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-3",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-4",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-5",
+        "8b6fb933-9154-4dcd-b494-ea05f3ac2ab6"
+      ],
+      "custom_css": [
+        ".quick-links__link {border: 1px solid var(--border-color); width: 33.33%; padding: 10px 5px;}",
+        "@media (min-width: 769px) {.quick-links__link {width: 14.285%; }}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "featured_collection_A4yarg": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "collection": "hws-railway",
+        "title": "HWS Railway",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": false,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "c64541c4-a289-448e-960a-c8a0af86a3d7",
+    "logo_list_kYRkrh",
+    "71b03695-8ed5-415d-a9d0-1ca787cca158",
+    "featured_collection_A4yarg",
+    "main"
+  ]
+}

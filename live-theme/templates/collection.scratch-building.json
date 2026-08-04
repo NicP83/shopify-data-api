@@ -1,0 +1,240 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Scratch-Building-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Scratch Building Materials",
+        "content": "<p>For all of the keen modellers who enjoy building their models from scratch we have a large range of useful building materials to help you to turn your ideas into reality.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_TFr6R7": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Plastic.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-plastic-styrene"
+          }
+        },
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Aluminium.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-aluminium"
+          }
+        },
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Brass.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-brass"
+          }
+        },
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Balsa_f03084f8-fbc6-4e91-adac-e69c30dd93a0.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-balsa"
+          }
+        },
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Birch.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-birch"
+          }
+        },
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Carbon_Fiber.jpg",
+            "title": "",
+            "link": "shopify://collections/carbon-fibre"
+          }
+        },
+        "76f9d4a2-5cca-4e9c-876c-ab0370411570": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Stainless_Steel.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-stainless-steel"
+          }
+        },
+        "3961641b-5b44-4e68-ade0-9b9c4f867f4d": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Copper.jpg",
+            "title": "",
+            "link": "shopify://collections/materials-copper"
+          }
+        }
+      },
+      "block_order": [
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-1",
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-2",
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-3",
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-4",
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-6",
+        "template--16091737587873__9ef7e917-9f4c-4027-97c3-ede6bbb0c30e-logo-5",
+        "76f9d4a2-5cca-4e9c-876c-ab0370411570",
+        "3961641b-5b44-4e68-ade0-9b9c4f867f4d"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {border: none;}",
+        ".quick-links__link {box-shadow: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_MaeFPA": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tubes.jpg",
+            "title": "",
+            "link": "shopify://collections/tubes"
+          }
+        },
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sheets.jpg",
+            "title": "",
+            "link": "shopify://collections/sheets"
+          }
+        },
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Strips.jpg",
+            "title": "",
+            "link": "shopify://collections/strips"
+          }
+        },
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Music_Wire.jpg",
+            "title": "",
+            "link": "shopify://collections/music-wire"
+          }
+        },
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rods.jpg",
+            "title": "",
+            "link": "shopify://collections/rods"
+          }
+        }
+      },
+      "block_order": [
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-1",
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-2",
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-3",
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-4",
+        "template--16091737587873__3c6c6d47-d443-4fa6-bdc4-e783aa56e991-logo-5"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 5px; box-shadow: none; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 20%; padding: 0px; box-shadow: none; } img {width: 90px; padding: 1px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667",
+    "logo_list_TFr6R7",
+    "logo_list_MaeFPA",
+    "main"
+  ]
+}

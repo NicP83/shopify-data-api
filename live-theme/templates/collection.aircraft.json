@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Aircraft-Main-Banner_2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_BWjphX": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "RC Planes",
+        "content": "<p>Embark on thrilling aerial escapades with the extensive range of RC Aircraft in Ready To Fly (RTF) form at Hearns Hobbies. Whether you're a seasoned pilot or a newcomer to the world of remote-controlled aviation, our collection of RTF <a href=\"https://www.hearnshobbies.com/collections/rc-planes\"><span style=\"text-decoration:underline\">RC planes</span></a> offers unparalleled excitement and convenience.</p><p>At Hearns Hobbies we have a large range of RC Aircraft in Ready To Fly (RTF) form.  These RC planes will come with virtually everything you need to get your plane flying straight out of the box.  They may also need some basic assembly to get the plane prepared.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "rich_text_VzjFAx": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Explore Our RC Plane Models",
+        "content": "<p>At Hearns Hobbies, we offer a vast selection of RC Plane Models designed to meet every enthusiast's needs. Our diverse range includes Ready To Fly (RTF), Almost Ready To Fly (ARTF), Bind-N-Fly (BNF), Plug-N-Play (PNP), and kits, catering to various skill levels and preferences.</p><ul><li><strong>Ready To Fly (RTF):</strong> Perfect for beginners, our RTF RC Aircraft come with virtually everything you need to get airborne straight out of the box. These models are easy to repair and provide instant flying fun with minimal setup time.</li><li><strong>Almost Ready To Fly (ARTF):</strong> Our ARTF models feature balsa pre-covered planes that need to be assembled and glued together. You'll need to add the electronics and power system, making it a rewarding experience for more hands-on hobbyists.</li><li><strong>Bind-N-Fly (BNF):</strong> Marketed by Horizon Hobby, our BNF aircraft come with a receiver that will bind to a Spektrum radio. These models may or may not include a battery, offering flexibility for those who already have some equipment.</li><li><strong>Plug-N-Play (PNP):</strong> Generally not suited for beginners, our PNP foam aircraft require a receiver, battery, and charger. These models are perfect for experienced pilots looking to customize their flying experience.</li><li><strong>Kits:</strong> For the ultimate DIY enthusiast, our kits come with instructions and balsa wood. The fun is in the assembly, as you'll need to add all the electronics, covering, power system, radio, and receiver. These kits offer a deeply engaging and satisfying building process.</li></ul>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_VmFHYm": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Why Choose RC Aircraft from Hearns Hobbies?",
+        "content": "<ul><li><strong>Instant Flying Fun:</strong> With our <a href=\"https://www.hearnshobbies.com/collections/rc-aircraft-spare-parts\"><span style=\"text-decoration:underline\">RTF RC Aircraft</span></a>, the sky's the limit – literally! These ready-to-fly models are equipped with everything you need to take to the skies right away, ensuring minimal setup time.</li><li><strong>Hands-On Experience:</strong> Our ARTF and Kits provide a hands-on building experience, perfect for hobbyists who enjoy assembling and customizing their planes. These models offer a deeper connection to the craft and the joy of seeing your hard work take flight.</li><li><strong>Customization Options:</strong> With BNF and PNP models, you have the flexibility to customize your RC plane to your liking. Whether it's choosing your battery or integrating with your existing equipment, these options provide a tailored flying experience.</li><li><strong>Versatile Range:</strong> From sleek sports planes to nimble trainers, our diverse range of RC Aircraft has something for every pilot. Explore models tailored to different skill levels and flying styles, ensuring there's a perfect fit for everyone.</li></ul><p>Ready to take flight? Explore our RC Plane Model collection and experience the best in remote-controlled aviation. Visit Hearns Hobbies Melbourne or check out our website at hearnshobbies.com for more information and to find your perfect RC aircraft.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "rich_text_BWjphX",
+    "main",
+    "recently-viewed-products",
+    "rich_text_VzjFAx",
+    "rich_text_VmFHYm"
+  ]
+}

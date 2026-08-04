@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_NkjVz3": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "{{ collection.title }}",
+        "content": "{{ collection.description }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_KKp4xz": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_pDfQBH": {
+      "type": "faq",
+      "blocks": {
+        "separator_eRXjYp": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_kYdL3J": {
+          "type": "question",
+          "settings": {
+            "title": "What makes Ninestep brushes different from other hobby brushes?",
+            "answer": "<p>Ninestep brushes are crafted in Germany using high-quality materials—natural sable or durable synthetic fibers. Each brush is designed specifically for the needs of model builders and tabletop painters, with shapes and sizes ideal for detail work, layering, and precision.</p>"
+          }
+        },
+        "question_pgpwTU": {
+          "type": "question",
+          "settings": {
+            "title": "Should I choose sable or synthetic brushes?",
+            "answer": "<p>Sable brushes offer exceptional paint retention, a finer point, and a natural spring—ideal for blending, layering, and fine detail. Synthetic brushes are more affordable, solvent-resistant, and great for basecoating or working with metallics and washes. Many painters use both depending on the task.</p>"
+          }
+        },
+        "question_mx4Ynf": {
+          "type": "question",
+          "settings": {
+            "title": "What’s the purpose of the triangle-shaped handle on the sable brushes?",
+            "answer": "<p>The ergonomic triangular handle provides better control and helps reduce hand fatigue during long painting sessions. It also prevents brushes from rolling off your desk!</p>"
+          }
+        },
+        "question_gUnxjx": {
+          "type": "question",
+          "settings": {
+            "title": "What paint types are Ninesteps brushes compatible with?",
+            "answer": "<p>Ninestep brushes work well with acrylics, inks, enamels, and water-based paints. Sable brushes are best kept away from harsh solvents, while the synthetic range is more resistant to chemical wear.</p>"
+          }
+        },
+        "question_wcYQRM": {
+          "type": "question",
+          "settings": {
+            "title": "How should I clean and care for my brushes?",
+            "answer": "<p>Rinse brushes thoroughly in clean water (or the appropriate thinner) after each session. Avoid letting paint dry in the bristles. Store them with the tip upright or flat and use a brush soap for deep cleaning. With proper care, Ninesteps brushes will last through many projects.</p>"
+          }
+        },
+        "question_KfR8LT": {
+          "type": "question",
+          "settings": {
+            "title": "Which brush sizes are best for miniatures or models?",
+            "answer": "<p>For fine detail on miniatures, sizes like 10/0 through 1 are ideal. For basecoating or drybrushing, larger sizes such as 3, 4, or 5 are more suitable. Flat brushes are great for smooth gradients, weathering, and broad surfaces.</p>"
+          }
+        },
+        "question_TMEJbT": {
+          "type": "question",
+          "settings": {
+            "title": "Are these brushes suitable for beginners?",
+            "answer": "<p>Yes! Ninesteps brushes are designed to be approachable for hobbyists of all skill levels, offering excellent performance whether you're just starting out or have years of experience.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_eRXjYp",
+        "question_kYdL3J",
+        "question_pgpwTU",
+        "question_mx4Ynf",
+        "question_gUnxjx",
+        "question_wcYQRM",
+        "question_KfR8LT",
+        "question_TMEJbT"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_NkjVz3",
+    "main",
+    "rich_text_KKp4xz",
+    "faq_pDfQBH",
+    "recently-viewed-products"
+  ]
+}

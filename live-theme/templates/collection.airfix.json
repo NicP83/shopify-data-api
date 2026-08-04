@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_Ekb4FK": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Airfix",
+        "content": "<p>Airfix is the oldest UK manufacturer of scale plastic model kits and has been producing kits for the mass market since 1952. <br/>Airfix produces a wide range of kits aimed at all types of scale modellers with subjects such as military aircraft, civil aircraft, and much more!</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_zXzwyB": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_4623d42a-6668-4a30-9129-ebbc8db3abf5.png",
+            "title": "Starter Sets",
+            "link": "https://www.hearnshobbies.com/collections/plastic-kit-starter-sets?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=AIRFIX"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7_69856478-60be-4453-bc72-97fb288caba5.png",
+            "title": "Aircraft",
+            "link": "shopify://collections/airfix-aircraft"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_771c739c-d8e0-4a95-9f6c-b4c88fbd64d6.png",
+            "title": "Cars",
+            "link": "https://www.hearnshobbies.com/collections/model-kit-cars?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=AIRFIX"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8_5db5d680-8e37-469d-becb-d8a8c053b83c.png",
+            "title": "Ship Kits",
+            "link": "https://www.hearnshobbies.com/collections/ship-kits?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=AIRFIX"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_6b36f74c-9cad-4361-b4af-779071d1e4f1.png",
+            "title": "Armour",
+            "link": "shopify://collections/airfix-armour-kits"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "featured_collection_bWy34Y": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "airfix-annual-range",
+        "title": "Airfix Annual Range",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": false,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_Ekb4FK",
+    "logo_list_zXzwyB",
+    "featured_collection_bWy34Y",
+    "main",
+    "recently-viewed-products"
+  ]
+}

@@ -1,0 +1,228 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_A4X4dz": {
+      "type": "slideshow",
+      "blocks": {
+        "image_QKHaXC": {
+          "type": "image",
+          "settings": {
+            "image": "{{ collection.metafields.custom.custom_banner.value }}",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_QKHaXC"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_NkjVz3": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "{{ collection.metafields.custom.main_content_title.value }}",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "Read more",
+        "button_link": "#shopify-section-template--17333057618081__rich_text_KKp4xz"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_KKp4xz": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p>{{ collection.metafields.custom.seo_additional_content | metafield_tag }}</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_pDfQBH": {
+      "type": "faq",
+      "blocks": {
+        "separator_eRXjYp": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_kYdL3J": {
+          "type": "question",
+          "settings": {
+            "title": "Acrylic vs Lacquer – What’s the difference?",
+            "answer": "<p><strong>Acrylic paints</strong> are water-based, non-toxic, and easy to clean up, making them great for beginners. They dry quickly and have less odor, but can sometimes chip if not sealed properly.</p><p><strong>Lacquer paints</strong> are solvent-based, very durable, and give a smoother, tougher finish. They dry fast and bond extremely well to plastic, but require good ventilation due to strong fumes and are harder to clean up (solvents needed).</p><p><strong>Tip:</strong> Use primers compatible with your chosen paint type. Some primers work for both—check the label!</p>"
+          }
+        },
+        "question_pgpwTU": {
+          "type": "question",
+          "settings": {
+            "title": "Aerosol vs Airbrush vs Hand Painting – Which should I choose?",
+            "answer": "<ul><li><strong>Aerosol (Spray Cans):</strong> Convenient and quick for covering large areas. Great for priming and base coats. Be sure to spray in a well-ventilated area or outdoors.</li><li><strong>Airbrush:</strong> Offers the highest control and smoothest finish. Ideal for gradients and detailed work. It has a steeper learning curve and requires maintenance and setup time.</li><li><strong>Hand Painting:</strong> Best for small details, touch-ups, and when space or budget is limited. Slower than the other methods and may leave brush marks if not applied carefully.</li></ul><p><strong>Choose based on your project size, detail level, and workspace.</strong></p>"
+          }
+        },
+        "question_mx4Ynf": {
+          "type": "question",
+          "settings": {
+            "title": "Why should I use a primer before painting?",
+            "answer": "<p>Priming is a crucial first step for several reasons:</p><ul><li><strong>Better paint adhesion</strong> – helps paint grip the surface</li><li><strong>Smooths out imperfections</strong> – fills minor scratches or blemishes</li><li><strong>Reveals surface flaws</strong> – shows gaps or rough areas to fix before painting</li><li><strong>Enhances final paint color</strong> – gives a consistent base coat</li></ul><p><strong>In short:</strong> A good primer leads to a better, more durable paint job.</p>"
+          }
+        },
+        "question_gUnxjx": {
+          "type": "question",
+          "settings": {
+            "title": "How do I prepare a surface before priming or painting?",
+            "answer": "<p>Proper surface prep makes a big difference. Here's a quick checklist:</p><ol><li><strong>Clean the parts</strong> – Wash with warm soapy water to remove mold release agents and oils. Rinse and let dry.</li><li><strong>Sand if needed</strong> – Light sanding with fine-grit sandpaper helps primer stick better and smooths imperfections.</li><li><strong>Fill gaps</strong> – Use modelling putty to fill seams or holes. Sand smooth once cured.</li><li><strong>Handle with care</strong> – Avoid touching surfaces with bare hands before priming to prevent oil transfer.</li><li><strong>Dry fit</strong> – Test fit pieces to plan assembly and avoid painting hidden areas.</li></ol>"
+          }
+        },
+        "question_jHCHK9": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need to use a specific primer for plastic, resin, or metal?",
+            "answer": "<p>Yes! Not all primers stick equally to all materials.<br/></p><ul><li><strong>Plastic:</strong> Most hobby primers work well here.</li><li><strong>Resin:</strong> Needs extra cleaning and a primer with strong adhesion.</li><li><strong>Metal:</strong> Requires a dedicated metal primer or etching primer for proper bond.</li></ul>"
+          }
+        },
+        "question_9x6r7h": {
+          "type": "question",
+          "settings": {
+            "title": "Can I paint directly onto bare plastic or resin?",
+            "answer": "<p>You <em>can</em>, but it’s not recommended. Bare surfaces often cause paint to bead, chip, or peel. Priming first creates a surface that paint can grip more reliably, improving durability and finish.</p>"
+          }
+        },
+        "question_DnfhKa": {
+          "type": "question",
+          "settings": {
+            "title": "What colour primer should I use?",
+            "answer": "<p>Primer colour affects how your final paint looks:<br/></p><ul><li><strong>White:</strong> Great for bright, vibrant colours like red, yellow, or light blue.</li><li><strong>Grey:</strong> A neutral base—safe for most colour schemes.</li><li><strong>Black:</strong> Ideal for dark colour schemes or creating natural shadows in recesses.</li></ul>"
+          }
+        },
+        "question_BUd9Pm": {
+          "type": "question",
+          "settings": {
+            "title": "How long should I wait after priming before painting?",
+            "answer": "<p>Dry time depends on the product, temperature, and humidity, but generally:<br/></p><ul><li><strong>Touch dry:</strong> 10–30 minutes</li><li><strong>Paint-ready:</strong> 1–2 hours (sometimes longer for lacquer primers)<br/>Check the can or bottle label for exact cure times.</li></ul>"
+          }
+        },
+        "question_i8YN9b": {
+          "type": "question",
+          "settings": {
+            "title": "What’s the difference between a primer and a surfacer?",
+            "answer": "<ul><li><strong>Primer:</strong> Focuses on adhesion.</li><li><strong>Surfacer:</strong> Fills small imperfections and smooths the surface.<br/><br/>Some products (like Mr. Surfacer) combine both functions.</li></ul>"
+          }
+        },
+        "question_hah9Cq": {
+          "type": "question",
+          "settings": {
+            "title": "My primer is fuzzy/gritty—what went wrong?",
+            "answer": "<p>This can happen from:<br/></p><ul><li>Spraying too far from the surface</li><li>Humidity or cold temperatures</li><li>Using a clogged nozzle or spraying too heavily<br/><br/>Solution: Sand it down gently and reapply in thin, even coats.</li></ul>"
+          }
+        },
+        "question_ywhayj": {
+          "type": "question",
+          "settings": {
+            "title": "Can I sand primer before painting?",
+            "answer": "<p>Yes! In fact, lightly sanding primer with fine grit (e.g. 800–1000) can smooth the surface and help paint go on more evenly—just make sure it's fully cured first.</p>"
+          }
+        },
+        "question_nMd6FH": {
+          "type": "question",
+          "settings": {
+            "title": "Is it OK to prime assembled models?",
+            "answer": "<p>Yes, but it depends on your goals.<br/></p><ul><li><strong>Before assembly:</strong> Easier to reach tricky spots, cleaner results.</li><li><strong>After assembly:</strong> Fewer seams missed and no scraped-off primer from glue handling.<br/>Many modellers use a mix of both approaches depending on the build.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_eRXjYp",
+        "question_kYdL3J",
+        "question_pgpwTU",
+        "question_mx4Ynf",
+        "question_gUnxjx",
+        "question_jHCHK9",
+        "question_9x6r7h",
+        "question_DnfhKa",
+        "question_BUd9Pm",
+        "question_i8YN9b",
+        "question_hah9Cq",
+        "question_ywhayj",
+        "question_nMd6FH"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "slideshow_A4X4dz",
+    "rich_text_NkjVz3",
+    "main",
+    "rich_text_KKp4xz",
+    "faq_pDfQBH",
+    "recently-viewed-products"
+  ]
+}

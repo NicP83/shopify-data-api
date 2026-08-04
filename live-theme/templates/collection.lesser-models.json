@@ -1,0 +1,183 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Specialty-Model-Kits-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_DbQqeJ": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Specialty Model Kits",
+        "content": "<p>There are many producers on quality plastic model kits to be found worldwide these days.  There are the well-known brands that everyone knows but there are also some great model kit brands producing some high quality and often quite unique content which are not so well known.  Here are some great kits and brands you may never have heard of before but are well worth a look.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_tA3byd": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Special_Hobby.jpg",
+            "title": "Special Hobby",
+            "link": "shopify://collections/special-hobby"
+          }
+        },
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/AZ_Model.jpg",
+            "title": "AZ Model",
+            "link": "shopify://collections/az-model"
+          }
+        },
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Brengun.jpg",
+            "title": "Brengun",
+            "link": "shopify://collections/brengun"
+          }
+        },
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Eduard.jpg",
+            "title": "Eduard",
+            "link": "shopify://collections/eduard"
+          }
+        },
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Kovozavody.jpg",
+            "title": "Kovozavody",
+            "link": "shopify://collections/kovozavody"
+          }
+        },
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RS_Model.jpg",
+            "title": "RS Models",
+            "link": "shopify://collections/rs-models"
+          }
+        },
+        "fa5f2f07-6860-4e5d-982a-bae51b3f5a5a": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sova-M.jpg",
+            "title": "Sova-M",
+            "link": "shopify://collections/sova-m"
+          }
+        },
+        "6c89734c-8997-44a4-b4f5-744f1ed25f83": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Valom.jpg",
+            "title": "Valom",
+            "link": "shopify://collections/valom"
+          }
+        },
+        "943ad4bb-ffff-4904-948e-b17512793d18": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Other_Small_Brands.jpg",
+            "title": "Other Small Brands",
+            "link": "shopify://collections/small-model-kit-brands"
+          }
+        }
+      },
+      "block_order": [
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-0",
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-1",
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-2",
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-3",
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-4",
+        "template--16124167389345__cd5330ef-dd44-4c07-92c2-0b5e074da47c-1689657797b8bc6818-5",
+        "fa5f2f07-6860-4e5d-982a-bae51b3f5a5a",
+        "6c89734c-8997-44a4-b4f5-744f1ed25f83",
+        "943ad4bb-ffff-4904-948e-b17512793d18"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.67%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; } .quick-links__link {width: 33.33%; padding: 0px; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "rich_text_DbQqeJ",
+    "logo_list_tA3byd",
+    "main"
+  ]
+}

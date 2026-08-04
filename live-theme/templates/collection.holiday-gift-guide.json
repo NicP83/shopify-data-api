@@ -1,0 +1,279 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Main-Banner_Opt2.jpg",
+            "mobile_image": "shopify://shop_images/Main-Banner_Opt2_2.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 25,
+            "text_color": "#ffffff",
+            "title": "Christmas Catalogue 2022",
+            "content": "Looking for the perfect Christmas gifts for all your loved ones? Look no further than Hearns Hobbies' Christmas catalogue! With offerings for a wide range of hobbies and interests, from model kits and slot cars to puzzles and RC cars, boats, and planes, we guarantee that you'll be able to find something for everyone on your list. Start shopping for the perfect holiday gifts!",
+            "content_position": "middle_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#25140a",
+            "button_text": "SHOP NOW",
+            "link": "#bottom"
+          }
+        }
+      },
+      "block_order": [
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "b7c397fe-0293-453d-8fb8-b4b29354c0ec": {
+      "type": "quick-links",
+      "blocks": {
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-0": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts Under $50",
+            "link": "",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-1": {
+          "type": "link",
+          "settings": {
+            "title": "Tornado RC & VRX",
+            "link": "shopify://collections/tornado-rtr",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-2": {
+          "type": "link",
+          "settings": {
+            "title": "Traxxas",
+            "link": "shopify://collections/traxxas",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-3": {
+          "type": "link",
+          "settings": {
+            "title": "Tamiya RC Kits",
+            "link": "shopify://collections/tamiya-in-stock",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-4": {
+          "type": "link",
+          "settings": {
+            "title": "Model Kits",
+            "link": "shopify://collections/christmas-model-kits",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-5": {
+          "type": "link",
+          "settings": {
+            "title": "Slot Cars",
+            "link": "shopify://collections/christmas-slot-cars",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "dee28c02-451d-432d-94b0-6a3652f92baf": {
+          "type": "link",
+          "settings": {
+            "title": "Train Sets",
+            "link": "shopify://collections/christmas-train-sets",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "9a95add0-346f-4522-928f-9084d8df70b3": {
+          "type": "link",
+          "settings": {
+            "title": "Gift Ideas",
+            "link": "shopify://collections/christmas-2022-gift-ideas",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "8af3c9fe-6afb-4596-9eed-4052e7c43f81": {
+          "type": "link",
+          "settings": {
+            "title": "Under $50",
+            "link": "shopify://collections/christmas-gifts-under-50",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "b08feb83-c096-47bc-a677-49a044e71091": {
+          "type": "link",
+          "settings": {
+            "title": "Under $100",
+            "link": "shopify://collections/christmas-gifts-under-100",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-0",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-1",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-2",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-3",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-4",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-5",
+        "dee28c02-451d-432d-94b0-6a3652f92baf",
+        "9a95add0-346f-4522-928f-9084d8df70b3",
+        "8af3c9fe-6afb-4596-9eed-4052e7c43f81",
+        "b08feb83-c096-47bc-a677-49a044e71091"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "5b96d425-fcb7-4fe6-a915-73b67ccd2ef4": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "traxxas",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#25140a",
+        "text_color": "#ffffff",
+        "title": "Traxxas",
+        "content": "Traxxas RC cars are the perfect choice for anyone who loves speed and action! Their models come in a variety of colours and sizes, so there's something for everyone.",
+        "button_background": "#ff4713",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "79703ef0-b51b-49e0-9f41-96670bd81be5": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "tamiya-in-stock",
+        "products_count": 12,
+        "show_quick_buy": false,
+        "background": "#ff4713",
+        "text_color": "#ffffff",
+        "title": "Tamiya RC Kits",
+        "content": "Tamiya RC kits are the perfect present for anyone who loves to race and build. Whether they're into cars, trucks, or boats, there's a Tamiya RC kit sure to please.",
+        "button_background": "#25140a",
+        "button_text_color": "#ffffff",
+        "button_text": "View all",
+        "button_link": ""
+      }
+    },
+    "af892e4e-607c-4926-b39f-1a665d8d3d4e": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "christmas-2022-gift-ideas",
+        "title": "Gift Ideas",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "991466bf-0a81-4d9c-adc1-54581a0609ef": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "christmas-gifts-under-50",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#ff4713",
+        "text_color": "#ffffff",
+        "title": "Under $50",
+        "content": "From puzzles and games to books and craft kits, there's something here for every interest. So take a look and find the perfect present for the special someone in your life without breaking the bank.",
+        "button_background": "#25140a",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "47a75e47-54d8-4405-88be-1f92baa1cfce": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "christmas-gifts-under-100",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#25140a",
+        "text_color": "#ffffff",
+        "title": "Under $100",
+        "content": "We have everything your modelLer needs in one spot—from model kits and radio-controlled card right down to some cool tools for maintaining them, all worth $100 or less!",
+        "button_background": "#ff4713",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "e8a5a3d0-5a5b-458f-9e6b-815bfe79da79": {
+      "type": "promotion-list",
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 200px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": false,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991",
+    "b7c397fe-0293-453d-8fb8-b4b29354c0ec",
+    "5b96d425-fcb7-4fe6-a915-73b67ccd2ef4",
+    "79703ef0-b51b-49e0-9f41-96670bd81be5",
+    "af892e4e-607c-4926-b39f-1a665d8d3d4e",
+    "991466bf-0a81-4d9c-adc1-54581a0609ef",
+    "47a75e47-54d8-4405-88be-1f92baa1cfce",
+    "e8a5a3d0-5a5b-458f-9e6b-815bfe79da79",
+    "main"
+  ]
+}

@@ -1,0 +1,193 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Railway-Layout-Building-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "e2cf9cef-67e8-4c40-b785-bd9da2d80377": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Railway Layout Building",
+        "content": "<p>When you decide that you want to design and build your own model railway layout there are many different products which you will need to look at to undertake this project.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_NeKaPt": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Track.jpg",
+            "title": "Track",
+            "link": "shopify://collections/train-track"
+          }
+        },
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Points.jpg",
+            "title": "Points",
+            "link": "shopify://collections/train-points"
+          }
+        },
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Buffer-Stops.jpg",
+            "title": "Buffer Stops",
+            "link": "shopify://collections/buffer-stops"
+          }
+        },
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Underlay.jpg",
+            "title": "Underlay",
+            "link": "shopify://collections/underlay"
+          }
+        },
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Point-Motors.jpg",
+            "title": "Point Motors",
+            "link": "shopify://collections/point-motors"
+          }
+        },
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Terrain-and-Landscape.jpg",
+            "title": "Terrain & Landscape",
+            "link": "shopify://collections/terrain-landscape"
+          }
+        },
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ballast.jpg",
+            "title": "Ballast",
+            "link": "shopify://collections/ballast"
+          }
+        },
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Grass-_-Scater.jpg",
+            "title": "Grass & Scatter",
+            "link": "shopify://collections/grass-scatter"
+          }
+        },
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Construction-materials.jpg",
+            "title": "Construction Materials",
+            "link": "shopify://collections/layout-construction"
+          }
+        },
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tools.jpg",
+            "title": "Tools",
+            "link": "shopify://collections/layout-building-tools"
+          }
+        }
+      },
+      "block_order": [
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-1",
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-2",
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-3",
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-4",
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-5",
+        "template--16161575600289__50a5124f-d1fd-477a-8e60-fd3c7dc63ca9-logo-6",
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-1",
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-2",
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-3",
+        "template--16161575600289__88384245-6b8c-43f8-991a-bade3ad512c2-logo-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 10px; border: 1px solid #e1e3e4; } img {width: 200px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 90px; } .quick-links__image-container {font-size: 9px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {justify-content: center; border: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "e2cf9cef-67e8-4c40-b785-bd9da2d80377",
+    "logo_list_NeKaPt",
+    "main"
+  ]
+}

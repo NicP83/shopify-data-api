@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "logo_list_wbVmLX": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_i4cGqk": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo_6720f198-9930-44d1-a789-07b8e47f2bfe.png",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_i4cGqk"
+      ],
+      "custom_css": [
+        ".quick-links__image-ie-fix {max-width: none;}",
+        ".quick-links__link {box-shadow: none; padding: 0; width: 100%;}",
+        ".quick-links {border: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "rich_text_4bVa9N": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}",
+        ".container {margin-top: -20px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "",
+          "content": "<p><br/>Please note: The Hobbyman has now closed permanently. All stock, customer orders, and layby balances have been transferred to our Hearns Hobbies CBD store at 295 Flinders St, Melbourne VIC 3000.<br/>You can find the full range of stock from the Hobbyman on the Hearns website.<br/> </p><p>If you need assistance, feel free to call us at (03) 9614 3603 and one of our team members will be happy to help!</p><h3>Gift Vouchers</h3><p>Customers who have received a gift Voucher for the \"Hobbyman\" store can still redeem them at our Hearns Hobbies CBD location or via phone.<br/><br/></p>","button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_zKpnME": {
+      "type": "promotion-list",
+      "blocks": {
+        "item_76gVAE": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/1_48-aircraft-model-kits-hobbyman.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/1-48-aircarft"
+          }
+        },
+        "item_7zg7Mk": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/kyosho-miniz-hobbyman.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/kyosho-mini-z"
+          }
+        },
+        "item_nYzFmB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/hobbyman-kromlech_0b9dd200-29bf-45e8-8d43-010ee8978b4b.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/kromlech"
+          }
+        },
+        "item_PEA9jn": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/traxxas_hobbyman.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas"
+          }
+        }
+      },
+      "block_order": [
+        "item_76gVAE",
+        "item_7zg7Mk",
+        "item_nYzFmB",
+        "item_PEA9jn"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 255px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 200px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 150px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -20px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "blog_posts_BmTmzP": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "news",
+        "blog_posts_count": 3,
+        "title": "Hearns Hobbies News",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": true,
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "logo_list_wbVmLX",
+    "rich_text_4bVa9N",
+    "promotion_list_zKpnME",
+    "newsletter",
+    "blog_posts_BmTmzP"
+  ]
+}

@@ -1,0 +1,194 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Train-Track-Landing-Page_Banner_c4c0aff5-2925-409f-ad53-f2d88e93a221.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "274caa53-9f22-42b9-ae49-9f02e77b35fc": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Train Track",
+        "content": "<p>Model railway track comes in many shapes and sizes.Here you will find track pieces to suit the many different gauges from N gauge, OO/HO gauge, TT gauge and O gauge through to several types of narrow gauge. You will find many of these in different lengths, shapes and rail height. Check through our range here.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_jVfjk3": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/OOHO_Gauge.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-track"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Gauge.jpg",
+            "title": "",
+            "link": "shopify://collections/n-track"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/TT_Gauge.jpg",
+            "title": "",
+            "link": "shopify://collections/tt-track"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/O_Gauge.jpg",
+            "title": "",
+            "link": "shopify://collections/o-track"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Narrow_Gauge.jpg",
+            "title": "",
+            "link": "shopify://collections/narrow-gauge-track"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 2px; box-shadow: none; } .quick-links {border: none; justify-content: center; } img {width: 160px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 20%; padding: 0px; box-shadow: none; } img {width: 90px; padding: 1px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_xWgN6P": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Hornby_247ecced-b3a3-498c-a12d-01280123f6f9.jpg",
+            "title": "Hornby",
+            "link": "shopify://collections/hornby-track"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_41ee38b9-6081-42d7-ba68-688f7587bfa8.jpg",
+            "title": "Peco",
+            "link": "shopify://collections/peco-track"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Kato_b34af7e7-c54f-4f14-9ed4-d9c762f2ee64.jpg",
+            "title": "Kato",
+            "link": "shopify://collections/kato-track"
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 16.67%; padding: 20px; border: 1px solid #e1e3e4;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 10px; } .section__header {padding-left: 15px; padding-right: 15px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".container {margin-top: -40px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "274caa53-9f22-42b9-ae49-9f02e77b35fc",
+    "logo_list_jVfjk3",
+    "logo_list_xWgN6P",
+    "main"
+  ]
+}

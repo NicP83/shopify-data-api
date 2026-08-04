@@ -1,0 +1,139 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "92ee35bb-b5c3-4eab-a3e3-fafc0f09aab5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16169773432993__92ee35bb-b5c3-4eab-a3e3-fafc0f09aab5-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RC-Bodyshell-Landing-Page_banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 0,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16169773432993__92ee35bb-b5c3-4eab-a3e3-fafc0f09aab5-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "25fbed16-aaa9-4772-9f5d-608c7feb9abe": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Make your RC Vehicle stand out with a customizable body shell!",
+        "content": "<p>RC Body Shells are the perfect option to making your RC Vehicle stand out for about half of what it would cost for a full replacement shell. Although these are mainly visual they can make your car stand out from the rest!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_rzi7HL": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16169773432993__946c95e5-1628-4dc6-8456-550c1790e6c7-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Decals_797193af-9b7b-4b0e-9675-5fb8d4789df1.png",
+            "title": "Decals",
+            "link": "shopify://collections/rc-body-decals"
+          }
+        },
+        "logo_Gey3Mc": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_CAR_BODY_SHELL.jpg",
+            "title": "RC Paints for Bodies",
+            "link": "shopify://collections/tools-to-paint-an-rc-car-body-shell"
+          }
+        },
+        "template--16169773432993__946c95e5-1628-4dc6-8456-550c1790e6c7-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Stencils.png",
+            "title": "Stencils",
+            "link": "shopify://collections/bodyshell-stencils"
+          }
+        }
+      },
+      "block_order": [
+        "template--16169773432993__946c95e5-1628-4dc6-8456-550c1790e6c7-logo-1",
+        "logo_Gey3Mc",
+        "template--16169773432993__946c95e5-1628-4dc6-8456-550c1790e6c7-logo-3"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 16.67%; padding: 5px; border: 1px solid #e1e3e4;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; } .quick-links__image-container {font-size: 9px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "img {margin-bottom: 5px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "92ee35bb-b5c3-4eab-a3e3-fafc0f09aab5",
+    "25fbed16-aaa9-4772-9f5d-608c7feb9abe",
+    "logo_list_rzi7HL",
+    "main",
+    "recently-viewed-products"
+  ]
+}

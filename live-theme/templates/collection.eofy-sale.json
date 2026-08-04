@@ -1,0 +1,108 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_YbTpKB": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Clearance Sale",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "edc28a11-d2b7-4940-9f8f-32fd773b7078": {
+      "type": "collection-list",
+      "blocks": {
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "eofy-sale-trains",
+            "image": "shopify://shop_images/25_USD_Off.jpg",
+            "link": ""
+          }
+        },
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "eofy-sale-toys",
+            "image": "shopify://shop_images/50_USD_Off.jpg",
+            "link": ""
+          }
+        },
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "eofy-sale-slot-cars",
+            "image": "shopify://shop_images/100_USD_Off.jpg",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-1",
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-0",
+        "template--16105872785569__edc28a11-d2b7-4940-9f8f-32fd773b7078-168735032619c1495f-2"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media screen and (max-width: 749px) {.collection-item {width: 25% !important; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "shopify://collections",
+        "round_images": false,
+        "show_collection_title": true
+      }
+    },
+    "d44ad86e-4a61-4783-be29-2493132d9df6": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>Check out a large range of products which have been discounted for two weeks only. Stocks of many of these products are very limited so get in now.</p><p><strong>We have plenty of products at great clear-out prices.</strong></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "rich_text_YbTpKB",
+    "edc28a11-d2b7-4940-9f8f-32fd773b7078",
+    "d44ad86e-4a61-4783-be29-2493132d9df6",
+    "main"
+  ]
+}

@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_NkjVz3": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "{{ collection.metafields.custom.main_content_title.value }}",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_KKp4xz": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_pDfQBH": {
+      "type": "faq",
+      "blocks": {
+        "separator_eRXjYp": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_kYdL3J": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_1.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_1 | metafield_tag }}"
+          }
+        },
+        "question_pgpwTU": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_2.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_2 | metafield_tag }}"
+          }
+        },
+        "question_mx4Ynf": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_3.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_3 | metafield_tag }}"
+          }
+        },
+        "question_gUnxjx": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_4.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_4 | metafield_tag }}"
+          }
+        },
+        "question_wcYQRM": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_5.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_5 | metafield_tag }}"
+          }
+        },
+        "question_m6XTqA": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_6.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_6 | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "separator_eRXjYp",
+        "question_kYdL3J",
+        "question_pgpwTU",
+        "question_mx4Ynf",
+        "question_gUnxjx",
+        "question_wcYQRM",
+        "question_m6XTqA"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_NkjVz3",
+    "main",
+    "rich_text_KKp4xz",
+    "faq_pDfQBH",
+    "recently-viewed-products"
+  ]
+}

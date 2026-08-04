@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "16643784384d2a6334": {
+      "type": "faq",
+      "blocks": {
+        "16643784382605f677-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "16643784382605f677-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is traxxas?",
+            "answer": "<p>Traxxas has been around since 1986, and they are known for their high quality products. They're ready to run (RTR) radio controlled vehicles that cater toward all skill levels; whether you're new or experienced!</p><p>With Traxxas, you can go as fast and wild with your car or boat - it's a passion that never ends! For those looking for some new ways to spend time playing around outdoors then this is one hobby they should consider.</p><p>With an operation set up in Texas, Traxxas has quickly become one of the globally recognized leaders for radio-controlled vehicles. Thanks to Hearns Hobbies you can find everything from RC boats and parts right here at home!</p>"
+          }
+        },
+        "16643784382605f677-2": {
+          "type": "question",
+          "settings": {
+            "title": "What is the Traxxas Range of Models?",
+            "answer": "<p>When you're looking for the ultimate in radio-controlled vehicles, there's only one name that comes to mind: TRAXXAS. With products like RC cars and accessories available in addition with our batteries at great prices - it doesn't get much better than this!</p><p>Hobbyists will be delighted by the wide variety of products available at Traxxas Australia. From electric monster trucks, catamarans and supercars to short course trucks or even RC buggies; there is something for everyone!</p><p>Hearns Hobbies has the full range of Traxxas for sale form rc buggies, rc monster trucks all the way to the large scale Traxxas XMaxx.</p><p>Some the most poluar models are the Traxxas Bandit, Traxxas Ruslter, Traxxas E-Revo and the Traxxas TRX4 Land Rover Defender.</p>"
+          }
+        },
+        "16643784382605f677-3": {
+          "type": "question",
+          "settings": {
+            "title": "What size are traxxas cars?",
+            "answer": "<p>Traxxas has a range of 1/16, 1/10 and 1/8 scale rc cars. The sizes varies a lot from model to model however about 20cm all the way to to 1m in length.</p>"
+          }
+        },
+        "16643784382605f677-5": {
+          "type": "question",
+          "settings": {
+            "title": "How fast are Traxxas cars?",
+            "answer": "<p>Generally speaking traxxas cars brushed can reach a speed of about 45kmh. The Traxxas VXL Brushless range and go as fast as 100kmh.</p>"
+          }
+        },
+        "16643784382605f677-6": {
+          "type": "question",
+          "settings": {
+            "title": "How much is a Traxxas Car?",
+            "answer": "<p>Depending on the vehicle you’re after, you can buy Traxxas for anywhere between $299 and $1,599.</p>"
+          }
+        },
+        "3b514555-51cf-4b72-b8d6-3776e99f5eb9": {
+          "type": "question",
+          "settings": {
+            "title": "Can you repair Traxxas Cars?",
+            "answer": "<p>Hearns Hobbies also stocks spare parts in order to repair your Traxxas vehicle.</p><p>We also stock upgrade parts such as wheels, tries, batteries and alloy pats to take your veichle to the next level.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "16643784382605f677-0",
+        "16643784382605f677-1",
+        "16643784382605f677-2",
+        "16643784382605f677-3",
+        "16643784382605f677-5",
+        "16643784382605f677-6",
+        "3b514555-51cf-4b72-b8d6-3776e99f5eb9"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recently-viewed-products",
+    "16643784384d2a6334"
+  ]
+}

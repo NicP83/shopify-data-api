@@ -1,0 +1,341 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_p788LN": {
+      "type": "rich-text",
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.section--text-centered {margin: 30px 0 !important; }}",
+        ".section--text-centered {margin-top: 70px; margin-bottom: 60px;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Paints and Tools",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/AK_interactive.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/ak-interactive"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Godhands.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "https://www.hearnshobbies.com/collections/paints-tools?sort_by=created-descending&filter.p.vendor=GODHANDS&filter.v.price.gte=&filter.v.price.lte="
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 240px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -40px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 175px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 140px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "7d25d623-d618-42be-ac7c-66f07a3d6060": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_7a713a98-5436-453d-9381-5cc4bb9ce298.png",
+            "title": "Paints",
+            "link": "shopify://collections/paint"
+          }
+        },
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_7311484d-c43b-4c57-8c6d-ecd45e220a99.png",
+            "title": "Airbrushing",
+            "link": "shopify://collections/airbrushes-accessories"
+          }
+        },
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_60e3771e-e03f-4d0d-a895-f0317ce1ce35.png",
+            "title": "Painting Tools",
+            "link": "shopify://collections/painting-tools"
+          }
+        },
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7_b8d57d6d-b021-4f5f-b915-64e7bc623254.png",
+            "title": "Detailing Parts",
+            "link": "shopify://collections/detailing-parts"
+          }
+        },
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8_7c9c96ab-fd2a-4c65-a911-7fef84063516.png",
+            "title": "Model Tools",
+            "link": "shopify://collections/model-tools"
+          }
+        },
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/9.png",
+            "title": "Adhesives",
+            "link": "shopify://collections/adhesives"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-1",
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-2",
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-3",
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-4",
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-5",
+        "template--16346399277217__7d25d623-d618-42be-ac7c-66f07a3d6060-logo-6"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } .container {margin-top: -60px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "5b7dcd01-b7c9-4a9e-b45e-74115a2b880d": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-cacf57fe--pf-b142892d-paintbackgroundf.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Paints",
+            "button_link": "shopify://collections/paint"
+          }
+        },
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-9bfa448e--StorefrontABSelectpreviewmin.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Airbrushes",
+            "button_link": "shopify://collections/airbrushes-accessories"
+          }
+        },
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-fa448eb3--highres.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Adhesives",
+            "button_link": "shopify://collections/adhesives"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-1",
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-2",
+        "template--16346399277217__5b7dcd01-b7c9-4a9e-b45e-74115a2b880d-item-3"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1000px) {.block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".button {padding: 0 15px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 200px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "1658858609f2993c42": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "educational",
+        "blog_posts_count": 3,
+        "title": "Latest Educational Blogs",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_DBnqLn": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><strong>YOUR GO TO FOR EVERYTHING, PAINT, AIRBRUSHING, SCULPTING TOOLS, AND MORE!</strong></p><p>Hearns Hobbies has grown over many of its operating years, as such we have become known for stocking some of the finest and most sought after sculpting/modelling tools, various types of high quality paints, and even a wide range of different airbrushes, compressors and more!<br/><br/>We are leading supplier for hobbies in Melbourne and in Australia since 1947; since then we have been committed to bringing into Australia, exotic, and highly reputable (and quality) paints and tools. Some of which are the very best in the industry! From budget products right through to the \"crème de la crème\" of paints, tools and airbrush ranges.<br/><br/>Key brands and leading manufacturer of our Paints & Tools include: <a href=\"https://hearnshobbies.myshopify.com/collections/tamiya\">Tamiya</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/iwata\">Iwata</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/godhand\">Godhands</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/ninesteps-industries\">Ninesteps Industries </a>and many more.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What types of model paint exist?",
+            "answer": "<p>Acrylics, enamels, and lacquers. Acrylics are probably the best option for beginner models due to the ease of cleaning.</p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "What’s the best paint for beginners?",
+            "answer": "<p>Because of their ease of cleaning, acrylics are probably the best choice for beginner models.</p>"
+          }
+        },
+        "1658930183f010c50f-3": {
+          "type": "question",
+          "settings": {
+            "title": "What tools are needed to build a model kit?",
+            "answer": "<p>▪ <a href=\"https://www.hearnshobbies.com/collections/basic-plastic-model-building-tools-and-accessories\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/basic-plastic-model-building-tools-and-accessories\">Basic tool</a> needed to make scale model kits.</p><p>▪ <a href=\"https://www.hearnshobbies.com/collections/advanced-plastic-model-building-tools-and-accessories\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/advanced-plastic-model-building-tools-and-accessories\">Advanced tool</a> needed to make scale model kits.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2",
+        "1658930183f010c50f-3"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "rich_text_p788LN",
+    "16588471730e4c2da8",
+    "7d25d623-d618-42be-ac7c-66f07a3d6060",
+    "5b7dcd01-b7c9-4a9e-b45e-74115a2b880d",
+    "main",
+    "1658858609f2993c42",
+    "rich_text_DBnqLn",
+    "165893018363e32eb5"
+  ]
+}

@@ -1,0 +1,151 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "16589449432b7c494a": {
+      "type": "custom-html",
+      "settings": {
+        "title": "",
+        "html": ""
+      }
+    },
+    "16589454326a8aaacb": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Hearns Hobbies",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "text_with_icons_bdmMgY": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_pCc6mj": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-shop-pin",
+            "title": "Address",
+            "content": "<p><a href=\"https://www.google.com/maps?saddr=Current+Location&daddr=Hearns+Hobbies,+295+Flinders+St,+Melbourne+VIC+3000\" target=\"_blank\">295 Flinders St. Melbourne VIC 3000</a></p>"
+          }
+        },
+        "item_yTiUyy": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-phone",
+            "title": "Phone",
+            "content": "<p><a href=\"tel:03-9614-3603\">(03) 9614 3603</a></p>"
+          }
+        },
+        "item_tf3hQ9": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-email",
+            "title": "Support Email",
+            "content": "<p><a href=\"mailto:hh@hearnshobbies.com\" target=\"_blank\" title=\"mailto:hh@hearnshobbies.com\">hh@hearnshobbies.com</a></p>"
+          }
+        },
+        "item_cB3HUm": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-customer-support",
+            "title": "Normal Trading Hours",
+            "content": "<p><strong>MONDAY to SATURDAY:</strong><br/>10.00am - 5.00pm</p><p><strong>SUNDAY:</strong><br/>Closed</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_pCc6mj",
+        "item_yTiUyy",
+        "item_tf3hQ9",
+        "item_cB3HUm"
+      ],
+      "settings": {
+        "stack_mobile": false
+      }
+    },
+    "rich_text_fPDQTH": {
+      "type": "rich-text",
+      "custom_css": [
+        "h2 {font-size: 32px;}",
+        "h3 {font-size: 32px; color: #d82c0d;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Hobbyman",
+        "content": "<h3><strong>Closed</strong></h3>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "form_heading": "Contact Us Here",
+        "form_content": "",
+        "show_store_info": false,
+        "store_heading": "Hearns Hobbies",
+        "store_info": "<p><strong>Address:</strong> <a href=\"https://www.google.com/maps?saddr=Current+Location&daddr=Hearns+Hobbies,+295+Flinders+St,+Melbourne+VIC+3000\" target=\"_blank\">295 Flinders St. Melbourne VIC 3000</a></p><p><strong>Phone: </strong><a href=\"tel:03-9614-3603\">(03) 9614 3603</a></p><p><strong>Support Email: </strong><a href=\"mailto:hh@hearnshobbies.com\" target=\"_blank\" title=\"mailto:hh@hearnshobbies.com\">hh@hearnshobbies.com</a></p><p><strong>Normal Trading Hours:</strong></p><p>MONDAY to FRIDAY: 10.00am - 5.00pm</p><p>SATURDAY: 10.00am - 5.00pm</p><p>SUNDAY: Closed (We're busy doing our hobbies too!)</p><p><strong>Closed: </strong>Christmas Day, Boxing Day, New Year's Day, Good Friday, Easter Sunday & Melbourne Cup Day</p>"
+      }
+    },
+    "165894559307dc5cf5": {
+      "type": "map",
+      "blocks": {
+        "1658945593e4134bac-0": {
+          "type": "store",
+          "settings": {
+            "title": "Hearns Hobbies",
+            "address": "<p>295 Flinders St, Melbourne VIC 3000</p>",
+            "hours": "<p><strong>MONDAY to FRIDAY:</strong> 10.00am - 5.00pm</p><p><strong>SATURDAY:</strong> 10.00am - 5.00pm</p><p><strong>SUNDAY: </strong>Closed</p>",
+            "map_address": "295 Flinders St, Melbourne VIC 3000"
+          }
+        },
+        "1658945593e4134bac-1": {
+          "type": "store",
+          "settings": {
+            "title": "The Hobbyman",
+            "address": "<p><a href=\"https://www.google.com/maps?saddr=Current+Location&daddr=The+Hobby+Man,+unit+4%2F2-8+Victor+Cres,+Narre+Warren+VIC+3805\" target=\"_blank\">Unit 4/2-8 Victor Cres, Narre Warren VIC 3805</a></p>",
+            "hours": "",
+            "map_address": "Unit 4/2-8 Victor Cres, Narre Warren VIC 3805"
+          }
+        }
+      },
+      "block_order": [
+        "1658945593e4134bac-0",
+        "1658945593e4134bac-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Our stores",
+        "map_link_label": "Get directions",
+        "api_key": "",
+        "zoom": 15,
+        "draggable_map": false,
+        "show_map_controls": false,
+        "map_style": "standard"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16589449432b7c494a",
+    "16589454326a8aaacb",
+    "text_with_icons_bdmMgY",
+    "rich_text_fPDQTH",
+    "contact-form",
+    "165894559307dc5cf5"
+  ]
+}

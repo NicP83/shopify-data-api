@@ -1,0 +1,234 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/holiday-gift-guide.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 25,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_center",
+            "button_background": "#f8df8d",
+            "button_text_color": "#25140a",
+            "button_text": "",
+            "link": "shopify://collections/holiday-gift-guide"
+          }
+        }
+      },
+      "block_order": [
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.slideshow {margin-top: 55px; }}"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "b7c397fe-0293-453d-8fb8-b4b29354c0ec": {
+      "type": "quick-links",
+      "blocks": {
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-0": {
+          "type": "link",
+          "settings": {
+            "title": "Staff Picks",
+            "link": "shopify://collections/staff-picks",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-1": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts Under $50",
+            "link": "shopify://collections/gifts-under-50",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-2": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts Under $100",
+            "link": "shopify://collections/gifts-under-100",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-3": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts Under $200",
+            "link": "shopify://collections/gifts-under-200",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-4": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts Under $500",
+            "link": "shopify://collections/gifts-under-500",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        },
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-5": {
+          "type": "link",
+          "settings": {
+            "title": "Gift Cards",
+            "link": "shopify://collections/gifts-cards",
+            "background": "#f8df8d",
+            "text_color": "#25140a"
+          }
+        }
+      },
+      "block_order": [
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-0",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-1",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-2",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-3",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-4",
+        "template--15919187427489__b7c397fe-0293-453d-8fb8-b4b29354c0ec-1666366490abfc43ac-5"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links__link {margin: 2px;}",
+        ".quick-links__link {width: 45%;}",
+        "@media screen and (min-width: 1000px) {.quick-links__link {width: 14.87%; }}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "5b96d425-fcb7-4fe6-a915-73b67ccd2ef4": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "staff-picks",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#25140a",
+        "text_color": "#ffffff",
+        "title": "Staff Picks",
+        "content": "Hand-selected favourites from the Hearns team! These are the products we love and know fellow hobbyists will enjoy too.",
+        "button_background": "#ff4713",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "collection_with_image_qNw48n": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "gifts-under-50",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#ff4713",
+        "text_color": "#ffffff",
+        "title": "Gifts Under $50",
+        "content": "Great stocking fillers and budget-friendly surprises! Discover hobby essentials, mini kits, tools, and fun finds perfect for every enthusiast.",
+        "button_background": "#25140a",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "79703ef0-b51b-49e0-9f41-96670bd81be5": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "gifts-under-100",
+        "products_count": 12,
+        "show_quick_buy": false,
+        "background": "#25140a",
+        "text_color": "#ffffff",
+        "title": "Gifts Under $100",
+        "content": "Thoughtful gifts without the big spend. From model kits to tabletop favourites, this collection has something for every hobbyist.",
+        "button_background": "#ff4713",
+        "button_text_color": "#ffffff",
+        "button_text": "View all",
+        "button_link": ""
+      }
+    },
+    "991466bf-0a81-4d9c-adc1-54581a0609ef": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "gifts-under-200",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#ff4713",
+        "text_color": "#ffffff",
+        "title": "Gifts Under $200",
+        "content": "Impressive gifts that make a statement. Explore quality sets, RC gear, and collector pieces ideal for the holiday season.",
+        "button_background": "#25140a",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "47a75e47-54d8-4405-88be-1f92baa1cfce": {
+      "type": "collection-with-image",
+      "settings": {
+        "collection": "gifts-under-500",
+        "products_count": 12,
+        "show_quick_buy": true,
+        "background": "#25140a",
+        "text_color": "#ffffff",
+        "title": "Gifts Under $500",
+        "content": "Premium picks for the serious hobby lover. Find advanced models, feature-packed RC items, and standout gifts they’ll never forget.",
+        "button_background": "#ff4713",
+        "button_text_color": "#ffffff",
+        "button_text": "View All",
+        "button_link": ""
+      }
+    },
+    "e8a5a3d0-5a5b-458f-9e6b-815bfe79da79": {
+      "type": "promotion-list",
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991",
+    "b7c397fe-0293-453d-8fb8-b4b29354c0ec",
+    "5b96d425-fcb7-4fe6-a915-73b67ccd2ef4",
+    "collection_with_image_qNw48n",
+    "79703ef0-b51b-49e0-9f41-96670bd81be5",
+    "991466bf-0a81-4d9c-adc1-54581a0609ef",
+    "47a75e47-54d8-4405-88be-1f92baa1cfce",
+    "e8a5a3d0-5a5b-458f-9e6b-815bfe79da79"
+  ]
+}

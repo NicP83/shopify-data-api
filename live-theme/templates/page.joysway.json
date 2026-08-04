@@ -1,0 +1,312 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "8d64d8f2-7fbd-482a-afa9-67e3c823e9a2": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16379850096801__8d64d8f2-7fbd-482a-afa9-67e3c823e9a2-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16379850096801__8d64d8f2-7fbd-482a-afa9-67e3c823e9a2-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "0ffd9ffe-5b4b-4c4d-965b-a258387e388c": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Joysway",
+        "content": "<p>Joysway has been producing high quality remote control boats and aircraft since 2009.  They design and manufacture recreational and racing class RC sail boats as well as RC speed boats and aircraft and now present a new range of affordable slot car sets and accessories.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "a42d98f0-3b6c-44d1-82dd-e631b2e3817c": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC-Sail-Boats-_-Yachts.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-sail-boats-yachts"
+          }
+        },
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rc-Speed-boats.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-speed-boats"
+          }
+        },
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Slot-car-sets.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-slot-car-sets"
+          }
+        },
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC-Planes.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-rc-planes"
+          }
+        },
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC-bait-boats.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-bait-boats"
+          }
+        },
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC-boat-spare-parts.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-rc-boat-spare-parts"
+          }
+        },
+        "52bf3b55-748c-4b37-bb16-384c2dbe84eb": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Slot-cars_385d2832-2520-45f6-994b-7d94a00b651d.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-slot-car-cars"
+          }
+        },
+        "ced66844-053b-45b7-b46e-d9e6dd729df8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Slot-car-track-_-accessories.jpg",
+            "title": "",
+            "link": "shopify://collections/joysway-slot-car-track-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-1",
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-2",
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-3",
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-4",
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-5",
+        "template--16379850096801__a42d98f0-3b6c-44d1-82dd-e631b2e3817c-logo-6",
+        "52bf3b55-748c-4b37-bb16-384c2dbe84eb",
+        "ced66844-053b-45b7-b46e-d9e6dd729df8"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 100px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links__image-container {max-width: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "a2cdc46c-0848-453d-9c9d-cbdd2e593a0a": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16379850096801__a2cdc46c-0848-453d-9c9d-cbdd2e593a0a-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Landing-Page_Cover_Banner_D95.jpg",
+            "mobile_image": "shopify://shop_images/Joysway-Landing-Page_Cover_Banner_D95.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": "shopify://collections/joysway-dragon-flite"
+          }
+        },
+        "8c238e31-7819-493b-bd53-3d22b39add23": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Landing-Page_Cover_Banner_D65.jpg",
+            "mobile_image": "shopify://shop_images/Joysway-Landing-Page_Cover_Banner_D65.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": "shopify://collections/joysway-dragon-force"
+          }
+        }
+      },
+      "block_order": [
+        "template--16379850096801__a2cdc46c-0848-453d-9c9d-cbdd2e593a0a-image-1",
+        "8c238e31-7819-493b-bd53-3d22b39add23"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "04530577-827c-4028-9628-7e4e067da02e": {
+      "type": "video",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "video_url": "https://youtu.be/OpHDT3vLkg0"
+      }
+    },
+    "27b67849-af6e-484b-a80b-e212192af524": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Still-images_1.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Still-images_2.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Still-images_3.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Still-images_4.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Still-images_5.jpg",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-1",
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-2",
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-3",
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-4",
+        "template--16379850096801__27b67849-af6e-484b-a80b-e212192af524-logo-5"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 20%; padding: 2px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 260px; }}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 2px; border: 1px solid #e1e3e4; } img {width: 120px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        ".quick-links__image-container {padding-bottom: 0;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "blog_posts_RrfR7x": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Blog posts",
+        "link_title": "",
+        "show_category": true,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "8d64d8f2-7fbd-482a-afa9-67e3c823e9a2",
+    "0ffd9ffe-5b4b-4c4d-965b-a258387e388c",
+    "a42d98f0-3b6c-44d1-82dd-e631b2e3817c",
+    "a2cdc46c-0848-453d-9c9d-cbdd2e593a0a",
+    "04530577-827c-4028-9628-7e4e067da02e",
+    "27b67849-af6e-484b-a80b-e212192af524",
+    "blog_posts_RrfR7x"
+  ]
+}

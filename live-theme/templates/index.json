@@ -1,0 +1,498 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/ep-323-banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "https://www.youtube.com/live/1j9Snwdvpco?si=tfpcQWatLv7Ndyv0"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/rlaarlo-hearns-hobbies.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "https://www.hearnshobbies.com/collections/rlaarlo"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 255px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -60px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 190px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 145px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: 0px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "8e2d63b8-9b2b-4bc8-b21a-7cfcc5ea9ea3": {
+      "type": "logo-list",
+      "blocks": {
+        "1658848974b837ebe5-0": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/hobbyman_closed_thick.png",
+            "title": "The Hobbyman",
+            "link": "shopify://pages/the-hobbyman"
+          }
+        },
+        "logo_qLT8VL": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Drifting.png",
+            "title": "RC Drift",
+            "link": "shopify://collections/drift-cars"
+          }
+        },
+        "1658848974b837ebe5-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Green_Stuff_World_71a33160-f02a-4151-96fc-e94cef66fe73.png",
+            "title": "Green Stuff World",
+            "link": "shopify://collections/green-stuff-world"
+          }
+        },
+        "1658848974b837ebe5-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3.png",
+            "title": "Australian Railway",
+            "link": "shopify://collections/australian-railway"
+          }
+        },
+        "1658848974b837ebe5-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Military_Plastic_Kits.png",
+            "title": "Military Kits",
+            "link": "shopify://collections/military-model-kits"
+          }
+        },
+        "1658848974b837ebe5-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Narrow_Gauge_Train.png",
+            "title": "Narrow Gauge Train",
+            "link": "shopify://collections/narrow-gauge"
+          }
+        },
+        "1658848974b837ebe5-5": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Vintage_Bash_Page-01_e5d741b6-9efc-4f7a-b3c8-b54efff92d0c.png",
+            "title": "Drift Cars",
+            "link": "shopify://collections/drift-cars-rtr"
+          }
+        },
+        "ff2fde77-e275-4aba-b780-353398fff7b0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6_fa08200c-ff97-462f-8d43-9115ac8a8d40.png",
+            "title": "Gundam",
+            "link": "shopify://collections/gundam"
+          }
+        },
+        "87c3d012-073c-4251-a0ec-a37ac4bdcbea": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Warhammer.jpg",
+            "title": "Games Workshop",
+            "link": "shopify://collections/games-workshop"
+          }
+        },
+        "logo_NjVxDt": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/pre-order-icon-280-v2.png",
+            "title": "Pre-Orders",
+            "link": "shopify://collections/pre-order"
+          }
+        }
+      },
+      "block_order": [
+        "1658848974b837ebe5-0",
+        "logo_qLT8VL",
+        "1658848974b837ebe5-1",
+        "1658848974b837ebe5-2",
+        "1658848974b837ebe5-3",
+        "1658848974b837ebe5-4",
+        "1658848974b837ebe5-5",
+        "ff2fde77-e275-4aba-b780-353398fff7b0",
+        "87c3d012-073c-4251-a0ec-a37ac4bdcbea",
+        "logo_NjVxDt"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -60px; margin-bottom: -40px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; }}",
+        ".quick-links__image-container {margin-top: 5px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338": {
+      "type": "quick-links",
+      "blocks": {
+        "template--15993905676449__4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338-167396551572158a1e-1": {
+          "type": "link",
+          "settings": {
+            "title": "Top Selling",
+            "link": "shopify://collections/best-selling",
+            "background": "#0091b3",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--15993905676449__4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338-167396551572158a1e-0": {
+          "type": "link",
+          "settings": {
+            "title": "On Sale",
+            "link": "shopify://collections/on-special",
+            "background": "#ff4713",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "template--15993905676449__4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338-167396551572158a1e-1",
+        "template--15993905676449__4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338-167396551572158a1e-0"
+      ],
+      "custom_css": [
+        ".quick-links__link {padding: 6px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {padding: 12px; }}",
+        ".container {margin: -50px auto;}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "4ee320a9-b2c0-470a-a1e9-00d3a080a21e": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".section__header {margin-bottom: 5px;}"
+      ],
+      "settings": {
+        "collection": "in-store-now",
+        "title": "New Arrivals",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "92ce13e4-ce54-4e48-80f0-b8040f890f4b": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".section__header {margin-bottom: 5px; margin-top: -50px;}"
+      ],
+      "settings": {
+        "collection": "gopher-models",
+        "title": "",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "faa4fae1-d07a-497b-ae33-7740e9bb7913": {
+      "type": "collection-list",
+      "blocks": {
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "bachmann-branchline",
+            "image": "shopify://shop_images/Model_Trains-01.png",
+            "link": ""
+          }
+        },
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "hornby",
+            "image": "shopify://shop_images/Model_Trains-03.png",
+            "link": ""
+          }
+        },
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "yokomo-australia",
+            "image": "shopify://shop_images/Radio_Control-02.png",
+            "link": ""
+          }
+        },
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "tamiya",
+            "image": "shopify://shop_images/Model_Kits___Paints-01.png",
+            "link": ""
+          }
+        },
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "rlaarlo",
+            "image": "shopify://shop_images/Rlaarlo.png",
+            "link": ""
+          }
+        },
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-5": {
+          "type": "collection",
+          "settings": {
+            "collection": "woodland-scenics",
+            "image": "shopify://shop_images/Model_Trains-02.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-0",
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-1",
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-2",
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-3",
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-4",
+        "template--15941046960289__faa4fae1-d07a-497b-ae33-7740e9bb7913-16693902961552cf53-5"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 749px) {.collection-item {width: 20% !important; } .section__header {margin-bottom: -10px !important; }}",
+        ".collection-item__image-wrapper {margin-bottom: 0px;}",
+        ".section__header {margin-bottom: -30px; margin-top: -50px;}"
+      ],
+      "settings": {
+        "title": "Top Brands",
+        "link_title": "View all",
+        "link": "shopify://pages/brands",
+        "round_images": false,
+        "show_collection_title": true
+      }
+    },
+    "09902b22-eac4-4cd1-8ded-e3e82306475f": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Is_This_the_Best_AC_Kit__Kotobukiya_Armored_Core_Steel_Haze_Unboxing___askhearns_-_Hearns_Hobbies.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#ffffff",
+            "button_text": "",
+            "button_link": "https://www.youtube.com/watch?v=gfrWcpXJBL4"
+          }
+        },
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Kotobukiya_Frame_Arms_Girl_Izumo_Destroyer_Ver.___First_Look___askhearns_-_Hearns_Hobbies.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#ffffff",
+            "button_text": "",
+            "button_link": "https://www.youtube.com/watch?v=A9umhtzmxlY"
+          }
+        },
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Unboxing_the_Kotobukiya_Eva_Unit-01_Is_This_Kit_Worth_It____askhearns_-_Hearns_Hobbies.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#ffffff",
+            "button_text": "",
+            "button_link": "https://www.youtube.com/watch?v=2W351vXLRhQ"
+          }
+        }
+      },
+      "block_order": [
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-2",
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-0",
+        "template--15993905676449__09902b22-eac4-4cd1-8ded-e3e82306475f-16823521675139b46b-1"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 1199px) {.block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 30px; } .container {margin-top: -30px; } .promo-block {min-height: 190px; }}",
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 250px; } .block-list__item > :first-child {margin: 0 5px 30px; } .container {margin-top: -30px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 220px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; }}"
+      ],
+      "settings": {
+        "title": "Videos",
+        "link_title": "View All",
+        "link": "https://www.youtube.com/@HearnsHobbiesMelbourne",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "promotion_list_k76pz7": {
+      "type": "promotion-list",
+      "blocks": {
+        "item_LKU7WM": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_2.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_LKU7WM"
+      ],
+      "custom_css": [
+        ".section__header {justify-content: center;}",
+        ".block-list {justify-content: center;}"
+      ],
+      "settings": {
+        "title": "Australia's all-in-one department store for your hobby needs.",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    },
+    "rich_text_erJMqB": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>Here at Hearns Hobbies we are of the belief that a person's hobby is one of the best escapes from the day to day grind. Giving the mind a chance to think of something different and letting your body as a whole relax and enjoy something entertaining. While also subtly keeping your skills sharpened, your spirits heightened, and your passion well and truly alive.</p>",
+        "button_text": "About Us",
+        "button_link": "shopify://pages/hearns-history"
+      }
+    },
+    "1665961567dd2b4307": {
+      "type": "apps",
+      "blocks": {
+        "fdcab61b-4a34-40d0-8c5d-dd36e469b7c5": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": ""
+          }
+        }
+      },
+      "block_order": [
+        "fdcab61b-4a34-40d0-8c5d-dd36e469b7c5"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "news",
+        "blog_posts_count": 3,
+        "title": "Store News and Updates",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "16588471730e4c2da8",
+    "8e2d63b8-9b2b-4bc8-b21a-7cfcc5ea9ea3",
+    "4dbd0875-cf8a-4e3d-9677-6dfe8ebb8338",
+    "4ee320a9-b2c0-470a-a1e9-00d3a080a21e",
+    "92ce13e4-ce54-4e48-80f0-b8040f890f4b",
+    "faa4fae1-d07a-497b-ae33-7740e9bb7913",
+    "09902b22-eac4-4cd1-8ded-e3e82306475f",
+    "promotion_list_k76pz7",
+    "rich_text_erJMqB",
+    "1665961567dd2b4307",
+    "blog-posts"
+  ]
+}

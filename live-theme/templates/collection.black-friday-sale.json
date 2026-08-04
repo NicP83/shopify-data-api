@@ -1,0 +1,161 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Boxing-Day-Sale-Landing-Page_83740b11-bf0b-495a-880a-04b14581f2eb.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "f7e72d64-f653-41d3-8ca0-47135cb8129e": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Boxing Day Sale",
+        "content": "<p>It is that time of year again where everyone is looking for a bargain. At Hearns Hobbies we have some great products which are heavily reduced during this time of year. There are some great deals in place so have a look now.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_GU4XMG": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_mpXGPb": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Diecast-Specials_e08c69d1-7f08-4419-9968-ff197656ebe6.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-die-cast"
+          }
+        },
+        "logo_m4pxcb": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Model-Kit_Specials_f7cc7516-75e0-49e6-9c43-999e58d943a1.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-model-kits"
+          }
+        },
+        "logo_DnPh7A": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Model-Railway_Specials_001c5fed-7fc2-46a7-a2f0-f0998df0e900.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-model-railway"
+          }
+        },
+        "logo_kxpp7X": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC-Specials_0eb78c73-2099-46a3-94fe-ae22beed32cc.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-rc"
+          }
+        },
+        "logo_LFPB6d": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Slot-Car_Specials_a1bf1c4d-5815-48a7-9d3f-90d0fd94bc73.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-slot-cars"
+          }
+        },
+        "logo_UJLxbk": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Toys_Specials_cbdf6ae5-9d2e-4d51-8690-4cd074c0e558.jpg",
+            "title": "",
+            "link": "shopify://collections/black-friday-games-toys"
+          }
+        }
+      },
+      "block_order": [
+        "logo_mpXGPb",
+        "logo_m4pxcb",
+        "logo_DnPh7A",
+        "logo_kxpp7X",
+        "logo_LFPB6d",
+        "logo_UJLxbk"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; border: none; box-shadow: none; } .container {margin: -50px auto; } img {padding: 5px; } .quick-links__image-container {font-size: 12.5px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; border: none; box-shadow: none; } .container {margin-top: -40px; margin-bottom: -40px; } img {padding: 2px; } .quick-links__image-container {font-size: 8.5px; }}",
+        ".quick-links {border: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "f7e72d64-f653-41d3-8ca0-47135cb8129e",
+    "logo_list_GU4XMG",
+    "main",
+    "recently-viewed-products"
+  ]
+}

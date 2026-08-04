@@ -1,0 +1,208 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "product_meta": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": true,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "text_z37ewK": {
+          "type": "text",
+          "settings": {
+            "content": "<p>🚚 <strong>Shipping every business day</strong></p>"
+          }
+        },
+        "afterpay_on_site_messaging_payments_messaging_wzbipk": {
+          "type": "shopify://apps/afterpay-on-site-messaging/blocks/payments-messaging/f45a5524-d177-4475-bf59-281efd2215a8",
+          "settings": {
+            "text_align": "inherit",
+            "margin_top": 0,
+            "margin_bottom": 16,
+            "color": "",
+            "size": "sm",
+            "intro_text": "or",
+            "show_interest_free": true,
+            "payment_amount_is_bold": true,
+            "show_with": true,
+            "logo_type": "compact-badge",
+            "logo_theme": "black-on-mint",
+            "modal_link_style": "circled-info-icon",
+            "modal_theme": "mint",
+            "breakpoint": 749,
+            "text_align_mobile": "inherit",
+            "margin_top_mobile": 0,
+            "margin_bottom_mobile": 16,
+            "show_lower_limit": true,
+            "show_upper_limit": true,
+            "show_if_outside_limits": true,
+            "product": "{{product}}"
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 2
+          }
+        },
+        "de5f17a4-99da-4c41-9533-e62fa290f721": {
+          "type": "trust",
+          "settings": {
+            "trust_title": "Payment & Security",
+            "show_payment_icons": true,
+            "custom_security_badge_width": 200
+          }
+        },
+        "48724ee8-f9cc-4346-b665-94ed7a6fba30": {
+          "type": "button",
+          "settings": {
+            "text": "View Spare Parts",
+            "link": "{{ product.metafields.custom.productlink.value }}"
+          }
+        },
+        "button_fGrQjG": {
+          "type": "button",
+          "settings": {
+            "text": "User Manual",
+            "link": "{{ product.metafields.custom.user_manual.value }}"
+          }
+        },
+        "button_YYXmKh": {
+          "type": "button",
+          "settings": {
+            "text": "Supplementary Manual",
+            "link": "{{ product.metafields.custom.supplementary_manual.value }}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "pre_order_now_wod_app_block_Xz66tn": {
+          "type": "shopify://apps/wod-preorder-now/blocks/app-block/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
+          "settings": {
+            "color": "#000000"
+          }
+        },
+        "pre_order_now_wod_popups_block_4H4cDp": {
+          "type": "shopify://apps/wod-preorder-now/blocks/popups-block/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
+          "settings": {
+            "color": "#000000"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "display_mode": "view_more"
+          }
+        },
+        "68f67661-2e57-4f20-85a1-e7dc075c1be7": {
+          "type": "content",
+          "settings": {
+            "title": "Shipping Information (Aus & International)",
+            "content": "<p>Order before <strong>11am</strong>, and your item will ship same day (Australia Only)<br/><br/><strong>If your order is coming from more than one location:</strong><br/>We suggest you order with Standard Shipping rather than Express (this is due in part to transportation time between stores to get your order combined and sent from 1 location which will delay your \"express\" postage option).<br/><br/><strong>NOTE - On large mail items (over 1 Metre)</strong> Large mail items over 1m will have a delay due to shipping via courier being needed.<br/><br/><strong>Incorrect Delivery Info/Contact Details:</strong><br/>Hearns Hobbies is not held accountable for incorrect delivery / contact information entered in by the user at checkout. Please check your details are correct before submitting your order.<br/>If you have entered your details incorrectly when you checked out,  <br/>please contact us via phone or direct message IMMEDIATELY.<br/><br/>At Hearns Hobbies, we are very efficient with processing orders (meaning your order may already be packed and sorted) so speedy notification is required to allow for immediate intervention in order to change your details.<br/><br/>For more information, or if you are buying Internationally? Feel free to read our <a href=\"https://www.hearnshobbies.com/policies/shipping-policy\" target=\"_blank\"><strong>Shipping Policy</strong></a> before ordering.<br/><br/><strong>Insurance:</strong></p><p>It is highly recommended by Hearns Hobbies to opt for additional <br/>Insurance or \"Extra Cover\" to protect your delivery from possible damage or loss on the carriers part. If an item that is not insured is <br/>lost / damaged during delivery / transit then the lost item compensation / refund is up to the discretion of the carrier.</p><p>Hearns Hobbies offers shipping with Insurance / \"Extra Cover\", however this option is not applied by default and is at the discretion of the buyer to select upon checkout. Standard shipping <strong>DOES NOT</strong> include insurance by default.</p><p><strong>International Shipping Insurance:</strong></p><p>International shipping by default does not come with insurance. <br/>Please be aware of this before checking out. If you would like insurance please <a href=\"https://www.hearnshobbies.com/pages/contact-us-here\" target=\"_blank\">Contact Us</a> beforehand so we can see what can be organised.</p><p>Hearns Hobbies <strong>IS NOT</strong> responsible for refunding or replacing a damaged/broken items with no insurance.</p><p>We <strong>CAN NOT</strong> ship any dangerous goods internationally, if you place an order for dengerous goods we will have to apply a restocking fee.</p><p>Read AUSPOSTS statement on Compensation on damaged goods: <a href=\"https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation\" target=\"_blank\">https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation</a></p><p>Read more about Insurance and refunds on our Refund Policy page: <a href=\"https://www.hearnshobbies.com/policies/refund-policy\" target=\"_blank\">https://www.hearnshobbies.com/policies/refund-policy</a></p>",
+            "page": "",
+            "display_mode": "collapse"
+          }
+        },
+        "a795862d-249f-4fa2-b93a-986656f1c7cb": {
+          "type": "shipping_estimator",
+          "settings": {
+            "shipping_estimator_default_country": "United States",
+            "show_refunds_policy": true
+          }
+        },
+        "697ad5ea-fb7f-4f35-b113-51e391907c7b": {
+          "type": "content",
+          "settings": {
+            "title": "Pre-Order / Back-Order Information",
+            "content": "<p><strong>What are pre-orders?</strong> Pre-orders, are an order for a product placed before it is available for purchase.</p><p></p><p><strong>What are back-orders?</strong> Back-Orders allow you to place an order for a product, that is temporarily out of stock.</p><p></p><p><strong>How much are pre-orders / back-orders?</strong> Prices may vary slighlty (from what was paid on the day of the order). Whilst we try to maintain the lowest possible price, factors such as supplier price and exchange rate fluctuations, could affect the final price when we receive it in store. </p><p></p><p><em>Note: Pre-orders could in some cases be a deposit price, without any knowledge of a final price from the Supplier or Manufacturer. In all cases you will be notified if there is a significant price change,  from what was originally paid, before shipping.</em></p><p></p><p><strong>How long do I have to wait for my pre-order / back-order?</strong> All<br/> orders will be shipped once stock has arrived and full payment has been made, with the exception of Manufacturer Release Dates on some Pre-order Products. Waiting time depends on many factors, which are mostly out of our control. They could be for example, Manufacturing delays (due to global pandemics), Supplier shortages, or shipping delays.</p><p><br/><strong>Why am I being charged for my pre-order/back-order, even though the product isn’t released/re-stocked yet?</strong> This<br/> is pre-payment for an item's payment and delivery costs that isn’t released yet to ensure as soon as it arrives your order can be fulfilled and sent out to you a.s.a.p. Not all orders will be charged shipping depending on size, and total order amount (see our website for current shipping to find out more and our shipping policy for more information). <br/><br/>Read our full FAQ on<a href=\"https://www.hearnshobbies.com/pages/faq\"> Frequently Asked Questions page</a>.<br/>For detailed information on shipping of pre orders please read our <a href=\"https://www.hearnshobbies.com/policies/shipping-policy\"> Shipping Policy.</a><br/>For detailed information on returns of pre orders please read our  <a href=\"https://www.hearnshobbies.com/policies/refund-policy\">Returns Policy.</a></p>",
+            "page": "",
+            "display_mode": "collapse"
+          }
+        }
+      },
+      "block_order": [
+        "product_meta",
+        "text_z37ewK",
+        "afterpay_on_site_messaging_payments_messaging_wzbipk",
+        "variant_selector",
+        "de5f17a4-99da-4c41-9533-e62fa290f721",
+        "48724ee8-f9cc-4346-b665-94ed7a6fba30",
+        "button_fGrQjG",
+        "button_YYXmKh",
+        "buy_buttons",
+        "pre_order_now_wod_app_block_Xz66tn",
+        "pre_order_now_wod_popups_block_4H4cDp",
+        "description",
+        "68f67661-2e57-4f20-85a1-e7dc075c1be7",
+        "a795862d-249f-4fa2-b93a-986656f1c7cb",
+        "697ad5ea-fb7f-4f35-b113-51e391907c7b"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.product-gallery__size-limiter {width: 220px; } .product-gallery__carousel-wrapper {margin-bottom: 10px; } .product-meta__title, .product-gallery {margin-bottom: 0px; } .product-meta__label-list {margin-bottom: 5px; } .h1, .price {font-size: 18px; } .card__separator {margin: 5px 0; } .scroller__inner {padding-bottom: 10px; margin-bottom: -10px; }}",
+        ".button--primary {background: #ff4713;}",
+        ".product-meta__button {background: #0091b3; margin-right: 5px; margin-bottom: 5px;}",
+        ".product-meta__text {margin-bottom: 0;}"
+      ],
+      "settings": {
+        "image_size": "small",
+        "enable_video_looping": false,
+        "enable_image_zoom": true,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You may also like",
+        "show_quick_buy": true
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "d98ba357-5283-4acc-a17d-a25393e24cea": {
+      "type": "custom-liquid",
+      "settings": {
+        "title": "",
+        "include_margins": false,
+        "liquid": "<script type=\"text/javascript\">\nvar _learnq = _learnq || [];\n  var classname = document.getElementsByClassName(\"product-form__add-button button button--primary\");\nvar addToCart = function() {\n_learnq.push(['track', 'Added to Cart', item]);\n}; for (var i = 0; i < classname.length; i++) {\nclassname[i].addEventListener('click', addToCart, false);\n}\n</script>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-recommendations",
+    "recently-viewed-products",
+    "d98ba357-5283-4acc-a17d-a25393e24cea"
+  ]
+}

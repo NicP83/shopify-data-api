@@ -1,0 +1,174 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RC-Motors-_-ESCs-Landing-Page_3f8e88c3-9029-48d9-ba2a-982c681eb22d.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_jWyEcP": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "RC Motors & ESCs",
+        "content": "<p>Motors & ESCs are crucial for the operation of your RC vehicles.  Whether you are looking for new ones to fit your new RC kiit or looking to replace old ones, you can find plenty of great Motor & ESC options at Hearns Hobbies.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_XAdce9": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Brushed_Motors.jpg",
+            "title": "RC Brushed Motors",
+            "link": "shopify://collections/rc-brushed-motors"
+          }
+        },
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Brushless_Motors.jpg",
+            "title": "RC Brushless Motors",
+            "link": "shopify://collections/brushless-motors"
+          }
+        },
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Car_Brushed_ESCs.jpg",
+            "title": "Car Brushed ESCs",
+            "link": "shopify://collections/rc-car-brushed-esc"
+          }
+        },
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Car_Brushless_ESCs.jpg",
+            "title": "Car Brushless ESCs",
+            "link": "shopify://collections/brushless-escs"
+          }
+        },
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Motor_ESC_Combos.jpg",
+            "title": "Motor & ESC Combos",
+            "link": "shopify://collections/rc-motor-esc-combos"
+          }
+        },
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Plane_Motors.jpg",
+            "title": "RC Plane Motors",
+            "link": "shopify://collections/rc-plane-motors"
+          }
+        },
+        "361d1a4c-861d-4a0b-b288-0304972009d1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Plane_ESC.jpg",
+            "title": "RC Plane ESCs",
+            "link": "shopify://collections/rc-plane-esc"
+          }
+        },
+        "773d7ec0-45e6-4222-ab90-084fcae58198": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Boat_ESCs.jpg",
+            "title": "RC Boat ESC",
+            "link": "shopify://collections/rc-boat-esc"
+          }
+        }
+      },
+      "block_order": [
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-1",
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-2",
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-3",
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-4",
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-5",
+        "template--16128836599969__6aa7f299-a000-42ec-93dd-42aeb0271bb7-logo-6",
+        "361d1a4c-861d-4a0b-b288-0304972009d1",
+        "773d7ec0-45e6-4222-ab90-084fcae58198"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 160px; padding: 5px; margin-bottom: 5px; } .quick-links__image-container {font-size: 13px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {margin-bottom: 5px; width: 90px; } .quick-links__image-container {font-size: 9px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "rich_text_jWyEcP",
+    "logo_list_XAdce9",
+    "main"
+  ]
+}

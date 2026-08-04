@@ -1,0 +1,225 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Car-Models-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "43ebcc66-2270-485c-b82f-88f835de2b47": {
+      "type": "custom-html",
+      "custom_css": [
+        ".expandable-content[aria-expanded] {max-height: 150px;}"
+      ],
+      "settings": {
+        "title": "Car Models",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nWhatever type of car model you are looking for Hearns Hobbies has plenty of optionsfor you.  If you are into RC or remote control cars we have a selection of RTR (ready to run) and kits available for you to choose.  If you like assembling plastic model kits then we have an extensive range of model car kits.  We also have a good range of diecast cars in a range of different scales. For the real car enthusiast we have a range of exclusive, premium quality collectible resin cars.  As well as that we have the current slot cars produced to suit the main brands of slot car sets.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "d96bfc22-8405-4fea-8c9d-017ac798b622": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/RC-Car-RTR.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/rc-rtr-cars-trucks"
+          }
+        },
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/RC-Car-Kits.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/rc-car-truck-kits"
+          }
+        },
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Plastic-Kit-Cars.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/plastic-model-car-kits"
+          }
+        },
+        "a539291b-3df6-4bd4-b53e-5f9da7857af6": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Diecast-Cars.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/die-cast-cars"
+          }
+        },
+        "9ae8bcf9-9ff3-4796-bc89-a92c02fd9e9d": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Resin-Cars.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/resin-cars"
+          }
+        },
+        "d16116eb-6ce8-43e4-87fd-b0b4ed683c6a": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slot-Cars_b8446782-0b48-4d6d-9491-e92851dbda3f.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/slot-car-cars"
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-0",
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-1",
+        "template--16119257694369__d96bfc22-8405-4fea-8c9d-017ac798b622-1689596741bb841930-2",
+        "a539291b-3df6-4bd4-b53e-5f9da7857af6",
+        "9ae8bcf9-9ff3-4796-bc89-a92c02fd9e9d",
+        "d16116eb-6ce8-43e4-87fd-b0b4ed683c6a"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        "@media screen and (min-width: 1000px) {.promo-block {min-height: 220px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 160px; } .block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 195px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "43ebcc66-2270-485c-b82f-88f835de2b47",
+    "d96bfc22-8405-4fea-8c9d-017ac798b622",
+    "main",
+    "recently-viewed-products"
+  ]
+}

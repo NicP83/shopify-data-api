@@ -1,0 +1,229 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Kato.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_RLdRWd": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Kato Model Railway Products",
+        "content": "<p>Kato is a Japanese company which has been producing high quality model railway products since the 1950’s.  They produce a large number of models based on Japanese prototypes specifically for the Japanese market.  They also produce North American & European models.  They also now produce a range of Japanese trams with specialised track and accessories.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_g7t3WW": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sets.png",
+            "title": "Sets",
+            "link": "shopify://collections/kato-sets"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.png",
+            "title": "N Locomotives",
+            "link": "shopify://collections/kato-n-locomotives"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_470ba02d-1cb3-4ccb-ab18-d30fcee9aeb1.png",
+            "title": "N Rolling Stock",
+            "link": "shopify://collections/kato-n-rolling-stock"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_e4058dc6-7dfa-48ac-89d1-74df010872d3.png",
+            "title": "N Train Track Sets",
+            "link": "shopify://collections/kato-train-track-sets"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories_1.png",
+            "title": "N Track",
+            "link": "shopify://collections/kato-track"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Points.png",
+            "title": "N Points",
+            "link": "shopify://collections/kato-n-points"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-4",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } img {width: 100px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_rUzbxM": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_9f2b22ea-0562-4d01-b5c0-42b1cb33b7a7.png",
+            "title": "N Buildings",
+            "link": "shopify://collections/kato-buildings"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Bridges___Tunnels.png",
+            "title": "N Bridges & Tunnels",
+            "link": "shopify://collections/kato-n-bridges-tunnels"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Figures.png",
+            "title": "N Figures",
+            "link": "shopify://collections/kato-n-figures"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Wiring___Power.png",
+            "title": "Wiring & Power",
+            "link": "shopify://collections/kato-wiring-power"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Trams.png",
+            "title": "Trams",
+            "link": "shopify://collections/n-trams"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tram_Track.png",
+            "title": "Tram Track",
+            "link": "shopify://collections/kato-tram-track"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } img {width: 100px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "rich_text_RLdRWd",
+    "logo_list_g7t3WW",
+    "logo_list_rUzbxM",
+    "main"
+  ]
+}

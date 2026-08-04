@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "text-with-icons": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-fast-delivery",
+            "title": "Free Delivery if you Spend $150 or more!",
+            "content": "<p>If you spend $150 or more you can get free standard shipping!<br/><br/>Read our full <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\"><strong>Shipping Policy</strong></a> for more.</p>"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-gift-box",
+            "title": "Local Manufacturing",
+            "content": "<p>Hearns Hobbies is a Melbourne Manufacturer of Resin Figures, Diorama pieces, RC Parts and much more!</p><p></p><p>Visit our <a href=\"https://hearnshobbies.myshopify.com/pages/hearns-workshop\" title=\"Hearns Workshop\"><strong>Hearns Workshop</strong></a> page to find out more. </p>"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-secure-payment",
+            "title": "Secure Payments",
+            "content": "<p>We utilise secure payment systems from <a href=\"https://www.afterpay.com/en-AU\" target=\"_blank\" title=\"https://www.afterpay.com/en-AU\"><strong>Afterpay</strong></a>, <a href=\"https://shop.app/what-shop-does\" target=\"_blank\" title=\"Shop Pay How It Works\"><strong>ShopPay</strong></a>, <a href=\"https://www.paypal.com/au/webapps/mpp/how-paypal-works\" target=\"_blank\" title=\"PayPal How It Works\"><strong>PayPal</strong></a>, and <a href=\"https://zip.co/how-zip-works\" target=\"_blank\" title=\"Zip Pay How It Works\"><strong>Zip Pay</strong></a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "stack_mobile": false
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-0": {
+          "type": "text",
+          "settings": {
+            "title": "Hearns Hobbies Melbourne",
+            "content": "<p>Hearns Hobbies has been proudly servicing our dedicated customers all over Melbourne, Australia, and Internationally since 1947!</p>"
+          }
+        },
+        "footer-1": {
+          "type": "links",
+          "settings": {
+            "menu": "2022-new-menu"
+          }
+        },
+        "452f359c-09a9-4af5-90ef-8973d6bdb917": {
+          "type": "links",
+          "settings": {
+            "menu": "store-info-1"
+          }
+        },
+        "footer-2": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Newsletter",
+            "subheading": "<p>Subscribe to our Newsletter for <strong>News</strong>, <strong>Promotions</strong>, <strong>Product updates </strong>and <strong>MORE</strong>!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "footer-0",
+        "footer-1",
+        "452f359c-09a9-4af5-90ef-8973d6bdb917",
+        "footer-2"
+      ],
+      "settings": {
+        "show_social_media": true,
+        "enable_follow_on_shop": true,
+        "show_payment_icons": true,
+        "show_locale_selector": false,
+        "show_country_selector": false
+      }
+    }
+  },
+  "order": [
+    "text-with-icons",
+    "footer"
+  ]
+}

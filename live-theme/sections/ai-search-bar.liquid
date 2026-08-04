@@ -1,0 +1,179 @@
+{% comment %}
+  AI Product Search Bar Section
+  Renders a search input that opens the AI chat modal
+{% endcomment %}
+
+<div
+  class="ai-search-bar-container"
+  data-position="{{ section.settings.position }}"
+  data-auto-focus="{{ section.settings.auto_focus }}"
+  id="ai-search-bar-{{ section.id }}"
+>
+  <div class="ai-search-bar-wrapper">
+    <button
+      type="button"
+      class="ai-search-trigger"
+      id="ai-search-trigger-{{ section.id }}"
+      aria-label="Open AI Product Search Assistant"
+      aria-expanded="false"
+      aria-controls="ai-search-modal"
+    >
+      <svg class="ai-search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="ai-search-text">Ask our AI assistant to find products...</span>
+      <svg class="ai-sparkle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 1v14M1 8h14M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  #ai-search-bar-{{ section.id }}.ai-search-bar-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  #ai-search-bar-{{ section.id }}[data-position="header"] {
+    margin: 1rem auto;
+  }
+  #ai-search-bar-{{ section.id }}[data-position="fixed-bottom"] {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    z-index: 999;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-bar-wrapper {
+    position: relative;
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: white;
+    border: 2px solid {{ section.settings.primary_color | default: '#4A90E2' }};
+    border-radius: 50px;
+    color: {{ section.settings.text_color | default: '#333333' }};
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-trigger:hover {
+    background: {{ section.settings.primary_color | default: '#4A90E2' }};
+    color: white;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    transform: translateY(-2px);
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-trigger:focus {
+    outline: 2px solid {{ section.settings.primary_color | default: '#4A90E2' }};
+    outline-offset: 2px;
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-icon {
+    flex-shrink: 0;
+    color: {{ section.settings.primary_color | default: '#4A90E2' }};
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-trigger:hover .ai-search-icon {
+    color: white;
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-text {
+    flex: 1;
+    text-align: left;
+    font-weight: 400;
+  }
+  #ai-search-bar-{{ section.id }} .ai-sparkle-icon {
+    flex-shrink: 0;
+    color: {{ section.settings.primary_color | default: '#4A90E2' }};
+    animation: sparkle-{{ section.id }} 2s ease-in-out infinite;
+  }
+  #ai-search-bar-{{ section.id }} .ai-search-trigger:hover .ai-sparkle-icon {
+    color: white;
+  }
+  @keyframes sparkle-{{ section.id }} {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    #ai-search-bar-{{ section.id }}[data-position="fixed-bottom"] {
+      max-width: calc(100% - 40px);
+    }
+    #ai-search-bar-{{ section.id }} .ai-search-trigger {
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    #ai-search-bar-{{ section.id }} .ai-search-text {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const trigger = document.getElementById('ai-search-trigger-{{ section.id }}');
+    const modal = document.getElementById('ai-search-modal'); // ensure this exists globally
+    if (trigger && modal) {
+      trigger.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        trigger.setAttribute('aria-expanded', 'true');
+        const input = modal.querySelector('.ai-chat-input');
+        if (input) {
+          setTimeout(() => input.focus(), 100);
+        }
+      });
+    }
+    // Auto-focus if enabled
+    const container = document.getElementById('ai-search-bar-{{ section.id }}');
+    if (container && container.dataset.autoFocus === 'true') {
+      setTimeout(() => trigger && trigger.focus(), 500);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "AI Search Bar",
+  "tag": "section",
+  "class": "ai-search-bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#4A90E2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        { "value": "header", "label": "Header" },
+        { "value": "fixed-bottom", "label": "Fixed Bottom" },
+        { "value": "inline", "label": "Inline" }
+      ],
+      "default": "header"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_focus",
+      "label": "Auto-focus on page load",
+      "default": false
+    }
+  ],
+  "presets": [
+    { "name": "AI Search Bar" }
+  ]
+}
+{% endschema %}

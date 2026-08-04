@@ -1,0 +1,597 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "5c4cebf9-b984-4949-86b3-9322be34f1ee": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16188044640417__5c4cebf9-b984-4949-86b3-9322be34f1ee-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/yokomofactorylogo.jpg",
+            "mobile_image": "shopify://shop_images/yokomofactorylogo.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__5c4cebf9-b984-4949-86b3-9322be34f1ee-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "0f43bbbe-2628-4698-b15e-d51d5fb03965": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "",
+        "content": "<h1>Here is the current range of Yokomo RC kits for your racing needs.</h1>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "0da2e1fe-7044-43df-8cbb-e0a29a3538da": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Yokomo's On-Road Racers",
+        "content": "<p>Check out these great Yokomo cars which are designed for speed and on-road performance.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "75d81e5a-f000-4904-a427-7470f2470036": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-product_meta-1",
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-variant_selector-1",
+        "template--16188044640417__75d81e5a-f000-4904-a427-7470f2470036-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-1-10-competition-ep-touring-car-kit-bd12-2023",
+        "title": "Yokomo BD12",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-1-10-competition-ep-touring-car-kit-bd12-2023",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "8ab76b28-7394-4f9e-8b13-13f8a7f452ba": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-product_meta-1",
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-variant_selector-1",
+        "template--16188044640417__8ab76b28-7394-4f9e-8b13-13f8a7f452ba-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-rookie-speed-rs1-0-assembly-chassis-kit",
+        "title": "Yokomo Rookie Speed RS1.0",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-rookie-speed-rs1-0-assembly-chassis-kit",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "15c57f76-0d65-4671-87f2-743815163918": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Yokomo's Off-Road Racers",
+        "content": "<p>If you like to take your racing off-road then check out this range of off-road racers.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "666ae81a-877a-479b-b7d9-a67d0cd33350": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__666ae81a-877a-479b-b7d9-a67d0cd33350-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__666ae81a-877a-479b-b7d9-a67d0cd33350-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__666ae81a-877a-479b-b7d9-a67d0cd33350-product_meta-1",
+        "template--16188044640417__666ae81a-877a-479b-b7d9-a67d0cd33350-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-super-off-road-so2-0-2wd-competition-buggy-kit",
+        "title": "Yokomo Super Off-Road SO2.0",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-super-off-road-so2-0-2wd-competition-buggy-kit",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "4c3b740f-085f-4eff-99e9-a7083a669f01": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-product_meta-1",
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-variant_selector-1",
+        "template--16188044640417__4c3b740f-085f-4eff-99e9-a7083a669f01-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-master-off-road-mo2-0-4wd-competition-buggy-kit",
+        "title": "Yokomo Master Off-Road MO2.0",
+        "link_title": "View details",
+        "link_url": "shopify://products/yokomo-master-off-road-mo2-0-4wd-competition-buggy-kit",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "9ca2d0f8-68a0-4350-a6e5-7195a47497e7": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-product_meta-1",
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-variant_selector-1",
+        "template--16188044640417__9ca2d0f8-68a0-4350-a6e5-7195a47497e7-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-rookie-off-road-ro1-0",
+        "title": "Yokomo Rookie Off-Road RO1.0",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-rookie-off-road-ro1-0",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "7cdd8d79-2cac-4b58-8837-819b222186c8": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin: -30px auto;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Yokomo's Drift Car Range",
+        "content": "<p>If drift car racing is more your scene then check out these great drift cars.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "6c8c042f-72a6-4fc8-8fcc-1f42e819d11b": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": false
+          }
+        },
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-product_meta-1",
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-variant_selector-1",
+        "template--16188044640417__6c8c042f-72a6-4fc8-8fcc-1f42e819d11b-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-super-drift-sd2-0-rwd-drift-car-assembly-kit",
+        "title": "Yokomo Super Drift SD2.0",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-super-drift-sd2-0-rwd-drift-car-assembly-kit",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "2e936235-285e-4cfc-bda3-c2a6f9583267": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-product_meta-1",
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-variant_selector-1",
+        "template--16188044640417__2e936235-285e-4cfc-bda3-c2a6f9583267-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-master-drift-md1-0-drift-car-purple-version",
+        "title": "Yokomo Master Drift MD1.0",
+        "link_title": "",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-product_meta-1",
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-variant_selector-1",
+        "template--16188044640417__9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-rookie-drift-rd1-0-rwd-draft-car-assembly-kit",
+        "title": "Yokomo Rookie Drift RD1.0",
+        "link_title": "View Details",
+        "link_url": "shopify://products/yokomo-rookie-drift-rd1-0-rwd-draft-car-assembly-kit",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "9481b3b3-0ceb-4809-a150-6edec4357ec3": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-product_meta-1",
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-variant_selector-1",
+        "template--16188044640417__9481b3b3-0ceb-4809-a150-6edec4357ec3-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-1-10-drift-package-2wd-gr-supra-body-red-rtr-full-set",
+        "title": "Rookie Drift RTR - Pandem GR Supra Red",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "2ea0f29a-d2f2-4487-99dc-4d40c0140996": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-product_meta-1",
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-variant_selector-1",
+        "template--16188044640417__2ea0f29a-d2f2-4487-99dc-4d40c0140996-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-1-10-drift-package-2wd-gr-supra-body-white-rtr-full-set",
+        "title": "Rookie Drift RTR - Pandem GR Supra White",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "5c4cebf9-b984-4949-86b3-9322be34f1ee",
+    "0f43bbbe-2628-4698-b15e-d51d5fb03965",
+    "0da2e1fe-7044-43df-8cbb-e0a29a3538da",
+    "75d81e5a-f000-4904-a427-7470f2470036",
+    "8ab76b28-7394-4f9e-8b13-13f8a7f452ba",
+    "15c57f76-0d65-4671-87f2-743815163918",
+    "666ae81a-877a-479b-b7d9-a67d0cd33350",
+    "4c3b740f-085f-4eff-99e9-a7083a669f01",
+    "9ca2d0f8-68a0-4350-a6e5-7195a47497e7",
+    "7cdd8d79-2cac-4b58-8837-819b222186c8",
+    "6c8c042f-72a6-4fc8-8fcc-1f42e819d11b",
+    "2e936235-285e-4cfc-bda3-c2a6f9583267",
+    "9cf0f0d1-3e21-4ae1-867e-e2a978c90e2b",
+    "9481b3b3-0ceb-4809-a150-6edec4357ec3",
+    "2ea0f29a-d2f2-4487-99dc-4d40c0140996"
+  ]
+}

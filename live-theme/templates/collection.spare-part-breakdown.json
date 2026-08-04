@@ -1,0 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_6e4wed": {
+      "type": "slideshow",
+      "blocks": {
+        "image_FEGgdd": {
+          "type": "image",
+          "settings": {
+            "image": "{{ collection.image }}",
+            "mobile_image": "{{ collection.image }}",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_FEGgdd"
+      ],
+      "custom_css": [
+        "@media (min-width: 1200px) {.slideshow {padding: 0 400px; }}",
+        "@media (min-width: 769px) and (max-width: 1199px) {.slideshow {padding: 0 250px; }}",
+        ".container {padding-top: 30px;}"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "quick_links_gCHMia": {
+      "type": "quick-links",
+      "blocks": {
+        "link_4zC96A": {
+          "type": "link",
+          "settings": {
+            "title": "Standard Parts",
+            "link": "{{ collection.metafields.custom.standard_parts_url.value }}",
+            "background": "#ff4713",
+            "text_color": "#ffffff"
+          }
+        },
+        "link_yGX3zz": {
+          "type": "link",
+          "settings": {
+            "title": "Option Parts",
+            "link": "{{ collection.metafields.custom.option_parts_url.value }}",
+            "background": "#ff4713",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "link_4zC96A",
+        "link_yGX3zz"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 769px) {.quick-links {border: none; justify-content: center; gap: 5px; } .quick-links__link {width: 20% !important; }}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": false,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "slideshow_6e4wed",
+    "quick_links_gCHMia",
+    "main"
+  ]
+}

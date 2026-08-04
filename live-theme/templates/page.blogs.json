@@ -1,0 +1,294 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "166014688933422b0d": {
+      "type": "quick-links",
+      "blocks": {
+        "1660146889e0724fd9-0": {
+          "type": "link",
+          "settings": {
+            "title": "Store News and Updates",
+            "link": "shopify://blogs/news",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "1660146889e0724fd9-1": {
+          "type": "link",
+          "settings": {
+            "title": "Educational and Tutorials",
+            "link": "shopify://blogs/educational",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "1660146889e0724fd9-2": {
+          "type": "link",
+          "settings": {
+            "title": "Radio Control",
+            "link": "shopify://blogs/radio-control",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "1660146889e0724fd9-3": {
+          "type": "link",
+          "settings": {
+            "title": "Model Kits",
+            "link": "shopify://blogs/model-kits",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "link_kk6Mgw": {
+          "type": "link",
+          "settings": {
+            "title": "Model Railways",
+            "link": "shopify://blogs/model-railways",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "link_QfmMMf": {
+          "type": "link",
+          "settings": {
+            "title": "Die Cast",
+            "link": "shopify://blogs/die-cast",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "link_gXVDqJ": {
+          "type": "link",
+          "settings": {
+            "title": "Gifts & Toys",
+            "link": "shopify://blogs/gifts-toys-blog",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "link_J93hVy": {
+          "type": "link",
+          "settings": {
+            "title": "Scale Model",
+            "link": "shopify://blogs/scale-model",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        },
+        "link_nqza4F": {
+          "type": "link",
+          "settings": {
+            "title": "Slot Car",
+            "link": "shopify://blogs/slot-car-blog",
+            "background": "#ffffff",
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "1660146889e0724fd9-0",
+        "1660146889e0724fd9-1",
+        "1660146889e0724fd9-2",
+        "1660146889e0724fd9-3",
+        "link_kk6Mgw",
+        "link_QfmMMf",
+        "link_gXVDqJ",
+        "link_J93hVy",
+        "link_nqza4F"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1000px) {.quick-links__link {width: 20% !important; border: 1px solid #e1e3e4; }}",
+        ".quick-links {border: none;}",
+        ".quick-links__link {width: 33.33%; border: 1px solid #e1e3e4; padding: 5px 2px;}"
+      ],
+      "settings": {
+        "title": "Blogs",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "16601466754ea3e2e4": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "news",
+        "blog_posts_count": 3,
+        "title": "Store News and Updates",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "1660146732b8ac9ef8": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "educational",
+        "blog_posts_count": 3,
+        "title": "Educational and Tutorials",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "16601467816eda8675": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Radio Control",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "16601468110f84b680": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "model-kits",
+        "blog_posts_count": 3,
+        "title": "Model Kits",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "blog_posts_eNcFPY": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "model-railways",
+        "blog_posts_count": 3,
+        "title": "Model Railway",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "blog_posts_x4jnGa": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "die-cast",
+        "blog_posts_count": 3,
+        "title": "Die Cast",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "blog_posts_ft8kXk": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "gifts-toys-blog",
+        "blog_posts_count": 3,
+        "title": "Gifts & Toys",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "blog_posts_ayRimN": {
+      "type": "blog-posts",
+      "custom_css": [
+        ".article-item__image {height: 230px;}",
+        "@media (max-width: 1199px) {.article-item__image {height: 170px; }}"
+      ],
+      "settings": {
+        "blog": "slot-car-blog",
+        "blog_posts_count": 3,
+        "title": "Slot Car",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "166014688933422b0d",
+    "16601466754ea3e2e4",
+    "1660146732b8ac9ef8",
+    "16601467816eda8675",
+    "16601468110f84b680",
+    "blog_posts_eNcFPY",
+    "blog_posts_x4jnGa",
+    "blog_posts_ft8kXk",
+    "blog_posts_ayRimN",
+    "newsletter"
+  ]
+}

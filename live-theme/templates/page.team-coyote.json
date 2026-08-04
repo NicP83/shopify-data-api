@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        "h1 {display: none;}"
+      ],
+      "settings": {}
+    },
+    "slideshow_ErUQhp": {
+      "type": "slideshow",
+      "blocks": {
+        "image_dTC6qY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_1.png",
+            "show_overlay": false,
+            "overlay_opacity": 0,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_dTC6qY"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_B8tQ9M": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Team Cayote RC Electronics - Elevate Your Performance",
+        "content": "<p>Welcome to the ultimate destination for RC enthusiasts at Hearns Hobbies. Dive into the world of Team Cayote, where cutting-edge technology meets high performance. Whether you're a competitive racer or a passionate hobbyist, our selection of Team Cayote products is designed to enhance your RC experience.</p><h3><strong>Unleash the Power of Precision Engineering</strong></h3><p>At Team Cayote, every product is a testament to innovation and reliability in the RC industry. Crafted with precision and engineered for performance, our electronics are built to meet the demands of both casual enthusiasts and professional racers. When you choose Team Cayote, you're not just getting a product—you're investing in a superior RC experience.</p>",
+        "button_text": "Read More",
+        "button_link": ""
+      }
+    },
+    "featured_collection_7GnBfw": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "team-cayote",
+        "title": "",
+        "products_count": 50,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": false,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "rich_text_maBEja": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<h3><strong>Explore Our Premium Range:</strong></h3><ul><li><strong>CAYOTE X-Link Program Box<br/></strong>Unlock the full potential of your RC vehicle with the CAYOTE X-Link Program Box. This tool allows you to fine-tune your settings for optimal performance, whether you’re on the track or navigating tricky terrains. With an input voltage range of 5-8.4V, this program box is compatible with a variety of setups, making it an essential addition to your RC toolkit.</li><li><strong>CAYOTE B-Tune Bluetooth Module<br/></strong>Experience the convenience of wireless control with the CAYOTE B-Tune Bluetooth Module. This innovative module enables seamless connectivity to your smartphone, allowing you to adjust and customize your RC settings on the go. Whether you're tweaking acceleration curves or adjusting brake strength, the B-Tune puts advanced control right at your fingertips.</li><li><strong>CAYOTE Racing ESC CREST X<br/></strong>Designed for serious racers, the CAYOTE Racing ESC CREST X delivers unparalleled performance on the track. Optimized for 2-3S LiPo batteries, this ESC offers smoother acceleration, responsive braking, and enhanced durability. Whether you're competing in a local race or pushing your limits on a practice run, the CREST X is engineered to give you a competitive edge.</li><li><strong>CAYOTE Racing ESC CREST 8<br/></strong>Push the boundaries of power with the CAYOTE Racing ESC CREST 8. Supporting 2-4S LiPo batteries, this ESC is built for those who demand the highest levels of performance. With advanced thermal management and precision control, the CREST 8 ensures that your RC vehicle operates at peak efficiency, even under the most demanding conditions.</li></ul><h3><strong>Why Team Cayote?</strong></h3><p>Team Cayote is more than just a brand—it's a commitment to excellence. Our products are designed with the latest technology and manufactured to the highest standards, ensuring that you get the most out of your RC experience. Whether you're upgrading your setup or looking for the latest in RC innovation, Team Cayote provides the tools you need to succeed.</p><h3><strong>Shop the Best in RC Electronics</strong></h3><p>Ready to take your RC hobby to the next level? Explore our full range of Team Cayote products at Hearns Hobbies Melbourne. With decades of experience serving the RC community, we pride ourselves on offering top-quality products that meet the needs of every enthusiast. From the casual hobbyist to the seasoned racer, we have the electronics to power your passion.</p><p><strong>Enhance your RC experience today with Team Cayote at Hearns Hobbies—where performance meets precision.</strong></p><h3><strong>Connect with Us!</strong></h3><p>Stay updated on the latest RC innovations, tips, and exclusive offers by following Hearns Hobbies on social media. Join our community on<a href=\"https://www.facebook.com/HearnsHobbies\"> <span style=\"text-decoration:underline\"><strong>Facebook</strong></span></a>,<a href=\"https://twitter.com/HearnsHobbies\"> <span style=\"text-decoration:underline\"><strong>Twitter</strong></span></a>,<a href=\"https://www.youtube.com/user/HearnsHobbies\"> <span style=\"text-decoration:underline\"><strong>YouTube</strong></span></a>, <strong>Twitch</strong>, and<a href=\"https://www.instagram.com/hearnshobbies/\"> <span style=\"text-decoration:underline\"><strong>Instagram</strong></span></a> for more exciting content and to be part of the RC action!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "newsletter",
+    "main",
+    "slideshow_ErUQhp",
+    "rich_text_B8tQ9M",
+    "featured_collection_7GnBfw",
+    "rich_text_maBEja"
+  ]
+}

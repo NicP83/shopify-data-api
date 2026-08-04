@@ -1,0 +1,285 @@
+{% comment %}
+  AI Product Search Modal — Section
+  Full-screen modal with chat interface and message history
+{% endcomment %}
+
+<div
+  id="ai-search-modal"
+  class="ai-search-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="ai-modal-title"
+  style="display: none;"
+  data-api-url="{{ section.settings.api_url }}"
+  data-shop-domain="{{ shop.permanent_domain }}"
+  data-max-results="{{ section.settings.max_results }}"
+>
+  <div class="ai-modal-overlay" id="ai-modal-overlay"></div>
+  <div class="ai-modal-content">
+    <!-- Modal Header -->
+    <div class="ai-modal-header">
+      <div class="ai-modal-title-wrapper">
+        <svg class="ai-assistant-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="{{ section.settings.primary_color }}" stroke="{{ section.settings.primary_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2 id="ai-modal-title" class="ai-modal-title">Camilla - Product Support</h2>
+      </div>
+      <button
+        type="button"
+        class="ai-modal-close"
+        id="ai-modal-close"
+        aria-label="Close search modal"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-welcome-message">
+        <div class="ai-message ai-message-assistant">
+          <div class="ai-message-avatar" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ai-message-content">
+            <p>Hi! I'm Camilla, your product support assistant for {{ shop.name }}. I can help you find products like:</p>
+            <ul class="ai-suggestion-list">
+              <li>"Show me Gundam model kits under $50"</li>
+              <li>"I need hobby paints for plastic models"</li>
+              <li>"What tools do I need for scale modeling?"</li>
+            </ul>
+            <p class="ai-tip">Be as specific as you'd like - I can search by brand, price, category, or project type.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="ai-typing-indicator" id="ai-typing-indicator" style="display: none;">
+      <div class="ai-message ai-message-assistant">
+        <div class="ai-message-avatar" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="ai-message-content">
+          <div class="ai-typing-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="ai-typing-status" id="ai-typing-status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="ai-error-message" id="ai-error-message" style="display: none;">
+      <div class="ai-error-content" role="alert">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <path d="M12 8v4M12 16h.01" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span id="ai-error-text"></span>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-chat-input-container">
+      <form id="ai-chat-form" class="ai-chat-form" autocomplete="off" role="search">
+        <textarea
+          id="ai-chat-input"
+          class="ai-chat-input"
+          placeholder="Ask Camilla about products..."
+          rows="1"
+          aria-label="Product search query"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="ai-chat-submit"
+          id="ai-chat-submit"
+          aria-label="Send message"
+        >
+          <svg class="ai-send-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+      <div class="ai-chat-footer">
+        <span class="ai-powered-by">Powered by Camilla</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Modal Container */
+  .ai-search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .ai-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+  .ai-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 800px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    animation: modalSlideIn 0.3s ease-out;
+    pointer-events: auto;
+    padding: 0 15px;
+  }
+  @keyframes modalSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .ai-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #cbcbcb;
+    background: linear-gradient(135deg, {{ section.settings.primary_color | default: '#212b36' }}08 0%, white 100%);
+  }
+
+  .ai-modal-title-wrapper { display:flex; align-items:center; gap:12px; }
+  .ai-assistant-icon { animation:sparkle 2s ease-in-out infinite; }
+  .ai-modal-title { margin:0; font-size:20px; font-weight:600; color: {{ section.settings.text_color | default: '#191919' }}; }
+
+  .ai-modal-close { padding:8px; background:transparent; border:none; border-radius:8px; cursor:pointer; color:#6b7280; transition:all .2s; }
+  .ai-modal-close:hover { background:#f3f4f6; color: {{ section.settings.text_color | default: '#191919' }}; }
+
+  .ai-chat-messages { flex:1; overflow-y:auto; overflow-x:hidden; padding:24px; background:#f9fafb; scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:#d1d5db #f3f4f6; }
+  .ai-message { display:flex; gap:12px; margin-bottom:20px; animation:messageSlideIn .3s ease-out; }
+  @keyframes messageSlideIn { from { opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+  .ai-message-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .ai-message-assistant .ai-message-avatar { background: {{ section.settings.primary_color | default: '#212b36' }}; color:#fff; }
+  .ai-message-user .ai-message-avatar { background:#262626; color:#fff; }
+
+  .ai-message-content { flex:1; padding:12px 16px; border-radius:12px; line-height:1.6; }
+  .ai-message-assistant .ai-message-content { background:#fff; border:1px solid #e5e7eb; }
+  .ai-message-user .ai-message-content { background: {{ section.settings.primary_color | default: '#212b36' }}; color:#fff; margin-left:auto; }
+  .ai-message-user { flex-direction:row-reverse; }
+
+  .ai-suggestion-list { margin:12px 0; padding-left:20px; }
+  .ai-suggestion-list li { margin-bottom:8px; color:#6b7280; font-style:italic; }
+  .ai-tip { margin-top:12px; font-size:14px; color:#6b7280; }
+
+  .ai-product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-top:16px; }
+  .ai-product-card { background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:12px; transition:all .2s; text-decoration:none; color:inherit; display:block; }
+  .ai-product-card:hover { border-color: {{ section.settings.primary_color | default: '#212b36' }}; transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+  .ai-product-image { width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; margin-bottom:8px; }
+  .ai-product-title { font-size:14px; font-weight:600; margin-bottom:4px; color: {{ section.settings.text_color | default: '#191919' }}; }
+  .ai-product-price { font-size:16px; font-weight:700; color:#c30000; }
+
+  .ai-message-content a.ai-cart-link { display:inline-block; padding:8px 16px; margin-top:4px; background: {{ section.settings.primary_color | default: '#212b36' }}; color:white !important; text-decoration:none; border-radius:6px; font-weight:600; font-size:14px; transition:all .2s; border:2px solid {{ section.settings.primary_color | default: '#212b36' }}; }
+  .ai-message-content a.ai-cart-link:hover { background:#2c6ecb; border-color:#2c6ecb; transform:translateY(-1px); box-shadow:0 4px 8px rgba(0,0,0,0.15); }
+  .ai-message-content a.ai-cart-link:active { transform:translateY(0); }
+
+  .ai-typing-dots { display:flex; gap:4px; padding:8px 0; }
+  .ai-typing-dots span { width:8px; height:8px; border-radius:50%; background: {{ section.settings.primary_color | default: '#212b36' }}; animation:typing 1.4s ease-in-out infinite; }
+  .ai-typing-dots span:nth-child(2) { animation-delay:.2s; } .ai-typing-dots span:nth-child(3) { animation-delay:.4s; }
+  @keyframes typing { 0%,60%,100% { transform:translateY(0); opacity:.7; } 30% { transform:translateY(-10px); opacity:1; } }
+  .ai-typing-status { margin-top:2px; font-size:13px; color:#6d7175; font-style:italic; min-height:18px; }
+  .ai-typing-status:empty { display:none; }
+
+  .ai-error-message { padding:12px 24px; background:#fef2f2; border-top:1px solid #fecaca; }
+  .ai-error-content { display:flex; align-items:center; gap:8px; color:#dc2626; font-size:14px; }
+
+  .ai-chat-input-container { border-top:1px solid #cbcbcb; background:white; }
+  .ai-chat-form { display:flex; gap:12px; padding:16px 24px; }
+  .ai-chat-input { flex:1; padding:12px 16px; border:2px solid #e5e7eb; border-radius:12px; font-size:15px; font-family:inherit; resize:none; min-height:44px; max-height:120px; transition:border-color .2s; }
+  .ai-chat-input:focus { outline:none; border-color: {{ section.settings.primary_color | default: '#212b36' }}; }
+  .ai-chat-submit { width:44px; height:44px; padding:0; background: {{ section.settings.primary_color | default: '#212b36' }}; border:none; border-radius:12px; color:white; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .ai-chat-submit:hover:not(:disabled) { background:#2c6ecb; transform:scale(1.05); }
+  .ai-chat-submit:disabled { opacity:.5; cursor:not-allowed; }
+
+  .ai-chat-footer { padding:0 24px 16px; text-align:center; }
+  .ai-powered-by { font-size:12px; color:#9ca3af; }
+
+  @media (max-width:768px) {
+    .ai-search-modal { padding:0; }
+    .ai-modal-content { max-width:100%; height:100vh; max-height:100vh; border-radius:0; }
+    .ai-product-grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  }
+
+  /* Scrollbar Styling */
+  .ai-chat-messages::-webkit-scrollbar { width:12px; }
+  .ai-chat-messages::-webkit-scrollbar-track { background:#e5e7eb; border-radius:8px; }
+  .ai-chat-messages::-webkit-scrollbar-thumb { background:#9ca3af; border-radius:8px; border:2px solid #e5e7eb; }
+  .ai-chat-messages::-webkit-scrollbar-thumb:hover { background:#6b7280; }
+  .ai-chat-messages::-webkit-scrollbar-thumb:active { background:#4b5563; }
+
+  @keyframes sparkle { 0%,100% { opacity:1; transform:scale(1);} 50% { opacity:.6; transform:scale(1.1);} }
+</style>
+
+{% schema %}
+{
+  "name": "AI Search Modal",
+  "tag": "section",
+  "class": "ai-search-modal-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#212b36"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#191919"
+    },
+    {
+      "type": "text",
+      "id": "api_url",
+      "label": "Backend API URL",
+      "default": "https://your-app.railway.app/api/shopify/chat/message",
+      "info": "Your backend API endpoint"
+    },
+    {
+      "type": "range",
+      "id": "max_results",
+      "label": "Maximum Results",
+      "min": 3,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    }
+  ],
+  "presets": [
+    { "name": "AI Search Modal" }
+  ]
+}
+{% endschema %}

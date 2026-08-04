@@ -1,0 +1,238 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_dakTf9": {
+      "type": "slideshow",
+      "blocks": {
+        "image_eeE6B8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Main-Banner_239c791e-371c-4acb-bc28-5a00aab8faf4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_eeE6B8"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "43ebcc66-2270-485c-b82f-88f835de2b47": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "Unleash Your RC Passion: Explore Yokomo at Hearns Hobbies",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\n<p>Welcome to Hearns Hobbies, your ultimate destination for all things RC-related in Australia. Are you ready to dive into the exhilarating world of Yokomo RC cars? At Hearns Hobbies, we pride ourselves on offering an extensive selection of Yokomo products, each crafted with precision, performance, and innovation in mind.</p>\n<h2>\n<a href=\"https://www.hearnshobbies.com/collections/yokomo-on-road-kits\">Yokomo RC Cars</a>: Precision Performance at Its Finest</h2>\n<p>Step into the realm of Yokomo RC cars, where every curve and contour is engineered for precision performance. Whether you're a seasoned racer or a beginner looking for excitement, Yokomo offers something for everyone. From agile drift cars to rugged off-road machines, Hearns Hobbies has a wide variety of Yokomo RC cars to suit your preferences. Feel the thrill of speed and control as you unleash the power of Yokomo on the track or off-road terrain.\n</p>\n<h2>Genuine <a href=\"https://www.hearnshobbies.com/collections/yokomo-spare-parts\">Yokomo Spare Parts</a>: Keeping Your Adventure Going Strong</h2>\n<p>At Hearns Hobbies, we understand the importance of keeping your RC adventure going strong. We offer a comprehensive range of genuine Yokomo spare parts and accessories. From suspension components to <a href=\"https://www.hearnshobbies.com/collections/servos?sort_by=manual&amp;filter.v.price.gte=&amp;filter.v.price.lte=&amp;filter.p.vendor=YOKOMO\">Yokomo radio &amp; servos</a> to everything in between, we have everything you need to keep your Yokomo RC car running smoothly. Trust Hearns Hobbies to provide quality and reliability, ensuring that your RC journey is always on track.</p>\n<h2>Drift to Style with <a href=\"https://www.hearnshobbies.com/collections/yokomo-kit?page=1\">Yokomo Kits</a> and Accessories</h2>\n<p>Experience the thrill of precision drifting with Yokomo drift kits and accessories. Designed for maximum control and style, <a href=\"https://www.hearnshobbies.com/collections/yokomo-drift-cars\">Yokomo drift cars</a> are a favourite among RC enthusiasts. Whether you're a beginner or an experienced drifter, Hearns Hobbies has everything you need to take your drifting skills to the next level. From chassis setups to specialised tyres, we have the tools to help you carve your path to Style.</p>\n<h2>Dominate the Track with Yokomo Racing Innovations</h2>\n<p>Get ready to dominate the track with Yokomo racing innovations. Engineered for speed, agility, and performance, Yokomo racing cars are built to push the boundaries of RC racing. Whether you're competing in a local tournament or just racing for fun, Hearns Hobbies has the latest Yokomo racing innovations to help you come out on top. From motors to ESCs and tuning parts, we have everything you need to unleash your full potential on the track.</p>\n<p>Ready to take your RC experience to the next level? Explore the exciting world of Yokomo at Hearns Hobbies today. With precision engineering, performance, and innovation, Yokomo offers an unparalleled RC experience. Whether you're a racer, drifter, or hobbyist, Hearns Hobbies has everything you need to fuel your passion for RC. Also, make sure to follow us on <a href=\"https://www.facebook.com/HearnsHobbies/\">Facebook</a>, <a href=\"https://www.instagram.com/hearnshobbies\">Instagram</a>, <a href=\"https://twitter.com/hearnshobbies\">Twitter</a>, and <a href=\"https://www.twitch.tv/hearnshobbies\">Twitch</a> for any latest updates on our products or content about Yokomo's hobby products! Let Yokomo ignite your RC passion like never before.</p>\n</div>\n<button class=\" expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    \n<p></p></button>\n</div>"
+      }
+    },
+    "logo_list_xMaacK": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Drift_c7e8f397-e815-4807-a895-9ded8945e23a.jpg",
+            "title": "Drift",
+            "link": "shopify://collections/yokomo-drift-cars"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-On-Road_9ea53e40-525a-40a3-b70e-e3425e4c33c2.jpg",
+            "title": "On-road",
+            "link": "shopify://collections/yokomo-on-road-kits"
+          }
+        },
+        "5c8955f4-b33b-4c7e-a091-d7b337ba8548": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Off-Road_82bc47c6-a9f2-46e8-a5b9-ff367b4d4188.jpg",
+            "title": "Off-Road",
+            "link": "shopify://collections/yokomo-off-road-rc-kits"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Servos_and_Gyros.jpg",
+            "title": "Servos & Gyros",
+            "link": "shopify://collections/yokomo-servos-and-gyro"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Motors-and-Servos_68ad5ffc-0c8d-4bc8-be86-ef29877670f8.jpg",
+            "title": "Motors & ESCs",
+            "link": "https://www.hearnshobbies.com/collections/escs?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=YOKOMO"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Parts.jpg",
+            "title": "Parts",
+            "link": "shopify://collections/yokomo-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "5c8955f4-b33b-4c7e-a091-d7b337ba8548",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 33.33%; padding: 5px; box-shadow: none;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (min-width: 1200px) {.quick-links {padding: 0 200px; }}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; } .quick-links__image-container {font-size: 10.5px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "img {margin-bottom: 5px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "faq_PpNWCE": {
+      "type": "faq",
+      "blocks": {
+        "separator_BrPQgh": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_rJC4Wg": {
+          "type": "question",
+          "settings": {
+            "title": "What makes Yokomo RC cars special?",
+            "answer": "<p>Yokomo RC cars are known for their precision engineering, high performance, and durability. With meticulous components that deliver unparalleled control, you can trust Yokomo to deliver race-winning performances.</p>"
+          }
+        },
+        "question_n9hMa8": {
+          "type": "question",
+          "settings": {
+            "title": "Does Hearns Hobbies offer a variety of Yokomo RC cars?",
+            "answer": "<p>Yes, Hearns Hobbies boasts extensive Yokomo RC cars, including drift cars, touring cars, and <a href=\"https://www.hearnshobbies.com/collections/yokomo-off-road-rc-kits\"><span style=\"text-decoration:underline\">Yokomo off-road RC car models</span></a>. Whether you're a beginner or an experienced racer, we have a Yokomo RC car to suit your needs.</p>"
+          }
+        },
+        "question_DiEi4t": {
+          "type": "question",
+          "settings": {
+            "title": "Are genuine Yokomo spare parts available at Hearns Hobbies?",
+            "answer": "<p>Absolutely! We understand the importance of maintaining your Yokomo RC car, which is why we offer a comprehensive range of genuine Yokomo spare parts and accessories. From suspension components to body shells, we have everything you need to keep your RC adventure going strong.</p>"
+          }
+        },
+        "question_UDEqjU": {
+          "type": "question",
+          "settings": {
+            "title": "What Yokomo drift kits and Yokomo accessories do Hearns Hobbies offer?",
+            "answer": "<p>Hearns Hobbies provides a variety of Yokomo drift kits and accessories designed to enhance your drifting experience. From specialised chassis setups to custom body shells and drift tyres, we have everything you need to drift with style.</p>"
+          }
+        },
+        "question_nAcJLK": {
+          "type": "question",
+          "settings": {
+            "title": "Can I find beginner-friendly Yokomo RC cars at Hearns Hobbies?",
+            "answer": "<p>Absolutely! We cater to RC enthusiasts of all skill levels, we recommend you select from the “Rookie” range if you are new to the Hobby. Our knowledgeable staff can help you find the perfect Yokomo RC car to suit your skill level and preferences.</p>"
+          }
+        },
+        "question_wA3FJT": {
+          "type": "question",
+          "settings": {
+            "title": "Does Hearns Hobbies support Yokomo?",
+            "answer": "<p>Yes! Hearns Hobbies has team drivers scattered across Australia who can help provide advice and guidance on how to get the most out of your Yokomo chassis.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_BrPQgh",
+        "question_rJC4Wg",
+        "question_n9hMa8",
+        "question_DiEi4t",
+        "question_UDEqjU",
+        "question_nAcJLK",
+        "question_wA3FJT"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "slideshow_dakTf9",
+    "43ebcc66-2270-485c-b82f-88f835de2b47",
+    "logo_list_xMaacK",
+    "main",
+    "faq_PpNWCE",
+    "recently-viewed-products"
+  ]
+}

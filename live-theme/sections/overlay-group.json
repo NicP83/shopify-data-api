@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.overlay",
+  "name": "Overlay group",
+  "sections": {
+    "popups": {
+      "type": "popups",
+      "blocks": {
+        "8243b927-10b9-4147-bf29-5a633301fbcd": {
+          "type": "newsletter",
+          "disabled": true,
+          "settings": {
+            "show_only_on_index": false,
+            "show_only_for_visitors": false,
+            "show_only_once": true,
+            "title": "🎅 Unwrap Joy Every Day with Our Advent Calendar! 🎄",
+            "content": "<p>Click on the 🎁 icon on the homepage to reveal a world of festive surprises! Step into the holiday spirit with daily Christmas deals from your favourite brands.</p>",
+            "show_newsletter": false,
+            "apparition_delay": 5
+          }
+        }
+      },
+      "block_order": [
+        "8243b927-10b9-4147-bf29-5a633301fbcd"
+      ],
+      "settings": {}
+    },
+    "privacy-banner": {
+      "type": "privacy-banner",
+      "settings": {
+        "text": "<p>Use this bar to show information about your cookie policy.</p>"
+      }
+    }
+  },
+  "order": [
+    "popups",
+    "privacy-banner"
+  ]
+}

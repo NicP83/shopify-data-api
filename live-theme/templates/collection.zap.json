@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1c3ba42c-b5fe-4265-88ed-b3e9715012cd": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Welcome to Hearns Hobbies' Zap Collection",
+        "content": "<p>Hearns Hobbies, your one-stop-shop in Melbourne for all your hobby and modelling needs, is proud to present our collection of Zap products. Renowned for their quality and reliability, Zap's range of adhesives including the popular Zap super glue, Zap CA, canopy glue, and Zap a gap glue cater to a variety of applications across numerous hobbies.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "36d02976-3287-4c59-b687-6840cd9b71f6": {
+      "type": "rich-text",
+      "custom_css": [
+        "p {text-align: justify;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<h2><strong>Unrivalled Quality with Zap</strong></h2><p>Zap is a leading name in the adhesive industry, consistently providing high-performance products. Whether you are working on model kits or need something for minor repairs, Zap's super glue and Zap CA have you covered. Trusted by hobbyists and professionals alike, Zap's products ensure your projects stand the test of time.</p><p>Note: For detailed application instructions and safety information, please refer to the product packaging or consult with our knowledgeable staff.</p><h2><strong>Diverse Range of Zap Adhesives</strong></h2><p>Our collection of Zap adhesives is perfect for all types of hobby and modelling projects. From the super-strong Zap super glue, ideal for small, quick fixes, to the versatile Zap a gap glue for filling gaps, there's a Zap product for every need. Furthermore, for model aircraft enthusiasts, we recommend Zap's canopy glue, specially formulated for clear plastic parts.</p><h2><a href=\"https://www.hearnshobbies.com/collections/adhesives\" target=\"_blank\" title=\"Adhesives | Plastic Glue | Hearns Hobbies\">Explore Our Full Range of Adhesives</a></h2><p>Looking for more than just Zap? Hearns Hobbies offers an extensive range of adhesives, including other popular brands like<a href=\"https://www.hearnshobbies.com/collections/bob-smith\"> <span style=\"text-decoration:underline\">Bob Smith</span></a>. Find the perfect adhesive for your specific requirements in our<a href=\"https://www.hearnshobbies.com/collections/adhesives\"> <span style=\"text-decoration:underline\">full collection</span></a>.</p><h2><strong>More than Just Adhesives</strong></h2><p>At Hearns Hobbies, we offer more than just adhesives. Browse our vast selection of<a href=\"https://www.hearnshobbies.com/pages/paints-and-tools\"> <span style=\"text-decoration:underline\">paints and tools</span></a>, explore our<a href=\"https://www.hearnshobbies.com/pages/model-kits\"> <span style=\"text-decoration:underline\">model kits</span></a>, or return to our<a href=\"https://www.hearnshobbies.com/\"> <span style=\"text-decoration:underline\">homepage</span></a> to see everything we have in store.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "e16ca451-f323-4802-a147-abb243d7232e": {
+      "type": "faq",
+      "blocks": {
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-separator-1": {
+          "type": "separator",
+          "settings": {
+            "title": "FAQ"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is Zap CA?",
+            "answer": "<p>Zap CA is a type of super glue that provides a strong bond. It's perfect for a range of materials, including plastic, metal, and wood.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-2": {
+          "type": "question",
+          "settings": {
+            "title": "What is Zap a gap glue used for?",
+            "answer": "<p>Zap a gap glue is designed to fill gaps. It's great for scenarios where the items you're bonding don't fit perfectly together.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-3": {
+          "type": "question",
+          "settings": {
+            "title": "Is canopy glue only used for model aircrafts?",
+            "answer": "<p>While canopy glue is designed for clear parts on model aircrafts, it's versatile and can be used for other applications requiring a clear, strong bond.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-4": {
+          "type": "question",
+          "settings": {
+            "title": "How can I find out more about a product?",
+            "answer": "<p>Click on a product to view detailed information, including product specifications and usage instructions. If you have further questions, don't hesitate to contact our friendly customer service team.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-5": {
+          "type": "question",
+          "settings": {
+            "title": "How can I view other brands of adhesives you carry?",
+            "answer": "<p>You can explore our full range of adhesives<a href=\"https://www.hearnshobbies.com/collections/adhesives\"> <span style=\"text-decoration:underline\">here</span></a>. We carry a variety of brands, including<a href=\"https://www.hearnshobbies.com/collections/bob-smith\"> <span style=\"text-decoration:underline\">Bob Smith</span></a>.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-6": {
+          "type": "question",
+          "settings": {
+            "title": "What other hobby supplies do you offer?",
+            "answer": "<p>Aside from our extensive selection of adhesives, we offer a wide range of<a href=\"https://www.hearnshobbies.com/pages/paints-and-tools\"> <span style=\"text-decoration:underline\">paints and tools</span></a>, as well as a variety of<a href=\"https://www.hearnshobbies.com/pages/model-kits\"> <span style=\"text-decoration:underline\">model kits</span></a>. You can browse our full range of products on our<a href=\"https://www.hearnshobbies.com/\"> <span style=\"text-decoration:underline\">homepage</span></a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-separator-1",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-1",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-2",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-3",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-4",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-5",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-6"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "1c3ba42c-b5fe-4265-88ed-b3e9715012cd",
+    "main",
+    "36d02976-3287-4c59-b687-6840cd9b71f6",
+    "e16ca451-f323-4802-a147-abb243d7232e",
+    "recently-viewed-products"
+  ]
+}

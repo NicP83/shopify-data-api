@@ -1,0 +1,267 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "4d7d3484-1120-441a-9c00-80f55765ffdf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RCCarSparePartsLandingHH_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "4d7d3484-1120-441a-9c00-80f55765ffdf"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "c30598b6-deec-4413-94ac-212a10c6d99c": {
+      "type": "rich-text",
+      "custom_css": [
+        "p {line-height: 1.5;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "RC Car Spare Parts",
+        "content": "<p>At Hearns Hobbies with have a large range of spare parts for many current and recent RC cars and trucks.  </p><p>We may even have some hard to find parts for some older models too.  </p><p>Choose your brand below to search for parts for your car.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_DgxgRM": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo_627f81df-8ad2-46b8-b33c-5b2df48c07e5.png",
+            "title": "",
+            "link": "shopify://collections/yokomo-spare-parts"
+          }
+        },
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Hot_Bodies.png",
+            "title": "",
+            "link": "shopify://collections/hot-bodies-spare-parts"
+          }
+        },
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Traxxas_b0de0aee-a879-4171-99dc-539f5551c76a.png",
+            "title": "",
+            "link": "shopify://collections/traxxas-spare-parts"
+          }
+        },
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/River_Hobby.png",
+            "title": "",
+            "link": "shopify://collections/river-hobby-car-spare-parts"
+          }
+        },
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/FS_Racing.png",
+            "title": "",
+            "link": "shopify://collections/fs-racing-car-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-0",
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-1",
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-2",
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-3",
+        "template--16113414340769__77cd1848-482e-4d61-a8c6-092fa8d0dc97-1688140974a43b5d6f-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; border: 1px solid #e1e3e4; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_AXXLiG": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya_db03f15a-b97d-40ac-8e0b-11f2686d9e52.png",
+            "title": "",
+            "link": "shopify://collections/tamiya-car-spare-parts"
+          }
+        },
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Associated.png",
+            "title": "",
+            "link": "shopify://collections/team-associated-car-spare-parts"
+          }
+        },
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Kyosho.png",
+            "title": "",
+            "link": "shopify://collections/kyosho-spares"
+          }
+        },
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Team_Magic.png",
+            "title": "",
+            "link": "shopify://collections/team-magic-car-spare-parts"
+          }
+        },
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Losi.png",
+            "title": "",
+            "link": "shopify://collections/losi-car-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-0",
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-1",
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-2",
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-3",
+        "template--16113414340769__da210493-d9fb-4e20-a21a-53130ffe67b2-1688140974a43b5d6f-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; border: 1px solid #e1e3e4; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_XpL4hH": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rlaarlo.png",
+            "title": "",
+            "link": "shopify://collections/rlaarlo-spare-parts"
+          }
+        },
+        "logo_axKk9Q": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Arrma.png",
+            "title": "",
+            "link": "shopify://collections/arrma-spares"
+          }
+        },
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Team_Corally.png",
+            "title": "",
+            "link": "shopify://collections/team-corally-car-spare-parts"
+          }
+        },
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Other_Brands.png",
+            "title": "",
+            "link": "shopify://collections/other-car-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-0",
+        "logo_axKk9Q",
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-1",
+        "template--16113414340769__d46c2022-6c32-4ce1-8301-b249fd8f33d0-1688140974a43b5d6f-2"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; padding: 5px; border: 1px solid #e1e3e4; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "c30598b6-deec-4413-94ac-212a10c6d99c",
+    "logo_list_DgxgRM",
+    "logo_list_AXXLiG",
+    "logo_list_XpL4hH",
+    "main"
+  ]
+}

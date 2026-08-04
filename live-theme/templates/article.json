@@ -1,0 +1,50 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog-post",
+      "blocks": {
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Join Us",
+            "content": "<p>Subscribe to our Newsletter for <strong>News</strong>, <strong>Promotions</strong>, <strong>Product updates </strong>and <strong>MORE</strong>!</p>",
+            "subtext": "100% free, Unsubscribe any time!",
+            "background": "#25140a",
+            "text": "#ffffff"
+          }
+        },
+        "social-media": {
+          "type": "social_media",
+          "settings": {
+            "title": "Follow us",
+            "show_rss": true
+          }
+        }
+      },
+      "block_order": [
+        "newsletter",
+        "social-media"
+      ],
+      "settings": {
+        "show_category": true,
+        "show_author": false,
+        "show_date": true,
+        "show_share_buttons": true,
+        "show_tags": true,
+        "show_gravatar": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

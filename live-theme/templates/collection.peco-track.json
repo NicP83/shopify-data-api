@@ -1,0 +1,199 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "71ad3bc4-6654-4f05-a4ec-d4301ba01e24": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Peco-Track-Landing-Pae.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "71ad3bc4-6654-4f05-a4ec-d4301ba01e24"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_EqtUhT": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Peco Track Options",
+        "content": "<p>Peco produce a great range of quality model railway products including a variety of track options to help you to create a layout to your particular specifications.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_kX3nqa": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae_Artboard_4.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-streamline-code-100"
+          }
+        },
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae_Artboard_4_copy.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-streamline-code-75"
+          }
+        },
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-04.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-streamline-code-83"
+          }
+        },
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-05.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-streamline-code-70"
+          }
+        },
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-06.jpg",
+            "title": "",
+            "link": "shopify://collections/n-streamline-code-55"
+          }
+        },
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-07.jpg",
+            "title": "",
+            "link": "shopify://collections/n-streamline-code-80"
+          }
+        },
+        "6fd4f600-271b-4ed4-93ac-dc44e4189f7b": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-08.jpg",
+            "title": "",
+            "link": "shopify://collections/tt-streamline-code-75"
+          }
+        },
+        "894ada68-53b6-4758-ba52-122a9e9794d7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-09.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-streamline-bullhead"
+          }
+        },
+        "5e8c8b1e-787b-42f3-9851-50b1e11c5b14": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-10_1.jpg",
+            "title": "",
+            "link": "shopify://collections/oo-ho-setrack-code-100"
+          }
+        },
+        "9748eda9-5c7b-4652-9b56-d5ecfa9692a8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-11_1.jpg",
+            "title": "",
+            "link": "shopify://collections/n-setrack-code-80"
+          }
+        },
+        "c02d8e86-fd45-4cb4-aa25-6ad1cf5def2e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Peco_Track_Landing_Pae-12_1.jpg",
+            "title": "",
+            "link": "shopify://collections/oo9-setrack-code-80"
+          }
+        }
+      },
+      "block_order": [
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-0",
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-1",
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-2",
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-3",
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-4",
+        "template--16105852338337__87d3d9fa-b6fc-45c3-9622-d8e81ce7f3ff-168728023925490072-5",
+        "6fd4f600-271b-4ed4-93ac-dc44e4189f7b",
+        "894ada68-53b6-4758-ba52-122a9e9794d7",
+        "5e8c8b1e-787b-42f3-9851-50b1e11c5b14",
+        "9748eda9-5c7b-4652-9b56-d5ecfa9692a8",
+        "c02d8e86-fd45-4cb4-aa25-6ad1cf5def2e"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 24px; border: 1px solid #e1e3e4; } img {width: 160px; } .quick-links__image-container {padding: 5px; }}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {justify-content: center; border: none;}",
+        ".quick-links__image-ie-fix {max-width: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "rich_text_EqtUhT",
+    "logo_list_kX3nqa",
+    "main"
+  ]
+}

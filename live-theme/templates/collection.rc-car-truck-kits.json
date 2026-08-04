@@ -1,0 +1,230 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RC-Car-Truck-Kits-Page-Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_qmANHa": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "RC Car & Truck Kits",
+        "content": "<p>When you purchase an RC Car or Truck Kit you will find that they will require some assembling to prepare them for running.  Some of these will come with most, if not all, you need to build your car while others come with the basic parts required for thecar and leave it to you to choose the other components required allowing you to customise your vehicle.  The description for each remote control car should outline what extra components will be required in order for it to run.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "388f4c47-1972-4663-9191-a50d7d015243": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16107658608801__388f4c47-1972-4663-9191-a50d7d015243-1687882077eb09fbbf-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/yokomo-kit"
+          }
+        },
+        "template--16107658608801__388f4c47-1972-4663-9191-a50d7d015243-1687882077eb09fbbf-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/HB-Racing_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/hb-racing-rc-kits"
+          }
+        }
+      },
+      "block_order": [
+        "template--16107658608801__388f4c47-1972-4663-9191-a50d7d015243-1687882077eb09fbbf-0",
+        "template--16107658608801__388f4c47-1972-4663-9191-a50d7d015243-1687882077eb09fbbf-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 270px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px; margin-bottom: -60px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 200px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 160px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "logo_list_bfzMa7": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16107658608801__1f1a11a2-52b3-452f-8d73-93eb7b5a9402-1687439889590673b2-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Drift.jpg",
+            "title": "Drift",
+            "link": "shopify://collections/drift-car-kits"
+          }
+        },
+        "template--16107658608801__1f1a11a2-52b3-452f-8d73-93eb7b5a9402-1687439889590673b2-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Trucks-Trailers.jpg",
+            "title": "Trucks / Trailers",
+            "link": "shopify://collections/truck-trailer-kits"
+          }
+        }
+      },
+      "block_order": [
+        "template--16107658608801__1f1a11a2-52b3-452f-8d73-93eb7b5a9402-1687439889590673b2-2",
+        "template--16107658608801__1f1a11a2-52b3-452f-8d73-93eb7b5a9402-1687439889590673b2-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -20px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 180px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 50%; padding: 0px; border: 1px solid #e1e3e4; padding: 5px; } img {width: 150px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "faq_hqxmwH": {
+      "type": "faq",
+      "blocks": {
+        "separator_aWVCJf": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_JjHtNF": {
+          "type": "question",
+          "settings": {
+            "title": "What else do I need to complete an RC Car kit?",
+            "answer": "<p>Most kits come with the plastic parts and instructions, but you’ll also need a few essentials: plastic cement or glue, sprue cutters, a hobby knife, paints, and brushes. Some kits may also recommend primer or decals for a professional finish.</p>"
+          }
+        },
+        "question_HU9FGq": {
+          "type": "question",
+          "settings": {
+            "title": "Why would I choose a kit?",
+            "answer": "<p>RC Car kits are rewarding because they combine building, painting, and displaying into one hobby. You get creative control over details, colours, and weathering, while also learning useful modelling skills. Kits are also cost-effective compared to fully finished models.</p>"
+          }
+        },
+        "question_TygzFa": {
+          "type": "question",
+          "settings": {
+            "title": " I see Tamiya is still making their old kits?",
+            "answer": "<p>Yes! Tamiya continues to produce many of its classic RC Car kits alongside new releases. These older kits remain popular with collectors and builders because they’re reliable, affordable, and nostalgic, while still offering quality parts and straightforward builds.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_aWVCJf",
+        "question_JjHtNF",
+        "question_HU9FGq",
+        "question_TygzFa"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "rich_text_qmANHa",
+    "388f4c47-1972-4663-9191-a50d7d015243",
+    "logo_list_bfzMa7",
+    "main",
+    "faq_hqxmwH"
+  ]
+}

@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": false,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "faq_Ch3KzM": {
+      "type": "faq",
+      "blocks": {
+        "separator_kMYkNg": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_RM4bEb": {
+          "type": "question",
+          "settings": {
+            "title": "What is 00 and HO? and what is the difference?",
+            "answer": "<p>OO and HO are the two most popular scales in model railroading, but they're not exactly the same. Here's the breakdown:</p><p><strong>Scale:</strong></p><ul><li><strong>OO</strong>: Represents 1 foot in real life by 4 millimeters in the model (1:76 scale). Slightly larger than HO, OO trains were originally designed for more detail. Popular in Britain.<br/></li><li><strong>HO</strong>: <br/>Represents 1 foot in real life by 3.5 millimeters in the model (1:87 scale). The most common scale worldwide, HO offers a good balance of size and detail. Popular in America, Europe, and Australia.<br/></li></ul><p><strong>Track Gauge:</strong> Both use the same track width, which is 16.5mm. This is a historical quirk, as the track gauge is technically more accurate for HO scale.</p><p><strong>In simpler terms:</strong> OO trains are slightly bigger than HO trains, even though they run on the same tracks. This allowed for more detail in the early days of model trains, but modern manufacturing techniques made that less of a concern.</p><p></p>"
+          }
+        },
+        "question_aJJfXg": {
+          "type": "question",
+          "settings": {
+            "title": "What is N scale?",
+            "answer": "<p>N scale is even smaller than OO and HO. It represents 1 foot in real life by 9 millimeters in the model (1:160 scale). This makes it a good  choice for people with limited space, but the smaller size can also mean less detail on the trains.</p>"
+          }
+        },
+        "question_zfddng": {
+          "type": "question",
+          "settings": {
+            "title": "What is TT scale?",
+            "answer": "<p>TT scale falls between HO and N scale. It represents 1 foot in real life by 12 millimeters in the model (1:120 scale). It's less common than the other scales mentioned, but it offers a good balance between size and detail.</p>"
+          }
+        },
+        "question_3TbKqE": {
+          "type": "question",
+          "settings": {
+            "title": "Can I run different brands of trains on these tracks?",
+            "answer": "<p>Yes, generally! As long as the trains are built for the same scale (OO, HO, N, etc.), they should be able to run on the same tracks regardless of brand. There may be very rare exceptions, but for the most part, you're good to mix and match brands.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_kMYkNg",
+        "question_RM4bEb",
+        "question_aJJfXg",
+        "question_zfddng",
+        "question_3TbKqE"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq_Ch3KzM"
+  ]
+}

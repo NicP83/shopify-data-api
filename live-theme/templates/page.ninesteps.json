@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "1659016944458acb0e": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {width: 100%;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/9Si-Banner.jpg",
+        "image_position": "left",
+        "image_width": 30,
+        "title": "What is Ninesteps Industries?",
+        "content": "<p><strong>NINESTEPS INDUSTRIES </strong>is an Australian based company. Quality <a href=\"https://www.hearnshobbies.com/collections/ninesteps-ind\"><strong>tools and accessories</strong></a> can be the difference between a great day at the bench or a frustrating one. However we at Ninesteps Industries also realise that ’top shelf’ often these days means “No cash for anything else”! To that end, our aim is not to make the best tools on the planet, but to make tools that offer the best convergence of price and quality.<br/><br/>We hope this philosophy resonates with you and we’re positive that there’ll be tools in our collection that will be a joy for you to use - day in, day out.<br/><br/>Are you a retailer? Contact NINESTEPS INDUSTRIES via their website at: <a href=\"http://9si.com.au/\"><strong>9si.com.au</strong></a></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_AUjcKB": {
+      "type": "promotion-list",
+      "blocks": {
+        "16588593117d6b3184-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-ba6ba146--9SiBatteriesplainWebfrontBanner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "9Si LiPo Batteries",
+            "content": "",
+            "content_position": "top_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "",
+            "button_link": ""
+          }
+        },
+        "16588593117d6b3184-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-6ba14690--9SiCombinedWebfrontBanner.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 20,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "9Si Hobby Tools",
+            "content": "",
+            "content_position": "top_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16588593117d6b3184-0",
+        "16588593117d6b3184-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 270px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 220px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 160px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "ninesteps-industries",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1659016944458acb0e",
+    "promotion_list_AUjcKB",
+    "165885854594d3994d"
+  ]
+}

@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_BWjphX": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "{{ collection.title }}",
+        "content": "<p>{{ collection.description }}</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_enX9iR": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories_bf68e8c8-2cb1-4e12-998c-a6f4bcd1d34e.jpg",
+            "title": "",
+            "link": "shopify://collections/gaming-body-accessories"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Heads.jpg",
+            "title": "",
+            "link": "shopify://collections/heads"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Bodies.jpg",
+            "title": "",
+            "link": "shopify://collections/bodies"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Legs.jpg",
+            "title": "",
+            "link": "shopify://collections/legs"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Weapons.jpg",
+            "title": "",
+            "link": "shopify://collections/weapons"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 110px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {box-shadow: none !important; border: 1px solid #e1e3e4;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_BWjphX",
+    "logo_list_enX9iR",
+    "main",
+    "recently-viewed-products"
+  ]
+}

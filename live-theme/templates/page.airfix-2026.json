@@ -1,0 +1,849 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_Hq3Nty": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Airfix 2026 New Releases — Pre-Order in Australia",
+        "content": "<p>The 2026 Airfix range is here. Four brand new tool kits, returning classics, collector sets, and the debut of the Airfix Legends series. Pre-order now at Hearns Hobbies — Australia's longest-running hobby shop since 1947.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/airfix-new-collection-hearns-hobbies.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 25,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_center",
+            "button_background": "#f8df8d",
+            "button_text_color": "#25140a",
+            "button_text": "",
+            "link": "shopify://collections/holiday-gift-guide"
+          }
+        }
+      },
+      "block_order": [
+        "template--15919187427489__b8ee9718-ed85-47f6-825b-2b2f4e100991-1666366490dec04cb9-0"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.slideshow {margin-top: 55px; }}"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_mAc4kA": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Brand New Tool Kits — 2026",
+        "content": "<p>These are completely new moulds — not re-issues, not re-boxes. Brand new tooling from Airfix for 2026. If you only buy a few kits this year, these are the ones.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "image_with_text_cF3VRQ": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/A05065_294d9110-5665-4f5c-aece-bd7c1a55b7ad.jpg",
+        "link": "shopify://products/airfix-1-72-english-electric-canberra-b-2",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "English Electric Canberra B.2 — 1/72 Scale (A05065)",
+        "content": "<p>The first accurate 1/72 scale Canberra kit ever produced. Modellers have waited decades for this. The Canberra served with the RAAF from 1953 to 1982, making this kit particularly significant for Australian builders. The kit features a detailed cockpit and bomb bay with optional ordnance, and comes with three RAF scheme options tracking a single airframe (WJ640) through its operational life from 1968 to 1981. This is our top pick from the 2026 range.</p><p><strong>RRP: $54.75</strong> | Release: AU Winter 2026</p>",
+        "button_text": " Browse Airfix Aircraft",
+        "button_link": "shopify://collections/airfix-aircraft"
+      }
+    },
+    "image_with_text_acmYHr": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/A08022_473a0cac-57cc-4909-b42d-426db653a583.jpg",
+        "link": "shopify://products/airfix-1-72-junkers-ju52-3mg4e",
+        "image_position": "right",
+        "image_width": 50,
+        "title": "Junkers Ju52/3mg4e — 1/72 Scale (A08022)",
+        "content": "<p>A completely new mould of the Luftwaffe's iconic wartime transport. The corrugated skin texture is faithfully replicated across all external surfaces, with multiple doors and hatches that can be posed open or closed. Three scheme options are included. One of the most ambitious 1/72 transport aircraft kits Airfix has ever produced.</p><p><strong>RRP: $76.50</strong> | Release: AU Winter 2026</p>",
+        "button_text": " Browse Airfix Aircraft",
+        "button_link": "shopify://collections/airfix-aircraft"
+      }
+    },
+    "image_with_text_H3kptY": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/a12015_1.webp",
+        "link": "shopify://products/airfix-1-48-mcdonnell-douglas-phantom-fg-1",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "McDonnell Douglas Phantom FG.1 — 1/48 Scale (A12015)",
+        "content": "<p>The British Royal Navy variant of the legendary Phantom, built as a brand new 1/48 mould. Three schemes are included, all in the distinctive dark blue Fleet Air Arm livery from HMS Ark Royal and shore-based units. Build options include in-flight, catapult launch, or deck stowage with folded wings. A comprehensive weapons fit includes Skyflash, Sidewinder, SNEB launchers and 1000lb bombs.</p><p><strong>RRP: $136.50</strong> | Release: AU Winter 2026</p>",
+        "button_text": " Browse Airfix Aircraft",
+        "button_link": "shopify://collections/airfix-aircraft"
+      }
+    },
+    "image_with_text_rfgQen": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/A1385_7125d912-261e-4b5e-b7be-5220167076eb.jpg",
+        "link": "shopify://products/airfix-1-35-alvis-fv603-saracen-mk-5",
+        "image_position": "right",
+        "image_width": 50,
+        "title": "Alvis FV603 Saracen Mk.5 — 1/35 Scale (A1385)",
+        "content": "<p>A new-tool 1/35 armoured personnel carrier, following on from the popular 2025 Alvis Stalwart release. The Saracen shares a common chassis with the Stalwart, making them natural companions on the shelf or in a diorama. A solid addition for Cold War military vehicle modellers.</p><p><strong>RRP: $62.00</strong> | Release: AU Autumn 2026</p>",
+        "button_text": " Browse Airfix Aircraft",
+        "button_link": "shopify://collections/airfix-aircraft"
+      }
+    },
+    "rich_text_NMnhGy": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Popular Returning Kits",
+        "content": "<p>Alongside the new tools, Airfix is bringing back some of their most requested kits with new decal options and markings.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "offers_9D6L8C": {
+      "type": "offers",
+      "blocks": {
+        "offer_NmVrrf": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A05033A.jpg",
+            "title": "Lockheed F-117A Nighthawk (A05033A)",
+            "link": "shopify://products/airfix-1-72-lockheed-f-117a-nighthawk",
+            "content": "<p>1/72, $54.75. The surprise hit of 2026. Includes a striking stars-and-stripes underside scheme. <a href=\"/collections/airfix-aircraft\">Shop Aircraft</a></p>"
+          }
+        },
+        "offer_VTpm6E": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A09178A.jpg",
+            "title": "English Electric Lightning F.6 (A09178A)",
+            "link": "shopify://products/airfix-1-48-english-electric-lightning-f-6",
+            "content": "<p>1/48, $91.00. Perennial best-seller with new markings.</p>"
+          }
+        },
+        "offer_3T76RK": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A19004A_6814a467-a36b-4310-9d73-29d9a27d4ef6.jpg",
+            "title": "Grumman F6F-5 Hellcat (A19004A)",
+            "link": "shopify://products/airfix-1-24-grumman-f6f-5-hellcat",
+            "content": "<p>1/24 Superkit, $273.00. The ultimate build for serious modellers. Four new scheme options.</p>"
+          }
+        },
+        "offer_7K4R4p": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A11012_2dec57e7-5ac4-4563-b0a3-ed9711a42b36.jpg",
+            "title": "Westland Sea King HAR.3 (A11012)",
+            "link": "shopify://products/airfix-1-48-westland-sea-king-har-3",
+            "content": "<p>1/48, $109.25. The iconic yellow Search and Rescue livery, including markings from an airframe flown by HRH Prince William.</p>"
+          }
+        },
+        "offer_LDgPr3": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A09186A.jpg",
+            "title": "Bristol Blenheim Mk.IF (A09186A)",
+            "link": "shopify://products/airfix-1-48-bristol-blenheim-mk-if",
+            "content": "<p>1/48, $91.00. New decals for this well-regarded kit.</p>"
+          }
+        },
+        "offer_cyABKp": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A07115A.jpg",
+            "title": "Junkers Ju87 R-2/B-2 Stuka (A07115A)",
+            "link": "shopify://products/airfix-1-72-junkers-ju87-r-2-b-2-stuka",
+            "content": "<p>1/48, $73.00. New Eastern and Western Front markings.</p>"
+          }
+        },
+        "offer_tgqwfm": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/ExgKrrAXAAUCrFc.jpg",
+            "title": "Avro Vulcan B.2 (A12011)",
+            "link": "shopify://products/airfix-1-72-avro-vulcan-b-2-black-buck",
+            "content": "<p>1/72, $136.50. The iconic V-bomber.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_NmVrrf",
+        "offer_VTpm6E",
+        "offer_3T76RK",
+        "offer_7K4R4p",
+        "offer_LDgPr3",
+        "offer_cyABKp",
+        "offer_tgqwfm"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.offer-item__image-wrapper {max-width: 180px; }}"
+      ],
+      "name": "Offers",
+      "settings": {
+        "items_per_row": 4,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_hVwrPV": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Best Airfix Kits Under $25",
+        "content": "<p>New to modelling or looking for a quick weekend project? These kits are all under $25 and deliver great results without breaking the bank.</p>",
+        "button_text": "Browse the full range: All Airfix Products at Hearns Hobbies",
+        "button_link": "shopify://collections/airfix"
+      }
+    },
+    "offers_CXtKqc": {
+      "type": "offers",
+      "blocks": {
+        "offer_3D7VKf": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A01085V.jpg",
+            "title": "Avro 504K (A01085V)",
+            "link": "shopify://products/airfix-1-72-avro-504k",
+            "content": "<p>1/72, <strong>$11.00</strong>. A classic Vintage Classic biplane and one of Airfix's most iconic kits. Perfect entry point.</p>"
+          }
+        },
+        "offer_TgYPxH": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A01003C.jpg",
+            "title": "Curtiss P-40B Warhawk (A01003C)",
+            "link": "shopify://products/airfix-1-72-curtiss-p-40b-warhawk",
+            "content": "<p>1/72, <strong>$16.50</strong>. Pearl Harbor anniversary decals.</p>"
+          }
+        },
+        "offer_KELDXk": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/58-02070.jpg",
+            "title": "Grumman F4F-4 Wildcat (A02070)",
+            "link": "shopify://products/airfix-1-72-f4f-4-wildcat",
+            "content": "<p>1/72, <strong>$22.00</strong>. Classic WWII Pacific theatre fighter.</p>"
+          }
+        },
+        "offer_9yE6Mg": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02022V.jpg",
+            "title": "Douglas Dauntless SBD 3/5 (A02022V)",
+            "link": "shopify://products/airfix-1-72-douglas-dauntless-sbd-3-5",
+            "content": "<p>1/72, <strong>$18.25</strong>. The dive bomber that turned the tide at Midway.</p>"
+          }
+        },
+        "offer_9pqNhU": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02016V.jpg",
+            "title": "Mitsubishi KI-46-II 'Dinah' (A02016V)",
+            "link": "shopify://products/airfix-1-72-mitsubishi-ki-46-ii-dinah",
+            "content": "<p>1/72,<strong>$18.25</strong>. Elegant Japanese reconnaissance aircraft.</p>"
+          }
+        },
+        "offer_hNUPtn": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A01318V.jpg",
+            "title": "Infantry Tank Mk.II Matilda (A01318V)",
+            "link": "shopify://products/airfix-1-76-infantry-tank-mk-ii-matilda",
+            "content": "<p>1/76, <strong>$12.75</strong>. Vintage Classic tank.</p>"
+          }
+        },
+        "offer_AeH6pe": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02305V.jpg",
+            "title": "Chieftain Tank (A02305V)",
+            "link": "shopify://products/airfix-1-76-chieftain-tank",
+            "content": "<p>1/76, <strong>$20.25</strong>. Cold War Vintage Classic.</p>"
+          }
+        },
+        "offer_MNULam": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02306V.jpg",
+            "title": "Leopard Tank (A02306V)",
+            "link": "shopify://products/airfix-1-76-leopard-tank",
+            "content": "<p>1/76, <strong>$20.25</strong>. Cold War Vintage Classic.</p>"
+          }
+        },
+        "offer_bMPBnj": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02307V.jpg",
+            "title": "Centurion Mk.8 Tank (A02307V)",
+            "link": "shopify://products/airfix-1-76-centurion-mk-8-tank",
+            "content": "<p>1/76, <strong>$20.25</strong>. Cold War Vintage Classic.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_3D7VKf",
+        "offer_TgYPxH",
+        "offer_KELDXk",
+        "offer_9yE6Mg",
+        "offer_9pqNhU",
+        "offer_hNUPtn",
+        "offer_AeH6pe",
+        "offer_MNULam",
+        "offer_bMPBnj"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.offer-item__image-wrapper {max-width: 150px; }}"
+      ],
+      "name": "Offers",
+      "settings": {
+        "items_per_row": 3,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_FbBPaQ": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Special Sets & Collector Packs",
+        "content": "",
+        "button_text": "",
+        "button_link": "shopify://collections/airfix"
+      }
+    },
+    "image_with_text_DNfzJN": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/A40101.jpg",
+        "link": "shopify://products/airfix-1-72-legends-douglas-bader-triple-pack",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "Airfix Legends: Douglas Bader Triple Pack (A40101) — $163.75",
+        "content": "<p>The first release in Airfix's brand new Legends series. Three 1/48 kits celebrating the aircraft flown by legendary RAF pilot Group Captain Sir Douglas Bader: a Bulldog trainer, Hurricane Mk.I, and Spitfire Mk.II. Premium packaging and special markings. A collector's item and a tribute to one of aviation's most remarkable stories.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_kgV84C": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Eurofighter Typhoon Twin Packs",
+        "content": "<p>Great value two-kit sets linking modern RAF display aircraft with their WWII-era namesakes.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/airfix"
+      }
+    },
+    "offers_Y6qPTz": {
+      "type": "offers",
+      "blocks": {
+        "offer_PpYz9i": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A40001.jpg",
+            "title": "\"Moggy\" & Hawker Typhoon Mk.IB (A40001)",
+            "link": "shopify://products/airfix-1-72-eurofighter-hawker-typhoon-moggy-twin",
+            "content": "<p>$54.75</p>"
+          }
+        },
+        "offer_JMdkL7": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A40002.jpg",
+            "title": "\"Gina\" & Hawker Hurricane Mk.I (A40002)",
+            "link": "shopify://products/airfix-1-72-eurofighter-hurricane-gina-twin",
+            "content": "<p>$63.75</p>"
+          }
+        },
+        "offer_9JT3HA": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A40003.jpg",
+            "title": "\"Blackjack\" & Shorts Tucano T.1 (A40003)",
+            "link": "shopify://products/airfix-1-72-eurofighter-tucano-blackjack-twin",
+            "content": "<p>$63.75</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_PpYz9i",
+        "offer_JMdkL7",
+        "offer_9JT3HA"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.offer-item__image-wrapper {max-width: 180px; }}"
+      ],
+      "name": "Offers",
+      "settings": {
+        "items_per_row": 3,
+        "stack_mobile": false
+      }
+    },
+    "image_with_text_CNzA7E": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/A40004.jpg",
+        "link": "",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "Swedish Air Force 100th Anniversary Set (A40004) — $109.25",
+        "content": "<p>Five kits celebrating a century of Swedish military aviation. A collector's set for aviation enthusiasts.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_eXGm8M": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Naval Kits",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "offers_zApR8B": {
+      "type": "offers",
+      "blocks": {
+        "offer_7z9X7a": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A09254V.jpg",
+            "title": "HMS Prince (A09254V)",
+            "link": "shopify://products/airfix-1-600-hms-prince",
+            "content": "<p>$73.00</p>"
+          }
+        },
+        "offer_zbCCKj": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A06205V.jpg",
+            "title": "HMS King George V (A06205V)",
+            "link": "shopify://products/airfix-1-600-hms-king-george-v",
+            "content": "<p>$54.75</p>"
+          }
+        },
+        "offer_VXJxLy": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A05203V.jpg",
+            "title": "Prinz Eugen (A05203V)",
+            "link": "shopify://products/airfix-1-600-prinz-eugen",
+            "content": "<p>$45.50</p>"
+          }
+        },
+        "offer_NzzQB4": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A04206V.jpg",
+            "title": "Scharnhorst (A04206V)",
+            "link": "shopify://products/airfix-1-600-scharnhorst",
+            "content": "<p>$40.25</p>"
+          }
+        },
+        "offer_7fn7QT": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A04203V.jpg",
+            "title": "HMS Nelson (A04203V)",
+            "link": "shopify://products/airfix-1-600-hms-nelson",
+            "content": "<p>$40.25</p>"
+          }
+        },
+        "offer_rxWkrK": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A03203V.jpg",
+            "title": "HMS Suffolk (A03203V)",
+            "link": "shopify://products/airfix-1-600-hms-suffolk",
+            "content": "<p>$29.25</p>"
+          }
+        },
+        "offer_7h8FNN": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A01202V.jpg",
+            "title": "HMS Cossack (A01202V)",
+            "link": "shopify://products/airfix-1-600-hms-cossack",
+            "content": "<p>$12.75</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_7z9X7a",
+        "offer_zbCCKj",
+        "offer_VXJxLy",
+        "offer_NzzQB4",
+        "offer_7fn7QT",
+        "offer_rxWkrK",
+        "offer_7h8FNN"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.offer-item__image-wrapper {max-width: 180px; }}"
+      ],
+      "name": "Offers",
+      "settings": {
+        "items_per_row": 4,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_43d9ki": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "",
+        "button_text": "Browse all Airfix at Hearns Hobbies",
+        "button_link": "shopify://collections/airfix"
+      }
+    },
+    "rich_text_3BQgKh": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Figures & Vintage Classic Sets",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "offers_eTWHeK": {
+      "type": "offers",
+      "blocks": {
+        "offer_6z8hmA": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A04710V.jpg",
+            "title": "WWII British Infantry Support Set (A04710V)",
+            "link": "shopify://products/airfix-1-76-wwii-british-infantry-support-set",
+            "content": "<p>$36.50</p>"
+          }
+        },
+        "offer_VB3WQ3": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A04713V.jpg",
+            "title": "WWII German Mountain Troops (A04713V)",
+            "link": "shopify://products/airfix-1-76-wwii-german-mountain-troops",
+            "content": "<p>$36.50</p>"
+          }
+        },
+        "offer_kQBkWG": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A02705V.jpg",
+            "title": "WWII British Commandos (A02705V)",
+            "link": "shopify://products/airfix-1-76-wwii-british-commandos",
+            "content": "<p>$20.25</p>"
+          }
+        },
+        "offer_n34CCz": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A06702V.jpg",
+            "title": "Robin Hood — Sherwood Castle & Figurines Set (A06702V)",
+            "link": "shopify://products/airfix-1-72-robin-hood-sherwood-castle-set",
+            "content": "<p>$45.50</p>"
+          }
+        },
+        "offer_m4tmJz": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A06705V.jpg",
+            "title": "Romans — Roman Fort & Figurines Set (A06705V)",
+            "link": "shopify://products/airfix-1-72-romans-roman-fort-set",
+            "content": "<p>$45.50</p>"
+          }
+        },
+        "offer_npLe3g": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A03305V.jpg",
+            "title": "Crash Recovery Set (A03305V)",
+            "link": "shopify://products/airfix-1-76-crash-recovery-set",
+            "content": "<p>$29.25</p>"
+          }
+        },
+        "offer_ky39p6": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A09171V.jpg",
+            "title": "SR.N4 Hovercraft (A09171V)",
+            "link": "shopify://products/airfix-1-144-sr-n4-hovercraft",
+            "content": "<p>$73.00. Iconic Vintage Classic.</p>"
+          }
+        },
+        "offer_mppVNN": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/A04018V.jpg",
+            "title": "Shorts Skyvan (A04018V)",
+            "link": "shopify://products/airfix-1-72-shorts-skyvan",
+            "content": "<p>$40.25. Vintage Classic.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_6z8hmA",
+        "offer_VB3WQ3",
+        "offer_kQBkWG",
+        "offer_n34CCz",
+        "offer_m4tmJz",
+        "offer_npLe3g",
+        "offer_ky39p6",
+        "offer_mppVNN"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 641px) {.offer-item__image-wrapper {max-width: 150px; }}"
+      ],
+      "name": "Offers",
+      "settings": {
+        "items_per_row": 4,
+        "stack_mobile": false
+      }
+    },
+    "faq_bfX9EQ": {
+      "type": "faq",
+      "blocks": {
+        "separator_DBEfYX": {
+          "type": "separator",
+          "settings": {
+            "title": "Pre-Order FAQ"
+          }
+        },
+        "question_HjPhzt": {
+          "type": "question",
+          "settings": {
+            "title": "How do pre-orders work?",
+            "answer": "<p>When you pre-order, you pay upfront to secure your kit. As soon as stock arrives from our supplier, your order is packed and shipped. Pre-order customers are fulfilled first, before general stock goes on sale.</p>"
+          }
+        },
+        "question_UTgYy7": {
+          "type": "question",
+          "settings": {
+            "title": "When will my kit arrive?",
+            "answer": "<p>Airfix 2026 releases are staggered across three waves: AU Autumn 2026, AU Winter 2026, and AU Spring 2026. Exact dates depend on the supplier. We'll email you when your order ships.</p>"
+          }
+        },
+        "question_yey6im": {
+          "type": "question",
+          "settings": {
+            "title": "Can I cancel a pre-order?",
+            "answer": "<p>Yes. Contact us before the item ships and we'll process a full refund. See our<a href=\"/policies/refund-policy\">Refund Policy</a>for details.</p>"
+          }
+        },
+        "question_J398EK": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need paint and glue?",
+            "answer": "<p><strong>Yes. </strong>All Airfix model kits (except Starter Sets) require separate paint and glue — these are not included in the box. We stock a full range of model paints from<a href=\"/collections/paints-and-tools\">Tamiya, Vallejo, Mr. Hobby, and Green Stuff World</a>, plus cement, tools, and brushes. Check individual product pages for recommended supplies, or visit our<a href=\"/collections/model-tools\">Ninesteps tool range</a>for precision modelling tools.</p>"
+          }
+        },
+        "question_fDnxYA": {
+          "type": "question",
+          "settings": {
+            "title": "Do you offer free shipping?",
+            "answer": "<p>Free shipping Australia-wide on orders over $125. <a href=\"/pages/shipping-information\">Shipping details</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_DBEfYX",
+        "question_HjPhzt",
+        "question_UTgYy7",
+        "question_yey6im",
+        "question_J398EK",
+        "question_fDnxYA"
+      ],
+      "custom_css": [
+        ".container {margin-bottom: -50px;}"
+      ],
+      "name": "Frequently Asked Questions",
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Pre-Order FAQ",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "rich_text_i9m4f4": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section--text-centered {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Why Pre-Order with Hearns Hobbies?",
+        "content": "<ul><li><strong>Australia's oldest hobby shop</strong> — serving modellers since 1947</li><li><strong>Expert advice</strong> — our team builds models. We know these kits.</li><li><strong>Two locations</strong> — <a href=\"/pages/contact-us-here\">Melbourne CBD (295 Flinders St)</a> and Hallam (Factory 5/25 Conquest Way)</li><li><strong>Fast shipping</strong> — order before 11am, ships same day (AU only)</li><li><strong>Free shipping</strong> over $125 Australia-wide</li><li><strong>Full support range</strong> — paints, tools, glue, and <a href=\"/collections/model-tools\">Ninesteps precision tools</a> all in one shop</li></ul><p><strong>Questions?</strong> Call us on <a href=\"tel:0396143603\">(03) 9614 3603</a> (Melbourne CBD) or <a href=\"tel:0397056880\">(03) 9705 6880</a> (Hallam). Email: <a href=\"mailto:info@hearnshobbies.com\">info@hearnshobbies.com</a></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "quick_links_fMTUxP": {
+      "type": "quick-links",
+      "blocks": {
+        "link_HKizqH": {
+          "type": "link",
+          "settings": {
+            "title": "Browse All Airfix Products",
+            "link": "shopify://collections/airfix",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "link_q4AjDh": {
+          "type": "link",
+          "settings": {
+            "title": "All Plastic Kits",
+            "link": "shopify://collections/plastic-kits",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "link_8TjmUf": {
+          "type": "link",
+          "settings": {
+            "title": "Paints & Tools",
+            "link": "shopify://collections/paints-tools",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "link_TecfYQ": {
+          "type": "link",
+          "settings": {
+            "title": "Ninesteps Tools",
+            "link": "shopify://collections/model-tools",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "link_HKizqH",
+        "link_q4AjDh",
+        "link_8TjmUf",
+        "link_TecfYQ"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; margin: 0 2px; }}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; margin: 2px; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_Hq3Nty",
+    "b8ee9718-ed85-47f6-825b-2b2f4e100991",
+    "rich_text_mAc4kA",
+    "image_with_text_cF3VRQ",
+    "image_with_text_acmYHr",
+    "image_with_text_H3kptY",
+    "image_with_text_rfgQen",
+    "rich_text_NMnhGy",
+    "offers_9D6L8C",
+    "rich_text_hVwrPV",
+    "offers_CXtKqc",
+    "rich_text_FbBPaQ",
+    "image_with_text_DNfzJN",
+    "rich_text_kgV84C",
+    "offers_Y6qPTz",
+    "image_with_text_CNzA7E",
+    "rich_text_eXGm8M",
+    "offers_zApR8B",
+    "rich_text_43d9ki",
+    "rich_text_3BQgKh",
+    "offers_eTWHeK",
+    "faq_bfX9EQ",
+    "rich_text_i9m4f4",
+    "quick_links_fMTUxP"
+  ]
+}

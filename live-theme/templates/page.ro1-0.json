@@ -1,0 +1,168 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "2fed2885-95e0-41bd-a129-78cca95d5bb2": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16234566680737__2fed2885-95e0-41bd-a129-78cca95d5bb2-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ror-010-1_ada803ff-c13b-408e-ba62-0721f400c774.jpg",
+            "mobile_image": "shopify://shop_images/ror-010-1_ada803ff-c13b-408e-ba62-0721f400c774.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 47,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16234566680737__2fed2885-95e0-41bd-a129-78cca95d5bb2-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "82f6574f-44e9-4eee-8563-a9d234ac89e9": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Introducing the Yokomo Rookie Off-Road Racing Buggy",
+        "content": "<p>The Yokomo Rookie Off-Road Buggy provides the perfect entry into the world of RC Off-Road Racing.  Get everything you need to start preparing to play with the big guys when it comes to RC Off-Road racing with this great new RC car option from Yokomo.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "17178721-d0d5-4ee2-bd66-20093ff11ff1": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/ror-010_03_336cb298-0109-40c3-a6ed-40fa72236094.jpg",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "This kit gives you all these basics",
+        "content": "<p>■ Rear 2WD racing buggy<br/>■ Front and rear double wishbone suspension<br/>■ Oil-filled shock absorber (assembled)<br/>■ Adjustable turnbuckle & tie rod (assembled)<br/>■ Battery position changeable<br/>■ Sealed gearbox<br/>■ 4-gear transmission<br/>■ Aluminum motor Mount<br/>■ Slipper clutch standard equipment<br/>■ Integrated resin main chassis<br/>■ High downforce body & wing (pre-cut)<br/>■ Full ball bearing<br/>■ Front 4 ribs & rear square pin tires included</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "8544c719-b195-463f-bb91-efa4bd7657f9": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-featured_description-1": {
+          "type": "featured_description",
+          "settings": {}
+        },
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-variant_selector-1": {
+          "type": "variant_selector",
+          "disabled": true,
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-buy_buttons-1": {
+          "type": "buy_buttons",
+          "disabled": true,
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-product_meta-1",
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-featured_description-1",
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-variant_selector-1",
+        "template--16234566680737__8544c719-b195-463f-bb91-efa4bd7657f9-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "yokomo-rookie-off-road-ro1-0",
+        "title": "Rookie Off-Road 1.0",
+        "link_title": "View details",
+        "link_url": "shopify://products/yokomo-rookie-off-road-ro1-0",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "14e34e68-b815-493b-9caa-5388ea7f15e8": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "If you need spare parts.",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "6a4f27d5-ef0f-4661-b1a2-dbb70eefc930": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/RO_1.0_e21a4322-36c5-4e81-8fb3-fa98359701ce.jpg",
+        "image_position": "left",
+        "image_width": 35,
+        "title": "Spare Parts List",
+        "content": "<p>Here is a list of all the spare parts suitable for the Rookie Off-Road 1.0.</p>",
+        "button_text": "Click Here",
+        "button_link": "shopify://collections/ro1-0-spare-parts"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "2fed2885-95e0-41bd-a129-78cca95d5bb2",
+    "82f6574f-44e9-4eee-8563-a9d234ac89e9",
+    "17178721-d0d5-4ee2-bd66-20093ff11ff1",
+    "8544c719-b195-463f-bb91-efa4bd7657f9",
+    "14e34e68-b815-493b-9caa-5388ea7f15e8",
+    "6a4f27d5-ef0f-4661-b1a2-dbb70eefc930"
+  ]
+}

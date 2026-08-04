@@ -1,0 +1,620 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "heading_color": "#25140a",
+    "text_color": "#25140a",
+    "accent_color": "#ff4713",
+    "link_color": "#0091b3",
+    "border_color": "#e1e3e4",
+    "background": "#ffffff",
+    "secondary_background": "#ffffff",
+    "error_color": "#ff0000",
+    "success_color": "#00aa00",
+    "primary_button_background": "#0091b3",
+    "primary_button_text_color": "#ffffff",
+    "secondary_button_background": "#ff4713",
+    "secondary_button_text_color": "#ffffff",
+    "header_background": "#25140a",
+    "header_text_color": "#ffffff",
+    "header_light_text_color": "#dbd5d3",
+    "header_accent_color": "#ff4713",
+    "footer_background_color": "#25140a",
+    "footer_heading_text_color": "#f8df8d",
+    "footer_body_text_color": "#ffffff",
+    "footer_accent_color": "#0091b3",
+    "product_on_sale_accent": "#ee0000",
+    "product_in_stock_color": "#008a00",
+    "product_low_stock_color": "#ee0000",
+    "product_sold_out_color": "#8a9297",
+    "product_label_1_background": "#008a00",
+    "product_label_2_background": "#00a500",
+    "product_star_color": "#ffbd00",
+    "base_text_font_size": 15,
+    "heading_font": "eurostile_next_n6",
+    "text_font": "eurostile_next_n4",
+    "underline_links": true,
+    "currency_code_enabled": true,
+    "animation_image_zoom": true,
+    "show_vendor": false,
+    "show_secondary_image": true,
+    "show_reviews_badge": false,
+    "show_discount": true,
+    "discount_mode": "saving",
+    "product_price_position": "after_title",
+    "product_image_size": "short",
+    "show_color_swatch": false,
+    "show_inventory_quantity": false,
+    "low_inventory_threshold": 2,
+    "cart_type": "drawer",
+    "cart_empty_button_link": "shopify://collections/newest-products",
+    "cart_show_checkout_button": true,
+    "cart_show_free_shipping_threshold": true,
+    "cart_free_shipping_threshold": "150",
+    "social_facebook": "https://www.facebook.com/HearnsHobbies/",
+    "social_twitter": "https://twitter.com/hearnshobbies",
+    "social_pinterest": "",
+    "social_instagram": "https://www.instagram.com/hearnshobbies/",
+    "social_vimeo": "",
+    "social_tumblr": "",
+    "social_youtube": "https://www.youtube.com/hearnshobbiesmelbourne",
+    "social_tiktok": "https://www.tiktok.com/@hearnshobbiesmelbourne",
+    "social_linkedin": "",
+    "social_snapchat": "",
+    "social_fancy": "",
+    "favicon": "shopify://shop_images/logo.png",
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify://shop_images/HH2020Logo-ICON-BrnCrm.jpg",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#0091b3",
+    "checkout_button_color": "#ff4713",
+    "checkout_error_color": "#ff0000",
+    "search_mode": "product,article,page",
+    "share_image": "",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "2c4d2e5b-63c7-47eb-98d4-5df81cb573ff": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Home",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "735dd918-beca-4685-93e9-83c7c0f18bd3": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Radio Control",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "c4253402-fb29-4303-82d8-eede121d8406": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Radio Control Accessories",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "6ef995dc-aab8-4507-ac54-865f01073af8": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Model Kits",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "e817c80c-c4be-47c3-a6d3-9d796bb33bd8": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Paints and Tools",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "Your image",
+              "image_2_text": "Tell your story",
+              "image_2_link": ""
+            }
+          },
+          "425f776a-a464-452f-993c-25816260e89f": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Model Railway",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "4cfff460-977f-46ea-b0e7-84c4030447aa": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Slot Cars",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "1fe589c2-f99a-4a35-a71f-aa05c5b89073": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Gifts & Toys",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "f038aaa1-5bad-4b64-874b-2248d92393ef": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Diecast",
+              "image_1_heading": "",
+              "image_1_text": "",
+              "image_1_link": "",
+              "image_2_heading": "",
+              "image_2_text": "",
+              "image_2_link": ""
+            }
+          },
+          "e40fca90-11d8-43e8-8955-480ea4d887c8": {
+            "type": "mega_menu",
+            "settings": {
+              "menu_item": "Tabletop Gaming",
+              "image_1_heading": "Your image",
+              "image_1_text": "Tell your story",
+              "image_1_link": "",
+              "image_2_heading": "Your image",
+              "image_2_text": "Tell your story",
+              "image_2_link": ""
+            }
+          }
+        },
+        "block_order": [
+          "2c4d2e5b-63c7-47eb-98d4-5df81cb573ff",
+          "735dd918-beca-4685-93e9-83c7c0f18bd3",
+          "c4253402-fb29-4303-82d8-eede121d8406",
+          "6ef995dc-aab8-4507-ac54-865f01073af8",
+          "e817c80c-c4be-47c3-a6d3-9d796bb33bd8",
+          "425f776a-a464-452f-993c-25816260e89f",
+          "4cfff460-977f-46ea-b0e7-84c4030447aa",
+          "1fe589c2-f99a-4a35-a71f-aa05c5b89073",
+          "f038aaa1-5bad-4b64-874b-2248d92393ef",
+          "e40fca90-11d8-43e8-8955-480ea4d887c8"
+        ],
+        "custom_css": [
+          "@media screen and (min-width: 1000px) {.header__cart-icon {display: inline-block; }}",
+          ".icon-state {vertical-align: middle;}"
+        ],
+        "settings": {
+          "enable_sticky_header": true,
+          "logo": "shopify://shop_images/HH2020Logo-ICON-BrnCrm.jpg",
+          "logo_max_width": 100,
+          "mobile_logo_max_width": 80,
+          "show_locale_selector": false,
+          "show_country_selector": false,
+          "navigation_menu": "2022-new-menu",
+          "navigation_mobile_menu": "",
+          "desktop_navigation_layout": "inline",
+          "desktop_navigation_open_trigger": "hover",
+          "show_navigation_social_media": true,
+          "navigation_phone_number": "(03) 9614 3603",
+          "navigation_email": "hh@hearnshobbies.com",
+          "show_condensed_search": false,
+          "show_search_filter": true,
+          "search_menu": "",
+          "show_search_menu_title": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "text",
+            "settings": {
+              "title": "Hearns Hobbies Melbourne",
+              "content": "<p>Hearns Hobbies has been proudly servicing our dedicated customers all over Melbourne, Australia, and Internationally since 1947!</p>"
+            }
+          },
+          "footer-1": {
+            "type": "links",
+            "settings": {
+              "menu": "2022-new-menu"
+            }
+          },
+          "452f359c-09a9-4af5-90ef-8973d6bdb917": {
+            "type": "links",
+            "settings": {
+              "menu": "store-info-1"
+            }
+          },
+          "footer-2": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Newsletter",
+              "subheading": "<p>Subscribe to our Newsletter for <strong>News</strong>, <strong>Promotions</strong>, <strong>Product updates </strong>and <strong>MORE</strong>!</p>"
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "452f359c-09a9-4af5-90ef-8973d6bdb917",
+          "footer-2"
+        ],
+        "settings": {
+          "show_social_media": true,
+          "show_payment_icons": true,
+          "show_locale_selector": false,
+          "show_country_selector": false
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "custom_css": [
+          "@media and (max-width: 768px) {.announcement-bar__content {margin-right: -5px; margin-left: -5px; }}"
+        ],
+        "settings": {
+          "background": "#f8df8d",
+          "text_color": "#25140a",
+          "text": "Spend over $100 and receive Free shipping within Australia!*",
+          "text_position": "left",
+          "link": "",
+          "show_newsletter": true,
+          "newsletter_button": "Subscribe & Save",
+          "newsletter_title": "Newsletter",
+          "newsletter_content": "<p>Signup to Hearns Hobbies Newsletter to stay in the know with whats: New In Store, Re-Stocked, News, Promotions and more, both here at The Hobbyman and at Hearns Hobbies!</p>"
+        }
+      },
+      "popups": {
+        "type": "popups",
+        "blocks": {
+          "8243b927-10b9-4147-bf29-5a633301fbcd": {
+            "type": "newsletter",
+            "disabled": true,
+            "settings": {
+              "show_only_on_index": false,
+              "show_only_for_visitors": false,
+              "show_only_once": true,
+              "title": "🎅 Unwrap Joy Every Day with Our Advent Calendar! 🎄",
+              "content": "<p>Click on the 🎁 icon on the homepage to reveal a world of festive surprises! Step into the holiday spirit with daily Christmas deals from your favourite brands.</p>",
+              "show_newsletter": false,
+              "apparition_delay": 5
+            }
+          }
+        },
+        "block_order": [
+          "8243b927-10b9-4147-bf29-5a633301fbcd"
+        ],
+        "settings": {}
+      },
+      "afterpay-banner": {
+        "type": "afterpay-banner",
+        "custom_css": [
+          "img {width: 66px !important;}"
+        ],
+        "settings": {
+          "should_show_afterpay_banner": true,
+          "afterpay_banner_background_color": "#ffffff",
+          "afterpay_banner_text_color": "#25140a",
+          "afterpay_banner_logo_color": "black"
+        }
+      },
+      "ai-search-modal": {
+        "type": "ai-search-modal",
+        "settings": {
+          "primary_color": "#ff4713",
+          "text_color": "#333333",
+          "api_url": "https://shopify-data-api-production.up.railway.app/api/shopify/chat/message",
+          "max_results": 10
+        }
+      },
+      "dual-search-bar": {
+        "type": "dual-search-bar",
+        "settings": {
+          "primary_color": "#212b36",
+          "standard_placeholder": "Search products...",
+          "camilla_placeholder": "Ask Camilla to find products..."
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "15573056287721514228": {
+        "type": "shopify://apps/json-ld-for-seo/blocks/app-embed/3fcb4f45-bdde-43fd-84ae-8006cdcd1028",
+        "disabled": false,
+        "settings": {}
+      },
+      "3577669850698438243": {
+        "type": "shopify://apps/preorder-now-wod-preorder/blocks/app-embed/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Metal": {
+      "heading_color": "#1e2d7d",
+      "text_color": "#677279",
+      "accent_color": "#00badb",
+      "link_color": "#00badb",
+      "border_color": "#e1e3e4",
+      "background": "#f3f5f6",
+      "secondary_background": "#ffffff",
+      "error_color": "#ff0000",
+      "success_color": "#00aa00",
+      "primary_button_background": "#00badb",
+      "primary_button_text_color": "#ffffff",
+      "secondary_button_background": "#1e2d7d",
+      "secondary_button_text_color": "#ffffff",
+      "header_background": "#1e2d7d",
+      "header_text_color": "#ffffff",
+      "header_light_text_color": "#a3afef",
+      "header_accent_color": "#00badb",
+      "product_on_sale_accent": "#ee0000",
+      "product_in_stock_color": "#008a00",
+      "product_low_stock_color": "#ee0000",
+      "product_sold_out_color": "#8a9297",
+      "product_label_1_background": "#008a00",
+      "product_label_2_background": "#00a500",
+      "product_star_color": "#ffbd00",
+      "footer_background_color": "#f3f5f6",
+      "footer_heading_text_color": "#1e2d7d",
+      "footer_body_text_color": "#677279",
+      "footer_accent_color": "#00badb",
+      "base_text_font_size": 16,
+      "heading_font": "din_next_n5",
+      "text_font": "din_next_n4",
+      "underline_links": true,
+      "animation_image_zoom": true,
+      "search_mode": "product,article",
+      "show_vendor": true,
+      "show_secondary_image": true,
+      "product_price_position": "after_title",
+      "product_image_size": "natural",
+      "show_discount": true,
+      "discount_mode": "saving",
+      "show_color_swatch": false,
+      "show_inventory_quantity": false,
+      "low_inventory_threshold": 0,
+      "show_reviews_badge": false,
+      "cart_type": "drawer",
+      "cart_empty_button_link": "shopify://collections/all",
+      "cart_show_checkout_button": true,
+      "cart_show_free_shipping_threshold": false,
+      "cart_free_shipping_threshold": "50",
+      "share_image": "",
+      "social_facebook": "",
+      "social_twitter": "",
+      "social_pinterest": "",
+      "social_instagram": "",
+      "social_vimeo": "",
+      "social_tumblr": "",
+      "social_youtube": "",
+      "social_linkedin": "",
+      "social_snapchat": "",
+      "social_fancy": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "medium",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#fff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#fafafa",
+      "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_accent_color": "#00badb",
+      "checkout_button_color": "#00badb",
+      "checkout_error_color": "#ff0000"
+    },
+    "Wood": {
+      "heading_color": "#3a2a2f",
+      "text_color": "#3a2a2f",
+      "accent_color": "#ff6128",
+      "link_color": "#ff6128",
+      "border_color": "#e7e2de",
+      "background": "#f7f4f2",
+      "secondary_background": "#ffffff",
+      "error_color": "#f71b1b",
+      "success_color": "#48b448",
+      "primary_button_background": "#ff6128",
+      "primary_button_text_color": "#ffffff",
+      "secondary_button_background": "#3a2a2f",
+      "secondary_button_text_color": "#ffffff",
+      "header_background": "#3a2a2f",
+      "header_text_color": "#ffffff",
+      "header_light_text_color": "#e9e2dd",
+      "header_accent_color": "#ff6128",
+      "product_on_sale_accent": "#ee0000",
+      "product_in_stock_color": "#008a00",
+      "product_low_stock_color": "#ee0000",
+      "product_sold_out_color": "#d1d1d4",
+      "product_label_1_background": "#ff6128",
+      "product_label_2_background": "#a95ebe",
+      "product_star_color": "#ffb647",
+      "footer_background_color": "#f7f4f2",
+      "footer_heading_text_color": "#3a2a2f",
+      "footer_body_text_color": "#3a2a2f",
+      "footer_accent_color": "#ff6128",
+      "base_text_font_size": 15,
+      "heading_font": "itc_avant_garde_gothic_n5",
+      "text_font": "basic_commercial_n4",
+      "underline_links": true,
+      "animation_image_zoom": true,
+      "search_mode": "product,article,page",
+      "show_vendor": true,
+      "show_secondary_image": true,
+      "show_discount": true,
+      "discount_mode": "percentage",
+      "product_price_position": "after_title",
+      "product_image_size": "square",
+      "show_color_swatch": false,
+      "show_inventory_quantity": true,
+      "low_inventory_threshold": 1,
+      "show_reviews_badge": false,
+      "cart_type": "drawer",
+      "cart_empty_button_link": "shopify://collections/all",
+      "cart_show_checkout_button": true,
+      "cart_show_free_shipping_threshold": true,
+      "cart_free_shipping_threshold": "50",
+      "checkout_logo_position": "center",
+      "checkout_logo_size": "medium",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#fff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#f7f4f2",
+      "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_accent_color": "#ff6128",
+      "checkout_button_color": "#ff6128",
+      "checkout_error_color": "#f71b1b"
+    },
+    "Fabric": {
+      "heading_color": "#222021",
+      "text_color": "#616161",
+      "accent_color": "#cb1836",
+      "link_color": "#cb1836",
+      "border_color": "#e8e8e8",
+      "background": "#f5f5f5",
+      "secondary_background": "#ffffff",
+      "error_color": "#cf0e0e",
+      "success_color": "#1c7b36",
+      "primary_button_background": "#cb1836",
+      "primary_button_text_color": "#ffffff",
+      "secondary_button_background": "#222021",
+      "secondary_button_text_color": "#ffffff",
+      "header_background": "#222021",
+      "header_text_color": "#ffffff",
+      "header_light_text_color": "#e8e8e8",
+      "header_accent_color": "#cb1836",
+      "footer_background_color": "#222021",
+      "footer_heading_text_color": "#ffffff",
+      "footer_body_text_color": "#ffffff",
+      "footer_accent_color": "#cb1836",
+      "product_on_sale_accent": "#cf0e0e",
+      "product_in_stock_color": "#1c7b36",
+      "product_low_stock_color": "#cf0e0e",
+      "product_sold_out_color": "#8a9297",
+      "product_label_1_background": "#3f6ab1",
+      "product_label_2_background": "#8a44ae",
+      "product_star_color": "#ffbd00",
+      "base_text_font_size": 16,
+      "heading_font": "avenir_next_n7",
+      "text_font": "avenir_next_n5",
+      "underline_links": true,
+      "animation_image_zoom": true,
+      "search_mode": "product,article",
+      "show_vendor": true,
+      "show_secondary_image": true,
+      "show_discount": true,
+      "discount_mode": "percentage",
+      "product_price_position": "before_title",
+      "product_image_size": "square",
+      "show_color_swatch": true,
+      "show_inventory_quantity": true,
+      "low_inventory_threshold": 2,
+      "show_reviews_badge": true,
+      "cart_type": "drawer",
+      "cart_empty_button_link": "shopify://collections/all",
+      "cart_show_checkout_button": true,
+      "cart_show_free_shipping_threshold": true,
+      "cart_free_shipping_threshold": "49",
+      "social_facebook": "",
+      "social_twitter": "",
+      "social_pinterest": "",
+      "social_instagram": "",
+      "social_vimeo": "",
+      "social_tumblr": "",
+      "social_youtube": "",
+      "social_linkedin": "",
+      "social_snapchat": "",
+      "social_fancy": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "medium",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#fff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#f5f5f5",
+      "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_accent_color": "#cb1836",
+      "checkout_button_color": "#cb1836",
+      "checkout_error_color": "#ff0000"
+    }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "@media only screen and (max-width: 749px) {.mobile--device {display: block !important; } .desktop--device {display: none !important; } .section__action-link svg, .collection-item__title svg {width: 15px !important; vertical-align: middle !important; } .slideshow .flickity-page-dots {bottom: 10px; } .mini-cart__button-container .button-group .button--secondary {display: none; }}",
+      "@media only screen and (min-width: 750px) {.mobile--device {display: none !important; } .desktop--device {display: block !important; }}",
+      ".dropdown {position: relative; display: inline-block; padding: 0 15px;}",
+      ".dropdown-content {position: absolute; background-color: #f1f1f1; min-width: 180px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; padding: 10px;}",
+      ".dropdown-content a {color: black; padding: 12px 16px; text-decoration: none; display: block;}",
+      ".quick-links__image-container {display: flex; margin: 0 auto; flex: 1 1 auto; font-size: 14px; line-height: 1.2; font-weight: 600; text-transform: uppercase; padding-bottom: 5px; flex-wrap: wrap; flex-direction: column; justify-content: center;}",
+      ".product-item__image-wrapper {margin-bottom: 0px;}",
+      ".product-item {padding: 3px;}",
+      ".collection__description {display: none;}",
+      ".shopify-payment-button__button {height: 100%;}",
+      ".product-item--vertical .product-item__action-button {margin: 0 2px !important;}",
+      ".product-item--vertical .product-item__action-list {margin: 5px 0 !important;}",
+      ".mobile-menu__nav-item,.mobile-menu__nav-list-item {display: flex;}",
+      ".mobile-menu__nav-list-item {flex-wrap: wrap;}",
+      ".mobile-menu__nav-list-toggle {flex-basis: 50%;}",
+      ".article__inner {max-width: none;}",
+      ".search-input {color: black;}"
+    ]
+  }
+}

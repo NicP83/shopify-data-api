@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_8XCzL3": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "regular",
+        "title": "🎂 Your Birthday Bonus is Ready to Roll! 🏁",
+        "content": "<p>Hey, hobbyist! Time to celebrate your next lap around the sun with a <strong>free gift</strong> from Hearns Hobbies!</p><p>We're sending you a <strong>special birthday voucher code</strong> to use on your next big project—whether it's a speed upgrade or a detailed new build.</p><p>To make sure your bonus is perfect, tell us what you're into!</p><p><strong>What's Your Passion?</strong> (Select your interest in the form below)</p><ul><li><strong>RC Cars</strong> (Bashers, Crawlers, Racers)</li><li><strong>Model Trains</strong> (Steam, Diesel, Track Layouts)</li><li><strong>Model Kits</strong> (Cars, Planes, Tanks)</li><li><strong>Japanese Pop Culture</strong> (Gundam, Anime, Mecha)</li><li><strong>Paint & Tools</strong> (For that pro finish)</li><li><strong>Slot Cars</strong> (Fast-paced track action)</li></ul><p>Just give us your email and <strong>birthday</strong> below. We'll email your exclusive voucher code right to your inbox when your big day arrives!</p><p><strong>Don't miss out—sign up for your annual treat!</strong></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "custom_html_Fz7GpR": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "title": "",
+        "html": "<hr>"
+      }
+    },
+    "rich_text_aHzCLD": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<h3><strong>👉 Enter Your Info & Get Your Birthday Code!</strong></h3>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "custom_html_KaGmFY": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "title": "",
+        "html": "<center><div class=\"klaviyo-form-Ug5JVK\"></div></center>"
+      }
+    },
+    "rich_text_p3QYdE": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p><em>P.S. Enter your birth date accurately! We can't let your day pass without your bonus!</em></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "custom_html_bwLP8X": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "title": "",
+        "html": "<hr>"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_8XCzL3",
+    "custom_html_Fz7GpR",
+    "rich_text_aHzCLD",
+    "custom_html_KaGmFY",
+    "rich_text_p3QYdE",
+    "custom_html_bwLP8X",
+    "newsletter"
+  ]
+}

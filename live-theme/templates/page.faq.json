@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "title": "Can I visit your store? How easy is it to find?",
+            "answer": "<p>Yes, you can visit our store at 295 Flinders Street,&nbsp;in the Melbourne CBD.  We are still operating from our store situated right at the Elizabeth St exit from the famous Flinder Street Station, so are easy to reach if coming by train.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "title": "What are your trading hours? Are you open?",
+            "answer": "<p>Our regular trading hours are:<br/><br/><strong>Monday to Friday: </strong>10:00am to 5:00pm<br/><br/><strong>Saturday: </strong>9:00am to 5:00pm<br/><br/><strong>Sunday: </strong>Closed<br/><br/>For upcoming public holidays subscribe/follow our social media, check our<a href=\"https://www.hearnshobbies.com/pages/contact-us-here\">contact us page</a>, or take a look<a href=\"https://g.page/HearnsHobbies\">on google </a>for our trading hours.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "title": "What are pre-orders and back-orders?",
+            "answer": "<p><strong>Pre-Orders</strong>, are an order for a product placed before it is available for purchase.</p><p><strong>Back-Orders</strong> allow you to place an order for a product, that is temporarily out of stock.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "title": "How much are pre-orders / back-orders?",
+            "answer": "<p>Prices may vary slighlty (from what was paid on the day of the order). Whilst we try to maintain the lowest possible price, factors such as supplier price and exchange rate fluctuations, could affect the final price when we receive it in store.<br/><br/><strong>Note:</strong> Pre-orders could in some cases be a deposit price, without any knowledge of a final price from the Supplier or Manufacturer. In all cases you will be notified if there is a significant price change, from what was originally paid, before shipping.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "title": "How long do I have to wait for my pre-order / back-order?",
+            "answer": "<p>All orders will be shipped once stock has arrived and full payment has been made, with the exception of Manufacturer Release Dates on some Pre-order Products. Waiting time depends on many factors, which are mostly out of our control. They could be for example, Manufacturing delays (due to global pandemics), Supplier shortages, or shipping delays.</p>"
+          }
+        },
+        "05957812-15b9-4459-827f-275a9468637a": {
+          "type": "question",
+          "settings": {
+            "title": "Why am I being charged for my pre-order / back-order even though the product isn't re-stocked / released yet?",
+            "answer": "<p>This is pre-payment for an item's payment and delivery costs that isn’t released yet to ensure as soon as it arrives your order can be fulfilled and sent out to you a.s.a.p. Not all orders will be charged shipping depending on size, and total order amount (see our website for current shipping to find out more and our shipping policy for more information).<br/><br/><a href=\"https://www.hearnshobbies.com/policies/shipping-policy\" target=\"_blank\">Read our Shipping Policy</a></p>"
+          }
+        },
+        "a00f394d-5e13-4f4a-8015-3170fced51a7": {
+          "type": "question",
+          "settings": {
+            "title": "What do I do about my order? It's rather complex, I think I need to talk to someone.",
+            "answer": "<p>Not a problem, if your order may be complex (I.e: lots of parts that need to be sourced, complex set etc), then please feel free to message us on<a href=\"https://m.me/HearnsHobbies\" target=\"_blank\"> facebook messenger</a> with your request, along with your:</p><p>- mobile/phone number</p><p>&</p><p>- email address</p><p>This will help us contact you directly and let us assist you with your order.</p>"
+          }
+        },
+        "ede68535-f852-43f9-bac5-668002d23efa": {
+          "type": "question",
+          "settings": {
+            "title": "I want to find out about a particular product, what do I do?",
+            "answer": "<p>If you want to find out about a particular product, to help us get your answer more quickly make sure to get the part number or SKU of the product you are after.<br/><br/><strong>For example: </strong>Instead of asking for a<em>“HG 1/144 Gundam OO Diver”</em>if you simply ask if we have a<em>“G0225728”</em>in stock that could help us answer your question a lot more quickly for you.</p>"
+          }
+        },
+        "question_XhVDt7": {
+          "type": "question",
+          "settings": {
+            "title": "What is Lay-by and How does it work?",
+            "answer": "<p>Here are the general rules regarding Lay-by:</p><ul><li>You reserve an item by paying installments before receiving it.</li><li>You don’t get the item until it’s fully paid off.</li><li>Typically involves a deposit and regular payments over weeks or months.</li><li>If you cancel, you may lose the deposit or pay a cancellation fee depending on store terms.</li><li>Ownership remains with the retailer until full payment is made.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "05957812-15b9-4459-827f-275a9468637a",
+        "a00f394d-5e13-4f4a-8015-3170fced51a7",
+        "ede68535-f852-43f9-bac5-668002d23efa",
+        "question_XhVDt7"
+      ],
+      "settings": {
+        "show_contact_info": true,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Phone",
+        "contact_1_text": "<p><a href=\"tel:(03) 9614 3603\">(03) 9614 3603</a></p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Support Email",
+        "contact_2_text": "<p><a href=\"mailto:hh@hearnshobbies.com\" target=\"_blank\" title=\"mailto:hh@hearnshobbies.com\">hh@hearnshobbies.com</a></p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

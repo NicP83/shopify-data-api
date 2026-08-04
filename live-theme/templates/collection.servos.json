@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "16643784384d2a6334": {
+      "type": "faq",
+      "blocks": {
+        "16643784382605f677-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "16643784382605f677-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is an rc car servo?",
+            "answer": "<p>An rc car servo is a device that helps control the steering and speed of an rc car. It does this by converting the electrical signal from the rc car's controller into a mechanical force that can be used to steer or drive the car. The servo contains a motor, gearbox, and sensor that allow it to accurately translate the electrical signals from the controller into precise movements of the car's steering and throttle.</p>"
+          }
+        },
+        "a74c7b69-6994-4436-a8ec-ac386ee0f94d": {
+          "type": "question",
+          "settings": {
+            "title": "How much is a servo?",
+            "answer": "<p>Servos for radio control models can go from as little as $14.99 all the way $250. The prices depends from the application. The size and strength are the key parameter to choose a servo.</p>"
+          }
+        },
+        "69f3a0ee-38f5-46dc-a05f-b1f3da0565be": {
+          "type": "question",
+          "settings": {
+            "title": "How to choose an rc servo?",
+            "answer": "<p>The selection of the correct rc servo is very critical. If you choose the wrong servo it may not work or fail very quickly.</p><p></p><p>The first aspect to consider is the actual space that is available within your vehicle. There are few standard sizes servos in the market.</p><p></p><p>The second factor is the strength. How much torque can the servo generate? This is often defined in KG. For pure indication an entry level rc car such a Tamiya Hornet can work just fine with 4-5kg servo. A stronger servo would make the steering moving faster and give a much better response. A good average torque for a 1/10 scale buggy can sit at around 10kg while for the 1/8 buggies it is more 20kg.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "16643784382605f677-0",
+        "16643784382605f677-1",
+        "a74c7b69-6994-4436-a8ec-ac386ee0f94d",
+        "69f3a0ee-38f5-46dc-a05f-b1f3da0565be"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recently-viewed-products",
+    "16643784384d2a6334"
+  ]
+}

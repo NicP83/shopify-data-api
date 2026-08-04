@@ -1,0 +1,130 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "1659016944458acb0e": {
+      "type": "image-with-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/tamiya-logo.jpg",
+        "image_position": "left",
+        "image_width": 30,
+        "title": "What is Tamiya?",
+        "content": "<p><strong>Tamiya Incorporated </strong>(Kabushiki gaisha Tamiya) is one of japans largest exporters and manufacturers of <a href=\"/collections/tamiya-model-kits\" title=\"Tamiya Model Kits\"><strong>plastic model kits</strong>,</a> <a href=\"/collections/tamiya-rc-cars\" title=\"Tamiya RC Cars\"><strong>radio controlled kits</strong></a>, battery and solar powered educational toys, sailboat models, <a href=\"/collections/tamiya-paint\" title=\"Tamiya Paint\"><strong>modelling paint</strong></a> of varying types (<a href=\"/collections/tamiya-acrylic-paints\" title=\"Tamiya Acrylic Paints\"><strong>acrylic</strong></a>, <a href=\"/collections/tamiya-enamel-paints\" title=\"Tamiya Enamel Paints\"><strong>enamel</strong></a>, <a href=\"/collections/tamiya-primers\" title=\"Tamiya Primers\"><strong>primers </strong></a>etc), <a href=\"/collections/tamiya-adhesives\" title=\"Tamiya Adhesives\"><strong>adhesives </strong></a>like plastic cement, and other<a href=\"/collections/tamiya-modelling-tools\" title=\"Tamiya Modelling Tools\"><strong> modelling tools </strong></a>such as modelling knives<strong>,</strong> nippers/clippers, tweezers<strong> </strong>and more!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_7bQQpm": {
+      "type": "promotion-list",
+      "blocks": {
+        "16588593117d6b3184-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-cacf57fe--pf-b142892d-paintbackgroundf_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Tamiya Paints",
+            "button_link": ""
+          }
+        },
+        "16588593117d6b3184-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-eb174a61--customisedclassicTamiyaactionphotosfromBlockheadMotorsmeetingVol316.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Tamiya RC (Kits)",
+            "button_link": ""
+          }
+        },
+        "4b10f528-3281-4284-a0b5-5bc1a1da4f59": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-65ba30f9--6423094124192062248073794007811546435551232o.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#f3f4f4",
+            "button_text": "Tamiya Craft Tools",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16588593117d6b3184-0",
+        "16588593117d6b3184-1",
+        "4b10f528-3281-4284-a0b5-5bc1a1da4f59"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 230px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 200px; } .block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 195px; } .block-list__item > :first-child {margin: 0 5px 20px; } .scroller .block-list__item {width: 75%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "tamiya",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1659016944458acb0e",
+    "promotion_list_7bQQpm",
+    "165885854594d3994d"
+  ]
+}

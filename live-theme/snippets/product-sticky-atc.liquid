@@ -1,0 +1,134 @@
+{%- comment -%}
+  Mobile-only sticky Add-to-Cart bar.
+
+  Design notes:
+  - It does NOT re-implement add-to-cart. It renders a proxy button that clicks the
+    real `.product-form__add-button[data-action="add-to-cart"]`, so it reuses the
+    theme's existing handler, the product form, variant state and all tag-gating.
+  - If there is no real add-to-cart button (SPECIAL SHIPPING / contact = mailto link,
+    or DANGEROUS GOODS / COMING SOON where the button is not rendered), the bar hides
+    itself, so gated products never get a sticky buy button.
+  - The proxy mirrors the real button's label + disabled state (sold-out, "Added!",
+    loading) via a MutationObserver, and shows only once the real button scrolls out
+    of view (IntersectionObserver). Both are native — no library, no extra request.
+  - Visible on phones only (see CSS media query). Hidden on desktop to avoid clashing
+    with the sticky product-info column (`card--sticky`).
+{%- endcomment -%}
+
+<div
+  class="sticky-atc"
+  data-sticky-atc
+  data-sticky-atc-section="{{ section.id }}"
+  aria-hidden="true"
+>
+  <div class="sticky-atc__inner">
+    <span class="sticky-atc__title">{{ product.title | escape }}</span>
+    <button type="button" class="sticky-atc__button button button--primary" data-sticky-atc-button>
+      {{ 'product.form.add_to_cart' | t }}
+    </button>
+  </div>
+</div>
+
+<style>
+  .sticky-atc {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999; /* sit above the AI search overlay (keyboard hint / floating button are z-index 9998); the AI modal is also 9999 but renders later in the DOM (theme.liquid), so it still covers this bar when open */
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    padding: 10px 14px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    transform: translateY(110%);
+    transition: transform 0.25s ease;
+  }
+
+  .sticky-atc.is-visible {
+    transform: translateY(0);
+  }
+
+  .sticky-atc__inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sticky-atc__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sticky-atc__button {
+    flex: 0 0 auto;
+    min-width: 45%;
+    margin: 0;
+  }
+
+  /* Phones only. Hidden on desktop, where the product-info column is already sticky. */
+  @media (min-width: 750px) {
+    .sticky-atc { display: none !important; }
+  }
+
+  @media (max-width: 749px) {
+    .sticky-atc { display: block; }
+  }
+</style>
+
+<script>
+  (function () {
+    var bar = document.querySelector('[data-sticky-atc][data-sticky-atc-section="{{ section.id }}"]');
+    if (!bar) return;
+
+    var section = document.querySelector('[data-section-id="{{ section.id }}"][data-section-type="product"]');
+    if (!section) { bar.remove(); return; }
+
+    var realBtn = section.querySelector('.product-form__add-button[data-action="add-to-cart"]');
+    var proxyBtn = bar.querySelector('[data-sticky-atc-button]');
+
+    // No real add-to-cart button (mailto/contact/gated) => never show the sticky bar.
+    if (!realBtn || !proxyBtn) { bar.remove(); return; }
+
+    // Proxy the click to the real button so all existing behaviour runs unchanged.
+    proxyBtn.addEventListener('click', function () {
+      if (proxyBtn.hasAttribute('disabled')) return;
+      realBtn.click();
+    });
+
+    // Keep the proxy in sync with the real button (label, sold-out, "Added!", loading).
+    var sync = function () {
+      proxyBtn.innerHTML = realBtn.innerHTML;
+      if (realBtn.hasAttribute('disabled') || realBtn.classList.contains('button--disabled')) {
+        proxyBtn.setAttribute('disabled', 'disabled');
+        proxyBtn.classList.add('button--disabled');
+        proxyBtn.classList.remove('button--primary');
+      } else {
+        proxyBtn.removeAttribute('disabled');
+        proxyBtn.classList.remove('button--disabled');
+        proxyBtn.classList.add('button--primary');
+      }
+    };
+    sync();
+    var mo = new MutationObserver(sync);
+    mo.observe(realBtn, { attributes: true, childList: true, subtree: true, characterData: true });
+
+    // Show the bar only once the real button is scrolled out of view.
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var show = !entry.isIntersecting;
+          bar.classList.toggle('is-visible', show);
+          bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+        });
+      }, { threshold: 0 });
+      io.observe(realBtn);
+    }
+  })();
+</script>

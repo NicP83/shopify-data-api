@@ -1,0 +1,149 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "21966550-3354-4894-b222-541e1b1994db": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15938929262753__21966550-3354-4894-b222-541e1b1994db-1668185887ce5fa6f4-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Hornby-Main-Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15938929262753__21966550-3354-4894-b222-541e1b1994db-1668185887ce5fa6f4-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_DjiPif": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p><strong>Smaller than the traditional 00 gauge, Hornby TT:120 is a new compact scale perfect for creating your big ideas in a small world available soon In Australia from Hearns Hobbies.</strong><br/><br/>The new Hornby TT:120 is a system that includes train sets, locomotives, rolling stock, track, buildings, scenic materials, plus numerous accessories both for now and in the future. Transform your big ideas into a small world.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_4m88fU": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/11.png",
+            "title": "Train Sets",
+            "link": "shopify://collections/hornby-tt-train-sets"
+          }
+        },
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.png",
+            "title": "Locomotives",
+            "link": "shopify://collections/hornby-tt-locomotives"
+          }
+        },
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_470ba02d-1cb3-4ccb-ab18-d30fcee9aeb1.png",
+            "title": "Rolling Stock",
+            "link": "shopify://collections/hornby-tt-rolling-stock"
+          }
+        },
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_e4058dc6-7dfa-48ac-89d1-74df010872d3.png",
+            "title": "Other",
+            "link": "shopify://collections/hornby-tt-other"
+          }
+        }
+      },
+      "block_order": [
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-0",
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-1",
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-2",
+        "template--15941047451809__c7f8085d-8dc7-4a08-b5fe-b5ca6b61e612-167292082122011059-3"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {justify-content: center; border: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "1c6c5712-42b3-45e6-ae41-86bca9e9e732": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "hornby-tt",
+        "title": "Hornby TT",
+        "products_count": 20,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": false,
+        "link_title": "Shop All Hornby TT",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "21966550-3354-4894-b222-541e1b1994db",
+    "rich_text_DjiPif",
+    "logo_list_4m88fU",
+    "1c6c5712-42b3-45e6-ae41-86bca9e9e732"
+  ]
+}

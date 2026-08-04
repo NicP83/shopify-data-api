@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_yWJEtC": {
+      "type": "slideshow",
+      "blocks": {
+        "image_VwXbcM": {
+          "type": "image",
+          "settings": {
+            "image": "{{ collection.metafields.custom.custom_banner.value }}",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_VwXbcM"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_NtJ49y": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "{{ collection.title }}",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "Rlaarlo Spare Parts",
+        "button_link": "shopify://collections/rlaarlo-spare-parts"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_6FgGWV": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -60px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "slideshow_yWJEtC",
+    "rich_text_NtJ49y",
+    "main",
+    "rich_text_6FgGWV",
+    "recently-viewed-products"
+  ]
+}

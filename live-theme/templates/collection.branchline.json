@@ -1,0 +1,384 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Branchline-Landing-Page_Header_a50ec15c-bee0-47db-8a9c-85ba03936b48.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "b7ad9881-7423-4ffe-bf65-71f24a5b1a49": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Hearns Hobbies’ Bachmann Branchline Collection: Your One-Stop Shop",
+        "content": "<p>Calling all model railway enthusiasts! Hearns Hobbies is proud to offer a comprehensive collection of <a href=\"https://www.hearnshobbies.com/collections/bachmann\"><span style=\"text-decoration:underline\">Bachmann Branchline trains</span></a>, the premier brand for OO scale British outline model railways. Whether you're a seasoned hobbyist or just starting your <a href=\"https://www.hearnshobbies.com/pages/model-railway\"><span style=\"text-decoration:underline\">model railway</span></a> journey, we have everything you need to bring your miniature world to life.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_y3Mc9d": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_DLkU7t": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Steam-00-Locomotives.jpg",
+            "title": "",
+            "link": "shopify://collections/bachman-branchline-00-locomotives"
+          }
+        },
+        "logo_dRQqzB": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Diesel-00-Locomotives.jpg",
+            "title": "",
+            "link": "shopify://collections/bachman-branchline-diesel"
+          }
+        },
+        "logo_KGNQeD": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Electric-00-locomotives.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-00-electric-locomotives"
+          }
+        },
+        "logo_Y6pTV3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-Train-Sets.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-train-sets"
+          }
+        },
+        "logo_c8mE4i": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-Coaches.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-00-coaches"
+          }
+        },
+        "logo_3jngBq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-Wagons.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-00-wagons"
+          }
+        },
+        "logo_dnhcLd": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-buildings.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-buildings"
+          }
+        },
+        "logo_tiQkmX": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-Figures.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-figures"
+          }
+        },
+        "logo_izMgUT": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/00-Accessories.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-parts-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "logo_DLkU7t",
+        "logo_dRQqzB",
+        "logo_KGNQeD",
+        "logo_Y6pTV3",
+        "logo_c8mE4i",
+        "logo_3jngBq",
+        "logo_dnhcLd",
+        "logo_tiQkmX",
+        "logo_izMgUT"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 16.67%; padding: 5px; box-shadow: none;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        ".quick-links {border: none; justify-content: center;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 5px; }}",
+        ".section__header {justify-content: center;}",
+        ".container {margin-bottom: -30px;}",
+        ".container {margin: -40px auto;}"
+      ],
+      "settings": {
+        "title": "Branchline 00 Range",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_twPr4K": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_yj9WMp": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/009-Locos.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-009-locomotives"
+          }
+        },
+        "logo_VNbyiM": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/009-Rolling-stock.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-009-coaches"
+          }
+        },
+        "logo_AdY6Xw": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/009-Buildings.jpg",
+            "title": "",
+            "link": "shopify://collections/bachman-009-buildings"
+          }
+        }
+      },
+      "block_order": [
+        "logo_yj9WMp",
+        "logo_VNbyiM",
+        "logo_AdY6Xw"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 16.67%; padding: 5px; box-shadow: none;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".section__header {justify-content: center;}",
+        ".container {margin: -40px auto;}"
+      ],
+      "settings": {
+        "title": "Bachmann Branchline 009 Range",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_CEnxhV": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_FdtmX9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/NG7-Rolling-Stock.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-ng7-rolling-stock"
+          }
+        },
+        "logo_GNh4Gx": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/NG7-Locos.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-ng7-locomotives"
+          }
+        },
+        "logo_dC7XCR": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/NG7-Building.jpg",
+            "title": "",
+            "link": "shopify://collections/bachmann-branchline-ng7-buildings"
+          }
+        }
+      },
+      "block_order": [
+        "logo_FdtmX9",
+        "logo_GNh4Gx",
+        "logo_dC7XCR"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 16.67%; padding: 5px; box-shadow: none;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 33.33%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".section__header {justify-content: center;}",
+        ".container {margin: -40px auto;}"
+      ],
+      "settings": {
+        "title": "Bachmann Branchline NG7 Range",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "custom_html_i9kjfN": {
+      "type": "custom-html",
+      "settings": {
+        "title": "",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\n<h2>Unmatched Selection:</h2>\n<p>At Hearns Hobbies, we understand that every model railway enthusiast has their own unique vision. That's why we offer a vast selection of Bachmann Branchline models, including:</p>\n<ul>\n<li>\n<a href=\"https://www.hearnshobbies.com/collections/locomotives-sets\">Locomotives</a>: From iconic steam engines to modern diesel locomotives, we have a wide range of models to power your railway.</li>\n<li>\n<a href=\"https://www.hearnshobbies.com/collections/rolling-stock\">Rolling Stock</a>: Populate your railway with a variety of passenger carriages, freight wagons, and service vehicles.</li>\n<li>\n<a href=\"https://www.hearnshobbies.com/collections/scenery-railway\">Track and Scenery</a>: Build your dream layout with a complete selection of track components, bridges, tunnels, and realistic scenery elements.</li>\n<li>\n<a href=\"https://www.hearnshobbies.com/collections/track-accessories\">Accessories</a>: Add the finishing touches to your layout with a comprehensive range of figures, signals, and other detailing accessories.</li>\n</ul>\n<h2>The Hearns Hobbies Advantage:</h2>\n<ul>\n<li>\n<b>Unbeatable Prices</b>: We offer competitive prices on all Bachmann Branchline products.</li>\n<li>\n<b>Expert Advice</b>: Our knowledgeable staff is passionate about model railways and happy to answer your questions and help you find the perfect products for your needs.</li>\n<li>\n<b>Fast and Reliable Shipping</b>: We get your hobby supplies to you quickly and safely.</li>\n<li>\n<b>Hassle-Free Exchange</b>: We offer a no-questions-asked exchange policy for your peace of mind.</li>\n<li>\n<b>Quality Craftsmanship</b>: Bachmann Branchline models are renowned for their exceptional quality and craftsmanship. Each piece is carefully crafted using high-quality materials and precision engineering techniques, ensuring durability and realism.</li>\n<li>\n<b>Authentic Replicas</b>: From locomotives to scenery, Bachmann Branchline models are faithful replicas of their real-life counterparts. Whether you're a history buff or a railway enthusiast, you'll appreciate the attention to detail and authenticity of our products.</li>\n<li><b>Wide Range of Products: With a diverse range of locomotives, carriages, wagons, buildings, and accessories, Bachmann Branchline offers something for every model railway enthusiast. Whether you're building a small layout or a sprawling diorama, you'll find everything you need to bring your vision to life.</b></li>\n</ul>\n</div>\n<button class=\" expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    \n<p></p></button>\n</div>"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "faq_6eEtKr": {
+      "type": "faq",
+      "blocks": {
+        "separator_WXXKML": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_kNQLVL": {
+          "type": "question",
+          "settings": {
+            "title": "What is the OO scale?",
+            "answer": "<p>OO scale is a popular scale for model railways, with a track gauge of 16.5mm and models typically measuring 1:76 of the real-life size.</p>"
+          }
+        },
+        "question_B6EyMM": {
+          "type": "question",
+          "settings": {
+            "title": "What is the OO-9 scale?",
+            "answer": "<p>OO-9 combines OO scale trains (1:76) with N gauge track (9mm) to model narrow gauge railways (around 2ft 3in wide). Great for space-saving, detailed layouts in the UK!</p>"
+          }
+        },
+        "question_Ecppar": {
+          "type": "question",
+          "settings": {
+            "title": "What do I need to get started with a model railway?",
+            "answer": "<p>To get started, you'll need a starter set that includes a locomotive, carriages, track, and a controller. Hearns Hobbies offers a variety of Bachmann Branchline starter sets to suit different budgets and interests.</p>"
+          }
+        },
+        "question_HcqTqw": {
+          "type": "question",
+          "settings": {
+            "title": "How do I build a model railway layout?",
+            "answer": "<p>There are many resources available online and in hobby magazines to help you design and build your model railway layout. The Hearns Hobbies team is also happy to offer advice and guidance.</p>"
+          }
+        },
+        "question_C9ze4m": {
+          "type": "question",
+          "settings": {
+            "title": "Are Bachmann Branchline models suitable for beginners?",
+            "answer": "<p>Yes, Bachmann Branchline models are suitable for model railway enthusiasts of all skill levels. Whether you're a beginner or an experienced hobbyist, you'll find our models easy to assemble and operate.</p>"
+          }
+        },
+        "question_PcFw3P": {
+          "type": "question",
+          "settings": {
+            "title": "Can I customise Bachmann Branchline models?",
+            "answer": "<p>Yes, Bachmann Branchline models are highly customizable. You can personalise your models with additional detailing, weathering techniques, and aftermarket accessories to create a unique and realistic railway scene.</p>"
+          }
+        },
+        "question_D8wT6e": {
+          "type": "question",
+          "settings": {
+            "title": "Do Bachmann Branchline models come with a warranty?",
+            "answer": "<p>Yes, Bachmann Branchline models are covered by a manufacturer's warranty against defects in materials and workmanship. Please refer to the warranty terms and conditions for more information.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_WXXKML",
+        "question_kNQLVL",
+        "question_B6EyMM",
+        "question_Ecppar",
+        "question_HcqTqw",
+        "question_C9ze4m",
+        "question_PcFw3P",
+        "question_D8wT6e"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "rich_text_HpyTDD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -60px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><strong>Ready to Start Building Your Dream Railway?</strong></p><p>Browse our extensive collection of Bachmann Branchline trains today and discover everything you need to create a stunning and realistic model railway layout. For any questions or assistance, don't hesitate to contact our friendly and knowledgeable staff at Hearns Hobbies. Make sure to follow us on <a href=\"https://www.facebook.com/HearnsHobbies/\"><span style=\"text-decoration:underline\">Facebook</span></a>, <a href=\"https://www.instagram.com/hearnshobbies/\"><span style=\"text-decoration:underline\">Instagram</span></a>, <a href=\"https://twitter.com/hearnshobbies\"><span style=\"text-decoration:underline\">Twitter</span></a>, and <a href=\"https://www.twitch.tv/hearnshobbies\"><span style=\"text-decoration:underline\">Twitch</span></a>!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "b7ad9881-7423-4ffe-bf65-71f24a5b1a49",
+    "logo_list_y3Mc9d",
+    "logo_list_twPr4K",
+    "logo_list_CEnxhV",
+    "custom_html_i9kjfN",
+    "main",
+    "faq_6eEtKr",
+    "rich_text_HpyTDD"
+  ]
+}

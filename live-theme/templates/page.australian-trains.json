@@ -1,0 +1,311 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "logo_list_qB4tQD": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.png",
+            "title": "Locomotives",
+            "link": "shopify://collections/all-australian-locomotives"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train_Sets-01.png",
+            "title": "Passenger Cars",
+            "link": "shopify://collections/australian-passenger"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Freight_Cars.png",
+            "title": "Freight Cars",
+            "link": "shopify://collections/australian-freight"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_0a50f765-2519-4ad3-9de8-6e3c1605f1f3.png",
+            "title": "Scenery",
+            "link": "shopify://collections/scenery-railway"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Vehicles_1.png",
+            "title": "Vehicles",
+            "link": "shopify://collections/australian-railway-vehicles"
+          }
+        },
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Trams.png",
+            "title": "Trams",
+            "link": "shopify://collections/trams"
+          }
+        },
+        "a9017460-dcdd-4eaf-9916-72afe760f1ab": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Light_Crossings.png",
+            "title": "Lights & Crossings",
+            "link": "shopify://collections/australian-lights-crossings"
+          }
+        },
+        "5c1b1124-c2df-451c-aa62-14f951677ccf": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories_1.png",
+            "title": "Accessories",
+            "link": "shopify://collections/australian-railway-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-0",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-1",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-2",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-3",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-4",
+        "template--16011750834337__75d46920-db35-48a4-b0ed-728589ee75e3-16759351644c6ea836-5",
+        "a9017460-dcdd-4eaf-9916-72afe760f1ab",
+        "5c1b1124-c2df-451c-aa62-14f951677ccf"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "c64541c4-a289-448e-960a-c8a0af86a3d7": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "Australian Model Railways",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nAre you looking to set up your own ideal Australian-themed model railway layout?  These days you are no longer restricted to having to replicate model railways from the UK, USA, Europe or Japan, you can now easily create your own little piece of Australia.  Whether you are keen on reliving your experiences living or growing up in a particular state or you just want to create something which is typically Australian in look and feel then we have a great range of products which will allow you to do just that.<br><br>\nAt Hearns Hobbies we source great model railway products from all over the country which will help you to create your own uniquely Australian layout.  You will find Australian locomotives and rolling stock which accurately replicate the models of days gone by through to current day models.  You will also find scenery products which are uniquely Australian as well as products which will represent particular states or regions.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "71b03695-8ed5-415d-a9d0-1ca787cca158": {
+      "type": "quick-links",
+      "blocks": {
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-0": {
+          "type": "link",
+          "settings": {
+            "title": "Victoria",
+            "link": "shopify://collections/victorian-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-1": {
+          "type": "link",
+          "settings": {
+            "title": "NSW",
+            "link": "shopify://collections/nsw-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-2": {
+          "type": "link",
+          "settings": {
+            "title": "Queensland",
+            "link": "shopify://collections/queensland-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-3": {
+          "type": "link",
+          "settings": {
+            "title": "Sth Aust",
+            "link": "shopify://collections/south-australia-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-4": {
+          "type": "link",
+          "settings": {
+            "title": "West Aust",
+            "link": "shopify://collections/western-australia-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-5": {
+          "type": "link",
+          "settings": {
+            "title": "Tasmania",
+            "link": "shopify://collections/tasmanian-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "8b6fb933-9154-4dcd-b494-ea05f3ac2ab6": {
+          "type": "link",
+          "settings": {
+            "title": "National",
+            "link": "shopify://collections/national-railway",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-0",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-1",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-2",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-3",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-4",
+        "template--16011750834337__71b03695-8ed5-415d-a9d0-1ca787cca158-16759378191896184e-5",
+        "8b6fb933-9154-4dcd-b494-ea05f3ac2ab6"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; margin: 0 2px; }}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; margin: 2px; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_x3ARHT": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/SDSModelsLogo.jpg",
+            "title": "SDS",
+            "link": "shopify://collections/sds-models"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/IDRModelsLogo.png",
+            "title": "IDR",
+            "link": "shopify://collections/idr-in-stock"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Steam_Era.png",
+            "title": "Steam Era",
+            "link": "shopify://collections/steam-era"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Goper.png",
+            "title": "Gopher",
+            "link": "shopify://collections/gopher-models-1"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/AustNRail.png",
+            "title": "Aust-N-Rail",
+            "link": "shopify://collections/aust-n-rail"
+          }
+        },
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train_Girl.png",
+            "title": "Train Girl",
+            "link": "shopify://collections/the-train-girl"
+          }
+        },
+        "88b0e150-afe0-44ae-a8d0-f5dca6609d20": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Haskell.png",
+            "title": "Haskell",
+            "link": "shopify://collections/haskell"
+          }
+        }
+      },
+      "block_order": [
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-0",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-1",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-2",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-3",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-4",
+        "template--16011750834337__6fdb32f7-0882-48f4-ad77-3f2d0d7837c5-1675936619d8ba5b26-5",
+        "88b0e150-afe0-44ae-a8d0-f5dca6609d20"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {justify-content: center; border: none;}",
+        ".quick-links__link {border: 1px solid #e1e3e4;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "394d6d70-e167-4139-97b4-d375f3ba3c3a": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "australian-models",
+        "title": "Australian Model Railways",
+        "products_count": 24,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "logo_list_qB4tQD",
+    "c64541c4-a289-448e-960a-c8a0af86a3d7",
+    "71b03695-8ed5-415d-a9d0-1ca787cca158",
+    "logo_list_x3ARHT",
+    "394d6d70-e167-4139-97b4-d375f3ba3c3a"
+  ]
+}

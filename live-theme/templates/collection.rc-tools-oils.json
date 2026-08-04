@@ -1,0 +1,219 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_Ekb4FK": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Essential RC Tools for Optimal Performance and Maintenance",
+        "content": "<p>When maintaining your radio control (RC) cars, having the right tools can make all the difference. Not only do they make maintenance easier and faster, but they also reduce wear and tear on your car. Here, we’ll cover the must-have tools and their benefits, ensuring your RC cars are always in top condition.</p>",
+        "button_text": "Read More",
+        "button_link": "#shopify-section-template--16889047515297__rich_text_geB3QJ"
+      }
+    },
+    "logo_list_zXzwyB": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tools.png",
+            "title": "Tools",
+            "link": "shopify://collections/rc-tools"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Shock_Oils_106f88fc-7436-4448-a6a1-9844eb6e6735.png",
+            "title": "Shock Oils",
+            "link": "shopify://collections/shock-oils"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Diff_Oils_dc5d50c0-f74a-4544-a2ea-fcb8feb9ae97.png",
+            "title": "Diff Oils",
+            "link": "shopify://collections/diff-oils"
+          }
+        },
+        "logo_TxQxCV": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Arrowmax_Setup_Tools.png",
+            "title": "Arrowmax Setup Tools",
+            "link": "shopify://collections/arrowmax-setup"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "logo_TxQxCV"
+      ],
+      "custom_css": [
+        ".quick-links {border: none; justify-content: center;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; border: 1px solid #e1e3e4; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_WQrRXq": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_FUAiDE": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Arrowmax.png",
+            "title": "Arrowmax",
+            "link": "https://www.hearnshobbies.com/collections/rc-tools-oils?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=ARROWMAX"
+          }
+        },
+        "logo_Yy9itQ": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ninesteps_bf2d88f7-195c-4d18-bb45-4309bd9e353e.png",
+            "title": "Ninesteps",
+            "link": "https://www.hearnshobbies.com/collections/rc-tools-oils?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=NINESTEPS+INDUSTRIES"
+          }
+        },
+        "logo_aUDqM6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Orca.png",
+            "title": "Orca",
+            "link": "https://www.hearnshobbies.com/collections/rc-tools-oils?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=ORCA"
+          }
+        },
+        "logo_nhbqnQ": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/yokomo.png",
+            "title": "Yokomo",
+            "link": "https://www.hearnshobbies.com/collections/rc-tools-oils?sort_by=manual&filter.v.price.gte=&filter.v.price.lte=&filter.p.vendor=YOKOMO"
+          }
+        }
+      },
+      "block_order": [
+        "logo_FUAiDE",
+        "logo_Yy9itQ",
+        "logo_aUDqM6",
+        "logo_nhbqnQ"
+      ],
+      "custom_css": [
+        ".quick-links {border: none; justify-content: center;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; border: 1px solid #e1e3e4; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_geB3QJ": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<h3><strong>Key Tools and Their Benefits</strong></h3><h4><strong>1. Allen Drivers</strong></h4><p>Allen drivers are essential for any RC enthusiast. The most common sizes you’ll need are 1.5mm, 2.0mm, 2.5mm, and 3.0mm. These tools are crucial for assembling and disassembling parts, ensuring you can make adjustments and repairs with ease.</p><h4><strong>2. Wrench Sizes</strong></h4><p>For tightening and loosening nuts and bolts, having the right wrench sizes is vital. The 5.5mm and 7mm wrenches are commonly used for RC cars and will help you work on your shocks, and shock towers.</p><h4><strong>3. Turnbuckle Tools</strong></h4><p>Turnbuckle tools are incredibly helpful for setting up your RC car. They allow you to adjust the suspension and steering linkages easily, ensuring your car’s handling is precise and responsive.</p><h4><strong>4. Setup Tools</strong></h4><p>To achieve repeatable, measurable, and accurate setups, you need the correct setup tools. These include:</p><ul><li><strong>Ride Height Gauge</strong>: Ensures your car’s chassis height is optimal for performance and track conditions.</li><li><strong>Camber Gauge</strong>: Measures the angle of your wheels to the ground, helping you fine-tune your car’s grip and handling.</li><li><strong>Drop Blocks</strong>: Used to set the droop of your suspension, affecting how your car handles jumps and uneven terrain.</li></ul><h3><strong>Importance of Shock and Diff Oils</strong></h3><p>For top performance, it’s essential to refresh your shock oils and differential oils regularly. These oils can wear out over time, especially in high-heat conditions. Consistent maintenance ensures your car maintains its performance and handling characteristics.</p><ul><li><strong>Shock Oils</strong>: Over time, shock oils can lose their viscosity, affecting your car’s suspension performance. Changing the oil after every meet helps keep your shocks performing optimally.</li><li><strong>Differential Oils</strong>: Similar to shock oils, diff oils can degrade over time. Regular changes help maintain consistent power distribution and prevent wear on your differential gears.</li></ul><p>For more in-depth guides on maintenance and setup, check out these resources for:</p><ul><li><a href=\"https://www.hearnshobbies.com/blogs/educational\"><span style=\"text-decoration:underline\">Educational Tutorials</span></a></li><li><a href=\"https://www.hearnshobbies.com/blogs/radio-control\"><span style=\"text-decoration:underline\">All About Radio Control Blogs</span></a></li><li><a href=\"https://www.hearnshobbies.com/blogs/model-kits\"><span style=\"text-decoration:underline\">All About Model Kits Blog</span></a></li></ul>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_acWD4c": {
+      "type": "faq",
+      "blocks": {
+        "question_B93iRW": {
+          "type": "question",
+          "settings": {
+            "title": "I'm just getting into RC, what tools do I need?",
+            "answer": "<p>At a minimum, you need allen drivers in sizes 1.5mm, 2.0mm, 2.5mm, and 3.0mm, as well as 5.5mm and 7mm wrenches. Turnbuckle tools are incredibly helpful for setup. If you’re going racing, consider getting a ride height gauge, camber gauge, and drop blocks.</p>"
+          }
+        },
+        "question_4j6dwi": {
+          "type": "question",
+          "settings": {
+            "title": "Do shock oils and diff oils wear out?",
+            "answer": "<p>Yes, over time, the consistency of the oil gets looser, especially in high-heat conditions. We recommend changing your oils out every race day to maintain consistency in your car's performance. For casual bashing, changing the oil every 3-4 runs will help maintain correct power distribution and optimal shock performance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_B93iRW",
+        "question_4j6dwi"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_Ekb4FK",
+    "logo_list_zXzwyB",
+    "logo_list_WQrRXq",
+    "main",
+    "rich_text_geB3QJ",
+    "faq_acWD4c",
+    "recently-viewed-products"
+  ]
+}

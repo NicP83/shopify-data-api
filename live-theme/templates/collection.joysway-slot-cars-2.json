@@ -1,0 +1,323 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Slot-Cars-Landing-Page_Banner_88857ae8-553e-4b4b-b0c5-f44f3b9f138b.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_BWjphX": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Joysway Slot Cars",
+        "content": "<p>Joysway have recently introduced a great new range of high quality but affordable slot car sets along with parts and accessories. This range of slot cars sets is ideal to introduce new users to the exciting world of slotcar racing without the high price tag of more advanced systems. Also great as a gift for kids who will get hours of fun from these sets.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "33485372-cd11-45c4-b107-fd226514554d": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slot-Car-Sets_1b598bef-d63c-4827-a06a-012008761c3d.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-slot-car-sets"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Additional-Cars_93f75f49-0de6-44f5-985d-7d9b6f0a045e.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-slot-car-cars"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Track-_-Accessories_6c82f131-2004-4f24-a325-ff42b413b84c.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-slot-car-track-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 370px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 275px; } .block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 330px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "video_JnHVMW": {
+      "type": "video",
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        ".video-item {max-width: 1200px;}",
+        "@media (min-width: 769px) {.container {margin-top: -70px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "video_url": "https://www.youtube.com/watch?v=EidE7QiCTjw"
+      }
+    },
+    "rich_text_JaKXxc": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Why buy Joysway Slot Cars",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "offers_8PTgQH": {
+      "type": "offers",
+      "blocks": {
+        "offer_kkRyww": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>Joysway have a history of producing high quality hobby grade products which are designed to give the user the best possible experience.</p>"
+          }
+        },
+        "offer_9hacVA": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>The high quality standards which Joysway set ensure that when you purchase one of their slot car sets you are getting a product which is well made and built to provide many hours of use.</p>"
+          }
+        },
+        "offer_NrR4DJ": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>The range of slot car sets which Joysway produce allow you to choose from basic race tracks though to more complex and exciting tracks where your skills will be tested to the limit.</p>"
+          }
+        },
+        "offer_TbnaWR": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>You are not limited to what you get from your initial slot car set from Joysway as they also provide additional cars as well as extra track and accessories to allow you to expand your slot car track and design the track of your dreams.</p>"
+          }
+        },
+        "offer_3RAXjb": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>The track pieces are well designed and manufactured to be easy to put together and take apart as needed. The track accessories also fit well with the track to give you the result you are looking for.</p>"
+          }
+        },
+        "offer_NtEbMz": {
+          "type": "offer",
+          "settings": {
+            "title": "",
+            "content": "<p>Joysway slot car systems use a USB power system and provide a USB power cable to connect to your own power bank or smart phone USB power adapter.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "offer_kkRyww",
+        "offer_9hacVA",
+        "offer_NrR4DJ",
+        "offer_TbnaWR",
+        "offer_3RAXjb",
+        "offer_NtEbMz"
+      ],
+      "custom_css": [
+        ".block-list__item > :first-child {margin: 0 5px 10px;}",
+        "@media (max-width: 768px) {.block-list__item > :first-child {margin: 0 5px 20px; }}"
+      ],
+      "settings": {
+        "items_per_row": 3,
+        "stack_mobile": false
+      }
+    },
+    "logo_list_WPjVVG": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_YHdtPH": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_15fb3db9-c01f-4c52-98b1-e54fb4e2dc69.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "logo_VEXzKt": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_09017235-2518-4d69-a166-c806ec7bd0de.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "logo_z9zxy9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_fe9d320b-3ba1-4489-8fd9-88d6439f4d4a.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "logo_H9LhwP": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_2cdcf7f0-7307-41d3-a891-db76d1422537.jpg",
+            "title": "",
+            "link": ""
+          }
+        },
+        "logo_8TcHN9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_597880bd-0e57-4c59-9d4e-045930b3cc70.jpg",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_YHdtPH",
+        "logo_VEXzKt",
+        "logo_z9zxy9",
+        "logo_H9LhwP",
+        "logo_8TcHN9"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 20%; padding: 0px; } .quick-links {justify-content: center; } img {width: 300px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 300px;}",
+        ".quick-links__image-container {padding-bottom: 0;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; padding: 5px; border: 1px solid #e1e3e4; } img {width: 100px; padding: 5px; }}",
+        ".container {margin-top: -40px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "rich_text_BWjphX",
+    "33485372-cd11-45c4-b107-fd226514554d",
+    "video_JnHVMW",
+    "rich_text_JaKXxc",
+    "offers_8PTgQH",
+    "logo_list_WPjVVG",
+    "main",
+    "recently-viewed-products"
+  ]
+}

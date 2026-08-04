@@ -1,0 +1,281 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Boat-Spare-Parts-Landing_Header.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "893a3ac5-9985-4a80-95a6-cd114f94348b": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Joysway RC Boat Spare Parts",
+        "content": "<p>Joysway produce a great range of high quality RC boats. From sailing boats and yachts through to fun recreational speed boats. To support these RC boats, Joysway provide a list of the spare parts suitable for each of these boats.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_wwjR7A": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1.Dragon-Force.jpg",
+            "title": "Dragon Force V7",
+            "link": "shopify://collections/joysway-dragon-force-65-v7-spare-parts"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2.Dragon-Flite.jpg",
+            "title": "Dragon Flite V2",
+            "link": "shopify://collections/joysway-dragon-flite-95-v2-spare-parts"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3.Orion.jpg",
+            "title": "Orion V2",
+            "link": "shopify://collections/joysway-orion-v2-spare-parts"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4.Binary.jpg",
+            "title": "Binary V3",
+            "link": "shopify://collections/joysway-binary-v3-spare-parts"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5.Discovery.jpg",
+            "title": "Discovery",
+            "link": "shopify://collections/joysway-discovery-spare-parts"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6.Focus.jpg",
+            "title": "Focus V3",
+            "link": "shopify://collections/joysway-focus-v3-spare-parts"
+          }
+        },
+        "31379ba6-8c5e-4f06-805e-25cc81413f08": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7.Caribbean.jpg",
+            "title": "Caribbean",
+            "link": "shopify://collections/joysway-caribbean-spare-parts"
+          }
+        },
+        "e4878eb8-bdc2-4fed-9849-faf24da12303": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8.Magic-Vee-V6.jpg",
+            "title": "Magic Vee V6",
+            "link": "shopify://collections/joysway-magic-vee-v6-spare-parts"
+          }
+        },
+        "33551596-2e5a-4e2d-8645-43888662dde8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/9.Magic-Cat.jpg",
+            "title": "Magic Cat V6",
+            "link": "shopify://collections/joysway-magic-cat-v6-spare-parts"
+          }
+        },
+        "4fcb1107-e293-4160-9e53-cf1fa9748632": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/10.Mad_Shark_Brushed.jpg",
+            "title": "Mad Shark V3 Brushed",
+            "link": "shopify://collections/joysway-mad-shark-v3-brushed-spare-parts"
+          }
+        },
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/11.Warrior.jpg",
+            "title": "Warrior V4",
+            "link": "shopify://collections/joysway-warrior-v4-spare-parts"
+          }
+        },
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/12.Smart-Cat.jpg",
+            "title": "Smart Cat",
+            "link": "shopify://collections/joysway-smart-cat-spare-parts"
+          }
+        },
+        "a2bc44d1-5302-4d30-b2ae-1cc074b66e96": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/13.Mad-Shark-Brushless.jpg",
+            "title": "Mad Shark Brushless",
+            "link": "shopify://collections/joysway-mad-shark-v2-brushless-spare-parts"
+          }
+        },
+        "347f9033-85c0-45d4-a022-d7f4d8f4e7d9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/14.Super-Mono-X.jpg",
+            "title": "Super Mono X V2",
+            "link": "shopify://collections/joysway-super-mono-x-v2-spare-parts"
+          }
+        },
+        "22646cc9-8dd8-41b9-84c7-e1cdb9289ce0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/15.Bullet.jpg",
+            "title": "Bullet V4",
+            "link": "shopify://collections/joysway-bullet-v4-spare-parts"
+          }
+        },
+        "03089417-8061-429b-a6d7-2c9abee847cc": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/16.Big-Storm.jpg",
+            "title": "Big Storm",
+            "link": "shopify://collections/joysway-big-storm-spare-parts"
+          }
+        },
+        "09fae3a9-7b9b-4e3a-9abf-df46caeb5c24": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/17.Rocket.jpg",
+            "title": "Rocket V2",
+            "link": "shopify://collections/joysway-rocket-v2-spare-parts"
+          }
+        },
+        "166dc96f-e2b1-4d69-ac66-dc2e267a62e3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/18.Monster-Brushless.jpg",
+            "title": "Monster Brushless",
+            "link": "shopify://collections/joysway-monster-brushless-spare-parts"
+          }
+        },
+        "70a29192-b1d0-4c92-91df-2f65686b51b3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.Mad-Flow.jpg",
+            "title": "Mad Flow V3 Brushless",
+            "link": "shopify://collections/joysway-mad-flow-v3-brushless-spare-parts"
+          }
+        },
+        "7735c88c-e8bf-423a-bede-920a9af6e57e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/20.Alpha.jpg",
+            "title": "Alpha",
+            "link": "shopify://collections/joysway-alpha-boat-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5",
+        "31379ba6-8c5e-4f06-805e-25cc81413f08",
+        "e4878eb8-bdc2-4fed-9849-faf24da12303",
+        "33551596-2e5a-4e2d-8645-43888662dde8",
+        "4fcb1107-e293-4160-9e53-cf1fa9748632",
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7",
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e",
+        "a2bc44d1-5302-4d30-b2ae-1cc074b66e96",
+        "347f9033-85c0-45d4-a022-d7f4d8f4e7d9",
+        "22646cc9-8dd8-41b9-84c7-e1cdb9289ce0",
+        "03089417-8061-429b-a6d7-2c9abee847cc",
+        "09fae3a9-7b9b-4e3a-9abf-df46caeb5c24",
+        "166dc96f-e2b1-4d69-ac66-dc2e267a62e3",
+        "70a29192-b1d0-4c92-91df-2f65686b51b3",
+        "7735c88c-e8bf-423a-bede-920a9af6e57e"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 14.28%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 8px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {border: 1px solid #e1e3e4;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "893a3ac5-9985-4a80-95a6-cd114f94348b",
+    "logo_list_wwjR7A",
+    "main"
+  ]
+}

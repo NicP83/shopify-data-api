@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "39873fc1-469e-4929-8bf4-24cb877097e5": {
+      "type": "faq",
+      "blocks": {
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Model Railway Expert"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-1": {
+          "type": "question",
+          "settings": {
+            "title": "Job Description",
+            "answer": "<p>We are looking for someone who has a genuine interest in model railways and everything that goes with it.  You will need to be both passionate about the hobby and able to pass on your knowledge and expertise to others.  You will need to work in a point of sale position and be able to efficiently provide advice and complete sales transactions with customers. You will need to be able to assist in identifying correct products for on-line orders as well as ensuring the store is adequately stocked with model railway products to meet customer demand.</p>"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-2": {
+          "type": "question",
+          "settings": {
+            "title": "Experience",
+            "answer": "<p>Ideally you will have good experience in running, and possibly constructing, your own model railway layout with an understanding about everything you need to be able to operate a modern day model railway setup.  You will need to have a firm knowledge of the different gauges and scales of products and be able to understand and explain these to customers both in store and over the phone.  Being able to repair, maintain and diagnose issues associated with model railway products would be desirably but not essential. You will be serving customers face-to-face in our store as well as handling phone enquiries so a strong customer service background would also be helpful.</p>"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-3": {
+          "type": "question",
+          "settings": {
+            "title": "Responsibilities",
+            "answer": "<ul><li>Serving customers both in-store and via phone</li><li>Providing accurate and informative advice regarding model railway products</li><li>Processing sales through the store via the point of sale system</li><li>Maintaining optimal stock levels throughout the model railway section</li><li>Keeping up to date with the latest developments in model railway to ensure that the store and our customers are kept up to speed with everything current and in the future.</li><li>Ensuring that the model railway area is tidy and in good order.</li></ul>"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-4": {
+          "type": "separator",
+          "settings": {
+            "title": "Radio Control Expert"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-5": {
+          "type": "question",
+          "settings": {
+            "title": "Job Description",
+            "answer": "<p>We are looking for someone who has a strong understanding of radio control vehicles to assist us in our store.  You will need to have the ability to converse with our customers regarding anything associated with radio control and be able to provide accurate advice as well as process sales within our radio control department.  </p>"
+          }
+        },
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-6": {
+          "type": "question",
+          "settings": {
+            "title": "Experience",
+            "answer": "<p>Ideally you would have extensive experience in operating radio control vehicles whether that be cars, boats, planes  or anything else but having a good understanding of the mechanics of radio control vehicles could also be considered highly.  You will need to have experience talking to customers in a customer service environment and be able to operate efficiently in s point of sale environment.  Having the ability to maintain and repair radio control equipment would also be highly regarded.</p>"
+          }
+        },
+        "d4302f25-fb7a-4d6a-ad9c-763ee19c45a1": {
+          "type": "question",
+          "settings": {
+            "title": "Responsibilities",
+            "answer": "<ul><li>Serving customers both in-store and via phone</li><li>Providing accurate and informative advice regarding radio control products</li><li>Processing sales through the store via the point of sale system</li><li>Keeping up to date with the latest developments in radio control to ensure that the store and our customers are kept up to speed with everything current and in the future.</li><li>Ensuring that the radio control area is tidy and in good order.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-0",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-1",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-2",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-3",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-4",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-5",
+        "template--15932479635617__39873fc1-469e-4929-8bf4-24cb877097e5-1667576896d20467e1-6",
+        "d4302f25-fb7a-4d6a-ad9c-763ee19c45a1"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Connect with us",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Phone number here",
+        "contact_1_text": "",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Email address here",
+        "contact_2_text": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "39873fc1-469e-4929-8bf4-24cb877097e5"
+  ]
+}

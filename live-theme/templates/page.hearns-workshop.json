@@ -1,0 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "1659016944458acb0e": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {width: 100%;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/HWS--Web-front-Banner-square.jpg",
+        "image_position": "left",
+        "image_width": 50,
+        "title": "What is Hearns Workshop?",
+        "content": "<p><strong>Hearns Workshop </strong>is the culmination of over seventy years of innovation here at <a href=\"https://www.hearnshobbies.com/\"><strong>Hearns Hobbies</strong></a>. Continuing where our founding fathers left off, Nic and the Hearns team have now leapfrogged into the future, dreaming, designing and making <a href=\"https://www.hearnshobbies.com/collections/hearns-workshop-dream-design-make\"><strong>scale modelling accessories</strong></a>, hop-up parts, and <a href=\"https://www.hearnshobbies.com/collections/hearns-workshop-dream-design-make\"><strong>limited production resin kits </strong></a><em><strong>right here in our Flinders Street Store</strong></em>!<br/><br/>In these challenging times with limited availability of some brands, lengthy transit times, and high costs, <strong>Hearns Workshop </strong>is the best way we know to not only support our existing suppliers and customers on a whole new level, but to also actively be a part of Melbournes’ vibrant Maker scene, and disrupt traditional modes of production by offering parts and kits that would not be available any other way.<br/><br/>We’re excited about whats to come next! With expanding onsite <strong>rapid manufacturing facilities </strong>and <strong>in-house industrial designers </strong>on call, expect to see some amazing things come out of <strong>Hearns Workshop </strong>literally on a weekly basis in the upcoming months.<br/><br/>The future of scale modelling is now, and it’s here at <strong>Hearns Workshop</strong>!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "hearns-workshop-dream-design-make",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1659016944458acb0e",
+    "165885854594d3994d"
+  ]
+}

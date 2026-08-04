@@ -1,0 +1,453 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_KRVejD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "RC Aircraft Spare Parts",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_gH6Wxd": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/1_e6a1cebc-f5ca-41a1-9092-853244967e6e.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 54,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fmsepaa-001-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/2_a8935998-15d1-43d5-b2a8-1293ec1b3b85.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms090p-ref-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/3_087efdd4-27bd-443b-826d-aa0cde7e46c9.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms130p-ref-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/4_1b57409f-b40e-46f7-aec1-f06f33ca0188.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms126p-ref-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/5_18a5930b-8c47-4f80-b0a1-8f8ff7005901.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": ""
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/6.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": ""
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/7_49af4013-622f-4daf-9ceb-05fe8ca9b9f2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms138-refv2-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/8.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms122"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/9.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms124p-ref-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/10_4ba748c0-73a4-42db-b4f7-9314c9a2a843.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms111-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/11.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms114pf-refv2-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/12.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms008p-rt-parts"
+          }
+        },
+        "item_U3CNfN": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/13.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms081p-parts"
+          }
+        },
+        "item_haCdLB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/14.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms024p-blu"
+          }
+        },
+        "item_iL9Bd6": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/15.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms083p-red-parts"
+          }
+        },
+        "item_EU6KAF": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/16.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms056-parts"
+          }
+        },
+        "item_7TGiji": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/17.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms023p-v2-parts"
+          }
+        },
+        "item_zKhfna": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/18.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms051-parts"
+          }
+        },
+        "item_gQLrcB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/19.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms056-parts"
+          }
+        },
+        "item_N3bGJw": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/20.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/fms138-refv2-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-1",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-2",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-3",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-4",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-1",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-2",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-3",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-4",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-1",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-2",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-3",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-4",
+        "item_U3CNfN",
+        "item_haCdLB",
+        "item_iL9Bd6",
+        "item_EU6KAF",
+        "item_7TGiji",
+        "item_zKhfna",
+        "item_gQLrcB",
+        "item_N3bGJw"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 215px; } .block-list__item {width: 20%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 150px; } .block-list__item {width: 20%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 180px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 60%; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "rich_text_KRVejD",
+    "promotion_list_gH6Wxd",
+    "main"
+  ]
+}

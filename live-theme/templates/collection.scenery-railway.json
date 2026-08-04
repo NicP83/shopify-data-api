@@ -1,0 +1,284 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_trcfnP": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}",
+        ".button {line-height: 20px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Enhance Your RC Experience with Stunning Scenery from Hearns Hobbies",
+        "content": "<p>Transform your RC hobby with high-quality scenery from Hearns Hobbies Melbourne. Whether you're into RC cars, helicopters, trains, planes, or boats, we have the perfect landscapes to elevate your setup.</p><h4><strong>Why Choose RC Scenery?</strong></h4><p>Adding scenery makes your RC experience more engaging and realistic. It brings your hobby to life, providing a captivating environment that mimics real-world settings.</p>",
+        "button_text": "Read More",
+        "button_link": "#read-more"
+      }
+    },
+    "logo_list_kcHAEe": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ballast.png",
+            "title": "Ballast",
+            "link": "shopify://collections/ballast"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Bridges_Tunnels.png",
+            "title": "Bridges & Tunnels",
+            "link": "shopify://collections/bridges-tunnels"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Buildings_9387f369-e3f8-4562-a3fa-02deb85ccb80.png",
+            "title": "Buildings",
+            "link": "shopify://collections/buildings"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Figures.png",
+            "title": "Figures",
+            "link": "shopify://collections/scenery-figures"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Grasses.png",
+            "title": "Grasses",
+            "link": "shopify://collections/grass"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Lamps_Signals.png",
+            "title": "Lamps & Signals",
+            "link": "shopify://collections/lamps-signals"
+          }
+        },
+        "31379ba6-8c5e-4f06-805e-25cc81413f08": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Layout_Construction.png",
+            "title": "Layout Construction",
+            "link": "shopify://collections/layout-construction"
+          }
+        },
+        "e4878eb8-bdc2-4fed-9849-faf24da12303": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Lettering_Decals.png",
+            "title": "Lettering & Decals",
+            "link": "shopify://collections/scenery-lettering-decals"
+          }
+        },
+        "33551596-2e5a-4e2d-8645-43888662dde8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Platforms.png",
+            "title": "Platforms",
+            "link": "shopify://collections/platforms"
+          }
+        },
+        "4fcb1107-e293-4160-9e53-cf1fa9748632": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Roads_Signs.png",
+            "title": "Roads & Signs",
+            "link": "shopify://collections/model-railway-roads-signs"
+          }
+        },
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Scatter.png",
+            "title": "Scatter",
+            "link": "shopify://collections/scatter"
+          }
+        },
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Scenic_Backgrounds.png",
+            "title": "Scenic Backgrounds",
+            "link": "shopify://collections/scenic-backgrounds"
+          }
+        },
+        "logo_wRgmtm": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Static_Grass.png",
+            "title": "Static Grass",
+            "link": "shopify://collections/static-grass"
+          }
+        },
+        "logo_p6RdfH": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Terrain_Landscape.png",
+            "title": "Terrain & Landscape",
+            "link": "shopify://collections/terrain-landscape"
+          }
+        },
+        "logo_VzWkff": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Trees.png",
+            "title": "Trees",
+            "link": "shopify://collections/trees"
+          }
+        },
+        "logo_GPPWck": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Vehicle.png",
+            "title": "Vehicles",
+            "link": "shopify://collections/small-scale-vehicles"
+          }
+        },
+        "logo_3ebEp7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Water.png",
+            "title": "Water & Accessories",
+            "link": "shopify://collections/water-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5",
+        "31379ba6-8c5e-4f06-805e-25cc81413f08",
+        "e4878eb8-bdc2-4fed-9849-faf24da12303",
+        "33551596-2e5a-4e2d-8645-43888662dde8",
+        "4fcb1107-e293-4160-9e53-cf1fa9748632",
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7",
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e",
+        "logo_wRgmtm",
+        "logo_p6RdfH",
+        "logo_VzWkff",
+        "logo_GPPWck",
+        "logo_3ebEp7"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 100px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".quick-links {justify-content: center; border: none;}",
+        ".quick-links__link {border: 1px solid var(--border-color); padding: 5px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "custom_html_qDYRqJ": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {padding: 0; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "html": "<a id=\"read-more\" class=\"anchor\"></a>"
+      }
+    },
+    "rich_text_4qiGTy": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<h2>Benefits of Choosing Hearns Hobbies for Your RC Scenery Needs</h2><p>When you choose Hearns Hobbies, you're not just getting high-quality products; you're also benefiting from our decades of expertise and passion for the hobby. Here's why we stand out:</p><ul><li><strong>Extensive Selection</strong>: We offer a vast range of scenery options to suit all types of RC vehicles.</li><li><strong>Quality Products</strong>: Our scenery items are made from durable materials that withstand regular use.</li><li><strong>Expert Advice</strong>: Our team of experienced hobbyists is always ready to help you select the best scenery for your needs.</li><li><strong>Local Convenience</strong>: As one of Melbourne's oldest hobby shops, we provide a trusted local source for all your RC needs.</li></ul><p>Our wide selection and expert guidance make us your go-to destination for all things RC. Visit us in our store or browse through our collection online, and explore options for your hobby needs today.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "rich_text_trcfnP",
+    "logo_list_kcHAEe",
+    "main",
+    "custom_html_qDYRqJ",
+    "rich_text_4qiGTy"
+  ]
+}

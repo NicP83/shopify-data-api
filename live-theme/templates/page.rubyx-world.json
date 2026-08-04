@@ -1,0 +1,179 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "d9347d31-e07f-400a-9d74-8f5995eaf25c": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16202915315873__d9347d31-e07f-400a-9d74-8f5995eaf25c-image-1": {
+          "type": "image",
+          "settings": {
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "Rubyx World",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16202915315873__d9347d31-e07f-400a-9d74-8f5995eaf25c-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "f1acb8ab-f9e5-4066-b26f-59e36316bfca": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-product_meta-1",
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-featured_description-1",
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-variant_selector-1",
+        "template--16202915315873__f1acb8ab-f9e5-4066-b26f-59e36316bfca-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "rubyx-radio-control-transmitter-radio-transport-bag",
+        "title": "Rubyx RC Transmitter Bag",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "5cf8b34a-7085-4a40-acbb-b1423bade804": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-product_meta-1",
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-featured_description-1",
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-variant_selector-1",
+        "template--16202915315873__5cf8b34a-7085-4a40-acbb-b1423bade804-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "rubyx-radio-control-car-transport-bag",
+        "title": "Rubyx RC Car Transport Bag",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "4d738873-f99e-414e-bc13-692569b7b93a": {
+      "type": "video",
+      "settings": {
+        "title": "A look into the Rubyx World",
+        "video_url": "https://www.youtube.com/watch?v=RN9asHNyuKA"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "d9347d31-e07f-400a-9d74-8f5995eaf25c",
+    "f1acb8ab-f9e5-4066-b26f-59e36316bfca",
+    "5cf8b34a-7085-4a40-acbb-b1423bade804",
+    "4d738873-f99e-414e-bc13-692569b7b93a"
+  ]
+}

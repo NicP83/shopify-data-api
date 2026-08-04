@@ -1,0 +1,311 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Tabletop_2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/games-workshop"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Kromlech-Show.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://blogs/news/enter-the-kromlech-komp-showcase-your-miniature-masterpieces"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 250px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -40px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 180px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 140px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "rich_text_WP8n3D": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -50px;}",
+        "@media (max-width: 768px) {.container {margin-top: -40px; }}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Tabletop Gaming & Miniatures",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "5fb5be63-4b28-469d-a862-f31b3f1e0a56": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Terrain.jpg",
+            "title": "Terrain",
+            "link": "shopify://collections/gaming-terrain"
+          }
+        },
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Body-parts.jpg",
+            "title": "Body Parts",
+            "link": "shopify://collections/body-parts"
+          }
+        },
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Vehicles.jpg",
+            "title": "Vehicles",
+            "link": "shopify://collections/gaming-vehicles"
+          }
+        },
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Bases.jpg",
+            "title": "Bases",
+            "link": "shopify://collections/miniature-bases"
+          }
+        },
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Miniatures_2.jpg",
+            "title": "Miniatures",
+            "link": "shopify://collections/miniatures"
+          }
+        },
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories_b38799e2-e4ec-415d-a39f-e1a4d63cf7e9.jpg",
+            "title": "Accessories",
+            "link": "shopify://collections/gaming-accessories"
+          }
+        },
+        "fd43dcf0-fbd9-4e00-8f78-d5b65257d9a4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Miniature-Paints_5c14e44e-66f3-48e7-8e42-067e15419607.jpg",
+            "title": "Miniature Paints",
+            "link": "shopify://collections/gaming-paints"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-1",
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-2",
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-3",
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-4",
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-5",
+        "template--16346399899809__5fb5be63-4b28-469d-a862-f31b3f1e0a56-logo-6",
+        "fd43dcf0-fbd9-4e00-8f78-d5b65257d9a4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 14.28%; padding: 0px; } .container {margin-top: -45px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9px; margin-top: 0px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "394d6d70-e167-4139-97b4-d375f3ba3c3a": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "tabletop-gaming",
+        "title": "Tabletop Gaming",
+        "products_count": 24,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "rich_text_my66FH": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p>Whether you are a newcomer to the world of tabletop gaming and miniatures or you have a wealth of experience in the hobby, you will find some great products to enhance your experience at Hearns Hobbies. Let your imagination run wild and have as much fun as you can from bringing your own weird and wonderful world to life.<br/><br/>We offer a large range of miniature figures, terrain and buildings to create your miniature worlds and many of the accessories required to both create and compete in this highly popular form of gaming. We have an array of miniature body parts to help you to create your own unique characters along with the weapons, vehicles, armour and environments to help you to create the group or squad you will need to battle your enemies.<br/><br/>We also have an extensive range of paints designed specifically for use on miniature items which will allow you to further customise and colour your world. So even if the draw of miniatures for you is just to display and enjoy your best creative self then you will find everything you need to create, battle or simply admire.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "7a0bbb6f-f22c-4a6a-8e77-e02daf88e888": {
+      "type": "faq",
+      "blocks": {
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-1": {
+          "type": "question",
+          "settings": {
+            "title": "What are tabletop gaming products?",
+            "answer": "<p>Tabletop gaming products refer to miniature figurines, terrain, and accessories used in tabletop games like Warhammer and other tabletop games.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-2": {
+          "type": "question",
+          "settings": {
+            "title": "What brands are well known for tabletop gaming products?",
+            "answer": "<p>Some well-known brands for tabletop gaming products include Games Workshop (Warhammer), Kromlech, Green Stuff World, and others.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-3": {
+          "type": "question",
+          "settings": {
+            "title": "What types of products does Kromlech offer?",
+            "answer": "<p>Kromlech offers a variety of products for tabletop gaming including miniatures, terrain, conversion bits, and tools.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-5": {
+          "type": "question",
+          "settings": {
+            "title": "What are the main features of Green Stuff World products?",
+            "answer": "<p>Green Stuff World products are known for their high-quality, versatility, and ease of use. They offer a range of modeling materials for tabletop gaming and other hobbyist uses.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-6": {
+          "type": "question",
+          "settings": {
+            "title": "What type of games can be played with Warhammer products?",
+            "answer": "<p>Warhammer products are used primarily for playing tabletop games like Warhammer 40,000 and Age of Sigmar.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-8": {
+          "type": "question",
+          "settings": {
+            "title": "What is the quality of Kromlech products?",
+            "answer": "<p>Kromlech products are known for their high-quality and attention to detail. They are popular among tabletop gamers for their durability and realism.</p>"
+          }
+        },
+        "82cc1a0f-bba1-4a99-b458-74fd7128cce7": {
+          "type": "question",
+          "settings": {
+            "title": "What is the price range for Green Stuff World products?",
+            "answer": "<p>The price range for Green Stuff World products can vary, but they are generally considered to be affordable compared to other tabletop gaming brands.</p>"
+          }
+        },
+        "795a556e-f558-4780-8336-ff10f13b4e32": {
+          "type": "question",
+          "settings": {
+            "title": "What types of accessories does Warhammer offer?",
+            "answer": "<p>Warhammer offers a range of accessories including terrain, miniatures, conversion bits, paints, and tools.</p>"
+          }
+        },
+        "7ba47056-a6ad-44e5-864a-55653c6a00ba": {
+          "type": "question",
+          "settings": {
+            "title": "Are Kromlech products suitable for beginners?",
+            "answer": "<p>Kromlech products are suitable for both beginners and experienced tabletop gamers. They offer a range of products that cater to different skill levels.</p>"
+          }
+        },
+        "8c6e8c96-2488-4083-ae6d-b93c59bd7d00": {
+          "type": "question",
+          "settings": {
+            "title": "Is Green Stuff World only for tabletop gaming?",
+            "answer": "<p>Green Stuff World products are not only for tabletop gaming, but can also be used for other hobbyist purposes like model building and sculpting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-0",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-1",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-2",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-3",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-5",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-6",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-8",
+        "82cc1a0f-bba1-4a99-b458-74fd7128cce7",
+        "795a556e-f558-4780-8336-ff10f13b4e32",
+        "7ba47056-a6ad-44e5-864a-55653c6a00ba",
+        "8c6e8c96-2488-4083-ae6d-b93c59bd7d00"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16588471730e4c2da8",
+    "rich_text_WP8n3D",
+    "5fb5be63-4b28-469d-a862-f31b3f1e0a56",
+    "394d6d70-e167-4139-97b4-d375f3ba3c3a",
+    "rich_text_my66FH",
+    "7a0bbb6f-f22c-4a6a-8e77-e02daf88e888"
+  ]
+}

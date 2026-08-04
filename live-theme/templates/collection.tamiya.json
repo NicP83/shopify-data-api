@@ -1,0 +1,134 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "43ebcc66-2270-485c-b82f-88f835de2b47": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "html": "<center><img src=\"https://cdn.shopify.com/s/files/1/1008/9754/files/tamiya-logo.jpg?v=1658936368\" width=\"150px\"></center>"
+      }
+    },
+    "rich_text_cMVPDe": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>Tamiya's main goal is to offer the world the most rewarding modeling experience possible. Focusing on the handcrafting aspects of the hobby industry while also creating a more accessible and simple build/assembly method so even moderate level beginners can still enjoy this fine craft. Find out what we have in stock at Hearns Hobbies today!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_688mHN": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_aa41a3f5-3454-4a58-8030-00068f160977.png",
+            "title": "Car & Truck Kits",
+            "link": "https://www.hearnshobbies.com/collections/tamiya-rc-kits"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_71188c89-e985-401a-8afe-e6e60eb27c9a.png",
+            "title": "Radio Control Bearing Kits",
+            "link": "shopify://collections/tamiya-rc-bearing-kits"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_4623d42a-6668-4a30-9129-ebbc8db3abf5.png",
+            "title": "Plastic Kits",
+            "link": "shopify://collections/tamiya-plastic-kits"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7_9715c21c-05b6-40e1-8394-42fe560164e4.png",
+            "title": "Paint",
+            "link": "shopify://collections/tamiya-paint"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8_7c9c96ab-fd2a-4c65-a911-7fef84063516.png",
+            "title": "Modelling Tools",
+            "link": "shopify://collections/tamiya-modelling-tools"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-3",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 180px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; border: 1px solid #e1e3e4; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "43ebcc66-2270-485c-b82f-88f835de2b47",
+    "rich_text_cMVPDe",
+    "logo_list_688mHN",
+    "main",
+    "recently-viewed-products"
+  ]
+}

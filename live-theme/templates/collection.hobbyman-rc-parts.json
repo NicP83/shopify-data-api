@@ -1,0 +1,268 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RC-Spare-Parts_c3d27507-fcdd-42b6-ad37-ae88b5afff41.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_CWARrz": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "After-Market RC Parts",
+        "content": "<p>If you are looking for parts & accessories to improve the performance or look of your RC car then The Hobbyman have what you are looking for.  We have a range of brands which produce parts which will make the improvements you are after.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_MdieGq": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Shock_Oils.png",
+            "title": "Shock Oils",
+            "link": "shopify://collections/kato-sets"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Diff_Oils.png",
+            "title": "Diff Oils",
+            "link": "shopify://collections/kato-n-locomotives"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tyre_Glue.png",
+            "title": "Tyre Glue",
+            "link": ""
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Pinion_Gears.png",
+            "title": "Pinion Gears",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 12.5%; padding: 5px; border: 1px solid var(--border-color);}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        ".container {margin-top: -40px; margin-bottom: -40px;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 25%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; } .container {margin-top: -30px; margin-bottom: -30px; }}",
+        ".quick-links {border: none; justify-content: center;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_GacXWe": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RPM.png",
+            "title": "RPM",
+            "link": ""
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/EXO_4X4_9013314a-e0cb-4aec-8587-c87ef8bb4a63.png",
+            "title": "EXO 4X4",
+            "link": ""
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC4WD.png",
+            "title": "RC4WD",
+            "link": ""
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Proline.png",
+            "title": "Proline",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3"
+      ],
+      "custom_css": [
+        ".quick-links__link {width: 12.5%; padding: 5px; border: 1px solid var(--border-color);}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        ".container {margin-top: -40px; margin-bottom: -40px;}",
+        "@media (max-width: 768px) {.quick-links__link {width: 25%; padding: 5px; } .section__header {padding-left: 15px; padding-right: 15px; } .container {margin-top: -30px; margin-bottom: -30px; }}",
+        ".quick-links {border: none; justify-content: center;}"
+      ],
+      "settings": {
+        "title": "Basher / Crawler Accessories",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_ar3HhC": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Radio_Control-03.png",
+            "title": "Arrowmax",
+            "link": "shopify://collections/arrowmax"
+          }
+        },
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Exotex.png",
+            "title": "Exotek",
+            "link": "shopify://collections/exotek"
+          }
+        },
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Radio_Control-07.png",
+            "title": "Axon",
+            "link": "shopify://collections/axon"
+          }
+        },
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1IP_Racing.png",
+            "title": "1Up Racing",
+            "link": "shopify://collections/1up-racing"
+          }
+        },
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Maker.png",
+            "title": "RC Maker",
+            "link": "shopify://collections/rc-maker"
+          }
+        },
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Bezerk.png",
+            "title": "Bezerk",
+            "link": "shopify://collections/bezerk"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-0",
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-1",
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-2",
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-3",
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-4",
+        "template--16075650072737__3a85a692-d84f-41ec-bb15-7f5ee3663fe1-1682954110029f256a-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "Racing Performance Parts",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "rich_text_CWARrz",
+    "logo_list_MdieGq",
+    "logo_list_GacXWe",
+    "logo_list_ar3HhC",
+    "main"
+  ]
+}

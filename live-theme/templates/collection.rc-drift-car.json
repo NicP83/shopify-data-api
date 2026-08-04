@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1c3ba42c-b5fe-4265-88ed-b3e9715012cd": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Welcome to the World of RC Drift Cars at Hearns Hobbies",
+        "content": "<p>At Hearns Hobbies, we are dedicated to fueling your passion for remote control racing with our extensive range of RC Drift Cars. Whether you're a beginner ready to dive into the hobby or a seasoned enthusiast, we have the perfect set of wheels waiting for you. Unbox and get your RC car up and running in no time with our Ready to Run (RTR) collection.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "36d02976-3287-4c59-b687-6840cd9b71f6": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<h2><strong>Dive into the Thrill of Drift Racing with Our Ready-to-Run Collection</strong></h2><p>Our<a href=\"https://www.hearnshobbies.com/collections/drift-cars-rtr\"> <span style=\"text-decoration:underline\">Ready-to-Run collection</span></a> is designed to get you into the exciting world of drift racing immediately. With RC cars that are ready to run straight out of the box, you can immerse yourself in the action without the need for assembly. We offer a variety of cars to suit your preference, whether you're looking for 2wd or Rwd, or specific body styles like the classic Nissan Skyline or Silvia.</p><h3><strong>Discover the Yokomo Drift Car Range</strong></h3><p><a href=\"https://www.hearnshobbies.com/collections/yokomo-australia\"><span style=\"text-decoration:underline\">Yokomo</span></a> has been a leading name in the RC drift car industry, renowned for its superior quality and performance. We are proud to offer a range of Yokomo models including the<a href=\"https://www.hearnshobbies.com/products/yokomo-yd-2zx-1-10-ep-rwd-r-c-drift-car-red-version\"> <span style=\"text-decoration:underline\">Yokomo YD-2ZX</span></a>,<a href=\"https://www.hearnshobbies.com/products/yokomo-super-drift-sd1-0-rwd-drift-car-assembly-kit\"> <span style=\"text-decoration:underline\">Super Drift SD1.0</span></a>, and<a href=\"https://www.hearnshobbies.com/products/yokomo-rookie-drift-rd1-0-rwd-draft-car-assembly-kit-with-yg-302-gyro\"> <span style=\"text-decoration:underline\">Rookie Drift RD1.0</span></a>.</p><h2><strong>Customize Your Experience with Our Range of Parts and Accessories</strong></h2><p>Whether you're looking to customize your car's body, upgrade your tires, or enhance your steering with a new servo, we have a vast selection of parts and accessories to help you create the ultimate RC drift car. Visit our collections of<a href=\"https://www.hearnshobbies.com/collections/1-10-on-road-body\"> <span style=\"text-decoration:underline\">bodies</span></a>,<a href=\"https://www.hearnshobbies.com/collections/drift-tyres\"> <span style=\"text-decoration:underline\">drift tyres</span></a>, and<a href=\"https://www.hearnshobbies.com/collections/servos\"> <span style=\"text-decoration:underline\">servos</span></a> to find the perfect fit for your vehicle.</p><h3><strong>Start Your RC Journey with Hearns Hobbies Today</strong></h3><p>Dive into the fast-paced world of RC drift racing with Hearns Hobbies. Our collection of RC drift cars and accessories offer everything you need to start your racing journey. Browse our<a href=\"https://www.hearnshobbies.com/collections/drift-cars-rtr\"> <span style=\"text-decoration:underline\">RTR Drift Car collection</span></a> and start your RC journey with us today.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "e16ca451-f323-4802-a147-abb243d7232e": {
+      "type": "faq",
+      "blocks": {
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-separator-1": {
+          "type": "separator",
+          "settings": {
+            "title": "FAQ"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-1": {
+          "type": "question",
+          "settings": {
+            "title": "What is a Ready-to-Run (RTR) RC Drift Car?",
+            "answer": "<p>A Ready-to-Run (RTR) RC drift car is a model that is ready to run right out of the box. These cars come pre-assembled, making it easy for you to start your RC drift racing journey. They are perfect for both beginners and seasoned enthusiasts.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-2": {
+          "type": "question",
+          "settings": {
+            "title": "What is the difference between 2WD and RWD drift cars?",
+            "answer": "<p>Two-wheel drive (2WD) and rear-wheel drive (RWD) refer to the wheels that the engine powers. In a 2WD drift car, the power can go to either the front or the rear wheels, while in a RWD car, the power goes only to the rear wheels. RWD drift cars are more common in the RC drift scene as they closely mimic the dynamics of real drift cars.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-3": {
+          "type": "question",
+          "settings": {
+            "title": "Why choose a Yokomo Drift Car?",
+            "answer": "<p>Yokomo has a reputation for high-quality and high-performance RC drift cars. Their models, such as the<a href=\"https://www.hearnshobbies.com/products/yokomo-yd-2zx-1-10-ep-rwd-r-c-drift-car-red-version\"> <span style=\"text-decoration:underline\">Yokomo YD-2ZX</span></a>,<a href=\"https://www.hearnshobbies.com/products/yokomo-super-drift-sd1-0-rwd-drift-car-assembly-kit\"> <span style=\"text-decoration:underline\">Super Drift SD1.0</span></a>, and<a href=\"https://www.hearnshobbies.com/products/yokomo-rookie-drift-rd1-0-rwd-draft-car-assembly-kit-with-yg-302-gyro\"> <span style=\"text-decoration:underline\">Rookie Drift RD1.0</span></a> are renowned for their superior handling and control, making them excellent choices for both beginners and experienced drift racers.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-4": {
+          "type": "question",
+          "settings": {
+            "title": "Can I customize my RC Drift Car?",
+            "answer": "<p>Yes, at Hearns Hobbies, we offer a wide range of parts and accessories to help you customize your RC drift car. From different<a href=\"https://www.hearnshobbies.com/collections/1-10-on-road-body\"> <span style=\"text-decoration:underline\">body styles</span></a> and<a href=\"https://www.hearnshobbies.com/collections/drift-tyres\"> <span style=\"text-decoration:underline\">drift tyres</span></a> to<a href=\"https://www.hearnshobbies.com/collections/servos\"> <span style=\"text-decoration:underline\">servos</span></a> for enhanced steering control, we have everything you need to make your RC drift car truly unique.</p>"
+          }
+        },
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-5": {
+          "type": "question",
+          "settings": {
+            "title": "How can I get started with RC drift racing?",
+            "answer": "<p>Getting started with RC drift racing is easy with Hearns Hobbies. We recommend starting with one of our<a href=\"https://www.hearnshobbies.com/collections/drift-cars-rtr\"> <span style=\"text-decoration:underline\">RTR Drift Cars</span></a>, which come pre-assembled and ready to run right out of the box. As you gain more experience and confidence, you can start customizing your car with different parts and accessories to suit your driving style.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-separator-1",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-1",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-2",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-3",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-4",
+        "template--16130083520673__e16ca451-f323-4802-a147-abb243d7232e-question-5"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "1c3ba42c-b5fe-4265-88ed-b3e9715012cd",
+    "main",
+    "36d02976-3287-4c59-b687-6840cd9b71f6",
+    "e16ca451-f323-4802-a147-abb243d7232e",
+    "recently-viewed-products"
+  ]
+}

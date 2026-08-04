@@ -1,0 +1,424 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_mHJH34": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Radio Control Accessories",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Futaba-now-in-stock.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/futaba"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Team-Cayote.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/team-cayote"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 240px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -40px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 175px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 140px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "dff8b67d-d30b-4a3c-89d1-2bab7602a21e": {
+      "type": "logo-list",
+      "blocks": {
+        "1658857136aaddd98f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_a2d5694c-8521-4352-af9d-e003e177e436.png",
+            "title": "Motors & ESCs",
+            "link": "shopify://collections/escs"
+          }
+        },
+        "1658857136aaddd98f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_44f47bd8-6ae7-444d-842c-1fa81262e4d6.png",
+            "title": "Tools & Oils",
+            "link": "shopify://collections/tools-oils"
+          }
+        },
+        "1658857136aaddd98f-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_d64a6dad-345c-4924-ae72-7403ab50fa80.png",
+            "title": "Batteries & Chargers",
+            "link": "shopify://collections/batteries-chargers"
+          }
+        },
+        "ae0aee82-85cb-4125-8800-5981dbc2f6bc": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_7d1e64b8-f12a-45f2-bcd0-d4f4d47819ab.png",
+            "title": "Bags & Storage",
+            "link": "https://www.hearnshobbies.com/collections/radio-control-accessories/bags-and-storage"
+          }
+        },
+        "1658857136aaddd98f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_6c067918-5461-493b-8990-a0e836980dab.png",
+            "title": "Hardware",
+            "link": "shopify://collections/rc-hardware"
+          }
+        },
+        "1658857136aaddd98f-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_025c4df9-88fd-4afd-84d8-0577b942c033.png",
+            "title": "Radios & Servos",
+            "link": "shopify://collections/radios-servos"
+          }
+        },
+        "02b42b3c-72d7-4634-b97a-9812fe49aa55": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_16a7a301-5538-41f0-836a-065c16c34775.png",
+            "title": "Apparel & Merchandise",
+            "link": "shopify://collections/racing-apparel-clothing-merchandise"
+          }
+        },
+        "d8bc6001-a268-465c-b6e9-4ccb5b269a0d": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_71188c89-e985-401a-8afe-e6e60eb27c9a.png",
+            "title": "Bearings",
+            "link": "https://www.hearnshobbies.com/collections/radio-control-accessories/bearings"
+          }
+        }
+      },
+      "block_order": [
+        "1658857136aaddd98f-0",
+        "1658857136aaddd98f-1",
+        "1658857136aaddd98f-3",
+        "ae0aee82-85cb-4125-8800-5981dbc2f6bc",
+        "1658857136aaddd98f-2",
+        "1658857136aaddd98f-4",
+        "02b42b3c-72d7-4634-b97a-9812fe49aa55",
+        "d8bc6001-a268-465c-b6e9-4ccb5b269a0d"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 140px; }}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9px; margin-top: -5px; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links__image-ie-fix {max-width: none;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "1a53608c-9ad2-47e3-a146-4dace4663f6a": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-077b7b3f--batteriesandchargers.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Batteries & Chargers",
+            "button_link": "shopify://collections/batteries-chargers"
+          }
+        },
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-7b7b3fa6--MOTORSANDESC.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Motors & ESCs",
+            "button_link": "shopify://collections/escs"
+          }
+        },
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-7b3fa63a--Radiosandservos.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Radios & Servos",
+            "button_link": "shopify://collections/radios-servos"
+          }
+        },
+        "091c07fd-9f6a-4353-9eec-901b104bcea5": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-3fa63aa8--oilsandtools.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Tools & Oils",
+            "button_link": "shopify://collections/tools-oils"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-1",
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-2",
+        "template--16346399441057__1a53608c-9ad2-47e3-a146-4dace4663f6a-item-3",
+        "091c07fd-9f6a-4353-9eec-901b104bcea5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1000px) {.block-list__item {width: 25%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".button {padding: 0 15px;}",
+        ".container {margin-bottom: -60px;}",
+        "@media (max-width: 768px) {.container {margin-bottom: -30px; }}",
+        "@media (min-width: 769px) and (max-width: 1199px) {.promo-block {min-height: 200px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "radio-control-accessories",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "1658858609f2993c42": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Latest RC Blogs",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_WjwVq7": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Radio Control Accessories",
+        "content": "<p><strong>MOTORS, ESC's, TOOLS & OILS, BATTERIES & CHARGERS AND MORE!</strong></p><p>At Hearns Hobbies we stock a wide range of Radio Controlled Accessories, designed to upgrade your existing build, help start a new build, or even simply perform maintenance on your RC. These include such integral components as <a href=\"https://hearnshobbies.myshopify.com/collections/escs\"><span style=\"text-decoration:underline\">Motors & ESC's</span></a> to get your RC running as intended or even supercharge it, classic <a href=\"https://hearnshobbies.myshopify.com/collections/nitro-engines\"><span style=\"text-decoration:underline\">Nitro Engines</span></a>, <a href=\"https://hearnshobbies.myshopify.com/collections/tools-oils\"><span style=\"text-decoration:underline\">Tools and Oils</span></a> to maintain your vehicle of choice, electrical components such as <a href=\"https://hearnshobbies.myshopify.com/collections/batteries-chargers\"><span style=\"text-decoration:underline\">Batteries & Chargers</span></a>, <a href=\"https://hearnshobbies.myshopify.com/collections/radios-servos\"><span style=\"text-decoration:underline\">Radios and Servos</span></a> to control your RC, and general <a href=\"https://hearnshobbies.myshopify.com/collections/hardware\"><span style=\"text-decoration:underline\">Hardware</span></a> to assist you with maintaining your vehicle and even tuning it.</p><p>Experience the pinnacle of RC performance with Hearns Hobbies Melbourne's extensive range of Radio Control Accessories. Our collection is meticulously selected to cater to all your hobby needs, ensuring that you have the most reliable and high-quality components at your fingertips.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_AjeUKP": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<h2><strong>Maximize Your RC Potential</strong></h2><p>In the world of radio control, the smallest upgrade can make a world of difference. Hearns Hobbies offers a diverse selection of accessories designed to optimize your RC's speed, durability, and overall performance.</p><h2><strong>Discover Our Key RC Accessories:</strong></h2><ul><li><strong>Motors & ESCs</strong>: Reignite your RC's power system with our cutting-edge electronic speed controllers and high-performance motors. </li><li><strong>Nitro Engines</strong>: For those who love the roar and smell of a traditional engine, our nitro engines provide an authentic and thrilling RC experience. </li><li><strong>Tools and Oils</strong>: Maintain and fine-tune your model with professional-grade tools and performance oils that keep your RC running smoothly. </li><li><strong>Batteries & Chargers</strong>: Never miss a moment of action with our durable batteries and rapid chargers that ensure your RC is ready anytime, anywhere. </li><li><strong>Radios and Servos</strong>: Take full control of your model with our responsive and precise radio systems and servos. Precision is just a click away.</li></ul><h2><strong>Why Choose Hearns Hobbies?</strong></h2><ul><li>Expert Guidance: Our team of RC enthusiasts is here to guide you every step of the way. Whether you're a seasoned pro or a beginner, we'll help you find the perfect accessories to suit your skill level and preferences.</li><li>Quality Assurance: At Hearns Hobbies, we take pride in offering only the highest quality products from reputable brands. Shop with confidence, knowing that you're investing in accessories that are built to last.</li><li>Fast and Reliable Shipping: We understand the excitement of receiving your new accessories promptly. Benefit from our fast and reliable shipping services to get your hands on the latest RC gear in no time.</li></ul><p>Elevate your RC experience with Hearns Hobbies – your trusted partner for Radio Control Accessories. Shop now and gear up for an adrenaline-fueled journey in the world of RC excitement!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What’s the difference between NiMH and LiPo?",
+            "answer": "<p>Watch and read about the different types of RC car batteries, NiMH and LiPo, and how to charge them.</p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "What are the different types of RC chargers?",
+            "answer": "<p>At Hearn Hobbies, we offer various types of chargers to keep your electric RC vehicle running, including 12v and 240v (wall) chargers, which are ideal for hobbyists. Watch how to use them <a href=\"https://youtu.be/u6VFvWhFz_A\" target=\"_blank\" title=\"https://youtu.be/u6VFvWhFz_A\">here</a>.</p>"
+          }
+        },
+        "1658930183f010c50f-3": {
+          "type": "question",
+          "settings": {
+            "title": "How to charge batteries?",
+            "answer": "<p>Here are the basics of <a href=\"https://youtu.be/ZPDd0d0Kapg\" target=\"_blank\" title=\"https://youtu.be/ZPDd0d0Kapg\">how to charge RC batteries</a>—introducing the different types of batteries, the processes involved, and the <a href=\"https://www.hearnshobbies.com/blogs/news/how-to-charge-rc-car-batteries-nimh-lipo\" target=\"_blank\" title=\"https://www.hearnshobbies.com/blogs/news/how-to-charge-rc-car-batteries-nimh-lipo\">best practices</a>.</p>"
+          }
+        },
+        "fb9a65cd-1b8c-47b8-bfcd-9ac86f4d60ba": {
+          "type": "question",
+          "settings": {
+            "title": "What type of servos do I need?",
+            "answer": "<p>The torque your servo should offer should increase with the size and weight of your RC car. It's important to select a servo that can support the weight and size of your automobile. Watch <a href=\"https://youtu.be/dfID5oOebfs\" target=\"_blank\" title=\"https://youtu.be/dfID5oOebfs\">which digital servo offer greater resolution, higher torque and faster speed here</a>.</p>"
+          }
+        },
+        "6ae73a9f-a833-4e0a-a27e-4c5c6263d28a": {
+          "type": "question",
+          "settings": {
+            "title": "How fast can a brushed RC car go?",
+            "answer": "<p>The average speed is 30km/h, while some Traxxas arrive at close to 50km/h.</p>"
+          }
+        },
+        "f5eb2f2e-ed65-482b-8877-bd50180a8c7b": {
+          "type": "question",
+          "settings": {
+            "title": "How fast can RC cars go?",
+            "answer": "<p>Depending on a number of variables, a standard RC car can reach top speeds of up to 70 mph. While ⅛ scale cars can go over 100km/h, some custom modified cars can go well past this speed.</p>"
+          }
+        },
+        "question_WnKaRD": {
+          "type": "question",
+          "settings": {
+            "title": "How can I ensure my RC accessories last?",
+            "answer": "<p>Proper maintenance using the right tools and oils will extend the lifespan of your RC accessories. <a href=\"https://www.hearnshobbies.com/collections/radio-control-accessories\">Maintain Your RC</a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2",
+        "1658930183f010c50f-3",
+        "fb9a65cd-1b8c-47b8-bfcd-9ac86f4d60ba",
+        "6ae73a9f-a833-4e0a-a27e-4c5c6263d28a",
+        "f5eb2f2e-ed65-482b-8877-bd50180a8c7b",
+        "question_WnKaRD"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_mHJH34",
+    "16588471730e4c2da8",
+    "dff8b67d-d30b-4a3c-89d1-2bab7602a21e",
+    "1a53608c-9ad2-47e3-a146-4dace4663f6a",
+    "165885854594d3994d",
+    "1658858609f2993c42",
+    "rich_text_WjwVq7",
+    "rich_text_AjeUKP",
+    "165893018363e32eb5"
+  ]
+}

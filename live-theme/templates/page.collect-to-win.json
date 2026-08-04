@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1c8d45f6-a249-48e8-82bc-e06e44486457": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Collect to Win",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "69ed1d4c-a11b-4084-8082-6db4cd8cbc60": {
+      "type": "custom-html",
+      "settings": {
+        "title": "",
+        "html": "<center><img src=\"https://cdn.shopify.com/s/files/1/1008/9754/files/buttons-xmas.png?v=1671112100\" width=\"100%\" style=\"margin:0\"></center>"
+      }
+    },
+    "4d8e7199-01b5-4a20-bf10-4b7874485901": {
+      "type": "custom-liquid",
+      "settings": {
+        "title": "",
+        "include_margins": false,
+        "liquid": "<div class=\"timer\"> \n   <div class=\"timer-display\"> \n     <div class=\"timer-block\"> \n       <span class=\"timer-block__num js-timer-days\">00</span> \n       <span class=\"timer-block__unit\">Days</span> \n     </div> \n     <div class=\"timer-block\"> \n       <span class=\"timer-block__num js-timer-hours\">00</span> \n       <span class=\"timer-block__unit\">Hours</span> \n     </div> \n     <div class=\"timer-block\"> \n       <span class=\"timer-block__num js-timer-minutes\">00</span> \n       <span class=\"timer-block__unit\">Minutes</span> \n     </div> \n     <div class=\"timer-block\"> \n       <span class=\"timer-block__num js-timer-seconds\">00</span> \n       <span class=\"timer-block__unit\">Seconds</span> \n     </div> \n   </div> \n </div> \n <style> \n\n   .timer { \n     background: #f6fafd; \n     padding: 10px; \n     margin: 10px 0; \n   } \n\n   .timer--expired { \n     display: none; \n   } \n   .timer__title { \n     @extend .paragraph; \n     text-align: center; \n   } \n   .timer-display { \n     display: -webkit-box; \n     display: -ms-flexbox; \n     display: flex; \n     -ms-flex-wrap: wrap; \n         flex-wrap: wrap; \n     -webkit-box-pack: justify; \n         -ms-flex-pack: justify; \n             justify-content: center; \n     margin-top: 5px; \n   } \n   .timer-block { \n     position: relative; \n     width: 10%; \n     padding: 0 10px; \n     &:not(:last-child):after { \n       content: ':'; \n       position: absolute; \n       right: 0; \n       top: 3px; \n     } \n   } \n   .timer-block__num, \n   .timer-block__unit { \n     display: block; \n     text-align: center; \n   } \n </style> \n\n <script type=\"text/javascript\"> \n   var second = 1000, \n       minute = second * 60, \n       hour = minute * 60, \n       day = hour * 24; \n   var countDown = new Date('April 1, 2023').getTime(), \n       x = setInterval(function() { \n       var now = new Date().getTime(), \n           distance = countDown - now; \n     document.querySelector('.js-timer-days').innerText = Math.floor(distance / (day)),        document.querySelector('.js-timer-hours').innerText = Math.floor((distance % (day)) / (hour)),  document.querySelector('.js-timer-minutes').innerText = Math.floor((distance % (hour)) / (minute)),   document.querySelector('.js-timer-seconds').innerText = Math.floor((distance % (minute)) / second); \n     }, second) \n </script>"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    },
+    "b538c420-e55c-422e-be09-0487f4540db5": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "",
+        "content": "<p><strong>Competition Rules</strong></p><p>Promotion Period: 13 December 2022 to 01 April 2023</p><p><strong>How to Win?</strong></p><ul><li>Collect all three unique coloured buttons each month from December to March when you purchase an order worth over $150. *For December, you only need to spend over $75 to receive the first button.</li><li>Once you’ve collected all 3, take a picture of them placed on top of the card with your name given along your order.</li><li>To enter, submit the picture of your collection at <a href=\"mailto:comps@hearnshobbies.com.au\" target=\"_blank\">comps@hearnshobbies.com.au</a></li></ul><p></p><p><strong>What Are The Rewards?</strong></p><p>The chosen grand prize winner will be given a $600 gift card, while the other five runners-up will receive a limited edition Hearns Hobbies T-shirt.</p><p></p><p><strong>Terms & Conditions:</strong></p><ul><li>If you miss a month, you may spend $300 in March and receive a supplementary pin of your choice.</li><li>All purchases must be under the same name.</li><li>Non-transferable.</li><li>For Australian residents only.</li><li>Hearns Hobbies does not condone the buying or selling of buttons amongst users. Any losses incurred from this will not be Hearns Hobbies’ responsibility.</li></ul>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "1c8d45f6-a249-48e8-82bc-e06e44486457",
+    "69ed1d4c-a11b-4084-8082-6db4cd8cbc60",
+    "4d8e7199-01b5-4a20-bf10-4b7874485901",
+    "main",
+    "newsletter",
+    "b538c420-e55c-422e-be09-0487f4540db5"
+  ]
+}

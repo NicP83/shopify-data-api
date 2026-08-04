@@ -1,0 +1,189 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Locomotives & Sets",
+        "content": "<p> Our full range of Rail Locomotives and Locomotive Sets. From <a href=\"https://www.hearnshobbies.com/collections/bachmann-branchline\" title=\"Bachmann Branchline\"><strong>Bachmann Branchline</strong></a> to <a href=\"https://www.hearnshobbies.com/collections/hornby\" title=\"Hornby Trains\"><strong>Hornby</strong></a><a href=\"https://hearnshobbies.myshopify.com/admin/collections/411831888\" title=\"Hornby Trains\"><strong> </strong></a>to <a href=\"https://www.hearnshobbies.com/collections/graham-farish\" title=\"Graham Farish Trains\"><strong>Graham Farish</strong></a> and so many other well known railway manufacturer brands from Australia and around the world!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_ktn63M": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train-Sets_1.jpg",
+            "title": "Train Sets",
+            "link": "shopify://collections/train-sets"
+          }
+        },
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Steam.jpg",
+            "title": "Steam",
+            "link": "shopify://collections/locomotives-steam"
+          }
+        },
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Diesel.jpg",
+            "title": "Diesel",
+            "link": "shopify://collections/locomotives-diesel"
+          }
+        },
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Electric.jpg",
+            "title": "Electric",
+            "link": "shopify://collections/locomotives-electric"
+          }
+        },
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sound-Fitted.jpg",
+            "title": "Sound Fitted",
+            "link": "shopify://collections/sound-fitted-locomotives"
+          }
+        }
+      },
+      "block_order": [
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-1",
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-2",
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-3",
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-4",
+        "template--16170787012769__fd26cf68-0e71-4fda-91ae-19d304b36990-logo-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.67%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; box-shadow: none; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "faq_pDfQBH": {
+      "type": "faq",
+      "blocks": {
+        "separator_eRXjYp": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_kYdL3J": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_1.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_1 | metafield_tag }}"
+          }
+        },
+        "question_pgpwTU": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_2.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_2 | metafield_tag }}"
+          }
+        },
+        "question_mx4Ynf": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_3.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_3 | metafield_tag }}"
+          }
+        },
+        "question_gUnxjx": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_4.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_4 | metafield_tag }}"
+          }
+        },
+        "question_wcYQRM": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_5.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_5 | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "separator_eRXjYp",
+        "question_kYdL3J",
+        "question_pgpwTU",
+        "question_mx4Ynf",
+        "question_gUnxjx",
+        "question_wcYQRM"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667",
+    "logo_list_ktn63M",
+    "main",
+    "faq_pDfQBH",
+    "recently-viewed-products"
+  ]
+}

@@ -1,0 +1,202 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Australian-Car-_-Truck-Models-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "43ebcc66-2270-485c-b82f-88f835de2b47": {
+      "type": "custom-html",
+      "settings": {
+        "title": "Australian Car & Truck Models",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nOne of the most enjoyable parts of collecting model vehicles is to find the model cars&amp; trucks which remind you of interesting or important memories.  At Hearns Hobbies we are all about celebrating these events so we are proud to stock an exciting range of Australian cars and trucks.  Many of these are extremely limited release so make sure you get yours before they are all gone.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "33485372-cd11-45c4-b107-fd226514554d": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Classic-Carlectables.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/classic-carlectables"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/DDA-Collectibles.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/dda-collectibles"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Aussie-Road-Ragers_29a8f9a7-2bc6-41a4-80a4-068e3c778242.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/aussie-road-ragers"
+          }
+        },
+        "8e8234c5-9e33-4813-ba96-570a9d1ed9bf": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Drake.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/drake"
+          }
+        },
+        "ef44f85e-b7ca-4b9c-9f6e-b75b45b1ab4e": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Highway-Replicas.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/highway-replicas"
+          }
+        }
+      },
+      "block_order": [
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2",
+        "8e8234c5-9e33-4813-ba96-570a9d1ed9bf",
+        "ef44f85e-b7ca-4b9c-9f6e-b75b45b1ab4e"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1000px) {.promo-block {min-height: 220px; } .block-list {justify-content: center; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 180px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}",
+        ".promo-block__image-clip {border: 2px solid #25140a;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "43ebcc66-2270-485c-b82f-88f835de2b47",
+    "33485372-cd11-45c4-b107-fd226514554d",
+    "main",
+    "recently-viewed-products"
+  ]
+}

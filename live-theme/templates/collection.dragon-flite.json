@@ -1,0 +1,207 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Landing-Page_D95_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "3f0328f1-101f-4467-b50a-4750e4cbf811": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Joysway Dragon Flite DF95",
+        "content": "<p><strong>Joysway produce the Dragon Flite DF95 as one of their popular racing class yachts.  You can choose between RTR (Ready to Run) or PNP (Plug and Play) versions depending upon whether you need to transmitter and receiver or not.</strong></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "featured_product_YPKW9x": {
+      "type": "featured-product",
+      "blocks": {
+        "product_meta_LXPBdm": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "featured_description_icqUhg": {
+          "type": "featured_description",
+          "settings": {}
+        },
+        "variant_selector_qP9zzr": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "buy_buttons_teDbMz": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "product_meta_LXPBdm",
+        "featured_description_icqUhg",
+        "variant_selector_qP9zzr",
+        "buy_buttons_teDbMz"
+      ],
+      "settings": {
+        "product": "joysway-dragon-flite-95-v2-racing-class-df95-yacht-pnp",
+        "title": "Plug & Play Version",
+        "link_title": "",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "featured_product_V4rkYj": {
+      "type": "featured-product",
+      "blocks": {
+        "product_meta_NYRHwB": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "featured_description_yzt9Qa": {
+          "type": "featured_description",
+          "settings": {}
+        },
+        "variant_selector_CNf6rF": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "variant_image_options": "",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "buy_buttons_BHtt8N": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "product_meta_NYRHwB",
+        "featured_description_yzt9Qa",
+        "variant_selector_CNf6rF",
+        "buy_buttons_BHtt8N"
+      ],
+      "custom_css": [
+        ".shopify-payment-button__button {height: auto;}"
+      ],
+      "settings": {
+        "product": "joysway-dragon-flite-95-v2-racing-class-df95-yacht-rtr",
+        "title": "Ready to Run Version",
+        "link_title": "",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "1d3fee47-1416-4728-ba80-ceb6794f5d36": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Blog posts",
+        "link_title": "",
+        "show_category": false,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "3f0328f1-101f-4467-b50a-4750e4cbf811",
+    "featured_product_YPKW9x",
+    "featured_product_V4rkYj",
+    "main",
+    "1d3fee47-1416-4728-ba80-ceb6794f5d36"
+  ]
+}

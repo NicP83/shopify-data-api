@@ -1,0 +1,237 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Boat-Spare-Parts-Landing-Page.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16119257694369__d75e946b-ca27-47e3-ba93-6ab5c651cd78-168900983401973fb8-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_BWjphX": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Joysway Boats",
+        "content": "<p>Joysway has produced a wide and varying range of RC boats. From their speed boats to their sailing boats and through to their bait boats you will find an RC boat for you. Whether you want a boat for purely leisure time activities or are looking at yachts for racing we have a great range to choose from at Hearns Hobbies.</p><p>Joysway RC boats come in a range of sizes, speeds and abilities and come either RTR (Ready to Run) or require some further equipment in order to run. Check out the model or version which suits you best.</p><p>We also have an extensive range of spare parts available for all of these boats. </p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "33485372-cd11-45c4-b107-fd226514554d": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Sail-Boats-_-Yachts_ce5ff19d-aaca-4ab1-86e7-e703aa7301a3.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-sail-boats-yachts"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Speed-Boats_e69b95ad-3012-48c5-93a0-330a7ada9cab.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-speed-boats"
+          }
+        },
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Bait-Boats.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#26c1ce",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-bait-boats"
+          }
+        },
+        "item_DFgnHy": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Boat-Spares.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-rc-boat-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-0",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-1",
+        "template--16121478447265__33485372-cd11-45c4-b107-fd226514554d-16895982015fe56fe0-2",
+        "item_DFgnHy"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 255px; } .block-list__item {width: 25%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 200px; } .block-list__item {width: 25%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 280px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "faq_7JEjyz": {
+      "type": "faq",
+      "blocks": {
+        "separator_8MfQw6": {
+          "type": "separator",
+          "settings": {
+            "title": "FAQs"
+          }
+        },
+        "question_pyM99E": {
+          "type": "question",
+          "settings": {
+            "title": "RTR (Ready to Run)",
+            "answer": "<p> This normally means that you get everything in the box which you need to be able to run your boat. In some instances you may require AA batteries for your radio or transmitter otherwise you will have everything you need. Please note that many of the sailing boats will still need to be assembled.</p>"
+          }
+        },
+        "question_UWHrLT": {
+          "type": "question",
+          "settings": {
+            "title": "ARTR (Almost Ready to Run)",
+            "answer": "<p> This means that you have most of what you need in order to run your boat except you will need to purchase a separate battery (or batteries for some) along with a charger to charge the battery. We can supply the batteries and chargers you will need.</p>"
+          }
+        },
+        "question_r4w99E": {
+          "type": "question",
+          "settings": {
+            "title": "PNP (Plug and Play)",
+            "answer": "<p> This version is normally available for the experienced RC user who may alreadyhave most of their own equipment. These versions will require the separate purchase of batteriesand chargers along with the radio and receiver to control the boat. Everything else you need will befound in the box.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_8MfQw6",
+        "question_pyM99E",
+        "question_UWHrLT",
+        "question_r4w99E"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "d75e946b-ca27-47e3-ba93-6ab5c651cd78",
+    "rich_text_BWjphX",
+    "33485372-cd11-45c4-b107-fd226514554d",
+    "main",
+    "recently-viewed-products",
+    "faq_7JEjyz"
+  ]
+}

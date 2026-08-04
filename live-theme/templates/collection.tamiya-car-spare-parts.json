@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "e7486e93-9019-4f7f-acec-934508f2ee5b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya-Hornet-Evo-Parts.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_KRVejD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Tamiya Car Spare Parts",
+        "content": "<p>We stock a large range of parts to keep your Tamiya Car performing to its optimum level.  Choose your car from the list below to find all of the spare parts for that car.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_gH6Wxd": {
+      "type": "promotion-list",
+      "blocks": {
+        "item_iKhghM": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya-Hornet-Evo.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/tamiya-hornet-evo-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "item_iKhghM"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 215px; } .block-list__item {width: 20%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 150px; } .block-list__item {width: 20%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 180px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 60%; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "e7486e93-9019-4f7f-acec-934508f2ee5b",
+    "rich_text_KRVejD",
+    "promotion_list_gH6Wxd",
+    "main"
+  ]
+}

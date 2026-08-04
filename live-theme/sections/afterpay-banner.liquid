@@ -1,0 +1,74 @@
+{% assign logo_color = section.settings.afterpay_banner_logo_color %}
+{% if section.settings.should_show_afterpay_banner %}
+<style>
+    #shopify-section-afterpay-banner .announcement-bar {
+        background-color: {{ section.settings.afterpay_banner_background_color }};
+        text-align: center;
+        text-decoration: none;
+    }
+    .announcement-bar__message.afterpay {
+        font-size: small;
+        color: {{ section.settings.afterpay_banner_text_color }};
+        margin-bottom: 0px;
+        padding: 0; 
+    }
+    @media (max-width: 768px) {
+      .announcement-bar__message.afterpay {
+        font-size: 12px;
+      }
+    }
+</style>
+<div class="announcement-bar">
+    <p class="announcement-bar__message afterpay" style="margin-top:0px;">
+        <img alt="Afterpay" class="hs-id-bcd9de5f hs-lazyload lazyload" data-src="https://static.afterpay.com/integration/product-page/logo-afterpay-{{logo_color}}.png" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" srcset="https://static.afterpay.com/integration/product-page/logo-afterpay-{{logo_color}}.png 1x, https://static.afterpay.com/integration/product-page/logo-afterpay-{{logo_color}}@2x.png 2x, https://static.afterpay.com/integration/product-page/logo-afterpay-{{logo_color}}@3x.png" style="vertical-align: middle; width: 86px; height: auto;"/>
+        is here! Shop now, pay later in 4 easy installments
+        <a href="javascript:void(0);"
+            style="text-decoration: none; color: {{ section.settings.afterpay_banner_text_color }};"
+            data-afterpay-modal="{{ request.locale.iso_code }}_{{ shop.address.country_code }}">ⓘ</a>
+    </p>
+</div>
+<script defer src="https://js.squarecdn.com/square-marketplace.js"></script>
+{% endif %}
+{% schema %}
+{
+    "name": "Afterpay Banner",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "should_show_afterpay_banner",
+            "label": "Show Afterpay banner",
+            "default": true
+        },  
+        {
+            "type": "color",
+            "id": "afterpay_banner_background_color",
+            "label": "Background color",
+            "default": "#B2FCE4"
+        },
+        {
+            "type": "color",
+            "id": "afterpay_banner_text_color",
+            "label": "Text color",
+            "default": "#000000"
+        },
+        {
+            "type":      "select",
+            "id":        "afterpay_banner_logo_color",
+            "label":     "Afterpay logo",
+            "options": [
+                {
+                "group": "Logo options",
+                "value": "black",
+                "label": "Black"
+                },
+                {
+                "group": "Logo options",
+                "value": "white",
+                "label": "White"
+                }
+            ],
+            "default":   "black"
+        }
+    ]
+}
+{% endschema %}

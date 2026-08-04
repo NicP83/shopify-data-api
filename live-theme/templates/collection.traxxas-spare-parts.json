@@ -1,0 +1,980 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "e7486e93-9019-4f7f-acec-934508f2ee5b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Traxxas-Spare-Parts-Landing-Page_Banner.jpg",
+            "mobile_image": "shopify://shop_images/Traxxas-Spare-Parts-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_KRVejD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Traxxas Spare Parts",
+        "content": "<p>We stock a large range of parts to keep your Traxxas RC Car performing to its optimum level.  Choose your car from the list below to find all of the spare parts for that car.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_gH6Wxd": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rustler-37054-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 54,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-37054-61-spare-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Hoss-90076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-90076-4-spare-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-VXL-58076-74.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-58076-74-spare-parts"
+          }
+        },
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Maxx-89076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-58076-74-spare-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-82056-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-82056-4-spare-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rustler-67076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-67076-4-spare-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/E-Revo-86086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-86086-4-spare-parts"
+          }
+        },
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-4x4-68077-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-68077-4-spare-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4M-97054-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-97054-1-spare-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-68054-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-68054-61-spare-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Stampede-67054-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-67054-61-spare-parts"
+          }
+        },
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Bigfoot-36034-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-36034-61-spare-parts"
+          }
+        },
+        "item_U3CNfN": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-6-88086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-88086-4-spare-parts"
+          }
+        },
+        "item_haCdLB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-6-88096-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-88096-4-spare-parts"
+          }
+        },
+        "item_iL9Bd6": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/XRT-78086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-78086-4-spare-parts"
+          }
+        },
+        "item_EU6KAF": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/X-Maxx-77086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-77086-4-spare-parts"
+          }
+        },
+        "item_7TGiji": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4M-97074-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-97074-1-spare-parts"
+          }
+        },
+        "item_zKhfna": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Bandit-24054-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-24054-1-spare-parts"
+          }
+        },
+        "item_gQLrcB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-High-92056-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-92056-4-spare-parts"
+          }
+        },
+        "item_N3bGJw": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rustler-67064-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-67064-61-spare-parts"
+          }
+        },
+        "item_dhy3rU": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-Sport-82024-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-82024-4-spare-parts"
+          }
+        },
+        "item_dPXcTQ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Desert-Racer-85086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-85086-4-spare-parts"
+          }
+        },
+        "item_83f88w": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Jato-55077-3.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-55077-3-spare-parts"
+          }
+        },
+        "item_iJgkHj": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Stampede-36076-74.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-36076-74-spare-parts"
+          }
+        },
+        "item_mECUPG": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-58034-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-58034-61-spare-parts"
+          }
+        },
+        "item_dEqKiQ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Chevrolet-93054-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-93054-4-spare-parts"
+          }
+        },
+        "item_7U7h4t": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-82046-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-82046-4-spare-parts"
+          }
+        },
+        "item_hXeLmi": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Bandit-VXL-24076-74.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-24076-74-spare-parts"
+          }
+        },
+        "item_YjNY7U": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Factory-Five-93044-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-93044-4-spare-parts"
+          }
+        },
+        "item_hCDemw": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Factory-Five-93034-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-93034-4-spare-parts"
+          }
+        },
+        "item_FcjMF3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Drag-Slash-94076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-94076-4-spare-parts"
+          }
+        },
+        "item_XVNmWT": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rustler-VXL-37076-74.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-37076-74-spare-parts"
+          }
+        },
+        "item_CEXDQw": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Maxx-89086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-89086-4-spare-parts"
+          }
+        },
+        "item_hkw6Mr": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Ford-58094-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-58094-1-spare-parts"
+          }
+        },
+        "item_KTXH89": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Bandit-Electric-24054-61.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-24054-61-spare-parts"
+          }
+        },
+        "item_8TQhNJ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-4x4-68086-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-68086-4-spare-parts"
+          }
+        },
+        "item_ndJ6aG": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rustler-67064-1_8a880634-fde1-4fe0-8110-ba89f5432c6f.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-67064-1-spare-parts"
+          }
+        },
+        "item_L8bH3M": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Slash-4x4-68054-1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-68054-1-spare-parts"
+          }
+        },
+        "item_7DxJFQ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-Crawler-82076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-82076-4-spare-parts"
+          }
+        },
+        "item_whi6YJ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/TRX-4-92076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-92076-4-spare-parts"
+          }
+        },
+        "item_dqbCEy": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Stampede-36054-61_444140ea-9dbb-4fd6-ba76-031101b74eec.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-36054-61-spare-parts"
+          }
+        },
+        "item_yzgeQT": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Sledge-95076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-sledge-spare-parts"
+          }
+        },
+        "item_chHGt6": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/E-Revo-VXL-1-16-71076-3.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-71076-3-spare-parts"
+          }
+        },
+        "item_HheWci": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Summit-56076-4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-56076-4-spare-parts"
+          }
+        },
+        "item_iKhghM": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Traxxas-MAxx-Slash.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/traxxas-102076-4-spare-parts"
+          }
+        },
+        "item_BxVD9C": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Mini-Maxx-BL-2s.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/mini-maxx-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-1",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-2",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-3",
+        "template--16370129305761__9c2777d7-5e90-44c1-b9e3-6f7b2e70048e-item-4",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-1",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-2",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-3",
+        "template--16370129305761__e3911398-f8ab-44b3-b2ff-953ab554e441-item-4",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-1",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-2",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-3",
+        "template--16370129305761__790b1e28-ebb6-468a-85d7-0bd532399922-item-4",
+        "item_U3CNfN",
+        "item_haCdLB",
+        "item_iL9Bd6",
+        "item_EU6KAF",
+        "item_7TGiji",
+        "item_zKhfna",
+        "item_gQLrcB",
+        "item_N3bGJw",
+        "item_dhy3rU",
+        "item_dPXcTQ",
+        "item_83f88w",
+        "item_iJgkHj",
+        "item_mECUPG",
+        "item_dEqKiQ",
+        "item_7U7h4t",
+        "item_hXeLmi",
+        "item_YjNY7U",
+        "item_hCDemw",
+        "item_FcjMF3",
+        "item_XVNmWT",
+        "item_CEXDQw",
+        "item_hkw6Mr",
+        "item_KTXH89",
+        "item_8TQhNJ",
+        "item_ndJ6aG",
+        "item_L8bH3M",
+        "item_7DxJFQ",
+        "item_whi6YJ",
+        "item_dqbCEy",
+        "item_yzgeQT",
+        "item_chHGt6",
+        "item_HheWci",
+        "item_iKhghM",
+        "item_BxVD9C"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 180px; } .block-list__item {width: 16.66%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 130px; } .block-list__item {width: 16.66%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 150px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 50%; }}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "e7486e93-9019-4f7f-acec-934508f2ee5b",
+    "rich_text_KRVejD",
+    "promotion_list_gH6Wxd",
+    "main"
+  ]
+}

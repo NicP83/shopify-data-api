@@ -1,0 +1,471 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Green-Stuff-World-Paints-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "893a3ac5-9985-4a80-95a6-cd114f94348b": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Green Stuff World from Hearns Hobbies Melbourne",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_PEaAgV": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Acrylic-Color.jpg",
+            "title": "Acryclic Color",
+            "link": "shopify://collections/green-stuff-world-acrylic-color"
+          }
+        },
+        "logo_X3ENGH": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dry-Brush_Butter-Yellow.jpg",
+            "title": "Dry Brush",
+            "link": "shopify://collections/dry-brush"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Liquid-Pigments.jpg",
+            "title": "Liquid Pigments",
+            "link": "shopify://collections/green-stuff-world-liquid-pigments"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Wash-Inks.jpg",
+            "title": "Wash Inks",
+            "link": "shopify://collections/green-stuff-world-wash-inks"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Intensity-Inks.jpg",
+            "title": "Intensity Inks",
+            "link": "shopify://collections/green-stuff-world-intensity-inks"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Candy-Inks.jpg",
+            "title": "Candy Inks",
+            "link": "shopify://collections/green-stuff-world-candy-inks"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Fluor-Paints.jpg",
+            "title": "Fluoro Paints",
+            "link": "shopify://collections/green-stuff-world-fluoro-paints"
+          }
+        },
+        "31379ba6-8c5e-4f06-805e-25cc81413f08": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Metallic-Paints.jpg",
+            "title": "Metallic Paints",
+            "link": "shopify://collections/green-stuff-world-metallic-paints"
+          }
+        },
+        "e4878eb8-bdc2-4fed-9849-faf24da12303": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Metal-Filters.jpg",
+            "title": "Metal Filters",
+            "link": "shopify://collections/green-stuff-world-metal-filters-interference"
+          }
+        },
+        "33551596-2e5a-4e2d-8645-43888662dde8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Chameleon-Paints.jpg",
+            "title": "Chameleon Paints",
+            "link": "shopify://collections/green-stuff-world-chameleon-paints"
+          }
+        },
+        "4fcb1107-e293-4160-9e53-cf1fa9748632": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/UV-Resin.jpg",
+            "title": "UV Resin",
+            "link": "shopify://collections/green-stuff-world-uv-resin-paints"
+          }
+        },
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Paint-Effects.jpg",
+            "title": "Paint Effects",
+            "link": "shopify://collections/green-stuff-world-paint-effects"
+          }
+        },
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Paint-Sets.jpg",
+            "title": "Paint Sets",
+            "link": "shopify://collections/green-stuff-world-paint-sets"
+          }
+        },
+        "a2bc44d1-5302-4d30-b2ae-1cc074b66e96": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dipping-Inks.jpg",
+            "title": "Dipping Inks",
+            "link": "shopify://collections/green-stuff-world-dipping-inks"
+          }
+        },
+        "347f9033-85c0-45d4-a022-d7f4d8f4e7d9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Crackle-Paint.jpg",
+            "title": "Crackle Paint",
+            "link": "shopify://collections/green-stuff-world-crackle-paints"
+          }
+        },
+        "22646cc9-8dd8-41b9-84c7-e1cdb9289ce0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Chrome-Paint_28142791-a5dd-4146-8efd-9b33ecd920cf.jpg",
+            "title": "Chrome Paints",
+            "link": "shopify://collections/green-stuff-world-chrome-paints"
+          }
+        },
+        "logo_QmGUtM": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Acrylic-Ink.jpg",
+            "title": "ACRYLIC INK",
+            "link": "shopify://collections/green-stuff-world-acrylic-ink"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "logo_X3ENGH",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5",
+        "31379ba6-8c5e-4f06-805e-25cc81413f08",
+        "e4878eb8-bdc2-4fed-9849-faf24da12303",
+        "33551596-2e5a-4e2d-8645-43888662dde8",
+        "4fcb1107-e293-4160-9e53-cf1fa9748632",
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7",
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e",
+        "a2bc44d1-5302-4d30-b2ae-1cc074b66e96",
+        "347f9033-85c0-45d4-a022-d7f4d8f4e7d9",
+        "22646cc9-8dd8-41b9-84c7-e1cdb9289ce0",
+        "logo_QmGUtM"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 11.11%; padding: 0px; border: none; box-shadow: none; } img {padding: 5px; } .quick-links__image-container {font-size: 12.5px; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; border: none; box-shadow: none; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 8.5px; }}",
+        ".quick-links {border: none; align-items: flex-start;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".layout {margin-bottom: 50px;}",
+        "@media (max-width: 769px) {.layout {margin-bottom: 25px; }}",
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "logo_list_QCJADy": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_pNJmFV": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/DIPPING_PAINTS.jpg",
+            "title": "",
+            "link": "https://cdn.shopify.com/s/files/1/1008/9754/files/GSW-Dipping-Inks_EN.pdf?v=1709111931"
+          }
+        },
+        "logo_fah7Ei": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Metallic_Paints.jpg",
+            "title": "",
+            "link": "https://cdn.shopify.com/s/files/1/1008/9754/files/GSW-Metalics_EN.pdf?v=1709111931"
+          }
+        },
+        "logo_UKPx8k": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/ACRYLIC_PAINTS.jpg",
+            "title": "",
+            "link": "https://cdn.shopify.com/s/files/1/1008/9754/files/GSW-Acrylic_EN-MaxxFormula.pdf?v=1709111932"
+          }
+        }
+      },
+      "block_order": [
+        "logo_pNJmFV",
+        "logo_fah7Ei",
+        "logo_UKPx8k"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.quick-links {justify-content: space-evenly !important; } .quick-links__image-ie-fix {width: 90px !important; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {padding: 0; border: none; box-shadow: none; width: 20%;}",
+        ".section__header {justify-content: center;}",
+        ".quick-links__image-ie-fix {width: 180px; max-width: none;}"
+      ],
+      "settings": {
+        "title": "Colour Equivalence Chart",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "promotion_list_t4X7mc": {
+      "type": "promotion-list",
+      "blocks": {
+        "item_gek6t7": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Crazies-paints-for-special-effects_1200x_754185e2-3096-479b-8c41-cb5e0816731f.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 70,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Read More",
+            "button_link": "shopify://blogs/educational/the-craziest-special-effects-paints-from-green-stuff-world"
+          }
+        },
+        "item_n7HcC8": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Green_Stuff_World___Color_Shift_Paints_Tutorial___askHearns_-_Hearns_Hobbies.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "Watch on Youtube",
+            "button_link": "https://www.youtube.com/watch?v=AAJF0Xw38e4"
+          }
+        }
+      },
+      "block_order": [
+        "item_gek6t7",
+        "item_n7HcC8"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 320px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 220px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 190px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; }}",
+        ".button {padding: 0 30px !important;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "rich_text_DKxMMw": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "faq_6LYTze": {
+      "type": "faq",
+      "blocks": {
+        "separator_GbFA3F": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_ePRkWj": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need a primer for the chrome and holographic paints?",
+            "answer": "<p>No primer is needed for the chrome or <a href=\"https://www.hearnshobbies.com/products/green-stuff-world-holographic-paint\"><span style=\"text-decoration:underline\">holographic paints</span></a> although a black base will enhance the airbrush chrome and holographic paints.</p>"
+          }
+        },
+        "question_tCfCkD": {
+          "type": "question",
+          "settings": {
+            "title": "What is the best way to apply the liquid pigments?",
+            "answer": "<p>Brush them or flick them on with a brush. The finish can be manipulated while still wet. If you’d like to know more about how to apply liquid pigments, you may watch our <a href=\"https://youtube.com/playlist?list=PLPaKXy5RLwB3FnWMY39EgiehL88PokF-g&si=tejDOgLljBk4YbJu\"><span style=\"text-decoration:underline\">Green Stuff World Paints</span></a> videos on YouTube.</p>"
+          }
+        },
+        "question_VRn6jp": {
+          "type": "question",
+          "settings": {
+            "title": "How long does it take to dry?",
+            "answer": "<p>Acrylic paints dry very quickly but does depend on the thickness of the coat and environmental conditions.</p>"
+          }
+        },
+        "question_VQ9myy": {
+          "type": "question",
+          "settings": {
+            "title": "What is dipping ink?",
+            "answer": "<p>These are a highly pigmented wash that adds depth to the recesses of the surface. Can be dipped or brushed on.</p>"
+          }
+        },
+        "question_hD9Byf": {
+          "type": "question",
+          "settings": {
+            "title": "What is a metal filter?",
+            "answer": "<p>Metal filters have a transparent metallic finish that alters the appearance of the base colour. They can add depth and achieve a slight colour shift when viewed from different angles.</p>"
+          }
+        },
+        "question_JRVQHr": {
+          "type": "question",
+          "settings": {
+            "title": "Are Fluoro Paints glow in the dark?",
+            "answer": "<p>Fluorescent paints do not glow in the dark but will become luminous when UV or black light is applied.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_GbFA3F",
+        "question_ePRkWj",
+        "question_tCfCkD",
+        "question_VRn6jp",
+        "question_VQ9myy",
+        "question_hD9Byf",
+        "question_JRVQHr"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "rich_text_39eKWq": {
+      "type": "rich-text",
+      "custom_css": [
+        "@media (max-width: 768px) {.container {margin-top: -60px !important; }}",
+        ".container {margin-top: -80px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>For more inquiries or assistance, don't hesitate to <a href=\"https://www.hearnshobbies.com/pages/contact-us-here\"><span style=\"text-decoration:underline\">contact us</span></a> or visit our <a href=\"https://www.hearnshobbies.com/\"><span style=\"text-decoration:underline\">Hobby Shop in Melbourne</span></a>.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "893a3ac5-9985-4a80-95a6-cd114f94348b",
+    "logo_list_PEaAgV",
+    "main",
+    "logo_list_QCJADy",
+    "promotion_list_t4X7mc",
+    "rich_text_DKxMMw",
+    "faq_6LYTze",
+    "rich_text_39eKWq"
+  ]
+}

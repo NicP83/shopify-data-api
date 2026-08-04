@@ -1,0 +1,150 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_BWjphX": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "RTF RC Planes",
+        "content": "<p>Embark on thrilling aerial escapades with the extensive range of RC Aircraft in Ready To Fly (RTF) form at Hearns Hobbies. Whether you're a seasoned pilot or a newcomer to the world of remote-controlled aviation, our collection of RTF <a href=\"https://www.hearnshobbies.com/collections/rc-planes\"><span style=\"text-decoration:underline\">RC planes</span></a> offers unparalleled excitement and convenience.</p><p>At Hearns Hobbies we have a large range of RC Aircraft in Ready To Fly (RTF) form.  These RC planes will come with virtually everything you need to get your plane flying straight out of the box.  They may also need some basic assembly to get the plane prepared.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    },
+    "rich_text_VzjFAx": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Why Choose RTF RC Aircraft?",
+        "content": "<ul><li><strong>Instant Flying Fun</strong>: With <a href=\"https://www.hearnshobbies.com/collections/rc-aircraft-spare-parts\"><span style=\"text-decoration:underline\">RTF RC Aircraft</span></a>, the sky's the limit – literally! These ready-to-fly models come equipped with everything you need to take to the skies straight out of the box. From the aircraft itself to the radio transmitter, battery, and charger, our RTF packages ensure that you can start flying with minimal setup time.</li><li><strong>Ease of Assembly</strong>: While our RTF RC planes are designed for hassle-free flying, some models may require basic assembly before takeoff. Don't worry – our comprehensive instructions and user-friendly design make assembly a breeze, allowing you to focus on the excitement of flying your new aircraft.</li><li><strong>Versatile Options</strong>: Whether you're interested in high-flying aerobatics, scale replicas, or leisurely cruising, our diverse range of RTF RC Aircraft has something for every pilot. From sleek sport planes to nimble trainers, explore a variety of models tailored to different skill levels and preferences.</li></ul>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_7JEjyz": {
+      "type": "faq",
+      "blocks": {
+        "separator_8MfQw6": {
+          "type": "separator",
+          "settings": {
+            "title": "FAQs"
+          }
+        },
+        "question_pyM99E": {
+          "type": "question",
+          "settings": {
+            "title": "Are RTF RC Aircraft suitable for beginners?",
+            "answer": "<p>Yes, RTF RC Aircraft are ideal for beginners as they come pre-assembled and ready to fly out of the box. They offer an easy and convenient way to start your journey into the world of remote-controlled aviation.</p>"
+          }
+        },
+        "question_UWHrLT": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need any additional equipment to fly an RTF RC Aircraft?",
+            "answer": "<p>Our RTF packages and <a href=\"https://www.hearnshobbies.com/collections/rc-aircraft-spare-parts\"><span style=\"text-decoration:underline\">RTF plane accessories</span></a> include everything you need to get started, including the aircraft, radio transmitter, battery, and charger. However, some models may require basic assembly before takeoff.</p>"
+          }
+        },
+        "question_r4w99E": {
+          "type": "question",
+          "settings": {
+            "title": "Can I upgrade or customise my RTF RC Aircraft?",
+            "answer": "<p>Yes, many RTF RC Aircraft models offer opportunities for customisation and upgrades. From performance enhancements to cosmetic modifications, you can personalise your aircraft to suit your preferences and flying style.</p>"
+          }
+        },
+        "question_ytNfbC": {
+          "type": "question",
+          "settings": {
+            "title": "What kind of support do you offer for RTF RC Aircraft?",
+            "answer": "<p>At Hearns Hobbies, we're committed to providing exceptional customer support. Whether you have questions about assembly, troubleshooting, or maintenance, our knowledgeable staff are here to assist you every step of the way.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_8MfQw6",
+        "question_pyM99E",
+        "question_UWHrLT",
+        "question_r4w99E",
+        "question_ytNfbC"
+      ],
+      "custom_css": [
+        ".container {margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    },
+    "rich_text_L8p9xe": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -40px;}",
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Ready for Takeoff?",
+        "content": "<p>Experience the thrill of flight like never before with our range of RTF RC Aircraft at Hearns Hobbies. Whether you're soaring through the clouds or performing aerobatic maneuvers, our ready-to-fly models offer excitement, convenience, and endless possibilities. Take the next step in your RC journey and elevate your adventures with Hearns Hobbies today. Make sure to follow us on <a href=\"https://www.facebook.com/HearnsHobbies/\"><span style=\"text-decoration:underline\">Facebook</span></a>, <a href=\"https://www.instagram.com/hearnshobbies/\"><span style=\"text-decoration:underline\">Instagram</span></a>, <a href=\"https://twitter.com/hearnshobbies\"><span style=\"text-decoration:underline\">Twitter</span></a>, and <a href=\"https://www.twitch.tv/hearnshobbies\"><span style=\"text-decoration:underline\">Twitch</span></a>!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "rich_text_BWjphX",
+    "main",
+    "recently-viewed-products",
+    "rich_text_VzjFAx",
+    "faq_7JEjyz",
+    "rich_text_L8p9xe"
+  ]
+}

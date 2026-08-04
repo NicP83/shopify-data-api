@@ -1,0 +1,362 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/RC-drifiting.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/drift-cars"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Rlaarlo.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/rlaarlo"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 210px; } .block-list__item > :first-child {margin: 0 5px 30px; } .container {margin-top: -50px; margin-bottom: -60px; }}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 140px; } .block-list__item > :first-child {margin: 0 5px 20px; } .container {margin: -50px auto; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 140px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "rich_text_fJnJ6d": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Radio Control",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "9681a50e-a7dd-48d2-8d56-56d15da80c19": {
+      "type": "logo-list",
+      "blocks": {
+        "1658857136aaddd98f-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_97baf592-4281-4e5d-b594-39a5dfb60919.png",
+            "title": "RC Boats",
+            "link": "shopify://collections/rc-boats"
+          }
+        },
+        "1658857136aaddd98f-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_aa41a3f5-3454-4a58-8030-00068f160977.png",
+            "title": "RC Cars",
+            "link": "shopify://collections/rc-rtr-cars-trucks"
+          }
+        },
+        "1658857136aaddd98f-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_64ff1b79-cbb5-45c6-a138-05f3d2f1a957.png",
+            "title": "RC Drift",
+            "link": "shopify://collections/drift-cars-rtr"
+          }
+        },
+        "1658857136aaddd98f-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_a3fe3fc5-c037-4556-94ab-e20be56f78c1.png",
+            "title": "RC Rock Crawler",
+            "link": "shopify://collections/rock-crawlers-rtr"
+          }
+        },
+        "1658857136aaddd98f-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_09765521-746a-42c4-861a-d0fe70c97b4b.png",
+            "title": "RC RTF Planes",
+            "link": "shopify://collections/rtf-planes"
+          }
+        },
+        "72b50e6e-f915-4f76-9c53-a5f49c9044a6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RC_Boats_icon_848246ef-f6f8-49b6-98dc-0adae63f4746.png",
+            "title": "RC Boats",
+            "link": "shopify://collections/rc-boats"
+          }
+        }
+      },
+      "block_order": [
+        "1658857136aaddd98f-0",
+        "1658857136aaddd98f-1",
+        "1658857136aaddd98f-2",
+        "1658857136aaddd98f-3",
+        "1658857136aaddd98f-4",
+        "72b50e6e-f915-4f76-9c53-a5f49c9044a6"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {border: 1px solid #e1e3e4;}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (min-width: 749px) {.quick-links__link {width: 14.28%; padding: 0px; } img {width: 180px; }}",
+        "@media (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } img {width: 120px; } .quick-links__image-container {font-size: 9.5px; margin-top: -5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "c803e13f-eedb-447c-acb8-54c0a4ba9a2a": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-4f9ffa0f--generalRCBanner_1200x_28bcfedb-d14c-4673-9415-bbaa49baa0cf.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "RC Car / Trucks RTR",
+            "button_link": "shopify://collections/rc-rtr-cars-trucks"
+          }
+        },
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-b7f4da4e--RCKITBANNER_1200x_a32049bb-76c7-4413-ba58-cb4aaf6d2853.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "RC Car / Truck Kits",
+            "button_link": "shopify://collections/rc-car-truck-kits"
+          }
+        },
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/RCPlaneimage.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "RC Planes",
+            "button_link": "shopify://collections/rc-planes"
+          }
+        },
+        "d8d027da-54ca-4f68-9f94-91a892ad204b": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/pf-f46633da--RCSparePartsBanner_1200x_36d09014-d971-4498-bfd3-6209c74a0bbb.png",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_left",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": "RC Spare Parts",
+            "button_link": "shopify://collections/rc-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-1",
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-2",
+        "template--16346399342753__c803e13f-eedb-447c-acb8-54c0a4ba9a2a-item-3",
+        "d8d027da-54ca-4f68-9f94-91a892ad204b"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1000px) {.block-list__item {width: 25%; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        "@media (min-width: 1200px) {.container {margin-bottom: -90px; }}",
+        "@media (min-width: 769px) and (max-width: 1199px) {.promo-block {min-height: 200px; } .container {margin-bottom: -90px; }}",
+        ".button {padding: 0 15px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "radio-control",
+        "title": "New Arrivals",
+        "products_count": 18,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "1658858609f2993c42": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Latest RC Blogs",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "rich_text_zRKUXp": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><strong>From RTR (Ready To Run) RC products, to completely customisable RC Kits you can build from scratch!</strong><br/><br/>Here at <a href=\"https://www.hearnshobbies.com\" target=\"_blank\">HEARNS HOBBIES</a> we stock a large variety of <a href=\"https://hearnshobbies.com/collections/radio-control\" target=\"_blank\">Radio Control</a> products, we have everything you would need for your next (or even your first!) venture into the RC Hobby!</p><p>We have been proudly supplying to the RC Hobby Community in Melbourne since 1947, we still haven't stopped! We are here for all your RC (Radio Control) needs!</p><p>With beginner safe RC selections such as <a href=\"https://hearnshobbies.myshopify.com/collections/entry-level-rc\">Entry Level</a> selections, <a href=\"https://hearnshobbies.myshopify.com/collections/rc-rtr-cars-trucks\">RTR RC's (Ready To Run)</a> pre-built for your ease aside from the occasional extra battery, <a href=\"https://hearnshobbies.myshopify.com/collections/kyosho-mini-z\">Kyosho MiniZ</a> miniature RC's that make for the perfect little pocket rocket, and much more. For the seasoned RC Enthusiasts & Professional, there are high grade, heavily customisable <a href=\"https://hearnshobbies.myshopify.com/collections/drift-cars-rtr\">Drift Cars</a> to get the perfect slide on those corners, <a href=\"https://hearnshobbies.myshopify.com/collections/race-on-road-kits\">On Road Kits</a> and <a href=\"https://hearnshobbies.myshopify.com/collections/race-off-road-kits\">Off Road Kits</a> for those who specialise in either style of racing, along with other necessary additions such as a <a href=\"https://hearnshobbies.myshopify.com/collections/radios-servos\">Radio Control</a> transmitter so you can steer your car (usually necessary if your kit doesn't come with one).</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What’s the best car for beginners?",
+            "answer": "<p>One of the best parts about RC is the incredible variety of vehicles available! Here are the best model kits for you to begin with: </p><p>Tornado: <a href=\"https://www.hearnshobbies.com/collections/tornado-rtr\">Entry Level RC</a></p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "How to get started in RC Racing?",
+            "answer": "<p>Here are <a href=\"https://www.hearnshobbies.com/blogs/news/how-to-get-started-in-rc-racing\" target=\"_blank\" title=\"https://www.hearnshobbies.com/blogs/news/how-to-get-started-in-rc-racing\">six RC racing tips</a> to get you started.</p>"
+          }
+        },
+        "1658930183f010c50f-3": {
+          "type": "question",
+          "settings": {
+            "title": "How to charge RC batteries?",
+            "answer": "<p><a href=\"https://youtu.be/ZPDd0d0Kapg\" target=\"_blank\" title=\"https://youtu.be/ZPDd0d0Kapg\">Watch</a> and <a href=\"https://www.hearnshobbies.com/blogs/news/how-to-charge-rc-car-batteries-nimh-lipo\" target=\"_blank\" title=\"https://www.hearnshobbies.com/blogs/news/how-to-charge-rc-car-batteries-nimh-lipo\">read</a> about the different types of RC car batteries, NiMH and LiPo, and how to charge them.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2",
+        "1658930183f010c50f-3"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16588471730e4c2da8",
+    "rich_text_fJnJ6d",
+    "9681a50e-a7dd-48d2-8d56-56d15da80c19",
+    "c803e13f-eedb-447c-acb8-54c0a4ba9a2a",
+    "165885854594d3994d",
+    "1658858609f2993c42",
+    "rich_text_zRKUXp",
+    "165893018363e32eb5"
+  ]
+}

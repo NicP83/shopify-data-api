@@ -1,0 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "aed20a18-4434-4334-8fe5-2ecd69a8fbdd": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Batteries & Chargers",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_enX9iR": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/NiMH_Batteries.jpg",
+            "title": "",
+            "link": "shopify://collections/nimh-batteries"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/LiPo_Batteries.jpg",
+            "title": "",
+            "link": "shopify://collections/lipo-batteries"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/LiFe_Batteries.jpg",
+            "title": "",
+            "link": "shopify://collections/life-batteries"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/LiPo_NiMH_Charger.jpg",
+            "title": "",
+            "link": "shopify://collections/chargers"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Leads_Plugs.jpg",
+            "title": "",
+            "link": "shopify://collections/leads-plugs"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 110px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {box-shadow: none !important; border: 1px solid #e1e3e4;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "aed20a18-4434-4334-8fe5-2ecd69a8fbdd",
+    "logo_list_enX9iR",
+    "main"
+  ]
+}

@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/RC-Drift_2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_tftGn7": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -40px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "RC Drift",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_8kf8QM": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rims-and-Tyres.png",
+            "title": "",
+            "link": "shopify://collections/drift-tyres"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Drift-bodies.png",
+            "title": "",
+            "link": "shopify://collections/drift-bodyshells"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2"
+      ],
+      "custom_css": [
+        ".container {margin-top: -40px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 20%; padding: 5px; box-shadow: none; } .quick-links {border: none; justify-content: center; }}",
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 50%; padding: 0px; box-shadow: none; padding: 2.5px; } .quick-links__image-container {font-size: 8px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "rich_text_tftGn7",
+    "logo_list_8kf8QM",
+    "main"
+  ]
+}

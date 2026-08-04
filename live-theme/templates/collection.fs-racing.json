@@ -1,0 +1,523 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "bb653953-b165-42c1-a12c-26363c6d892d": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16202718511265__bb653953-b165-42c1-a12c-26363c6d892d-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/FSracinglogo.png",
+            "mobile_image": "shopify://shop_images/FSracinglogo.png",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__bb653953-b165-42c1-a12c-26363c6d892d-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "5cae3fc9-19e3-4f66-a74a-513d32462ddf": {
+      "type": "custom-html",
+      "settings": {
+        "title": "",
+        "html": "<center>\n<h1>FS RACING</h1>\n<h2>FS Racing bring you a great range of RC cars which give you great performance and fun at an affordable price.</h2>\n</center>"
+      }
+    },
+    "17cbe349-e29d-49e2-9d90-621b48c05801": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-product_meta-1",
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-featured_description-1",
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-variant_selector-1",
+        "template--16202718511265__17cbe349-e29d-49e2-9d90-621b48c05801-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-victory-monster-truck-3s-bls-rtr-1-10",
+        "title": "FS Racing 1/10 Victory Green",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "be22d618-aa29-4f82-98e9-7e059bf7d26d": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-product_meta-1",
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-featured_description-1",
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-variant_selector-1",
+        "template--16202718511265__be22d618-aa29-4f82-98e9-7e059bf7d26d-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-victory-monster-truck-3s-bls-rtr-1-10-red",
+        "title": "FS Racing 1/10 Victory Red",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "d643e796-ae07-464c-80e4-a5a073faa426": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-product_meta-1",
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-featured_description-1",
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-variant_selector-1",
+        "template--16202718511265__d643e796-ae07-464c-80e4-a5a073faa426-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-grey",
+        "title": "FS RACING Rebel Monster Truck Brushed 1/10 Grey",
+        "link_title": "View details",
+        "link_url": "shopify://products/fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-grey",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "3c5733cd-5f3a-48ab-ad85-0d3540e83af9": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-product_meta-1",
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-featured_description-1",
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-variant_selector-1",
+        "template--16202718511265__3c5733cd-5f3a-48ab-ad85-0d3540e83af9-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-blue",
+        "title": "FS RACING Rebel Monster Truck Brushed 1/10 Blue",
+        "link_title": "View details",
+        "link_url": "shopify://products/fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-blue",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "1702fd46-f9fd-4a27-9d07-5ec33c7d17fb": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-product_meta-1",
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-featured_description-1",
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-variant_selector-1",
+        "template--16202718511265__1702fd46-f9fd-4a27-9d07-5ec33c7d17fb-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-red",
+        "title": "FS RACING Rebel Monster Truck Brushed 1/10 Red",
+        "link_title": "View details",
+        "link_url": "shopify://products/fs-racing-rebel-monster-truck-4x4-brushed-rtr-1-10-red",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "5fcd219c-3dcf-43a3-9099-c4c4facf0e92": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-product_meta-1",
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-featured_description-1",
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-variant_selector-1",
+        "template--16202718511265__5fcd219c-3dcf-43a3-9099-c4c4facf0e92-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-model-gt-street-basher-bls-rtr-blue-1-7",
+        "title": "FS Racing 1/7 Model GT Blue",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "249ecfb8-07b0-4a02-a952-ecab2cbe58ad": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-product_meta-1",
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-featured_description-1",
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-variant_selector-1",
+        "template--16202718511265__249ecfb8-07b0-4a02-a952-ecab2cbe58ad-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-model-gt-street-basher-bls-rtr-gunmetal-1-7",
+        "title": "FS Racing 1/7 Model GT Gunmetal",
+        "link_title": "View details",
+        "link_url": "",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "7d13c651-bafb-465c-a48a-908282e8db97": {
+      "type": "featured-product",
+      "blocks": {
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-product_meta-1": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_reviews_badge": false,
+            "show_share_buttons": true
+          }
+        },
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-featured_description-1": {
+          "type": "featured_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-variant_selector-1": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "color",
+            "show_quantity_selector": true,
+            "show_taxes_included": false,
+            "show_inventory_quantity": false,
+            "low_inventory_threshold": 0
+          }
+        },
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-buy_buttons-1": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-product_meta-1",
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-featured_description-1",
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-variant_selector-1",
+        "template--16202718511265__7d13c651-bafb-465c-a48a-908282e8db97-buy_buttons-1"
+      ],
+      "settings": {
+        "product": "fs-racing-model-dt-1-7-6s-ep-rtr",
+        "title": "FS RACING Model DT 1/7 6S EP ARTR",
+        "link_title": "View details",
+        "link_url": "shopify://products/fs-racing-model-dt-1-7-6s-ep-rtr",
+        "image_size": "small",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "zoom_effect": "outside",
+        "carousel_effect": "fade"
+      }
+    },
+    "594f6f70-ca66-4c41-a2f6-280449ce4809": {
+      "type": "video",
+      "settings": {
+        "title": "Videos",
+        "video_url": "https://www.youtube.com/watch?v=UDDQ3gZf29U"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "bb653953-b165-42c1-a12c-26363c6d892d",
+    "5cae3fc9-19e3-4f66-a74a-513d32462ddf",
+    "17cbe349-e29d-49e2-9d90-621b48c05801",
+    "be22d618-aa29-4f82-98e9-7e059bf7d26d",
+    "d643e796-ae07-464c-80e4-a5a073faa426",
+    "3c5733cd-5f3a-48ab-ad85-0d3540e83af9",
+    "1702fd46-f9fd-4a27-9d07-5ec33c7d17fb",
+    "5fcd219c-3dcf-43a3-9099-c4c4facf0e92",
+    "249ecfb8-07b0-4a02-a952-ecab2cbe58ad",
+    "7d13c651-bafb-465c-a48a-908282e8db97",
+    "594f6f70-ca66-4c41-a2f6-280449ce4809",
+    "main",
+    "recently-viewed-products"
+  ]
+}

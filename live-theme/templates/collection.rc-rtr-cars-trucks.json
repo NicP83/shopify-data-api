@@ -1,0 +1,221 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_AAEkgm": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "RC Car / Truck RTR",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "featured_collection_wUJWM3": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "ready-to-run-staff-picks",
+        "title": "Staff Picks",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "logo_list_f3Mmn3": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_FxdqEa": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Entry-Level.jpg",
+            "title": "",
+            "link": "shopify://collections/entry-level-rc"
+          }
+        },
+        "logo_8wwjYn": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Drift-Cars.jpg",
+            "title": "",
+            "link": "shopify://collections/drift-cars-rtr"
+          }
+        },
+        "logo_pBrXj3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rock-Crawlers_fd3c99ab-efba-4623-af67-ab3777590e09.jpg",
+            "title": "",
+            "link": "shopify://collections/rock-crawlers-rtr"
+          }
+        }
+      },
+      "block_order": [
+        "logo_FxdqEa",
+        "logo_8wwjYn",
+        "logo_pBrXj3"
+      ],
+      "custom_css": [
+        ".quick-links__image-ie-fix {max-width: none; padding-bottom: 0;}",
+        ".quick-links__link {padding: 5px 3px; box-shadow: none; width: 33.33%;}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".container {margin-top: -30px; margin-bottom: -60px;}",
+        "@media (min-width: 769px) {.quick-links__link {width: 33.33% !important; padding: 5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": false,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_f3b6fB": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<h2>RC Cars & Trucks RTR</h2><p>RTR (Ready to Run) <a href=\"https://www.hearnshobbies.com/pages/radio-control\" target=\"_blank\">RC Cars</a> are designed more for beginners to intermediate RC Car enthusiasts. Are you just starting out? If so, then these would be a good choice for you. Note that in some instances you may need a battery and or charger.</p><p>Hearns Hobbies has been the leading Melbourne Hobby scene for over 70 years. With such a history you can be confident that we have a strong knowledge about radio controlled cars. We have been the go-to place for RC cars, <a href=\"https://www.hearnshobbies.com/pages/radio-control-accessories\" target=\"_blank\">RC accessories</a> and parts since the early days; many Australians bought their first remote control car from Hearns Hobbies; Was it a Tamiya Hornet? Most likely it was a Tamiya Hornet which you can still buy today. Our Radio Controlled department has now expanded to the latest RC cars including brands such as <a href=\"https://www.hearnshobbies.com/collections/traxxas\" target=\"_blank\">Traxxas</a>, <a href=\"https://www.hearnshobbies.com/collections/yokomo\" target=\"_blank\">Yokomo</a>, Team Corally, Arrma, FS Racing, & Kyosho. Our product range is fully supported online but also at our two Melbourne stores.</p><p>When you visit our shops you will learn a lot more about RC cars and see that our knowledge goes well beyond cars into anything radio-controlled. We have a huge selection of the latest releases and we bring the new models on pre-order as soon as they are announced internationally. If you see any new product that yet we do not stock, make sure to get in contact to discuss the opportunity.</p><h3>Why Choose RTR RC Cars?</h3><ul><li><strong>Ideal for Beginners</strong>: If you're just starting in the world of RC Cars, RTR models are an excellent choice. These cars come pre-assembled and ready to hit the road or track, allowing you to jump right into the action without the hassle of building from scratch.</li><li><strong>Convenience and Accessibility</strong>: At Hearns Hobbies, we understand that convenience is key. That's why we offer a wide selection of RTR RC Cars, ensuring that you can find the perfect model to suit your needs and preferences. Plus, with our online store and two Melbourne locations, accessing the latest RTR models and accessories has never been easier.</li><li><strong>Expert Knowledge and Support</strong>: With over 70 years of experience in the Melbourne hobby scene, Hearns Hobbies is your trusted partner in all things RC Cars. Our knowledgeable staff are passionate enthusiasts themselves, ready to share their expertise and help you navigate the exciting world of radio-controlled vehicles.</li></ul><h3>Stay Connected with Hearns Hobbies</h3><ul><li><strong>Exclusive Pre-Orders</strong>: Be the first to get your hands on the hottest new releases by taking advantage of our exclusive pre-order opportunities. Sign up for updates and never miss out on the latest advancements in RC Car technology.</li><li><strong>Customization Options</strong>: Looking to personalize your RTR RC Car? Explore our wide range of accessories, upgrades, and customization options to take your driving experience to the next level. From upgraded motors to eye-catching body kits, the possibilities are endless.</li><li><strong>Community Engagement</strong>: Join the Hearns Hobbies community and connect with fellow RC enthusiasts through our events, workshops, and online forums. Share your passion for RC Cars, exchange tips and tricks, and be inspired by the creativity of like-minded hobbyists.</li></ul><p>Ready to Get Started?</p><p>Whether you're a newcomer to the hobby or a seasoned veteran, RTR RC Cars offer an exciting and accessible way to experience the thrill of remote-controlled racing. Discover the perfect model for your next adventure at Hearns Hobbies and embark on a journey of endless excitement and discovery. Make sure to follow us on <a href=\"https://www.facebook.com/HearnsHobbies/\" target=\"_blank\">Facebook</a>, <a href=\"https://www.instagram.com/hearnshobbies/\" target=\"_blank\">Instagram</a>, <a href=\"https://twitter.com/hearnshobbies\" target=\"_blank\">Twitter</a>, and <a href=\"https://www.twitch.tv/hearnshobbies\" target=\"_blank\">Twitch</a>!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_Ch3KzM": {
+      "type": "faq",
+      "blocks": {
+        "separator_kMYkNg": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_RM4bEb": {
+          "type": "question",
+          "settings": {
+            "title": "What Does RTR mean?",
+            "answer": "<p>RTR stands for Ready-to-Run, indicating that the RC vehicle comes fully assembled and often includes essential components for immediate use.</p>"
+          }
+        },
+        "question_aJJfXg": {
+          "type": "question",
+          "settings": {
+            "title": "If it's RTR does that mean it comes with a battery and charger?",
+            "answer": "<p>While many RTR RC cars and trucks include a battery and charger, it's essential to check the product description to confirm if they are included or need to be purchased separately.</p>"
+          }
+        },
+        "question_zfddng": {
+          "type": "question",
+          "settings": {
+            "title": "Why are electric RC cars so popular?",
+            "answer": "<p>Electric RC cars are popular due to their quieter operation, cleaner emissions, ease of control, and advancements in battery and motor technology.</p>"
+          }
+        },
+        "question_j7mDDk": {
+          "type": "question",
+          "settings": {
+            "title": "Do RC cars break?",
+            "answer": "<p>Like any mechanical device, RC cars can break under certain conditions such as crashes, rough terrain, or improper maintenance. However, with proper care and maintenance, they can provide years of enjoyment.</p>"
+          }
+        },
+        "question_nEHg4T": {
+          "type": "question",
+          "settings": {
+            "title": "Can RTR RC cars and trucks be customised or upgraded?",
+            "answer": "<p>Yes, enthusiasts can customise and upgrade RTR models with aftermarket parts, and new bodies.</p>"
+          }
+        },
+        "question_yrC64V": {
+          "type": "question",
+          "settings": {
+            "title": "What types of terrain are RTR RC cars and trucks suitable for?",
+            "answer": "<p>RTR RC vehicles vary in terrain suitability; some are for on-road, others for off-road. When considering which car to buy think about where you are going to run it and on what surfaces.</p>"
+          }
+        },
+        "question_X8z4qC": {
+          "type": "question",
+          "settings": {
+            "title": "What is the difference between Brushed and Brushless?",
+            "answer": "<p>A brushed motor is what is traditionally used in Rc cars, however they create a lot of drag with the bushes. Which reduces the top speed of the motor.</p><p>A lot of cars now run a Brushless motors. This is a 3 phase motor that runs without bushes, this reduces friction and provides a huge boost to power over traditional brushed motors.</p>"
+          }
+        },
+        "question_jfGJQi": {
+          "type": "question",
+          "settings": {
+            "title": "What is a lipo battery?",
+            "answer": "<p>A lipo battery is a gel style pack that provides an extremely high power to weight ratio. They are well regarded in the RC scene for their ability to get the most out of the Brushless Motors. Without lipo batteries, brushless motors would ot provide the output that they are so well known form.</p>"
+          }
+        },
+        "question_P7TLmY": {
+          "type": "question",
+          "settings": {
+            "title": "I’ve heard that lipo batteries can be dangerous?",
+            "answer": "<p>Lipo batteries can be dangerous if mistreated or if charged incorrectly.</p><p>Please when you charge your batteries please don’t leave them unattended.Check your settings, and if a battery has a hole in it, a cracked case or has blown up at all. It would be best to dispose of the battery and replace it.</p><p>To avoid fires always include a lipo safety bag in your battery purchase to charge and store the batteries in. This will prevent fires from leaking out and damaging what is around them.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_kMYkNg",
+        "question_RM4bEb",
+        "question_aJJfXg",
+        "question_zfddng",
+        "question_j7mDDk",
+        "question_nEHg4T",
+        "question_yrC64V",
+        "question_X8z4qC",
+        "question_jfGJQi",
+        "question_P7TLmY"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "rich_text_AAEkgm",
+    "featured_collection_wUJWM3",
+    "logo_list_f3Mmn3",
+    "main",
+    "rich_text_f3b6fB",
+    "faq_Ch3KzM"
+  ]
+}

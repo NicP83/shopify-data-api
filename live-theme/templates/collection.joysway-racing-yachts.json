@@ -1,0 +1,341 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Joysway-Landing-Page.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "3f0328f1-101f-4467-b50a-4750e4cbf811": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Joysway Racing Yachts at Hearns Hobbies Melbourne",
+        "content": "<p>Joysway have been producing racing quality RC yachts for many years now and they have excelled with their two main yachts which each have their racing class.  Firstly there is the Dragon Force (or DF65) which has been around and racing for many years now.  There is also the larger Dragon Flite (or DF95) which has now become very popular with yacht racers. Our curated collection of <a href=\"https://www.hearnshobbies.com/collections/joysway-racing-yachts\">Joysway Racing Yachts</a>, accessories and <a href=\"https://www.hearnshobbies.com/collections/joysway-dragon-force-65-v7-spare-parts\"><span style=\"text-decoration:underline\">Joysway spare parts</span></a> offers an unparalleled experience in the world of remote-controlled sailing. Perfect for both beginners and seasoned sailors, these yachts promise excitement, challenge, and satisfaction. Immerse yourself in the thrilling world of RC sailing with Joysway, a brand synonymous with quality and innovation.</p><p>The DF65 and DF95 are excellent choices for anyone interested in RC sailing, whether for competitive racing or recreational enjoyment. Their design, performance, and supportive global community make them standout choices in the world of RC sailboats.</p><p></p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "1644e55d-67c9-481e-bbef-0ccf35b965b4": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Dragon-Force-DF65.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-dragon-force"
+          }
+        },
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Dragon-Flite-DF95.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-dragon-flite"
+          }
+        },
+        "caa2db54-7b27-4b65-96b0-62987db03bdc": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/DF65-Spare-Parts.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-dragon-force-65-v7-spare-parts"
+          }
+        },
+        "ca1ef63a-5db4-4066-8015-73bd58b2cb42": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/DF95-Spare-Parts.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#000000",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "button_link": "shopify://collections/joysway-dragon-flite-95-v2-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-0",
+        "template--16105852764321__1644e55d-67c9-481e-bbef-0ccf35b965b4-1688138465ff18286f-1",
+        "caa2db54-7b27-4b65-96b0-62987db03bdc",
+        "ca1ef63a-5db4-4066-8015-73bd58b2cb42"
+      ],
+      "custom_css": [
+        ".block-list__item>:first-child {margin: 0 5px 10px; }",
+        "@media screen and (min-width: 1280px) {.block-list__item {width: 50%; }}",
+        "@media (max-width: 768px) {.block-list {flex-flow: row; flex-wrap: wrap; } .block-list__item {width: 50%; } .promo-block--small {min-height: 100px; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": true
+      }
+    },
+    "video_jXpwiH": {
+      "type": "video",
+      "custom_css": [
+        ".container {margin-top: -60px;}",
+        ".block-list__item > :first-child {margin: 0 5px 10px;}",
+        "@media (max-width: 768px) {.container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "video_url": "https://www.youtube.com/watch?v=v8prH2PeHJ4"
+      }
+    },
+    "bd1f073f-34d1-44d2-801a-5eae9f381b96": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "Why Choose Joysway Racing Yachts?",
+        "content": "<ul><li><strong>Precision and Performance</strong>: Experience unmatched sailing with models designed for optimal performance and precision handling.</li><li><strong>Innovative Design</strong>: Each <a href=\"https://www.hearnshobbies.com/collections/joysway-rc-boats\"><span style=\"text-decoration:underline\">Joysway racing yacht and boat</span></a> boasts a sleek, aerodynamic design, ensuring a smooth sailing experience.</li><li><strong>Durable Construction</strong>: Built to last, Joysway Racing Yachts are made with high-quality materials that withstand the elements.</li></ul>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "811a8acc-6441-464f-b4a9-e47fdf023532": {
+      "type": "offers",
+      "blocks": {
+        "template--16341167472801__811a8acc-6441-464f-b4a9-e47fdf023532-offer-1": {
+          "type": "offer",
+          "settings": {
+            "title": "Dragon Force 65 (DF65)",
+            "content": "<p>The DF65, a smaller counterpart to the DF95, boasts a combination of high performance and accessibility, making it a top choice for both beginners and experienced RC sailors. Here are some key aspects:</p><ul><li><strong>Design and Build: </strong>The DF65 features an ABS hull, profiled aluminum fin, and molded plastic rudder. It is based on the ICE design and has undergone significant transformations over its versions to improve quality and performance. Notable features include a carbon fiber mast and boom tubes, an extruded aluminum keel with a zinc alloy ballast bulb, and a metal-geared digital rudder servo.</li><li><strong>Sails and Rigging:</strong> It comes with 50-micron Mylar film racing sails with printed flow stripes and logo. The rig is a full-sized, fractional low-aspect rig with carbon spars and a ball-raced gooseneck, contributing to its top-tier performance.</li><li><strong>Specifications:</strong> The DF65 measures 650 mm in length, with a beam of 116.5 mm and an overall height of 1338 mm. Its sail area totals 2226 cm², divided between the mainsail (1460 cm²) and the jib (766 cm²). The total weight is around 1200g without batteries.</li><li><strong>Versions: </strong>The DF65 is available in Ready-To-Race (RTR) and Almost-Ready-To-Race (ARTR) versions. The RTR version includes a 2.4G 4CH digital proportional transmitter and receiver, while the ARTR version comes without radio gear.</li></ul>"
+          }
+        },
+        "template--16341167472801__811a8acc-6441-464f-b4a9-e47fdf023532-offer-2": {
+          "type": "offer",
+          "settings": {
+            "title": "Dragon Force 95 (DF95)",
+            "content": "<p>The DF95 is a larger and more advanced model, known for its superior design and performance capabilities. Key features include:</p><ul><li><strong>Design and Build: </strong>The DF95 features a molded plastic hull with a painted finish, a molded carbon fiber keel, and a metal-geared digital rudder servo. Its design focuses on light wind performance and stability in stronger winds.</li><li><strong>Sails and Rigging: </strong>It is equipped with 50-micron Mylar film racing sails and an advanced sail control system for precise handling. The rig's height is 1050 mm, contributing to its excellent performance.</li><li><strong>Specifications: </strong>The DF95 has a length of 950 mm, a width of 125 mm, and an overall height of 1470 mm. The sail area totals 3736 cm² (mainsail: 2314 cm², jib: 1422 cm²), and its total weight is around 2000g without batteries.</li><li><strong>Performance: </strong>The DF95's lightweight and narrow hull provides exceptional performance in light winds, and its sail plan and rigging are designed to maintain balance and control even in stronger winds.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16341167472801__811a8acc-6441-464f-b4a9-e47fdf023532-offer-1",
+        "template--16341167472801__811a8acc-6441-464f-b4a9-e47fdf023532-offer-2"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "items_per_row": 2,
+        "stack_mobile": false
+      }
+    },
+    "4d8e4638-9523-4f2d-96d1-381af6fe0b78": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: justify;}",
+        ".container {margin-top: -40px; margin-bottom: -40px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>The DF65 and DF95 are excellent choices for anyone interested in RC sailing, whether for competitive racing or recreational enjoyment. Their design, performance, and the supportive global community make them standout choices in the world of RC sailboats.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    },
+    "1d3fee47-1416-4728-ba80-ceb6794f5d36": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "radio-control",
+        "blog_posts_count": 3,
+        "title": "Blog posts",
+        "link_title": "",
+        "show_category": false,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "faq_EAAf3V": {
+      "type": "faq",
+      "blocks": {
+        "separator_aPDWjT": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_pjqdPK": {
+          "type": "question",
+          "settings": {
+            "title": "Can beginners enjoy Joysway Racing Yachts? What do I need to get started?",
+            "answer": "<p>Absolutely! Joysway offers models that are great for beginners, providing an accessible entry point into RC sailing. To get started all you need is an RTR DF65 or DF95 and some AA batteries.</p>"
+          }
+        },
+        "question_cmnG6a": {
+          "type": "question",
+          "settings": {
+            "title": "How do I choose the right yacht?",
+            "answer": "<p>Consider your level of experience, intended use, and budget. Our team at Hearns Hobbies is always here to help guide your choice. For more inquiries or assistance, don't hesitate to <a href=\"https://www.hearnshobbies.com/pages/contact-us-here\"><span style=\"text-decoration:underline\">contact us</span></a> or visit our <a href=\"https://www.hearnshobbies.com/\"><span style=\"text-decoration:underline\">Hobby Shop in Melbourne</span></a> or Narre Warren.</p>"
+          }
+        },
+        "question_Ccc8ND": {
+          "type": "question",
+          "settings": {
+            "title": "What do I need to get started?",
+            "answer": "<p>To get started all you need is an <a href=\"https://www.hearnshobbies.com/products/joysway-dragon-force-65-v7-racing-class-df65-yacht-rtr\"><span style=\"text-decoration:underline\">RTR DF65</span></a> or <a href=\"https://www.hearnshobbies.com/products/joysway-dragon-flite-95-v2-racing-class-df95-yacht-rtr\"><span style=\"text-decoration:underline\">DF95</span></a> and some AA batteries.</p>"
+          }
+        },
+        "question_yd7nfG": {
+          "type": "question",
+          "settings": {
+            "title": "Where can I sail my yacht?",
+            "answer": "<p>You can sail your yacht in most freshwater lakes. Please be sure to get onto your local club by Googling or checking Facebook. And if you can't find one, maybe you could start one!</p>"
+          }
+        },
+        "question_Jpw6BQ": {
+          "type": "question",
+          "settings": {
+            "title": "What happens if something breaks on my yacht?",
+            "answer": "<p>We offer a full range of spares to help stay afloat and sailing.</p>"
+          }
+        },
+        "question_4jMAEq": {
+          "type": "question",
+          "settings": {
+            "title": "Can I order online if I'm not in Melbourne?",
+            "answer": "<p>Yes, we ship nationwide or international, offering hobbyists across Australia and the world access to our premier collection of Joysway Racing Yachts. Watch our video about <a href=\"https://youtu.be/v8prH2PeHJ4\"><span style=\"text-decoration:underline\">Joysway Racing Yachts</span></a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_aPDWjT",
+        "question_pjqdPK",
+        "question_cmnG6a",
+        "question_Ccc8ND",
+        "question_yd7nfG",
+        "question_Jpw6BQ",
+        "question_4jMAEq"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "3f0328f1-101f-4467-b50a-4750e4cbf811",
+    "1644e55d-67c9-481e-bbef-0ccf35b965b4",
+    "video_jXpwiH",
+    "bd1f073f-34d1-44d2-801a-5eae9f381b96",
+    "811a8acc-6441-464f-b4a9-e47fdf023532",
+    "4d8e4638-9523-4f2d-96d1-381af6fe0b78",
+    "main",
+    "1d3fee47-1416-4728-ba80-ceb6794f5d36",
+    "faq_EAAf3V"
+  ]
+}

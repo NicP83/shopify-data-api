@@ -1,0 +1,134 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "521d0f7d-faa3-42f5-89e0-eb5795975795": {
+      "type": "slideshow",
+      "blocks": {
+        "b479b150-f15f-448b-87fd-a6ce9915d152": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Off-Road-RC-Kits-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b479b150-f15f-448b-87fd-a6ce9915d152"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_tG8m3d": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Off-Road RC Kits",
+        "content": "<p>At Hearns Hobbies with have a range of Off-Road RC Cars which come in kit form so will require assembly before running.  Some of these will come with most of what you need to run them in their box while others will come with a basic chassis and be ready to customise with all the extra components you require to set it up to your specifications.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "63e12fa4-a0ef-469a-b2de-36d84e9844ef": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16113430593697__63e12fa4-a0ef-469a-b2de-36d84e9844ef-16886831836febb7d4-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Off-Road-RC-Kits-Page_Yokomo.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/yokomo-off-road-rc-kits"
+          }
+        },
+        "template--16113430593697__63e12fa4-a0ef-469a-b2de-36d84e9844ef-16886831836febb7d4-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Off-Road-RC-Kits-Page_HB-Racing.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/hb-racing-off-road-rc-kits"
+          }
+        }
+      },
+      "block_order": [
+        "template--16113430593697__63e12fa4-a0ef-469a-b2de-36d84e9844ef-16886831836febb7d4-0",
+        "template--16113430593697__63e12fa4-a0ef-469a-b2de-36d84e9844ef-16886831836febb7d4-1"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "521d0f7d-faa3-42f5-89e0-eb5795975795",
+    "rich_text_tG8m3d",
+    "63e12fa4-a0ef-469a-b2de-36d84e9844ef",
+    "main"
+  ]
+}

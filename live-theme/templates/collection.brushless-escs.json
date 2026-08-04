@@ -1,0 +1,160 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "a6683682-4f93-490c-b9ab-eb59859252e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Brushless-ESCs-Landing-Page_-Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16011875942561__a6683682-4f93-490c-b9ab-eb59859252e5-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": false,
+        "cycle_speed": 5
+      }
+    },
+    "b77733a1-8b3c-418f-b1ba-f68556527dae": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Brushless ESCs",
+        "content": "<p>To ensure that you are able to maintain full control of your speed and direction whenusing your RC vehicle which has been equipped with a Brushless Motor you will need to have a suitable Brushless ESC.  We have a great range of Brushless ESCs at Hearns Hobbies.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_7xEk3G": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/ORCA.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/orca-brushless-escs"
+          }
+        },
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Arrowmax.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/arrowmax-brushless-escs"
+          }
+        },
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Hobbywing.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#4f5558",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "button_link": "shopify://collections/hobbywing-brushless-escs"
+          }
+        }
+      },
+      "block_order": [
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-0",
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-1",
+        "template--16114828640417__0f0ded71-eb81-4d3b-8672-4ff4236f1b3f-1689010182dee79ecb-2"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 230px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 170px; } .block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 195px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "a6683682-4f93-490c-b9ab-eb59859252e5",
+    "b77733a1-8b3c-418f-b1ba-f68556527dae",
+    "promotion_list_7xEk3G",
+    "main"
+  ]
+}

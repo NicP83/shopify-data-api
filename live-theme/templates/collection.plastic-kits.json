@@ -1,0 +1,280 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16588471730e4c2da8": {
+      "type": "promotion-list",
+      "blocks": {
+        "1658847173d45a1fa0-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Art-Scale-Kits.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#6f42ef",
+            "button_text": "",
+            "button_link": "shopify://collections/art-scale-kits"
+          }
+        },
+        "1658847173d45a1fa0-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Meng_2628148b-ddd2-474e-84c7-7bb302d014f4.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "top_left",
+            "button_background": "#ffffff",
+            "button_text_color": "#fc2a68",
+            "button_text": "",
+            "button_link": "shopify://collections/meng"
+          }
+        }
+      },
+      "block_order": [
+        "1658847173d45a1fa0-0",
+        "1658847173d45a1fa0-1"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 240px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -50px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 170px; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 150px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -50px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "rich_text_mtgyeN": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "MODEL KITS OF PLANES, CARS, SHIPS AND MORE!",
+        "content": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "a5c612cc-7455-4bbe-a429-b74f6213cbca": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_4623d42a-6668-4a30-9129-ebbc8db3abf5.png",
+            "title": "Beginner Model Kits",
+            "link": "shopify://collections/beginner-model-kits"
+          }
+        },
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_2f199bc7-5eb1-46c4-91bf-e3c4e4b855e8.png",
+            "title": "Aircraft",
+            "link": "shopify://collections/all-plastic-aircraft-kits"
+          }
+        },
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_6b36f74c-9cad-4361-b4af-779071d1e4f1.png",
+            "title": "Armour",
+            "link": "shopify://collections/armour"
+          }
+        },
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_771c739c-d8e0-4a95-9f6c-b4c88fbd64d6.png",
+            "title": "Motor Vehicles",
+            "link": "shopify://collections/model-kit-cars"
+          }
+        },
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8_5db5d680-8e37-469d-becb-d8a8c053b83c.png",
+            "title": "Water Craft",
+            "link": "shopify://collections/ship-kits"
+          }
+        },
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3_9f2b22ea-0562-4d01-b5c0-42b1cb33b7a7.png",
+            "title": "Figures & Buildings",
+            "link": "shopify://collections/plastic-model-buildings"
+          }
+        },
+        "4ab9468a-6090-424c-9c71-a682dc4087b3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6_fa08200c-ff97-462f-8d43-9115ac8a8d40.png",
+            "title": "Gundam",
+            "link": "shopify://collections/gundam"
+          }
+        },
+        "a1b1dd73-6570-4ede-bec7-d3a580f564df": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6_b11b0564-ffbb-49bf-a903-4a8d0e504368.png",
+            "title": "Tabletop Gaming & Miniatures",
+            "link": "shopify://collections/tabletop-gaming"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-1",
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-2",
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-3",
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-4",
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-5",
+        "template--16346398982305__a5c612cc-7455-4bbe-a429-b74f6213cbca-logo-6",
+        "4ab9468a-6090-424c-9c71-a682dc4087b3",
+        "a1b1dd73-6570-4ede-bec7-d3a580f564df"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -20px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9px; margin-top: -5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_VbD9eK": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "<p><a href=\"https://hearnshobbies.com/\" target=\"_blank\">HEARNS HOBBIES</a> have a vast variety of model kits to cover every interest. Whether your interest is <a href=\"https://hearnshobbies.myshopify.com/collections/aircraft\">aircraft</a>,<a href=\"https://hearnshobbies.myshopify.com/collections/armour\">military vehicles</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/model-kit-cars\">cars</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/plastic-model-buildings\">buildings</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/movie-tv\">movie subjects</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/ships\">ships </a>or <a href=\"https://hearnshobbies.myshopify.com/collections/gundams\">Gundam </a>we have it all. We also have a range of wooden kits which extends to ships and planes. Our team has extensive knowledge in model making including scratch building & painting so they can offer the advice on what is the best kit for you regardless if you are a beginner or a more advanced modeller.<br/><br/>We are leading supplier for hobbies in Melbourne and in Australia since 1947; since then we have been committed to bring into Australia the models and the tools that you need to create the diorama of your dreams!<br/><br/>Key brands and leading manufacturer of plastic model kits are: <a href=\"https://hearnshobbies.myshopify.com/collections/arifix\">Airfix</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/tamiya\">Tamiya</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/trumpeter\">Trumpeter</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/italeri\">Italeri</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/copper-state-models\">Copper State model</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/bandai\">Bandai </a>and many more.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "1658858609f2993c42": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "model-kits",
+        "blog_posts_count": 3,
+        "title": "Latest Model Kits Blogs",
+        "link_title": "View all",
+        "show_category": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": false,
+        "stack_mobile": false
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "What are the top 3 brands?",
+            "answer": "<p>These three are some of the world's largest manufacturers of plastic model kits, and their product line includes a wide range of popular subjects such as aircraft, tanks and military vehicles, figures, cars, trucks, and motorcycles in a variety of common scales:</p><p>▪ <a href=\"https://www.hearnshobbies.com/collections/tamiya-model-kits\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/tamiya\">Tamiya</a></p><p>▪ <a href=\"https://www.hearnshobbies.com/collections/airfix\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/airfix\">Airfix</a></p><p>▪ <a href=\"https://www.hearnshobbies.com/collections/italeri\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/italeri\">Italeri</a></p>"
+          }
+        },
+        "1658930183f010c50f-2": {
+          "type": "question",
+          "settings": {
+            "title": "What scale is right for me?",
+            "answer": "<p>If you are a beginner, generally speaking, a larger scale may be easier to work with, but smaller scale models are often simpler. If you are looking at an armor kit (tanks), a 1/35 scale Tamiya is a great starting point. For aircraft, a 1/48 scale Tamiya is a good option. </p>"
+          }
+        },
+        "1658930183f010c50f-3": {
+          "type": "question",
+          "settings": {
+            "title": "What are the most common scales?",
+            "answer": "<p>While the answer may not be as black and white and very subjective, some categories have a clear winner: Armour 1/35 and Cars 1/24.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1",
+        "1658930183f010c50f-2",
+        "1658930183f010c50f-3"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "16588471730e4c2da8",
+    "rich_text_mtgyeN",
+    "a5c612cc-7455-4bbe-a429-b74f6213cbca",
+    "main",
+    "rich_text_VbD9eK",
+    "1658858609f2993c42",
+    "165893018363e32eb5"
+  ]
+}

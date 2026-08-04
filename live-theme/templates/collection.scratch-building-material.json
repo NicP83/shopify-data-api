@@ -1,0 +1,221 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "c1a77747-3e15-4d34-818b-f961a2450538": {
+          "type": "image",
+          "settings": {
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1a77747-3e15-4d34-818b-f961a2450538"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "122c2cc6-71e5-4377-8814-e11d9490997b": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Scratch Building Materials",
+        "content": "<p>For all of the keen modellers who enjoy building their models from scratch we have a large range of useful building materials to help you to turn your ideas into reality.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_8ytLcB": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-0": {
+          "type": "logo",
+          "settings": {
+            "title": "Plastic",
+            "link": "shopify://collections/materials-plastic-styrene"
+          }
+        },
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-1": {
+          "type": "logo",
+          "settings": {
+            "title": "Aluminum",
+            "link": "shopify://collections/materials-aluminium"
+          }
+        },
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-2": {
+          "type": "logo",
+          "settings": {
+            "title": "Brass",
+            "link": "shopify://collections/materials-brass"
+          }
+        },
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-3": {
+          "type": "logo",
+          "settings": {
+            "title": "Balsa",
+            "link": "shopify://collections/materials-balsa"
+          }
+        },
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-4": {
+          "type": "logo",
+          "settings": {
+            "title": "Birch",
+            "link": "shopify://collections/materials-birch"
+          }
+        },
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-5": {
+          "type": "logo",
+          "settings": {
+            "title": "Carbon Fibre",
+            "link": "shopify://collections/carbon-fibre"
+          }
+        },
+        "8841b2e5-e21d-460f-83a3-85e3ab77896c": {
+          "type": "logo",
+          "settings": {
+            "title": "Stainless Steel",
+            "link": "shopify://collections/materials-stainless-steel"
+          }
+        },
+        "5fc41779-5bad-4fe2-825e-3fa8f105287c": {
+          "type": "logo",
+          "settings": {
+            "title": "Copper",
+            "link": "shopify://collections/materials-copper"
+          }
+        }
+      },
+      "block_order": [
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-0",
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-1",
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-2",
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-3",
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-4",
+        "template--16123624751265__7ba137dc-53fe-4780-a815-f6590d20b6d0-1689596142cd5a0b30-5",
+        "8841b2e5-e21d-460f-83a3-85e3ab77896c",
+        "5fc41779-5bad-4fe2-825e-3fa8f105287c"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } img {width: 150px; padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_8ewKUp": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0": {
+          "type": "logo",
+          "settings": {
+            "title": "Tubes",
+            "link": "shopify://collections/tubes"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1": {
+          "type": "logo",
+          "settings": {
+            "title": "Sheets",
+            "link": "shopify://collections/sheets"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2": {
+          "type": "logo",
+          "settings": {
+            "title": "Strips",
+            "link": "shopify://collections/strips"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3": {
+          "type": "logo",
+          "settings": {
+            "title": "Music Wire",
+            "link": "shopify://collections/music-wire"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4": {
+          "type": "logo",
+          "settings": {
+            "title": "Rods",
+            "link": "shopify://collections/rods"
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; box-shadow: none; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "122c2cc6-71e5-4377-8814-e11d9490997b",
+    "logo_list_8ytLcB",
+    "logo_list_8ewKUp",
+    "main"
+  ]
+}

@@ -1,0 +1,276 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Hobby-Tools-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_trcfnP": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Model & Hobby Tools",
+        "content": "<p>Whenever you are preparing to work on your great hobby project it is always an advantage to have a reliable set of hobby tools to help you along the way.  From hobby knives and nippers through to sculpting tools, cutting mats, sanding tools and more, these are all designed to make your project easier and will often make it look more professional at the same time.  We have a great selection of hobby and model tools available at Hearns Hobbies.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_kcHAEe": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Cutting-Tools.jpg",
+            "title": "Cutting Tools",
+            "link": "shopify://collections/cutting-tools"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Drills-_-Taps.jpg",
+            "title": "Drills & Taps",
+            "link": "shopify://collections/drills-taps"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Files-_-Chisels.jpg",
+            "title": "Files & Chisels",
+            "link": "shopify://collections/files-chisels"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Pliers-_-Clamps.jpg",
+            "title": "Pliers & Clamps",
+            "link": "shopify://collections/pliers-clamps"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sanding-_-Polishing.jpg",
+            "title": "Sanding & Polishing",
+            "link": "shopify://collections/sanding-polishing"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sculpting-Tools.jpg",
+            "title": "Sculpting Tools",
+            "link": "shopify://collections/scuplting"
+          }
+        },
+        "31379ba6-8c5e-4f06-805e-25cc81413f08": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tweezers.jpg",
+            "title": "Tweezers",
+            "link": "shopify://collections/tweezers"
+          }
+        },
+        "e4878eb8-bdc2-4fed-9849-faf24da12303": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Woodwork-Tools.jpg",
+            "title": "Woodwork Tools",
+            "link": "shopify://collections/woodworking"
+          }
+        },
+        "33551596-2e5a-4e2d-8645-43888662dde8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Magnifiers.jpg",
+            "title": "Magnifiers",
+            "link": "shopify://collections/magnifying"
+          }
+        },
+        "4fcb1107-e293-4160-9e53-cf1fa9748632": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Brushes-_-Cleaners.jpg",
+            "title": "Brushes & Cleaners",
+            "link": "shopify://collections/paint-brushes-cleaners"
+          }
+        },
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Painting-Accessories.jpg",
+            "title": "Painting Accessories",
+            "link": "shopify://collections/painting-accessories"
+          }
+        },
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Putty-_-Fillers.jpg",
+            "title": "Putty & Fillers",
+            "link": "shopify://collections/putty-fillers"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-4",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-5",
+        "31379ba6-8c5e-4f06-805e-25cc81413f08",
+        "e4878eb8-bdc2-4fed-9849-faf24da12303",
+        "33551596-2e5a-4e2d-8645-43888662dde8",
+        "4fcb1107-e293-4160-9e53-cf1fa9748632",
+        "2557fc81-2b1f-47e1-98c1-15231f615aa7",
+        "440f0be0-43a2-4c2f-8ee6-a9b053ca242e"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 5px; } img {width: 160px; }}",
+        ".quick-links__image-ie-fix {max-width: 160px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".container {margin-top: -30px; margin-bottom: -50px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_E9RCJL": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Model_Kits___Paints-16.png",
+            "title": "Excel",
+            "link": "shopify://collections/excel-hobby-tools"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ninesteps.png",
+            "title": "Ninesteps",
+            "link": "shopify://collections/ninesteps-industries-hobby-tools"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Model_Kits___Paints-08.png",
+            "title": "Godhand",
+            "link": "shopify://collections/godhand"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya_63bb7d01-316f-4032-96ac-cb7afd94b134.png",
+            "title": "Tamiya",
+            "link": "shopify://collections/tamiya-modelling-tools"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Green_Stuff_World.png",
+            "title": "Green Stuff World",
+            "link": "shopify://collections/green-stuff-world-tools"
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.67%; padding: 5px; box-shadow: none; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; box-shadow: none; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 10px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "rich_text_trcfnP",
+    "logo_list_kcHAEe",
+    "logo_list_E9RCJL",
+    "main"
+  ]
+}

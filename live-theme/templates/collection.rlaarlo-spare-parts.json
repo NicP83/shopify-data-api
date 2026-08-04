@@ -1,0 +1,150 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "e7486e93-9019-4f7f-acec-934508f2ee5b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rlaarolo_Brand_Image_53f86a38-cbbc-4dc6-90bb-76c4dd5768b9.webp",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16370129305761__e7486e93-9019-4f7f-acec-934508f2ee5b-image-1"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_KRVejD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "narrow",
+        "title": "Rlaarlo Spare Parts",
+        "content": "<p>We stock a large range of parts to keep your Rlaarlo Car performing to its optimum level.  Choose your car from the list below to find all of the spare parts for that car.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_dqDdKj": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_qQH8zd": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/MK07W_Rock_Crawler.webp",
+            "title": "MK-07",
+            "link": "shopify://collections/rlaarlo-mk-07-parts"
+          }
+        },
+        "logo_UGx8V3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/ROG14_1-14_Monster_Truck.webp",
+            "title": "ROG1",
+            "link": "shopify://collections/rlaarlo-rog1-parts"
+          }
+        },
+        "logo_r8nBda": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/RZ001G_Omni_Terminator_1-10_Monster_Truck.webp",
+            "title": "RZ001",
+            "link": "shopify://collections/rlaarlo-rz001-parts"
+          }
+        },
+        "logo_id3pTg": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/X12S_1-12_Buggy.webp",
+            "title": "X12S",
+            "link": "shopify://collections/rlaarlo-x12s-parts"
+          }
+        },
+        "logo_cRC3be": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/XTS-F10Z_1-10_Rally_Car.webp",
+            "title": "XTS F10",
+            "link": "shopify://collections/rlaarlo-xts-f10-parts"
+          }
+        }
+      },
+      "block_order": [
+        "logo_qQH8zd",
+        "logo_UGx8V3",
+        "logo_r8nBda",
+        "logo_id3pTg",
+        "logo_cRC3be"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {.quick-links__image-ie-fix {width: 90px !important; } .quick-links__link {width: 33.33% !important; }}",
+        ".container {margin-top: -50px; margin-bottom: -30px;}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".quick-links__link {padding: 0; border: none; box-shadow: none; width: 20%;}",
+        ".section__header {justify-content: center;}",
+        ".quick-links__image-ie-fix {width: 180px; max-width: none;}"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "e7486e93-9019-4f7f-acec-934508f2ee5b",
+    "rich_text_KRVejD",
+    "logo_list_dqDdKj",
+    "main"
+  ]
+}

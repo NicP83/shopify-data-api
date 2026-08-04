@@ -1,0 +1,222 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Orca-RC-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "619d6544-6f33-418b-8190-8f6878dc648f": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "{{ collection.metafields.custom.main_content_title.value }}",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_KegWbf": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Motors.jpg",
+            "title": "Orca Brushless RC Motors",
+            "link": "shopify://collections/orca-brushless-motors"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/ESC.jpg",
+            "title": "Orca Brushless RC ESC",
+            "link": "shopify://collections/orca-brushless-escs"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Batteries.jpg",
+            "title": "Orca LiPo Batteries",
+            "link": "shopify://collections/orca-lipo-batteries"
+          }
+        },
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Accessories.jpg",
+            "title": "Orca Accessories",
+            "link": "shopify://collections/orca-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-0",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-1",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-2",
+        "template--16117283586209__6e4bfa44-182f-48a3-aff8-3bd3079521a5-1688685528da2bce4c-3"
+      ],
+      "custom_css": [
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media (min-width: 1200px) {.quick-links__link {width: 20%; padding: 5px; box-shadow: none; }}",
+        "@media (max-width: 1199px) {.quick-links__link {width: 25%; padding: 5px; box-shadow: none; }}",
+        "@media (max-width: 768px) {.quick-links__link {width: 25%; } .section__header {padding-left: 15px; padding-right: 15px; } .quick-links__image-container {font-size: 8px; }}",
+        ".quick-links {border: none; justify-content: center;}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        "img {margin-bottom: 5px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_ET8eiE": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_aCC7YK": {
+      "type": "faq",
+      "blocks": {
+        "separator_fxgxWM": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_7hJfEm": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_1.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_1 | metafield_tag }}"
+          }
+        },
+        "question_N8Mxcy": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_2.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_2 | metafield_tag }}"
+          }
+        },
+        "question_Q7UqjP": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_3.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_3 | metafield_tag }}"
+          }
+        },
+        "question_9Qt7Kr": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_4.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_4 | metafield_tag }}"
+          }
+        },
+        "question_rD9prQ": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_5.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_5 | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "separator_fxgxWM",
+        "question_7hJfEm",
+        "question_N8Mxcy",
+        "question_Q7UqjP",
+        "question_9Qt7Kr",
+        "question_rD9prQ"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "619d6544-6f33-418b-8190-8f6878dc648f",
+    "logo_list_KegWbf",
+    "main",
+    "rich_text_ET8eiE",
+    "faq_aCC7YK"
+  ]
+}

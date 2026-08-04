@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Boxing-Day-Sale-Landing-Page.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "regular",
+        "title": "Boxing Day Sale",
+        "content": "<p>Grab a great bargain on a good range of high quality products which have been reduced to clear at Hearns Hobbies this Boxing Day sale.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "7a0bbb6f-f22c-4a6a-8e77-e02daf88e888": {
+      "type": "faq",
+      "blocks": {
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-0": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-1": {
+          "type": "question",
+          "settings": {
+            "title": "What are tabletop gaming products?",
+            "answer": "<p>Tabletop gaming products refer to miniature figurines, terrain, and accessories used in tabletop games like Warhammer and other tabletop games.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-2": {
+          "type": "question",
+          "settings": {
+            "title": "What brands are well known for tabletop gaming products?",
+            "answer": "<p>Some well-known brands for tabletop gaming products include Games Workshop (Warhammer), Kromlech, Green Stuff World, and others.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-3": {
+          "type": "question",
+          "settings": {
+            "title": "What types of products does Kromlech offer?",
+            "answer": "<p>Kromlech offers a variety of products for tabletop gaming including miniatures, terrain, conversion bits, and tools.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-5": {
+          "type": "question",
+          "settings": {
+            "title": "What are the main features of Green Stuff World products?",
+            "answer": "<p>Green Stuff World products are known for their high-quality, versatility, and ease of use. They offer a range of modeling materials for tabletop gaming and other hobbyist uses.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-6": {
+          "type": "question",
+          "settings": {
+            "title": "What type of games can be played with Warhammer products?",
+            "answer": "<p>Warhammer products are used primarily for playing tabletop games like Warhammer 40,000 and Age of Sigmar.</p>"
+          }
+        },
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-8": {
+          "type": "question",
+          "settings": {
+            "title": "What is the quality of Kromlech products?",
+            "answer": "<p>Kromlech products are known for their high-quality and attention to detail. They are popular among tabletop gamers for their durability and realism.</p>"
+          }
+        },
+        "82cc1a0f-bba1-4a99-b458-74fd7128cce7": {
+          "type": "question",
+          "settings": {
+            "title": "What is the price range for Green Stuff World products?",
+            "answer": "<p>The price range for Green Stuff World products can vary, but they are generally considered to be affordable compared to other tabletop gaming brands.</p>"
+          }
+        },
+        "795a556e-f558-4780-8336-ff10f13b4e32": {
+          "type": "question",
+          "settings": {
+            "title": "What types of accessories does Warhammer offer?",
+            "answer": "<p>Warhammer offers a range of accessories including terrain, miniatures, conversion bits, paints, and tools.</p>"
+          }
+        },
+        "7ba47056-a6ad-44e5-864a-55653c6a00ba": {
+          "type": "question",
+          "settings": {
+            "title": "Are Kromlech products suitable for beginners?",
+            "answer": "<p>Kromlech products are suitable for both beginners and experienced tabletop gamers. They offer a range of products that cater to different skill levels.</p>"
+          }
+        },
+        "8c6e8c96-2488-4083-ae6d-b93c59bd7d00": {
+          "type": "question",
+          "settings": {
+            "title": "Is Green Stuff World only for tabletop gaming?",
+            "answer": "<p>Green Stuff World products are not only for tabletop gaming, but can also be used for other hobbyist purposes like model building and sculpting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-0",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-1",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-2",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-3",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-5",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-6",
+        "template--16009060286625__7a0bbb6f-f22c-4a6a-8e77-e02daf88e888-1675701084c75cd23c-8",
+        "82cc1a0f-bba1-4a99-b458-74fd7128cce7",
+        "795a556e-f558-4780-8336-ff10f13b4e32",
+        "7ba47056-a6ad-44e5-864a-55653c6a00ba",
+        "8c6e8c96-2488-4083-ae6d-b93c59bd7d00"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "7be3d948-dd6e-470c-8cb2-c70bb1b64667",
+    "main",
+    "7a0bbb6f-f22c-4a6a-8e77-e02daf88e888"
+  ]
+}

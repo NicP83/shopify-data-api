@@ -1,0 +1,169 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "1658857116d060bdc6": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {margin: -45px 0;}"
+      ],
+      "settings": {
+        "title": "",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\">\n<div class=\"rte text--pull\">\nBrace yourself for a hug once they open your gift! <a href=\"https://hearnshobbies.myshopify.com/collections/educational-toys\">Toys</a> make excellent gifts for people of all ages, especially children. It can be both their new awesome toy and an <a href=\"https://hearnshobbies.myshopify.com/collections/educational-toys\">educational</a> tool, as toys have been shown to benefit a child's learning. <a href=\"https://hearnshobbies.com\">Hearns Hobbies</a> carries <a href=\"https://hearnshobbies.myshopify.com/collections/educational-board-games\">board games</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/educational-meccano\">Meccano</a> Australia, <a href=\"https://hearnshobbies.myshopify.com/collections/puzzles\">puzzles</a>, <a href=\"https://hearnshobbies.myshopify.com/collections/construction-toys\">construction toys</a>, and other <a href=\"https://hearnshobbies.myshopify.com/collections/educational-toys\">educational toys</a>.<br><br>\nOur toys encourage creative and inventive play, which not only provides a fun time at playtime but also helps to develop problem-solving skills and hands-on learning. And for those who are difficult to purchase for and enjoy doing their shopping online, a Hearns Hobbies <a href=\"https://hearnshobbies.myshopify.com/collections/gifts-cards\">Gift Card</a> makes the perfect present.\n</div>\n<button class=\"expandable-content__toggle\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "cc602625-3dc5-48ec-a77f-c63d3c3c0d2c": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/17.png",
+            "title": "Toys",
+            "link": "shopify://collections/educational-3"
+          }
+        },
+        "logo_q6Vbnz": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Slot_Set.png",
+            "title": "Slot Car Sets",
+            "link": "shopify://collections/slot-car-sets"
+          }
+        },
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6.png",
+            "title": "Games",
+            "link": "shopify://collections/games"
+          }
+        },
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/18.png",
+            "title": "Construction",
+            "link": "shopify://collections/construction-toys"
+          }
+        },
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7.png",
+            "title": "Puzzles",
+            "link": "shopify://collections/puzzles"
+          }
+        },
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8.png",
+            "title": "Kites & Rockets",
+            "link": "shopify://collections/rockets-kites"
+          }
+        },
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/19.png",
+            "title": "Steam Engines",
+            "link": "shopify://collections/steam-engines"
+          }
+        },
+        "2f9bd68b-8e1d-46ac-b7bb-7e4a5fbd7ac5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/20.png",
+            "title": "Gift Cards",
+            "link": "shopify://collections/gifts-cards"
+          }
+        }
+      },
+      "block_order": [
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-1",
+        "logo_q6Vbnz",
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-2",
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-3",
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-4",
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-5",
+        "template--16346398326945__cc602625-3dc5-48ec-a77f-c63d3c3c0d2c-logo-6",
+        "2f9bd68b-8e1d-46ac-b7bb-7e4a5fbd7ac5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -60px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin-top: -5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "165885854594d3994d": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "gifts-education",
+        "title": "New Arrivals",
+        "products_count": 15,
+        "layout": "vertical",
+        "stack_products": true,
+        "show_quick_buy": true,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "165893018363e32eb5": {
+      "type": "faq",
+      "blocks": {
+        "e746d493-de42-4121-abbd-500eca50155d": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "1658930183f010c50f-1": {
+          "type": "question",
+          "settings": {
+            "title": "Can I buy a gift card?",
+            "answer": "<p>Absolutely! For those who are difficult to purchase for and enjoy doing their shopping online, a <a href=\"https://www.hearnshobbies.com/collections/gifts-cards\" target=\"_blank\" title=\"https://www.hearnshobbies.com/collections/gifts-cards\">Hearns Hobbies Gift Card</a> makes the perfect present.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e746d493-de42-4121-abbd-500eca50155d",
+        "1658930183f010c50f-1"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Frequently Asked Questions",
+        "contact_info_text": "",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1658857116d060bdc6",
+    "cc602625-3dc5-48ec-a77f-c63d3c3c0d2c",
+    "165885854594d3994d",
+    "165893018363e32eb5"
+  ]
+}

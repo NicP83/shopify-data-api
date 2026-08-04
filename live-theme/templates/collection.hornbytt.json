@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "b695e900-ff53-4f82-a497-08258480972b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16109549158561__b695e900-ff53-4f82-a497-08258480972b-168788349471a564f2-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Hornby-TT-Landing-Page_Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16109549158561__b695e900-ff53-4f82-a497-08258480972b-168788349471a564f2-0"
+      ],
+      "settings": {
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "13738c87-4626-4936-9597-1271ab8a9840": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Hornby TT",
+        "content": "<p>Hornby have introduced their new range of products which cater for the TT:120 scale.  These new products are designed to allow model railroad enthusiasts to fit more into a smaller space.  TT:120 is smaller than the normal OO gauge but larger than N gauge.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_AxHnG6": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Train_Sets.jpg",
+            "title": "Train Sets",
+            "link": "shopify://collections/hornby-tt-train-sets"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Locomotives.jpg",
+            "title": "Locomotives",
+            "link": "shopify://collections/hornby-tt-locomotives"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Rolling_Stock.jpg",
+            "title": "Rolling Stock",
+            "link": "shopify://collections/hornby-tt-rolling-stock"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tracks_Accessories.jpg",
+            "title": "Track & Accessories",
+            "link": "shopify://collections/hornby-tt-track-accessories"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Buildings.jpg",
+            "title": "Buildings",
+            "link": "shopify://collections/hornby-tt-buildings"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-4",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links {justify-content: center; border: none; } .quick-links__link {width: 33.33%; padding: 0px; border: 1px solid #e1e3e4; padding: 5px; } img {width: 90px; padding: 5px; } .quick-links__image-container {font-size: 9.5px; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "b695e900-ff53-4f82-a497-08258480972b",
+    "13738c87-4626-4936-9597-1271ab8a9840",
+    "logo_list_AxHnG6",
+    "main",
+    "recently-viewed-products"
+  ]
+}

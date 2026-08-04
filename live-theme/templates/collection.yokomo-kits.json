@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_MKnWXp": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Yokomo RC Kits",
+        "content": "<p>Yokomo is one of Japan's top manufacturers for RC Cars, having been around since 1965. Yokomo have become a world renowned brand for all RC Car fans. At Hearns Hobbies we have a range of the latest remote control car kits to suit the avid racer as well as the casual driver.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "promotion_list_YkdCNy": {
+      "type": "promotion-list",
+      "blocks": {
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Off-Road_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": ""
+          }
+        },
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-On-Road_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 0,
+            "stretch_image": true,
+            "background": "#f3f4f4",
+            "text_color": "#4f5558",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": ""
+          }
+        },
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Yokomo-Drift_1.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 0,
+            "stretch_image": true,
+            "background": "#25140a",
+            "text_color": "#ff4713",
+            "title": "",
+            "content": "",
+            "content_position": "bottom_right",
+            "button_background": "#ff4713",
+            "button_text_color": "#ffffff",
+            "button_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-0",
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-1",
+        "template--16113414537377__0c5fc604-7781-4cb2-9092-ac102b3332bb-1688143062dcbf378f-2"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1200px) {.promo-block {min-height: 230px; } .block-list__item > :first-child {margin: 0 5px 30px; }}",
+        ".container {margin-top: -30px;}",
+        "@media screen and (max-width: 1199px) {.promo-block {min-height: 170px; } .block-list__item {width: 33.33%; } .block-list__item > :first-child {margin: 0 5px 20px; }}",
+        "@media (max-width: 768px) {.promo-block--small {min-height: 195px; } .block-list__item > :first-child {margin: 0 0px 20px; } .scroller .block-list__item {width: 100%; } .container {margin-top: -30px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": "",
+        "expand_items": true,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_closed"
+      }
+    }
+  },
+  "order": [
+    "rich_text_MKnWXp",
+    "promotion_list_YkdCNy",
+    "main"
+  ]
+}

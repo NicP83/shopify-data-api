@@ -1,0 +1,152 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "43ebcc66-2270-485c-b82f-88f835de2b47": {
+      "type": "custom-html",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "html": "<center><img src=\"https://cdn.shopify.com/s/files/1/1008/9754/files/traxxas_72cf2b92-8b9b-480c-99ba-8f02350dbc6a.jpg?v=1614343261\" width=\"150px\" style=\"margin:0\"></center>"
+      }
+    },
+    "rich_text_cwbPVA": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>Traxxas was first established in 1987 McKinney-Texas, starting with electric RC Cars and come 1992 started their next steps into the Nitro RC Car scene. Ever since Traxxas has expanded into Monster Truck RC manufacturing and even Aircraft RC manufacture as well. See what we have in stock at Hearns Hobbies today!</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "logo_list_TVDBxF": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Traxxas1-10OffRoad.jpg",
+            "title": "Off Road",
+            "link": "shopify://collections/traxxas-1-10th-off-road-cars"
+          }
+        },
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/TraxxasRockCrawler.jpg",
+            "title": "Rock Crawlers",
+            "link": "https://www.hearnshobbies.com/collections/traxxas-rock-crawler"
+          }
+        },
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Traxxas1-10OnRoad.jpg",
+            "title": "1/10 On-Road",
+            "link": "https://www.hearnshobbies.com/collections/traxxas-1-10th-on-road-cars"
+          }
+        },
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/TraxxasBodyshells.jpg",
+            "title": "Bodyshells",
+            "link": "https://www.hearnshobbies.com/collections/traxxas-bodyshells"
+          }
+        },
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8973_7cc6180b-5f20-4e81-97d2-763a313ee47c.jpg",
+            "title": "Tyres & Wheels",
+            "link": "https://www.hearnshobbies.com/collections/traxxas-tyres-wheels"
+          }
+        },
+        "1f58d3c7-5b67-4bf0-981d-32acd582ab22": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/TraxxasBoats.jpg",
+            "title": "Boats",
+            "link": "shopify://collections/traxxas-boats"
+          }
+        },
+        "218f9ec4-9142-48f9-a995-db3d0eecfd58": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/TraxxasParts.jpg",
+            "title": "Spare Parts",
+            "link": "https://www.hearnshobbies.com/collections/traxxas-spare-parts"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-1",
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-2",
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-3",
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-4",
+        "template--15987269861537__875c3a5b-662c-4743-9177-db4186c8797e-1673324782f9892d52-5",
+        "1f58d3c7-5b67-4bf0-981d-32acd582ab22",
+        "218f9ec4-9142-48f9-a995-db3d0eecfd58"
+      ],
+      "custom_css": [
+        ".quick-links__image-ie-fix {max-width: none;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 14.27%; padding: 0px; } img {width: 180px; padding: 2px; margin-bottom: 5px; }}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } img {width: 100px; margin-bottom: 5px; } .quick-links__image-container {font-size: 9.5px; padding-bottom: 0; } .quick-links {border: none; justify-content: center; }}",
+        ".container {margin-top: -30px; margin-bottom: -30px;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "43ebcc66-2270-485c-b82f-88f835de2b47",
+    "rich_text_cwbPVA",
+    "logo_list_TVDBxF",
+    "main",
+    "recently-viewed-products"
+  ]
+}

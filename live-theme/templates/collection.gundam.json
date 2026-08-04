@@ -1,0 +1,359 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Gundam-Main-Banner.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_3FkgQV": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px;}",
+        ".rte {text-align: left;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "{{ collection.metafields.custom.main_content_title.value }}",
+        "content": "{{ collection.metafields.custom.main_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_VWzfFe": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Entry-Grade.jpg",
+            "title": "Entry Grade",
+            "link": "shopify://collections/entry-grade"
+          }
+        },
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/High-Grade.jpg",
+            "title": "HG Gundam",
+            "link": "shopify://collections/hg-gundam"
+          }
+        },
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Real-Grade.jpg",
+            "title": "RG Gundam",
+            "link": "shopify://collections/rg-gundam"
+          }
+        },
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Master-Grade.jpg",
+            "title": "MG Gundam",
+            "link": "shopify://collections/mg-gundam"
+          }
+        },
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/SD--BB.jpg",
+            "title": "SD / BB Gundam",
+            "link": "shopify://collections/sd-bb-gundam"
+          }
+        },
+        "ee7cd4ad-60aa-4704-8303-6f34e187462b": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dragon-Ball-Kits.jpg",
+            "title": "Dragon Ball",
+            "link": "shopify://collections/dragon-ball-kits"
+          }
+        },
+        "435b8610-ee04-4b9f-a669-5cf15d1cd032": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Pokemon-Kits.jpg",
+            "title": "Pokemon",
+            "link": "shopify://collections/pokemon-kits"
+          }
+        },
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Perfect-Grade.jpg",
+            "title": "PG Gundam",
+            "link": "shopify://collections/pg-gundam"
+          }
+        }
+      },
+      "block_order": [
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-0",
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-1",
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-2",
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-3",
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-5",
+        "ee7cd4ad-60aa-4704-8303-6f34e187462b",
+        "435b8610-ee04-4b9f-a669-5cf15d1cd032",
+        "template--16009711976609__f54ebb89-9cd2-4adf-8bbc-5712c2543853-167576722007f472d8-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -30px; margin-bottom: -30px; } img {padding: 5px; }}",
+        ".quick-links__image-ie-fix {max-width: 200px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; margin-bottom: 5px; } .quick-links__image-container {font-size: 8.5px; margin: 5px; padding-bottom: 0; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "featured_collection_9bkELA": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "paint-markers",
+        "title": "Paint Markers",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": false,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "logo_list_CRbCWB": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-01.png",
+            "title": "",
+            "link": "shopify://collections/bandai-model-kits"
+          }
+        },
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-02.png",
+            "title": "",
+            "link": "shopify://collections/kotobukiya"
+          }
+        },
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-03.png",
+            "title": "",
+            "link": "shopify://collections/hasegawa"
+          }
+        },
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-04.png",
+            "title": "",
+            "link": "shopify://collections/wave"
+          }
+        },
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-06.png",
+            "title": "",
+            "link": "shopify://collections/takara-tomy"
+          }
+        },
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-05.png",
+            "title": "",
+            "link": "shopify://collections/godhand"
+          }
+        },
+        "45ac37e0-c690-44ad-adc9-21246ee9585f": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Gundam_Landing_Page-07.png",
+            "title": "",
+            "link": "shopify://collections/mr-hobby"
+          }
+        }
+      },
+      "block_order": [
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-0",
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-1",
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-2",
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-3",
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-4",
+        "template--16009711976609__616c90bf-1b4a-4345-a1bb-d8a3bf9ab150-167576722007f472d8-5",
+        "45ac37e0-c690-44ad-adc9-21246ee9585f"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; box-shadow: none; } .container {margin-top: -30px; margin-bottom: -30px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; box-shadow: none; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; margin: 5px; padding-bottom: 0; }}",
+        ".quick-links {justify-content: center;}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "rich_text_kmbDAD": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "wide",
+        "title": "",
+        "content": "{{ collection.metafields.custom.seo_additional_content | metafield_tag }}",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "faq_MD8bgC": {
+      "type": "faq",
+      "blocks": {
+        "separator_CXNKTa": {
+          "type": "separator",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
+        "question_GebWMw": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_1.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_1 | metafield_tag }}"
+          }
+        },
+        "question_zNiHYJ": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_2.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_2 | metafield_tag }}"
+          }
+        },
+        "question_FaFnfw": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_3.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_3 | metafield_tag }}"
+          }
+        },
+        "question_9cQgkJ": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_4.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_4 | metafield_tag }}"
+          }
+        },
+        "question_LyqkNQ": {
+          "type": "question",
+          "settings": {
+            "title": "{{ collection.metafields.custom.faq_title_5.value }}",
+            "answer": "{{ collection.metafields.custom.faq_definition_5 | metafield_tag }}"
+          }
+        },
+        "question_yAqFHj": {
+          "type": "question",
+          "settings": {
+            "title": "What makes Hearns Hobbies a reliable source for Gundam Kits?",
+            "answer": "<p><a href=\"https://www.hearnshobbies.com/\"><span style=\"text-decoration:underline\">Hearns Hobbies</span></a> is a trusted store specialising in <a href=\"https://www.hearnshobbies.com/collections/mg-gundam\"><span style=\"text-decoration:underline\">Gundam Kits</span></a>. We source our kits from renowned manufacturers, ensuring top-notch quality and authenticity. Our commitment to customer satisfaction, a vast selection of kits, and expert guidance make us the go-to destination for enthusiasts seeking reliable and high-quality models.</p><p>Whether you're a collector or a modeller, our vast Gundam pop selection ensures you can immerse yourself in the art of Gundam building. Visit Hearns Hobbies today – your premium Gundam Australia and <a href=\"https://www.hearnshobbies.com/collections/radio-control\">RC Hobby Shop</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "separator_CXNKTa",
+        "question_GebWMw",
+        "question_zNiHYJ",
+        "question_FaFnfw",
+        "question_9cQgkJ",
+        "question_LyqkNQ",
+        "question_yAqFHj"
+      ],
+      "settings": {
+        "show_contact_info": false,
+        "contact_info_heading": "Any question?",
+        "contact_info_text": "<p>If we still haven't answered your question, you can contact us below and we will get back to you as soon as possible.</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "Customer support",
+        "contact_1_text": "<p>Enter your text here</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "Send a message",
+        "contact_2_text": "<p>Enter your text here</p>"
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "rich_text_3FkgQV",
+    "logo_list_VWzfFe",
+    "featured_collection_9bkELA",
+    "logo_list_CRbCWB",
+    "main",
+    "rich_text_kmbDAD",
+    "faq_MD8bgC"
+  ]
+}

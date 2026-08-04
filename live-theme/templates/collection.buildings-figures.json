@@ -1,0 +1,240 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5a6846f1-e174-4369-aa36-3ac25612a943": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Buildings-_-Figures_e43cf79c-31dc-4f96-9876-d20fc4428eda.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712009377__5a6846f1-e174-4369-aa36-3ac25612a943-16783405470460494e-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "rich_text_GfbNBc": {
+      "type": "rich-text",
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -15px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Buildings & Figures",
+        "content": "<p>Whether it be for your model railway layout, diorama or any other detailed project you are working on, we have a range of buildings and figures in various sizes and scales to help you to create the scene you are after.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "b7ad9881-7423-4ffe-bf65-71f24a5b1a49": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Buildings",
+        "content": "<p>You can choose from fully built buildings straight out of the box through to kits with the parts to build the building you desire.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_pLrcXY": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/HO_Buildings.png",
+            "title": "HO Buildings",
+            "link": "shopify://collections/buildings-assembled-ho"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/OO_Buildings.png",
+            "title": "OO Buildings",
+            "link": "shopify://collections/buildings-oo"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Buildings.png",
+            "title": "N Buildings",
+            "link": "shopify://collections/buildings-assembled-n"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/O_Buildings.png",
+            "title": "O Buildings",
+            "link": "shopify://collections/buildings-o"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/OO9_Buildings.png",
+            "title": "OO9 Buildings",
+            "link": "shopify://collections/buildings-oo9"
+          }
+        },
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Narrow___Gauge_Buildings.png",
+            "title": "Narrow Gauge Buildings",
+            "link": "shopify://collections/buildings-narrow-gauge"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-0",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-1",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-2",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-3",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-4",
+        "template--16075610325153__2f033436-680e-4703-9ed5-8da5806a6af6-1682954110029f256a-5"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 130px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "aed20a18-4434-4334-8fe5-2ecd69a8fbdd": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "wide",
+        "title": "Figures",
+        "content": "<p>Adding figures which enhance the scene you are creating is as easy as finding the correct scale you need and then just choosing which ready-to-use figures you want straight out the pack.</p>",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_enX9iR": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/HO_Figures.png",
+            "title": "HO Figures",
+            "link": "shopify://collections/figures-ho"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/OO_Figures.png",
+            "title": "OO Figures",
+            "link": "shopify://collections/figures-oo"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/N_Figures_2.png",
+            "title": "N Figures",
+            "link": "shopify://collections/figures-n"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/O_Figures.png",
+            "title": "O Figures",
+            "link": "shopify://collections/figures-o"
+          }
+        },
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Other_Scale_Figure.png",
+            "title": "Other Scale Figures",
+            "link": "shopify://collections/figures-other-scales"
+          }
+        }
+      },
+      "block_order": [
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-0",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-1",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-2",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-3",
+        "template--16075610325153__eb28a9d9-155f-49f3-a667-b9c433713ff1-1682954110029f256a-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 33.33%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 110px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "5a6846f1-e174-4369-aa36-3ac25612a943",
+    "rich_text_GfbNBc",
+    "b7ad9881-7423-4ffe-bf65-71f24a5b1a49",
+    "logo_list_pLrcXY",
+    "aed20a18-4434-4334-8fe5-2ecd69a8fbdd",
+    "logo_list_enX9iR",
+    "main"
+  ]
+}

@@ -1,0 +1,179 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_Ekb4FK": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "Dubro",
+        "content": "",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "logo_list_zXzwyB": {
+      "type": "logo-list",
+      "blocks": {
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Wheel.png",
+            "title": "Wheels",
+            "link": "shopify://collections/dubro-wheels"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Fuel_Tank.png",
+            "title": "Fuel Tanks",
+            "link": "shopify://collections/dubro-fuel-tanks"
+          }
+        },
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Spinner_Icon-02-02.png",
+            "title": "Spinners",
+            "link": "shopify://collections/dubro-spinners"
+          }
+        },
+        "logo_J7GGKt": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Pushrods-01.png",
+            "title": "Pushrods",
+            "link": "shopify://collections/dubro-pushrod"
+          }
+        },
+        "logo_QBqfYD": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Control_Horns.png",
+            "title": "Control Horns",
+            "link": "shopify://collections/control-horns"
+          }
+        },
+        "logo_KX7amV": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Hinges.png",
+            "title": "Hinge",
+            "link": "shopify://collections/hinge"
+          }
+        },
+        "logo_Nztj6L": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Ball_Link.png",
+            "title": "Ball Links",
+            "link": "shopify://collections/ball-links"
+          }
+        },
+        "logo_t96AGF": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Fuel_Tube.png",
+            "title": "Fuel Tube",
+            "link": "shopify://collections/dubro-fuel-tube"
+          }
+        },
+        "logo_4EUDtM": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Clevis.png",
+            "title": "Clevis",
+            "link": "shopify://collections/dubro-clevis"
+          }
+        },
+        "logo_m3tHgj": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Collars.png",
+            "title": "Collars",
+            "link": "shopify://collections/dubro-collars"
+          }
+        },
+        "logo_9XTLNy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Dubro_Tap_and_Die.png",
+            "title": "Tap and Die",
+            "link": "shopify://collections/dubro-tap-and-die"
+          }
+        }
+      },
+      "block_order": [
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-0",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-1",
+        "template--15987122765985__02ba22b3-8ed9-4e96-8b62-5ce510035ff0-16732667824e85f990-2",
+        "logo_J7GGKt",
+        "logo_QBqfYD",
+        "logo_KX7amV",
+        "logo_Nztj6L",
+        "logo_t96AGF",
+        "logo_4EUDtM",
+        "logo_m3tHgj",
+        "logo_9XTLNy"
+      ],
+      "custom_css": [
+        ".quick-links {border: none; justify-content: center;}",
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 16.66%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; border: 1px solid #e1e3e4; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__description {display: none;}",
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Recently viewed",
+        "show_quick_buy": true
+      }
+    }
+  },
+  "order": [
+    "rich_text_Ekb4FK",
+    "logo_list_zXzwyB",
+    "main",
+    "recently-viewed-products"
+  ]
+}

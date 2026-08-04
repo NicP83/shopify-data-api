@@ -1,0 +1,285 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b": {
+      "type": "slideshow",
+      "blocks": {
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Airbrush_2.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__01bc382e-a9b4-4b5e-bac0-8be64f5d802b-16824064257adbaaaf-0"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "c64541c4-a289-448e-960a-c8a0af86a3d7": {
+      "type": "custom-html",
+      "custom_css": [],
+      "settings": {
+        "title": "Airbrushing Equipment",
+        "html": "<div class=\"card__section expandable-content expandable-content--expandable\" aria-expanded=\"false\" style=\"padding: 5px\">\n<div class=\"rte text--pull\">\nAt Hearns Hobbies we can help to provide you with everything you need to be able to produce the best fromyour airbrushing projects.We have everything from the airbrushes and compressors you require through to all the accessories and spare parts to help you complete your project.\n</div>\n<button class=\"expandable-content__toggle\" style=\"padding:5px\">                             <span class=\"expandable-content__toggle-icon\"></span>                         <span class=\"expandable-content__toggle-text\" data-view-more=\"View more\" data-view-less=\"View less\">View more</span>                    </button>\n</div>"
+      }
+    },
+    "logo_list_xT34xG": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1.Airbrushes.png",
+            "title": "Airbrushes",
+            "link": "shopify://collections/airbrushes"
+          }
+        },
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2.Compressors.png",
+            "title": "Compressors",
+            "link": "shopify://collections/airbrushing-compressors"
+          }
+        },
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/3.Airbrush_Combos.png",
+            "title": "Airbrush Combos",
+            "link": "shopify://collections/airbrush-compressor-combo"
+          }
+        },
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4._Hoses_Fittings.png",
+            "title": "Hoses & Fitting",
+            "link": "shopify://collections/hoses-fittings"
+          }
+        },
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5.Stands.png",
+            "title": "Stands",
+            "link": "shopify://collections/airbrush-stands"
+          }
+        },
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-5": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6.Booths.png",
+            "title": "Booths",
+            "link": "shopify://collections/spray-booths"
+          }
+        },
+        "9fe542b3-77c2-4c43-981e-8c3ec7f056ff": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6._Spare_Parts.png",
+            "title": "Spare Parts",
+            "link": "shopify://collections/airbrush-spare-parts"
+          }
+        },
+        "f8f8f653-ed0a-4f18-a27c-bdc8f8dc6442": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7._Maintenance.png",
+            "title": "Maintenance",
+            "link": "shopify://collections/airbrush-maintenance"
+          }
+        }
+      },
+      "block_order": [
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-0",
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-1",
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-2",
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-3",
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-4",
+        "template--16009712042145__ebdf69c6-9e49-46da-9d21-d8671635fd92-1675936619d8ba5b26-5",
+        "9fe542b3-77c2-4c43-981e-8c3ec7f056ff",
+        "f8f8f653-ed0a-4f18-a27c-bdc8f8dc6442"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 12.5%; padding: 0px; } .container {margin-top: -60px; margin-bottom: -40px; } img {width: 150px; }}",
+        ".quick-links__image-ie-fix {max-width: 150px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 25%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "e289a75d-f936-4d2f-947a-ef11b105b618": {
+      "type": "rich-text",
+      "custom_css": [
+        ".rte {text-align: left;}",
+        ".container {margin-top: -30px;}"
+      ],
+      "settings": {
+        "text_width": "regular",
+        "title": "",
+        "content": "<p>We also have a range of acrylic and lacquer paints which are produced specifically for use in airbrushing.  These are ready to use for airbrushing straight out of the container so you don’t need to do anything else to prepare them for use.  There are also some paints which can be used for airbrushing but will require thinning to make them ready to use.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "4bf7bac6-681d-42c0-a38a-f3c0ac3d3232": {
+      "type": "quick-links",
+      "blocks": {
+        "template--16047641100449__4bf7bac6-681d-42c0-a38a-f3c0ac3d3232-1679920147a7ccb707-0": {
+          "type": "link",
+          "settings": {
+            "title": "Paints Ready for Airbrushing",
+            "link": "shopify://collections/airbrush-paints",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        },
+        "template--16047641100449__4bf7bac6-681d-42c0-a38a-f3c0ac3d3232-1679920147a7ccb707-1": {
+          "type": "link",
+          "settings": {
+            "title": "Paints Suitable for Airbrushing",
+            "link": "shopify://collections/airbrush-suitable-paint",
+            "background": "#25140a",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__4bf7bac6-681d-42c0-a38a-f3c0ac3d3232-1679920147a7ccb707-0",
+        "template--16047641100449__4bf7bac6-681d-42c0-a38a-f3c0ac3d3232-1679920147a7ccb707-1"
+      ],
+      "custom_css": [
+        ".container {margin-top: -30px; margin-bottom: -30px;}",
+        ".quick-links__link {margin: 2px;}"
+      ],
+      "settings": {
+        "title": "",
+        "expand_items": true,
+        "show_desktop": true,
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "logo_list_67LyWV": {
+      "type": "logo-list",
+      "blocks": {
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Iwata.png",
+            "title": "Iwata",
+            "link": "shopify://collections/iwata"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sparmax.png",
+            "title": "Sparmax",
+            "link": "shopify://collections/sparmax"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Tamiya_a827c7c4-2498-4baa-934c-6ff5ea692a83.png",
+            "title": "Tamiya",
+            "link": "shopify://collections/tamiya-airbrushing"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ninesteps.png",
+            "title": "Ninesteps",
+            "link": "shopify://collections/ninesteps-airbrushing"
+          }
+        },
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Hseng.png",
+            "title": "Hseng",
+            "link": "shopify://collections/hseng-airbrushing"
+          }
+        }
+      },
+      "block_order": [
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-0",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-1",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-2",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-3",
+        "template--16047641100449__313897a3-805a-4922-b292-96b7f1dd76b9-16799202503c1898b7-4"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 749px) {.quick-links__link {width: 15%; padding: 0px; box-shadow: none !important; border: 1px solid #e1e3e4; } .quick-links {border: none; justify-content: center; } .container {margin-top: -30px; margin-bottom: -40px; } img {width: 140px; }}",
+        ".quick-links__image-ie-fix {max-width: 140px;}",
+        "@media screen and (max-width: 748px) {.quick-links__link {width: 20%; padding: 0px; } .container {margin-top: -40px; margin-bottom: -40px; } img {width: 90px; } .quick-links__image-container {font-size: 9.5px; }}"
+      ],
+      "settings": {
+        "title": "",
+        "link_title": "",
+        "link": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection__filter-collapsible .collection__filter-checkbox-list {max-height: 280px; overflow: scroll;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "collection_image_size": "small",
+        "products_per_row": "4",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "",
+        "quick_links_show_products_count": true,
+        "show_filters": true,
+        "show_filter_color_swatch": true,
+        "open_group_filters_mode": "all_open"
+      }
+    }
+  },
+  "order": [
+    "01bc382e-a9b4-4b5e-bac0-8be64f5d802b",
+    "c64541c4-a289-448e-960a-c8a0af86a3d7",
+    "logo_list_xT34xG",
+    "e289a75d-f936-4d2f-947a-ef11b105b618",
+    "4bf7bac6-681d-42c0-a38a-f3c0ac3d3232",
+    "logo_list_67LyWV",
+    "main"
+  ]
+}

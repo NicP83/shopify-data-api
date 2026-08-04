@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "custom_html_EhbLyk": {
+      "type": "custom-html",
+      "custom_css": [
+        "@media (max-width: 769px) {.text-section {padding-bottom: 30px; width: 100% !important; margin: 0 !important; } .klaviyo-signup {width: 100% !important; margin: 0 !important; } .split-screen-page {flex-direction: column !important; }}",
+        ".split-screen-page {flex-direction: row;}",
+        ".text-section {width: 70%; margin: auto 15px;}",
+        ".klaviyo-signup {width: 30%; margin: auto 15px;}"
+      ],
+      "name": "Custom HTML",
+      "settings": {
+        "title": "",
+        "html": "<div class=\"split-screen-page\" style=\"display: flex;\" width=\"100%\">\n<div class=\"text-section\">\n<h1>🚨 BLACK FRIDAY IS COMING — AND IT’S GOING TO BE MASSIVE! 🚨</h1>\n<p>Ready your wishlist, hobbyist. This year, Hearns Hobbies is unleashing the BIGGEST SALE OF THE YEAR — packed with insane vouchers, exclusive discounts, and surprise drops for every kind of collector.</p>\n<p>🎯 Different hobbies. Different deals. One epic event.</p>\n<p>But here’s the deal — only subscribers get first access.</p>\n<p>No sign-up, no early access. Simple as that.</p>\n<h3>💥 WHY YOU NEED IN:</h3>\n<ul>\n<li>🚗 Early Voucher Drops – Get codes before the rush hits.</li>\n<li>🔥 Biggest Discounts of the Year – The kind of deals you brag about.</li>\n<li>🎁 Surprise Offers – Random drops. Real savings. No strings.</li>\n<li>🧰 Exclusive Hobby Perks – Every collection deserves an upgrade.\n</li>\n</ul>\n<h3>⏳ TIME’S TICKING.</h3>\n<p>The most vouchers we’ve EVER given away. The hottest brands. The biggest savings. You do not want to miss this.</p>\n</div>\n<div class=\"klaviyo-signup\">\n<center>\n<h3>👉 Drop your email now and get ready for the Black Friday madness to begin.</h3>\n<div class=\"klaviyo-form-R6vF7g\"></div>\n</center>\n</div>\n</div>"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "title": "Newsletter",
+        "content": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "background": "#1e2d7d",
+        "text": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_html_EhbLyk",
+    "newsletter"
+  ]
+}

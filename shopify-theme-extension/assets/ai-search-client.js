@@ -583,8 +583,10 @@ class AISearchModal {
   }
 
   formatMessageContent(content) {
+    // Escape HTML first so any raw markup in the (untrusted) model output is
+    // inert; the markdown transforms below re-introduce only tags we control.
     // Split into lines for block-level parsing
-    const lines = content.split('\n');
+    const lines = this.escapeHtml(content).split('\n');
     let html = '';
     let inTable = false;
     let inList = false;
@@ -709,9 +711,33 @@ class AISearchModal {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^\)]*\/cart\/[^\)]*)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-cart-link">🛒 $1</a>')
-      .replace(/\[([^\]]+)\]\(([^\)]*\/products\/[^\)]*)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-product-link">🔍 $1</a>')
-      .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="ai-link">$1</a>');
+      .replace(/\[([^\]]+)\]\(([^\)]*\/cart\/[^\)]*)\)/g, (m, label, url) => `<a href="${this.safeUrl(url)}" target="_blank" rel="noopener" class="ai-cart-link">🛒 ${label}</a>`)
+      .replace(/\[([^\]]+)\]\(([^\)]*\/products\/[^\)]*)\)/g, (m, label, url) => `<a href="${this.safeUrl(url)}" target="_blank" rel="noopener" class="ai-product-link">🔍 ${label}</a>`)
+      .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, (m, label, url) => `<a href="${this.safeUrl(url)}" target="_blank" rel="noopener" class="ai-link">${label}</a>`);
+  }
+
+  /**
+   * Escape HTML special chars so untrusted text can't inject markup when a
+   * string is later assigned via innerHTML.
+   */
+  escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  /**
+   * Allow only http(s)/mailto and relative (path or anchor) URLs; neutralise
+   * javascript:, data:, etc. Input may already be HTML-escaped.
+   */
+  safeUrl(url) {
+    const u = String(url).trim();
+    if (/^(https?:|mailto:)/i.test(u)) return u;
+    if (/^[\/#]/.test(u)) return u;
+    return '#';
   }
 
   showTyping(show) {

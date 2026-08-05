@@ -44,15 +44,40 @@
   <div class="product-form__payment-container">
     {% unless product.tags contains "DANGEROUS GOODS" or product.tags contains "COMING SOON" %}
     {%- if product.template_suffix != 'contact' -%}
+      {%- assign is_backorder = false -%}
       {%- if product.selected_or_first_available_variant.available -%}
-        {%- if product.template_suffix == 'pre-order' -%}
+        {%- comment -%}
+          Back-order = a tracked, continue-selling variant that is at/below zero stock. Such a
+          variant still reports `.available == true`, so it lands in this branch. The
+          `inventory_management == 'shopify'` guard stops untracked products (which also look
+          like continue + 0) from being mislabeled. Pre-order = the same state plus a PRE-ORDER
+          tag, or the legacy `pre-order` product template (kept as a fallback).
+        {%- endcomment -%}
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {%- if current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0 -%}
+          {%- assign is_backorder = true -%}
+        {%- endif -%}
+
+        {%- comment -%}
+          Flag the order line so staff/warehouse can identify pre-order & back-order items in
+          Shopify Admin, cart and packing slips (replaces the old app's order flagging). Set at
+          render from the first-available variant — see the multi-variant caveat in the plan.
+        {%- endcomment -%}
+        {%- if is_backorder and product.tags contains 'PRE-ORDER' -%}
+          <input type="hidden" name="properties[Fulfilment]" value="Pre-order">
           <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.pre_order' | t }}</button>
+        {%- elsif product.template_suffix == 'pre-order' -%}
+          <input type="hidden" name="properties[Fulfilment]" value="Pre-order">
+          <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.pre_order' | t }}</button>
+        {%- elsif is_backorder -%}
+          <input type="hidden" name="properties[Fulfilment]" value="Back-order">
+          <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.back_order' | t }}</button>
         {%- else -%}
           {% if product.tags contains "SPECIAL SHIPPING" %}
             <a href="mailto:{{ shop.email }}" class="button button--primary">{{ 'product.form.contact_us' | t }}</a>
           {% else %}
             <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.add_to_cart' | t }}</button>
-          {%- endif -%}        
+          {%- endif -%}
         {%- endif -%}
       {%- else -%}
         <button type="submit" class="product-form__add-button button button--disabled" disabled>{{ 'product.form.sold_out' | t }}</button>
@@ -63,7 +88,7 @@
       {%- if product.tags contains 'SPECIAL SHIPPING' -%}
         {%- assign is_special_shipping = true -%}
       {%- endif -%}
-      {%- if block.settings.show_payment_button and recipient_feature_active == false and product.template_suffix != 'pre-order' and is_special_shipping == false -%}
+      {%- if block.settings.show_payment_button and recipient_feature_active == false and product.template_suffix != 'pre-order' and is_special_shipping == false and is_backorder == false -%}
         {{ form | payment_button }}
       {%- endif -%}
     {%- else -%}

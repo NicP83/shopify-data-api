@@ -34,17 +34,8 @@
     },
     "170856722862d2d692": {
       "type": "apps",
-      "blocks": {
-        "pre_order_now_wod_popups_block_MgXCxz": {
-          "type": "shopify://apps/wod-preorder-now/blocks/popups-block/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
-          "settings": {
-            "color": "#000000"
-          }
-        }
-      },
-      "block_order": [
-        "pre_order_now_wod_popups_block_MgXCxz"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "include_margins": true
       }

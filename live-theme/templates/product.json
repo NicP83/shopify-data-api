@@ -81,18 +81,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "pre_order_now_wod_app_block_BFqHJ3": {
-          "type": "shopify://apps/wod-preorder-now/blocks/app-block/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
-          "settings": {
-            "color": "#000000"
-          }
-        },
-        "pre_order_now_wod_popups_block_px3t4P": {
-          "type": "shopify://apps/wod-preorder-now/blocks/popups-block/fdf17d17-ef12-4a7b-8383-20cc1fc2a4b6",
-          "settings": {
-            "color": "#000000"
-          }
-        },
         "description": {
           "type": "description",
           "settings": {
@@ -132,8 +120,6 @@
         "variant_selector",
         "de5f17a4-99da-4c41-9533-e62fa290f721",
         "buy_buttons",
-        "pre_order_now_wod_app_block_BFqHJ3",
-        "pre_order_now_wod_popups_block_px3t4P",
         "description",
         "68f67661-2e57-4f20-85a1-e7dc075c1be7",
         "a795862d-249f-4fa2-b93a-986656f1c7cb",

@@ -319,13 +319,28 @@
 
             {%- if product.available -%}
               {%- if product.variants.size == 1 -%}
-                <button type="submit" class="{{ quick_buy_classes }}" data-action="add-to-cart">
-                  {%- if product.template_suffix == 'pre-order' -%}
-                    {{- 'collection.product.pre_order' | t -}}
-                  {%- else -%}
-                    {{- 'collection.product.add_to_cart' | t -}}
-                  {%- endif -%}
-                </button>
+                {%- comment -%}
+                  Match the product page: single-variant continue-selling-at-0 (tracked) => Back-order,
+                  or Pre-order with the PRE-ORDER tag / legacy pre-order template. Also flag the order
+                  line so quick-buy from a collection carries the same Fulfilment property.
+                {%- endcomment -%}
+                {%- assign qb_variant = product.variants.first -%}
+                {%- assign qb_is_backorder = false -%}
+                {%- if qb_variant.inventory_management == 'shopify' and qb_variant.inventory_policy == 'continue' and qb_variant.inventory_quantity <= 0 -%}
+                  {%- assign qb_is_backorder = true -%}
+                {%- endif -%}
+                {%- if qb_is_backorder and product.tags contains 'PRE-ORDER' -%}
+                  <input type="hidden" name="properties[Fulfilment]" value="Pre-order">
+                  <button type="submit" class="{{ quick_buy_classes }}" data-action="add-to-cart">{{- 'collection.product.pre_order' | t -}}</button>
+                {%- elsif product.template_suffix == 'pre-order' -%}
+                  <input type="hidden" name="properties[Fulfilment]" value="Pre-order">
+                  <button type="submit" class="{{ quick_buy_classes }}" data-action="add-to-cart">{{- 'collection.product.pre_order' | t -}}</button>
+                {%- elsif qb_is_backorder -%}
+                  <input type="hidden" name="properties[Fulfilment]" value="Back-order">
+                  <button type="submit" class="{{ quick_buy_classes }}" data-action="add-to-cart">{{- 'collection.product.back_order' | t -}}</button>
+                {%- else -%}
+                  <button type="submit" class="{{ quick_buy_classes }}" data-action="add-to-cart">{{- 'collection.product.add_to_cart' | t -}}</button>
+                {%- endif -%}
               {%- else -%}
                 <a href="{{ product.url }}" class="{{ quick_buy_classes }}">{{ 'collection.product.choose_options' | t }}</a>
               {%- endif -%}

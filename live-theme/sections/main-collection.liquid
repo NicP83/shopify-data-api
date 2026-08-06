@@ -558,8 +558,16 @@
                     {%- endif -%}
 
                     <div class="product-list product-list--collection {% if has_filters %}product-list--with-sidebar{% endif %}">
+                      {%- comment -%} Availability grouping: keep sellable + pre-order / back-order / coming-soon on top; sink sold-out to the bottom of the page. Shopify has no native availability sort, and this loop is inside the paginate block, so grouping applies within each page. {%- endcomment -%}
                       {%- for product in collection.products -%}
-                        {%- render 'product-item', product: product, list: show_as_list, grid_classes: grid_classes -%}
+                        {%- if product.available or product.template_suffix == 'pre-order' or product.tags contains 'PRE-ORDER' or product.tags contains 'COMING SOON' -%}
+                          {%- render 'product-item', product: product, list: show_as_list, grid_classes: grid_classes -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- for product in collection.products -%}
+                        {%- unless product.available or product.template_suffix == 'pre-order' or product.tags contains 'PRE-ORDER' or product.tags contains 'COMING SOON' -%}
+                          {%- render 'product-item', product: product, list: show_as_list, grid_classes: grid_classes -%}
+                        {%- endunless -%}
                       {%- endfor -%}
                     </div>
 

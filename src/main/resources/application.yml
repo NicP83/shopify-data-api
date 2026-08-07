@@ -73,7 +73,10 @@ shopify:
     api-key: ${SHOPIFY_APP_API_KEY}
     # Your Shopify App API Secret (from Shopify Partners dashboard)
     api-secret: ${SHOPIFY_APP_API_SECRET}
-    # OAuth scopes required by your app (comma-separated)
+    # OAuth scopes for the per-shop install flow (comma-separated).
+    # NOTE: the collection-sort job does NOT use these — it calls Shopify with the
+    # fixed admin token (shopify.access-token / SHOPIFY_ACCESS_TOKEN). That token must
+    # itself carry write_products for collectionReorderProducts to succeed.
     scopes: ${SHOPIFY_APP_SCOPES:read_products,read_orders,read_customers}
     # OAuth redirect URI (must match Shopify Partners dashboard)
     redirect-uri: ${SHOPIFY_APP_REDIRECT_URI:http://localhost:8080/shopify/callback}
@@ -220,3 +223,22 @@ inventory-analysis:
     mcp-timeout-ms: ${MCP_TIMEOUT:10000}
     # Cache TTL for analysis results (seconds)
     cache-ttl-seconds: ${CACHE_TTL:3600}
+
+# Collection Sort Job — push sold-out products to the bottom of collections globally
+# (the across-all-pages counterpart to the per-page Liquid regroup in the theme).
+# Requires the write_products scope. Disabled by default; ships in dry-run mode.
+collection-sort:
+  # Master switch for the scheduled job (the manual /api/admin/collection-sort/run
+  # endpoint works regardless of this flag).
+  enabled: ${COLLECTION_SORT_ENABLED:false}
+  # When true, compute and log intended moves without writing to Shopify.
+  dry-run: ${COLLECTION_SORT_DRY_RUN:true}
+  # Skip collections larger than this in v1 (logged, not silently dropped).
+  max-products: ${COLLECTION_SORT_MAX_PRODUCTS:2000}
+  # Moves per collectionReorderProducts call.
+  batch-size: ${COLLECTION_SORT_BATCH_SIZE:250}
+  # Pause between collections (ms) to stay well within API limits.
+  throttle-ms: ${COLLECTION_SORT_THROTTLE_MS:1000}
+  schedule:
+    # Every 4 hours: second minute hour day month weekday
+    reorder-cron: ${COLLECTION_SORT_CRON:0 0 */4 * * *}

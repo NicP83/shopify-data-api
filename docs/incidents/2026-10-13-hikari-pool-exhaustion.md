@@ -23,7 +23,7 @@ The cause is a pool of 10 connections with **nothing bounding how long one can b
 **Ruled out:**
 - `@Transactional` on Mono-returning methods (`AgentExecutionService:92,101`, `WorkflowOrchestratorService:56`). With a non-reactive `JpaTransactionManager`, the transaction commits when the method returns the Mono, so it does not span the async work. `WorkflowOrchestratorService` does its DB work inside `Mono.fromCallable`, outside any surrounding transaction.
 - Scheduler jobs. `SchedulerService` and `InventoryAnalysisScheduler` hold connections only for short repository calls. The `@Transactional` on `SchedulerService.executeScheduledWorkflow` is a self-invocation, so it has no effect, and `executeWorkflow` is fire-and-forget. The scheduler was a victim, not the cause.
-- Postgres capacity: one app instance with 10 connections, against Postgres's default limit of 100.
+- Postgres capacity: one app instance with 10 connections, against `max_connections = 500` (checked live on 2026-10-13).
 
 **Not proven:** the leaked connections' owners can't be identified after the fact, because the redeploy killed the JVM. The fix below makes the next occurrence self-identifying.
 
@@ -54,7 +54,16 @@ where backend_type = 'client backend' and datname = current_database()
 group by state;
 ```
 
-Healthy: up to 10 `idle` connections and no `idle in transaction` older than seconds. Run it now, before deploying, too. If idle connections are being held more than 3 minutes since the Oct 13 redeploy, the leak is already rebuilding.
+Healthy: up to 10 `idle` connections and no `idle in transaction` older than seconds.
+
+**Best leak signal: connection age.** Hikari retires connections after 30 minutes (`max-lifetime`), but only when they are not checked out. A leaked connection is held by the app while running nothing, so Postgres shows it as `idle`, and it keeps aging. Any app connection whose `backend_start` is more than about 35 minutes old is therefore leaked:
+
+```sql
+select count(*) from pg_stat_activity
+where application_name = 'PostgreSQL JDBC Driver' and backend_start < now() - interval '35 minutes';
+```
+
+**Baseline, 2026-10-13 20:52Z (about 15.5h after the redeploy):** 10 app connections, all `idle`, all 13–17 minutes old. Nine had run nothing since connection setup, and one had last served the scheduler's `workflow_schedules` query. Nothing was in a transaction. **No leak yet.** 
 
 ## Follow-ups (not in this change)
 

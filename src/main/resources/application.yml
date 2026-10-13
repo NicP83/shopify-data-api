@@ -8,8 +8,27 @@ spring:
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+    # Pool hardening after the Oct 2026 pool exhaustion (all 10 connections stuck for weeks
+    # until a redeploy). None of these reclaim a leaked connection; they bound or surface it.
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:10}
+      # Log a WARN with the borrower's stack trace when a connection is held longer than this.
+      # Kept above the 180s MVC async timeout so a slow-but-legit admin request isn't flagged:
+      # any warning is a real leak and names the code that took the connection.
+      leak-detection-threshold: ${DB_LEAK_DETECTION_MS:200000}
+      # Ping idle connections so ones silently dropped by the network (e.g. a Postgres restart)
+      # are evicted before a request borrows them.
+      keepalive-time: 120000
+      data-source-properties:
+        tcpKeepAlive: true
+        # Seconds. pgjdbc's default (0) waits forever on a dead socket, pinning the connection
+        # and its thread. No query in this app legitimately runs anywhere near this long.
+        socketTimeout: ${DB_SOCKET_TIMEOUT_S:300}
 
   jpa:
+    # OSIV is registered in OpenEntityManagerInViewConfig instead, with the storefront chat
+    # routes excluded so they don't pin a pooled connection for a whole (async/SSE) request.
+    open-in-view: false
     hibernate:
       ddl-auto: none
     show-sql: ${SHOW_SQL:false}

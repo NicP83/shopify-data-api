@@ -148,9 +148,8 @@ public class SeoAgentService {
         // Create request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", validatedModel);
-        requestBody.put("max_tokens", llmConfig.getMaxTokens());
-        requestBody.put("temperature", llmConfig.getTemperature());
-        requestBody.put("top_p", llmConfig.getTopP());
+        ModelConfig.applyGenerationParams(requestBody, validatedModel, llmConfig.getMaxTokens(),
+                llmConfig.getTemperature(), llmConfig.getTopP(), null);
         requestBody.put("system", systemPrompt);
         requestBody.set("messages", messages);
 
@@ -207,7 +206,7 @@ public class SeoAgentService {
                     logger.error("- API Version: {}", anthropicApiVersion);
                     logger.error("- Model: {}", requestBody.get("model").asText());
                     logger.error("- Max tokens: {}", requestBody.get("max_tokens").asInt());
-                    logger.error("- Temperature: {}", requestBody.get("temperature").asDouble());
+                    logger.error("- Temperature: {}", requestBody.path("temperature").asText("n/a"));
                     logger.error("- Has tools: {}", requestBody.has("tools"));
                     if (requestBody.has("tools")) {
                         logger.error("- Number of tools: {}", requestBody.get("tools").size());

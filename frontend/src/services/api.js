@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { installAxiosAuth } from './adminAuth'
 
 // Create axios instance with base configuration
 const apiClient = axios.create({
@@ -7,6 +8,8 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 })
+
+installAxiosAuth(apiClient)
 
 // API service methods
 const api = {
@@ -167,6 +170,7 @@ const api = {
   },
 
   getWorkflow: (id) => apiClient.get(`/workflows/${id}`),
+  getPublicWorkflow: (id) => apiClient.get(`/workflows/public/${id}`),
 
   createWorkflow: (workflow) => apiClient.post('/workflows', workflow),
 

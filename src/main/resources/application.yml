@@ -170,6 +170,14 @@ crs:
     # as a clean event:error rather than the whole stream being reaped.
     delegation-timeout-ms: ${CRS_AGENT_DELEGATION_TIMEOUT:75000}
 
+# Admin API authentication (AdminAuthFilter, filter/ApiKeyFilterConfig)
+admin:
+  # Synthetic admin-scoped X-API-Key, also accepted by /api/v1 (unset = disabled)
+  bootstrap-key: ${ADMIN_BOOTSTRAP_KEY:}
+  auth:
+    # off | report (log would-be rejections, block nothing) | enforce (401/403)
+    mode: ${ADMIN_AUTH_MODE:report}
+
 # Logging Configuration
 logging:
   level:

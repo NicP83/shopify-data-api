@@ -303,6 +303,28 @@ public class WorkflowController {
     }
 
     /**
+     * Get a public workflow's form metadata (no authentication required).
+     * Returns 404 for missing and non-public workflows alike, and only the
+     * fields the public form/chat executor pages render.
+     * GET /api/workflows/public/{id}
+     */
+    @GetMapping("/public/{id}")
+    public ResponseEntity<Object> getPublicWorkflow(@PathVariable Long id) {
+        return workflowService.getWorkflowById(id)
+            .filter(w -> Boolean.TRUE.equals(w.getIsPublic()))
+            .map(w -> {
+                java.util.Map<String, Object> body = new java.util.HashMap<>();
+                body.put("id", w.getId());
+                body.put("name", w.getName());
+                body.put("description", w.getDescription());
+                body.put("inputSchemaJson", w.getInputSchemaJson());
+                body.put("isPublic", true);
+                return ResponseEntity.ok((Object) body);
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
      * Execute a public workflow (no authentication required)
      * POST /api/workflows/public/{id}/execute
      */

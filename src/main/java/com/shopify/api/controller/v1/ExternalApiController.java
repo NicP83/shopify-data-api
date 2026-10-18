@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -60,6 +61,7 @@ public class ExternalApiController {
                                                  @PathVariable Long id,
                                                  @RequestBody(required = false) Map<String, Object> body) {
         ResponseEntity<?> denied = requireScope(request, "agents:run");
+        if (denied == null) denied = requireBinding(request, key -> key.mayRunAgent(id));
         if (denied != null) return Mono.just(cast(denied));
 
         String task = extractTask(body);
@@ -113,6 +115,7 @@ public class ExternalApiController {
                                                     @PathVariable Long id,
                                                     @RequestBody(required = false) Map<String, Object> body) {
         ResponseEntity<?> denied = requireScope(request, "workflows:run");
+        if (denied == null) denied = requireBinding(request, key -> key.mayRunWorkflow(id));
         if (denied != null) return Mono.just(cast(denied));
 
         Workflow workflow = workflowService.getWorkflowById(id).orElse(null);
@@ -155,6 +158,16 @@ public class ExternalApiController {
         if (!(attr instanceof ApiKey key) || !key.hasScope(scope)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(Map.of("success", false, "error", "scope '" + scope + "' required"));
+        }
+        return null;
+    }
+
+    /** Call after requireScope, which guarantees the attribute holds an ApiKey. */
+    private ResponseEntity<?> requireBinding(HttpServletRequest request, Predicate<ApiKey> allowed) {
+        ApiKey key = (ApiKey) request.getAttribute(ApiKeyAuthFilter.ATTR_API_KEY);
+        if (!allowed.test(key)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Map.of("success", false, "error", "API key is bound to a different agent or workflow"));
         }
         return null;
     }

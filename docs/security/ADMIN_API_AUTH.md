@@ -71,6 +71,7 @@ even on GET.
   - Public allowlist: `/api/shopify/chat/`, `/api/workflows/public/`, `/api/v1/`, `/api/embed/` prefixes, plus exact `/api/health`. `OPTIONS` always passes.
   - A path counts as public only if **both** the container-normalised path and the raw URI (with `;params` stripped) are public. That blocks `/api/shopify/chat/../../config/chatbot` (tested against real Tomcat).
   - Scopes: `POST /api/agents/{id}/execute` needs `agents:run`, `POST /api/workflows/{id}/execute` needs `workflows:run`, and everything else needs `admin`. An `admin` key passes everything.
+  - Bindings: a non-`admin` key with `bound_agent_id` / `bound_workflow_id` can execute only that target. Otherwise it gets a 403 (logged in report mode). `/api/v1` run routes apply the same check in `ExternalApiController`.
   - Valid DB keys get `last_used_at` updated, visible on the API Keys page. The admin routes have no rate limiting, same as before.
 - **`ADMIN_AUTH_MODE`** (`admin.auth.mode`) has three settings:
   - `report` (default): never blocks. Logs `admin-auth REPORT would reject <method> <path> -> 401|403 (...) ua=... ip=...`.
@@ -85,7 +86,8 @@ even on GET.
 - **Unchanged:** the storefront chat path (`ShopifyChatController`, `ChatAgentService`), `ApiKeyAuthFilter`, and the theme extension. There is no DB migration.
 
 Tests:
-- `AdminAuthFilterTest` (17 cases): public routes, scopes, modes, `..` smuggling.
+- `AdminAuthFilterTest` (22 cases): public routes, scopes, agent/workflow bindings, modes, `..` smuggling.
+- `ExternalApiControllerBindingTest` (4 cases): bindings on `/api/v1` run routes.
 - `AdminAuthFilterTomcatTest`: real embedded Tomcat with the `/api/*` registration. Checks that storefront chat, OAuth and static paths pass, admin routes return 401 without a key, and raw `..` / `%2e%2e` requests can't reach the admin route.
 - `WorkflowControllerPublicTest` (3 cases).
 - SPA checked in a browser against a stub backend. After a 401 the banner appears, and once a key is saved, axios and fetch calls carry it. The public workflow page loads with no key.
@@ -95,7 +97,7 @@ Tests:
 ### Stage 0: credentials (no deploy)
 1. **Check `ADMIN_BOOTSTRAP_KEY` in Railway** (Shopifu-data-ai → production). The variable listing shows the name as `ADMIN_BOOTSTRAP_KEY ` **with a trailing space**. If that's real, Spring never binds it, and the bootstrap key is silently disabled today. Recreate it with the exact name and a strong value (`openssl rand -base64 32`). Railway restarts the app on a variable change, so do it at a quiet time.
 2. Use the bootstrap key to mint two keys from the API Keys page (`/api-keys`) or `POST /api/v1/admin/keys`. That surface is already live and gated, so this works before the deploy.
-   - `hearns-hr-enrichment`, scopes `agents:run`. Shown once; copy it.
+   - `hearns-hr-enrichment`, scopes `agents:run`, **bound agent 23**. Shown once; copy it.
    - `admin-spa`, scopes `admin`, for browsers. Keep the bootstrap key for break-glass use only.
 
 ### Stage 1: deploy this branch in report mode
@@ -123,7 +125,7 @@ Tests:
 
 - Each Railway variable change restarts the single replica, so storefront chat is briefly unavailable. Schedule Stages 0, 3 and rollbacks at low traffic.
 - The admin key sits in browser localStorage, so an XSS in the SPA could read it. Use the revocable `admin-spa` key there, not the bootstrap key.
-- An `agents:run` key can execute **any** agent, here and on `/api/v1`. Follow-up: honour `api_keys.bound_agent_id` so the HR key is limited to agent 23.
+- Run keys are limited by their binding. A non-`admin` key with `api_keys.bound_agent_id` (or `bound_workflow_id`) set can run only that agent (or workflow), on both `/api/{agents|workflows}/{id}/execute` and `/api/v1/{agents|workflows}/{id}/run`. Anything else gets a 403. Binding to an agent also blocks every workflow, and the reverse. Unbound run keys can still run any agent or workflow, so mint the HR key bound to agent 23. Keys can't be edited, so an existing unbound HR key has to be replaced. `GET /api/v1/agents` still lists every agent for a bound key, but it can only run its own.
 - 401s from this filter carry no CORS headers. That only affects cross-origin browser callers, and none are known.
 - Every authenticated admin request does one indexed key lookup and one `last_used_at` update. That's negligible next to Hikari's 10 connections at admin traffic levels.
 - Later: move the HR app to `/api/v1/agents/23/run`, then lock `/api/agents/*/execute` to `admin`. Also remove `@CrossOrigin("*")` on the three admin controllers. With keys enforced it no longer matters for security, but it is misleading.

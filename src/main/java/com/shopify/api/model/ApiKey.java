@@ -83,6 +83,25 @@ public class ApiKey {
         return getScopeList().contains(scope);
     }
 
+    /**
+     * A key with a bound agent or workflow may run only that target; binding to an
+     * agent also rules out every workflow, and vice versa. Unbound keys and
+     * admin-scoped keys are unrestricted (scope checks still apply separately).
+     */
+    public boolean mayRunAgent(Long agentId) {
+        if (!isBound()) return true;
+        return boundAgentId != null && boundAgentId.equals(agentId);
+    }
+
+    public boolean mayRunWorkflow(Long workflowId) {
+        if (!isBound()) return true;
+        return boundWorkflowId != null && boundWorkflowId.equals(workflowId);
+    }
+
+    private boolean isBound() {
+        return !hasScope("admin") && (boundAgentId != null || boundWorkflowId != null);
+    }
+
     public List<String> getRefererAllowlistEntries() {
         if (refererAllowlist == null || refererAllowlist.isBlank()) {
             return List.of();

@@ -25,6 +25,9 @@ class AdminAuthFilterTest {
     private static final String ADMIN_KEY = "hh_admin";
     private static final String HR_KEY = "hh_hr";
     private static final String WF_KEY = "hh_wf";
+    private static final String HR_BOUND_KEY = "hh_hr_bound";
+    private static final String WF_BOUND_KEY = "hh_wf_bound";
+    private static final String ADMIN_BOUND_KEY = "hh_admin_bound";
 
     private ApiKeyService apiKeyService;
 
@@ -35,10 +38,23 @@ class AdminAuthFilterTest {
         when(apiKeyService.validate(ADMIN_KEY)).thenReturn(Optional.of(key(1L, "admin")));
         when(apiKeyService.validate(HR_KEY)).thenReturn(Optional.of(key(2L, "agents:run")));
         when(apiKeyService.validate(WF_KEY)).thenReturn(Optional.of(key(3L, "workflows:run")));
+        when(apiKeyService.validate(HR_BOUND_KEY)).thenReturn(Optional.of(
+            bound(4L, "agents:run,workflows:run", 23L, null)));
+        when(apiKeyService.validate(WF_BOUND_KEY)).thenReturn(Optional.of(
+            bound(5L, "agents:run,workflows:run", null, 7L)));
+        when(apiKeyService.validate(ADMIN_BOUND_KEY)).thenReturn(Optional.of(
+            bound(6L, "admin", 23L, null)));
     }
 
     private static ApiKey key(Long id, String scopes) {
         return ApiKey.builder().id(id).name("k" + id).scopes(scopes).active(true).build();
+    }
+
+    private static ApiKey bound(Long id, String scopes, Long agentId, Long workflowId) {
+        ApiKey k = key(id, scopes);
+        k.setBoundAgentId(agentId);
+        k.setBoundWorkflowId(workflowId);
+        return k;
     }
 
     /** Result of one request through the filter: whether it reached the controller, and the status. */
@@ -150,6 +166,49 @@ class AdminAuthFilterTest {
     void workflowsRunKeyCanOnlyExecuteWorkflows() throws Exception {
         assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/7/execute", WF_KEY).passed()).isTrue();
         assertThat(run(Mode.ENFORCE, "POST", "/api/agents/23/execute", WF_KEY).status()).isEqualTo(403);
+    }
+
+    // ---- bound keys ----
+
+    @Test
+    void agentBoundKeyRunsOnlyItsAgent() throws Exception {
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/23/execute", HR_BOUND_KEY).passed()).isTrue();
+
+        Outcome other = run(Mode.ENFORCE, "POST", "/api/agents/5/execute", HR_BOUND_KEY);
+        assertThat(other.passed()).isFalse();
+        assertThat(other.status()).isEqualTo(403);
+        // Bound to an agent, so no workflows even with workflows:run
+        assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/7/execute", HR_BOUND_KEY).status()).isEqualTo(403);
+        // Leading zeros are the same id
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/023/execute", HR_BOUND_KEY).passed()).isTrue();
+        // Too large for a Long: matches no binding
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/99999999999999999999/execute", HR_BOUND_KEY)
+            .status()).isEqualTo(403);
+    }
+
+    @Test
+    void workflowBoundKeyRunsOnlyItsWorkflow() throws Exception {
+        assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/7/execute", WF_BOUND_KEY).passed()).isTrue();
+        assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/8/execute", WF_BOUND_KEY).status()).isEqualTo(403);
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/23/execute", WF_BOUND_KEY).status()).isEqualTo(403);
+    }
+
+    @Test
+    void unboundRunKeyCanStillRunAnyAgent() throws Exception {
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/5/execute", HR_KEY).passed()).isTrue();
+        assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/8/execute", WF_KEY).passed()).isTrue();
+    }
+
+    @Test
+    void adminKeyIgnoresBinding() throws Exception {
+        assertThat(run(Mode.ENFORCE, "POST", "/api/agents/5/execute", ADMIN_BOUND_KEY).passed()).isTrue();
+        assertThat(run(Mode.ENFORCE, "POST", "/api/workflows/8/execute", ADMIN_BOUND_KEY).passed()).isTrue();
+        assertThat(run(Mode.ENFORCE, "PUT", "/api/config/chatbot", ADMIN_BOUND_KEY).passed()).isTrue();
+    }
+
+    @Test
+    void reportModeLetsBindingMismatchThrough() throws Exception {
+        assertThat(run(Mode.REPORT, "POST", "/api/agents/5/execute", HR_BOUND_KEY).passed()).isTrue();
     }
 
     @Test

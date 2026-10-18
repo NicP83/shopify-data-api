@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -26,6 +27,8 @@ import java.util.regex.Pattern;
  *   POST /api/agents/{id}/execute     -> agents:run or admin  (HR app, agent 23)
  *   POST /api/workflows/{id}/execute  -> workflows:run or admin
  *   everything else                   -> admin
+ * A non-admin key with bound_agent_id / bound_workflow_id may execute only that
+ * target (403 otherwise); see {@link ApiKey#mayRunAgent}.
  *
  * Mode (admin.auth.mode / ADMIN_AUTH_MODE):
  *   off     - filter does nothing
@@ -47,8 +50,8 @@ public class AdminAuthFilter extends OncePerRequestFilter {
     );
     private static final List<String> PUBLIC_EXACT = List.of("/api/health");
 
-    private static final Pattern AGENT_EXECUTE = Pattern.compile("^/api/agents/\\d+/execute/?$");
-    private static final Pattern WORKFLOW_EXECUTE = Pattern.compile("^/api/workflows/\\d+/execute/?$");
+    private static final Pattern AGENT_EXECUTE = Pattern.compile("^/api/agents/(\\d+)/execute/?$");
+    private static final Pattern WORKFLOW_EXECUTE = Pattern.compile("^/api/workflows/(\\d+)/execute/?$");
     private static final Pattern PATH_PARAMS = Pattern.compile(";[^/]*");
 
     private final ApiKeyService apiKeyService;
@@ -97,6 +100,9 @@ public class AdminAuthFilter extends OncePerRequestFilter {
         } else if (!key.get().hasScope("admin") && !key.get().hasScope(required)) {
             status = HttpServletResponse.SC_FORBIDDEN;
             error = "scope '" + required + "' required";
+        } else if (!bindingAllows(key.get(), path)) {
+            status = HttpServletResponse.SC_FORBIDDEN;
+            error = "API key is bound to a different agent or workflow";
         }
 
         if (status == 0) {
@@ -138,6 +144,23 @@ public class AdminAuthFilter extends OncePerRequestFilter {
             if (WORKFLOW_EXECUTE.matcher(path).matches()) return "workflows:run";
         }
         return "admin";
+    }
+
+    /** Only the execute routes are reachable by non-admin keys, so only they need a binding check. */
+    static boolean bindingAllows(ApiKey key, String path) {
+        Matcher agent = AGENT_EXECUTE.matcher(path);
+        if (agent.matches()) return key.mayRunAgent(parseId(agent.group(1)));
+        Matcher workflow = WORKFLOW_EXECUTE.matcher(path);
+        if (workflow.matches()) return key.mayRunWorkflow(parseId(workflow.group(1)));
+        return true;
+    }
+
+    private static Long parseId(String digits) {
+        try {
+            return Long.valueOf(digits);
+        } catch (NumberFormatException e) {
+            return null; // overflow: matches no binding
+        }
     }
 
     private Optional<ApiKey> resolve(String rawKey) {

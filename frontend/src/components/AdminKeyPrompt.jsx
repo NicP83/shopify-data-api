@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { AUTH_REQUIRED_EVENT, getAdminKey, setAdminKey } from '../services/adminAuth'
 
 /**
@@ -9,6 +10,7 @@ import { AUTH_REQUIRED_EVENT, getAdminKey, setAdminKey } from '../services/admin
 export default function AdminKeyPrompt() {
   const [visible, setVisible] = useState(false)
   const [value, setValue] = useState('')
+  const { pathname } = useLocation()
 
   useEffect(() => {
     const show = () => setVisible(true)
@@ -16,7 +18,9 @@ export default function AdminKeyPrompt() {
     return () => window.removeEventListener(AUTH_REQUIRED_EVENT, show)
   }, [])
 
-  if (!visible) return null
+  // Public workflow pages (/workflow/execute/:id, /workflow/chat/:id) are for
+  // visitors without a key; the nav's admin calls 401 there harmlessly.
+  if (!visible || pathname.startsWith('/workflow/')) return null
 
   const save = (e) => {
     e.preventDefault()

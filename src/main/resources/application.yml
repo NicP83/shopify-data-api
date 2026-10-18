@@ -107,15 +107,17 @@ anthropic:
     key: ${ANTHROPIC_API_KEY:}
     version: ${ANTHROPIC_API_VERSION:2023-06-01}
   # Valid Claude models (see ModelConfig.java for complete list):
-  # Claude 4.6: claude-sonnet-4-6 (DEFAULT - latest), claude-opus-4-6 (most capable)
+  # Claude 5.5: claude-sonnet-5-5 (DEFAULT - latest; no temperature, uses effort instead)
+  # Claude 4.6: claude-sonnet-4-6 (rollback target), claude-opus-4-6
   # Claude 4.5: claude-sonnet-4-5-20250929, claude-opus-4-1-20250805, claude-haiku-4-5-20251001
   # Claude 4: claude-sonnet-4-20250514, claude-opus-4-20250514
   # Claude 3.7: claude-3-7-sonnet-20250219
   # Claude 3.5: claude-3-5-haiku-20241022 (NOTE: This is HAIKU, not Sonnet!)
   # Claude 3: claude-3-opus-20240229, claude-3-sonnet-20240229, claude-3-haiku-20240307
-  model: ${ANTHROPIC_MODEL:claude-sonnet-4-6}
+  model: ${ANTHROPIC_MODEL:claude-sonnet-5-5}
   max-tokens: ${ANTHROPIC_MAX_TOKENS:1024}
-  temperature: ${ANTHROPIC_TEMPERATURE:0.7}
+  temperature: ${ANTHROPIC_TEMPERATURE:0.7}   # pre-5.x models only
+  effort: ${ANTHROPIC_EFFORT:low}            # Claude 5.x only: low|medium|high (chat latency vs depth)
   system-prompt-file: ${ANTHROPIC_SYSTEM_PROMPT_FILE:classpath:prompts/system-prompt.txt}
 
 # Chatbot Configuration

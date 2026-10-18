@@ -1,5 +1,7 @@
 package com.shopify.api.service.inventory;
 
+import com.shopify.api.config.ModelConfig;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -445,8 +447,7 @@ public class InventoryAnalysisAgent {
             // Create request body
             ObjectNode requestBody = objectMapper.createObjectNode();
             requestBody.put("model", anthropicModel);
-            requestBody.put("max_tokens", maxTokens);
-            requestBody.put("temperature", temperature);
+            ModelConfig.applyGenerationParams(requestBody, anthropicModel, maxTokens, temperature, null, null);
             requestBody.put("system", systemPrompt);
             requestBody.set("messages", messages);
 

@@ -1,5 +1,7 @@
 package com.shopify.api.config;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class ModelConfig {
     /**
      * Default model for all services (stable, recommended)
      */
-    public static final String DEFAULT_MODEL = "claude-sonnet-4-6";
+    public static final String DEFAULT_MODEL = "claude-sonnet-5-5";
 
     /**
      * Valid Anthropic Claude models
@@ -28,7 +30,8 @@ public class ModelConfig {
      * Do NOT add models that don't exist (e.g., "claude-3-5-sonnet-20241022" is INVALID).
      *
      * Model families:
-     * - Claude 4.6: Latest generation (2025-2026)
+     * - Claude 5.5: Current Sonnet (2026)
+     * - Claude 4.6: Previous generation (2025-2026)
      * - Claude 4.5: Previous generation (2025)
      * - Claude 4: Previous generation (2025)
      * - Claude 3.7: Enhanced version (2025)
@@ -36,8 +39,11 @@ public class ModelConfig {
      * - Claude 3: Original version (2024)
      */
     public static final List<String> VALID_ANTHROPIC_MODELS = Arrays.asList(
-        // Claude 4.6 (Latest - 2025-2026)
-        "claude-sonnet-4-6",             // DEFAULT - Latest Sonnet
+        // Claude 5.5 (Current - 2026)
+        "claude-sonnet-5-5",             // DEFAULT - Current Sonnet
+
+        // Claude 4.6 (2025-2026)
+        "claude-sonnet-4-6",             // Previous Sonnet (rollback target)
         "claude-opus-4-6",               // Most capable - Claude Opus 4.6
 
         // Claude 4.5 (2025)
@@ -65,7 +71,8 @@ public class ModelConfig {
      * Model display names for UI (user-friendly labels)
      */
     private static final Map<String, String> MODEL_DISPLAY_NAMES = Map.ofEntries(
-        Map.entry("claude-sonnet-4-6", "Claude Sonnet 4.6 (Latest)"),
+        Map.entry("claude-sonnet-5-5", "Claude Sonnet 5.5 (Latest)"),
+        Map.entry("claude-sonnet-4-6", "Claude Sonnet 4.6"),
         Map.entry("claude-opus-4-6", "Claude Opus 4.6 (Most Capable)"),
         Map.entry("claude-sonnet-4-5-20250929", "Claude Sonnet 4.5"),
         Map.entry("claude-opus-4-1-20250805", "Claude Opus 4.1"),
@@ -84,12 +91,42 @@ public class ModelConfig {
      * These will be migrated to the default model
      */
     public static final Map<String, String> INVALID_MODEL_MIGRATIONS = Map.of(
-        "claude-3-5-sonnet-20241022", "claude-sonnet-4-6",  // Common mistake - doesn't exist!
-        "claude-3.5-sonnet", "claude-sonnet-4-6",
-        "claude-sonnet", "claude-sonnet-4-6",
+        "claude-3-5-sonnet-20241022", "claude-sonnet-5-5",  // Common mistake - doesn't exist!
+        "claude-3.5-sonnet", "claude-sonnet-5-5",
+        "claude-sonnet", "claude-sonnet-5-5",
         "claude-opus", "claude-opus-4-6",
         "claude-haiku", "claude-haiku-4-5-20251001"
     );
+
+    /**
+     * Claude 5.x models reject non-default sampling params (temperature/top_p/top_k → HTTP 400)
+     * and think by default (adaptive thinking; tuned via output_config.effort instead).
+     */
+    public static boolean isClaude5(String model) {
+        return model != null && model.trim().matches("claude-[a-z]+-5(-\\d+)?");
+    }
+
+    /** Thinking tokens count toward max_tokens on Claude 5.x, so keep headroom for the reply. */
+    public static final int CLAUDE5_MIN_MAX_TOKENS = 8192;
+
+    /**
+     * Put model-appropriate generation params on an Anthropic request body: temperature/top_p for
+     * pre-5.x models; for Claude 5.x, drop sampling params, set effort, and floor max_tokens.
+     * Pass {@code null} for any param the caller doesn't set.
+     */
+    public static void applyGenerationParams(ObjectNode requestBody, String model, int maxTokens,
+                                             Double temperature, Double topP, String effort) {
+        if (isClaude5(model)) {
+            requestBody.put("max_tokens", Math.max(maxTokens, CLAUDE5_MIN_MAX_TOKENS));
+            if (effort != null && !effort.isBlank()) {
+                requestBody.putObject("output_config").put("effort", effort.trim());
+            }
+        } else {
+            requestBody.put("max_tokens", maxTokens);
+            if (temperature != null) requestBody.put("temperature", temperature);
+            if (topP != null) requestBody.put("top_p", topP);
+        }
+    }
 
     /**
      * Check if a model name is valid

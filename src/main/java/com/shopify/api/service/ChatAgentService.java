@@ -58,6 +58,10 @@ public class ChatAgentService {
     @Value("${anthropic.temperature:0.7}")
     private double temperature;
 
+    // Claude 5.x only: thinking depth (low keeps storefront chat replies fast).
+    @Value("${anthropic.effort:low}")
+    private String effort;
+
     @Value("${anthropic.system-prompt-file:classpath:prompts/system-prompt.txt}")
     private String systemPromptFile;
 
@@ -253,6 +257,10 @@ public class ChatAgentService {
                     state.toolId.put(idx, block.get("id").asText());
                     state.toolName.put(idx, block.get("name").asText());
                     state.toolJson.put(idx, new StringBuilder());
+                } else if (!"text".equals(bt)) {
+                    // thinking / redacted_thinking (Claude 5.x): must be replayed unchanged on the
+                    // next tool-loop call, so keep the whole block and accumulate its deltas.
+                    state.otherBlock.put(idx, block.deepCopy());
                 } else {
                     StringBuilder sb = new StringBuilder();
                     if (block.hasNonNull("text")) sb.append(block.get("text").asText());
@@ -268,6 +276,13 @@ public class ChatAgentService {
                     String t = delta.get("text").asText();
                     state.text.computeIfAbsent(idx, k -> new StringBuilder()).append(t);
                     return Flux.just(sseToken(t));
+                } else if ("thinking_delta".equals(dt) || "signature_delta".equals(dt)) {
+                    ObjectNode ob = state.otherBlock.get(idx);
+                    if (ob != null) {
+                        String field = "thinking_delta".equals(dt) ? "thinking" : "signature";
+                        String prev = ob.hasNonNull(field) ? ob.get(field).asText() : "";
+                        ob.put(field, prev + delta.get(field).asText());
+                    }
                 } else if ("input_json_delta".equals(dt)) {
                     state.toolJson.computeIfAbsent(idx, k -> new StringBuilder())
                             .append(delta.get("partial_json").asText());
@@ -308,6 +323,8 @@ public class ChatAgentService {
                     tu.set("input", input);
                     assistantContent.add(tu);
                     toolUses.add(tu);
+                } else if (state.otherBlock.containsKey(idx)) {
+                    assistantContent.add(state.otherBlock.get(idx));
                 } else {
                     ObjectNode tb = objectMapper.createObjectNode();
                     tb.put("type", "text");
@@ -435,8 +452,7 @@ public class ChatAgentService {
 
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", modelToUse);
-        requestBody.put("max_tokens", tokensToUse);
-        requestBody.put("temperature", tempToUse);
+        ModelConfig.applyGenerationParams(requestBody, modelToUse, tokensToUse, tempToUse, null, effort);
         requestBody.put("stream", true);
 
         // Prompt caching (identical to the blocking path).
@@ -491,6 +507,7 @@ public class ChatAgentService {
         final Map<Integer, String> toolName = new HashMap<>();
         final Map<Integer, StringBuilder> text = new HashMap<>();
         final Map<Integer, StringBuilder> toolJson = new HashMap<>();
+        final Map<Integer, ObjectNode> otherBlock = new HashMap<>();
         String stopReason = null;
     }
 
@@ -523,8 +540,7 @@ public class ChatAgentService {
         // Create the request body for Claude API
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", modelToUse);
-        requestBody.put("max_tokens", tokensToUse);
-        requestBody.put("temperature", tempToUse);
+        ModelConfig.applyGenerationParams(requestBody, modelToUse, tokensToUse, tempToUse, null, effort);
         // Prompt caching: send the large, static system prompt as a cache-controlled
         // content block so repeated tool-loop calls read it (and, since render order is
         // tools -> system, the tool definitions) from cache instead of reprocessing them
@@ -685,8 +701,7 @@ public class ChatAgentService {
 
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", modelToUse);
-        requestBody.put("max_tokens", tokensToUse);
-        requestBody.put("temperature", tempToUse);
+        ModelConfig.applyGenerationParams(requestBody, modelToUse, tokensToUse, tempToUse, null, effort);
         // Prompt caching: send the large, static system prompt as a cache-controlled
         // content block so repeated tool-loop calls read it (and, since render order is
         // tools -> system, the tool definitions) from cache instead of reprocessing them

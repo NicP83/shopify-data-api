@@ -251,8 +251,8 @@ public class AgentExecutionService {
         // Create request body with validated model
         ObjectNode requestBody = objectMapper.createObjectNode();
         requestBody.put("model", validatedModel);
-        requestBody.put("max_tokens", agent.getMaxTokens());
-        requestBody.put("temperature", agent.getTemperature().doubleValue());
+        ModelConfig.applyGenerationParams(requestBody, validatedModel, agent.getMaxTokens(),
+                agent.getTemperature().doubleValue(), null, null);
 
         // Prompt caching: send the system prompt as a cacheable block so the (unchanging) agent
         // instructions + tool context aren't re-processed on every iteration. Mirrors the main chat loop.

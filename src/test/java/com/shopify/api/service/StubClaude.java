@@ -26,6 +26,8 @@ final class StubClaude {
 
     final Deque<String> responses = new ArrayDeque<>();
     final ChatbotConfigService configService = mock(ChatbotConfigService.class);
+    final AgentRepository agentRepository = mock(AgentRepository.class);
+    final SystemPromptService systemPromptService = mock(SystemPromptService.class);
 
     ChatAgentService service(List<ChatToolHandler> tools) {
         WebClient.Builder builder = WebClient.builder().exchangeFunction(request -> {
@@ -40,8 +42,8 @@ final class StubClaude {
                     .build());
         });
         ChatAgentService service = new ChatAgentService(builder,
-                mock(ProductService.class), configService, mock(SystemPromptService.class),
-                mock(ModelValidationService.class), mock(AgentRepository.class),
+                mock(ProductService.class), configService, systemPromptService,
+                mock(ModelValidationService.class), agentRepository,
                 new ChatToolRegistry(tools), new DefaultResourceLoader(), "test-shop.myshopify.com");
         ReflectionTestUtils.setField(service, "anthropicApiKey", "test-key");
         ReflectionTestUtils.setField(service, "anthropicApiVersion", "2023-06-01");

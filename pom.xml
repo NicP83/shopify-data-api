@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.12</version>
         <relativePath/>
     </parent>
 
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>io.hypersistence</groupId>
             <artifactId>hypersistence-utils-hibernate-63</artifactId>
-            <version>3.7.0</version>
+            <version>3.7.7</version>
         </dependency>
 
         <!-- Apache Commons Codec for HMAC verification -->

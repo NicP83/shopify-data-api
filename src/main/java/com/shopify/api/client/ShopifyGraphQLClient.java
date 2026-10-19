@@ -8,11 +8,16 @@ import com.shopify.api.util.RateLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import io.netty.channel.ConnectTimeoutException;
+import io.netty.handler.ssl.SslHandshakeTimeoutException;
+import io.netty.handler.timeout.ReadTimeoutException;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
 import java.time.Duration;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Client for making GraphQL requests to Shopify Admin API
@@ -20,6 +25,7 @@ import java.time.Duration;
  * - Request execution
  * - Rate limiting
  * - Automatic retries with exponential backoff
+ * - Per-attempt and total timeouts (shopify.http.*)
  * - Error handling
  */
 @Component
@@ -69,15 +75,15 @@ public class ShopifyGraphQLClient {
                     .bodyValue(request)
                     .retrieve()
                     .bodyToMono(GraphQLResponse.class)
+                    .timeout(attemptTimeout())
                     .retryWhen(Retry.backoff(
                             shopifyConfig.getRateLimit().getMaxRetries(),
                             Duration.ofMillis(shopifyConfig.getRateLimit().getInitialBackoffMs())
-                    ).filter(throwable -> isRetryableError(throwable)))
-                    .onErrorResume(throwable -> {
-                        logger.error("Error executing GraphQL query", throwable);
-                        return Mono.just(createErrorResponse(throwable));
-                    })
-                    .block();
+                    ).filter(this::isRetryableError))
+                    .timeout(totalTimeout())
+                    .onErrorResume(throwable -> Mono.just(handleCallError(throwable)))
+                    // Hard backstop: never hold the calling thread past the total timeout
+                    .block(totalTimeout().plusSeconds(5));
 
             if (response != null) {
                 // Record actual query cost if available
@@ -117,10 +123,12 @@ public class ShopifyGraphQLClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(GraphQLResponse.class)
+                .timeout(attemptTimeout())
                 .retryWhen(Retry.backoff(
                         shopifyConfig.getRateLimit().getMaxRetries(),
                         Duration.ofMillis(shopifyConfig.getRateLimit().getInitialBackoffMs())
                 ).filter(this::isRetryableError))
+                .timeout(totalTimeout())
                 .doOnNext(response -> {
                     // Record actual query cost if available
                     Integer actualCost = response.getQueryCost();
@@ -134,10 +142,7 @@ public class ShopifyGraphQLClient {
                         logger.info("GraphQL query executed successfully");
                     }
                 })
-                .onErrorResume(throwable -> {
-                    logger.error("Error executing GraphQL query", throwable);
-                    return Mono.just(createErrorResponse(throwable));
-                });
+                .onErrorResume(throwable -> Mono.just(handleCallError(throwable)));
     }
 
     /**
@@ -150,28 +155,105 @@ public class ShopifyGraphQLClient {
     }
 
     /**
-     * Determine if an error is retryable
+     * Determine if an error is retryable.
+     * Rate limits (429) and gateway failures (502/503) are retried. Timeouts are not:
+     * one bounded attempt is better for a waiting customer than several slow ones.
      */
-    private boolean isRetryableError(Throwable throwable) {
+    boolean isRetryableError(Throwable throwable) {
+        if (isTimeout(throwable)) return false;
+
+        if (throwable instanceof WebClientResponseException responseException) {
+            int status = responseException.getStatusCode().value();
+            return status == 429 || status == 502 || status == 503;
+        }
+
         String message = throwable.getMessage();
         if (message == null) return false;
 
         // Retry on rate limit errors and temporary failures
         return message.contains("429") ||
                message.contains("throttled") ||
-               message.contains("timeout") ||
                message.contains("503") ||
                message.contains("502");
+    }
+
+    /**
+     * True if the error (or any cause) is a connect, read, per-attempt or total timeout
+     */
+    static boolean isTimeout(Throwable throwable) {
+        for (Throwable t = throwable; t != null; t = t.getCause()) {
+            if (t instanceof TimeoutException
+                    || t instanceof ReadTimeoutException
+                    || t instanceof ConnectTimeoutException
+                    || t instanceof SslHandshakeTimeoutException
+                    || t instanceof java.net.SocketTimeoutException) {
+                return true;
+            }
+            if (t.getCause() == t) break;
+        }
+        return false;
+    }
+
+    /**
+     * Log a failed call and convert it to the error response callers already handle
+     */
+    private GraphQLResponse handleCallError(Throwable throwable) {
+        if (isTimeout(throwable)) {
+            String message = describeTimeout(throwable, shopifyConfig.getHttp());
+            logger.error(message);
+            return createErrorResponse(message);
+        }
+        logger.error("Error executing GraphQL query", throwable);
+        return createErrorResponse(throwable);
+    }
+
+    /**
+     * e.g. "Shopify call timed out after 15000ms (per-attempt timeout)"
+     */
+    static String describeTimeout(Throwable throwable, ShopifyConfig.Http http) {
+        for (Throwable t = throwable; t != null && t.getCause() != t; t = t.getCause()) {
+            if (t instanceof ConnectTimeoutException) {
+                return timedOut(http.getConnectTimeoutMs(), "connect");
+            }
+            if (t instanceof SslHandshakeTimeoutException) {
+                // Reactor Netty's own TLS handshake limit (10s by default)
+                return "Shopify call timed out (TLS handshake): " + t.getMessage();
+            }
+            if (t instanceof ReadTimeoutException || t instanceof java.net.SocketTimeoutException) {
+                return timedOut(http.getReadTimeoutMs(), "read");
+            }
+        }
+        // Reactor's TimeoutException message reads "... within {n}ms in 'timeout' ..."
+        String message = throwable.getMessage();
+        if (message != null && message.contains("within " + http.getTotalTimeoutMs() + "ms")) {
+            return timedOut(http.getTotalTimeoutMs(), "total");
+        }
+        return timedOut(http.getResponseTimeoutMs(), "per-attempt");
+    }
+
+    private static String timedOut(long ms, String kind) {
+        return "Shopify call timed out after " + ms + "ms (" + kind + " timeout)";
+    }
+
+    private Duration attemptTimeout() {
+        return Duration.ofMillis(shopifyConfig.getHttp().getResponseTimeoutMs());
+    }
+
+    private Duration totalTimeout() {
+        return Duration.ofMillis(shopifyConfig.getHttp().getTotalTimeoutMs());
     }
 
     /**
      * Create an error response from an exception
      */
     private GraphQLResponse createErrorResponse(Throwable throwable) {
+        return createErrorResponse(throwable.getMessage());
+    }
+
+    private GraphQLResponse createErrorResponse(String message) {
         GraphQLResponse response = new GraphQLResponse();
         GraphQLResponse.GraphQLError error = new GraphQLResponse.GraphQLError();
-        error.setMessage(throwable.getMessage() != null ?
-                throwable.getMessage() : "Unknown error occurred");
+        error.setMessage(message != null ? message : "Unknown error occurred");
         response.setErrors(java.util.List.of(error));
         return response;
     }

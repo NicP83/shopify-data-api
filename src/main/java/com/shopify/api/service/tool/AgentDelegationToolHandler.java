@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.Collection;
+
 /**
  * Tool handler for delegating tasks to specialist agents
  *
@@ -42,6 +44,16 @@ public class AgentDelegationToolHandler implements ToolHandler {
 
     @Override
     public Mono<JsonNode> execute(JsonNode input) {
+        return execute(input, null);
+    }
+
+    /**
+     * Delegate, refusing any agent whose id is not in {@code allowedAgentIds}.
+     * The storefront chat passes its config's linked agent ids, so a customer
+     * can't talk the bot into running an unlinked agent (e.g. agent 23).
+     * A null list means no restriction (DB-agent tool path).
+     */
+    public Mono<JsonNode> execute(JsonNode input, Collection<Long> allowedAgentIds) {
         String agentName = input.get("agent_name").asText();
         String task = input.get("task").asText();
 
@@ -57,6 +69,12 @@ public class AgentDelegationToolHandler implements ToolHandler {
                     }
 
                     Agent agent = agentOpt.get();
+
+                    if (allowedAgentIds != null && !allowedAgentIds.contains(agent.getId())) {
+                        log.warn("Agent {} ('{}') is not linked to this chat - refusing delegation",
+                            agent.getId(), agentName);
+                        return createErrorResponse("Agent '" + agentName + "' is not available from chat");
+                    }
 
                     // Check if agent is active
                     if (!agent.getIsActive()) {

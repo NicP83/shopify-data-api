@@ -7,6 +7,7 @@ import com.shopify.api.model.ChatbotConfig;
 import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
 import com.shopify.api.model.agent.Agent;
+import com.shopify.api.handler.tool.DelegateToAgentChatToolHandler;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -174,7 +175,8 @@ public class ChatAgentService {
         ArrayNode messages = buildMessagesArray(chatRequest);
 
         // Call Claude API with tool support
-        return callClaudeWithTools(systemPrompt, messages, 0, config);
+        return callClaudeWithTools(systemPrompt, messages, 0, config)
+                .contextWrite(ctx -> ctx.put(DelegateToAgentChatToolHandler.CHAT_CONFIG_CONTEXT_KEY, config));
     }
 
     // ==================================================================
@@ -204,7 +206,8 @@ public class ChatAgentService {
                 .onErrorResume(err -> {
                     logger.error("Error in streaming chat: {}", err.getMessage(), err);
                     return Flux.just(sseError(err.getMessage()));
-                });
+                })
+                .contextWrite(ctx -> ctx.put(DelegateToAgentChatToolHandler.CHAT_CONFIG_CONTEXT_KEY, config));
     }
 
     /**

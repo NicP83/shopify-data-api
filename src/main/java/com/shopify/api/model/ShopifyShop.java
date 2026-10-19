@@ -1,5 +1,6 @@
 package com.shopify.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,9 @@ public class ShopifyShop {
     private String shopOwner;
 
     // OAuth tokens
+    // Never serialize: entities embedding the shop (chat logs, analytics, configs) are
+    // returned by admin endpoints, which leaked this token in JSON responses.
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "access_token", nullable = false, columnDefinition = "TEXT")
     private String accessToken;
 

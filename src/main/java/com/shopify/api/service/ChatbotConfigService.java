@@ -166,6 +166,7 @@ public class ChatbotConfigService {
         if (config.getSlug() == null || config.getSlug().isBlank()) {
             throw new IllegalArgumentException("Profile slug is required");
         }
+        validate(config);
         ChatbotConfigEntity entity = configRepository.findBySlug(config.getSlug())
             .orElseGet(() -> ChatbotConfigEntity.fromConfig(config));
         // For an existing profile, update fields in place
@@ -222,7 +223,9 @@ public class ChatbotConfigService {
      * Evicts cache to ensure fresh config is loaded
      * @param config The updated configuration
      */
-    @CacheEvict(value = "chatbotConfig", key = "'global'")
+    // allEntries: persona lookups that fell back to the global config are cached
+    // under 'persona:<slug>' keys and must be refreshed too.
+    @CacheEvict(value = "chatbotConfig", allEntries = true)
     public ChatbotConfig updateConfig(ChatbotConfig config) {
         return updateConfig(config, null, "system");
     }
@@ -234,7 +237,9 @@ public class ChatbotConfigService {
      * @param shopId Shop ID (null for global config)
      * @param updatedBy Username of who made the update
      */
-    @CacheEvict(value = "chatbotConfig", key = "#shopId == null ? 'global' : #shopId")
+    // Note: when reached via updateConfig(config) this is a self-invocation, so
+    // this annotation does not run; the caller's eviction covers it.
+    @CacheEvict(value = "chatbotConfig", allEntries = true)
     public ChatbotConfig updateConfig(ChatbotConfig config, Long shopId, String updatedBy) {
         logger.info("Updating chatbot config for shop: {}", shopId);
 
@@ -256,6 +261,7 @@ public class ChatbotConfigService {
             entity.setUpdatedBy(updatedBy);
         } else {
             // Create new entity
+            validate(config);
             entity = ChatbotConfigEntity.fromConfig(config);
             entity.setCreatedBy(updatedBy);
             entity.setUpdatedBy(updatedBy);
@@ -271,9 +277,22 @@ public class ChatbotConfigService {
     }
 
     /**
+     * Reject values that are never valid. A search limit below 1 silently turns
+     * product search into empty results (the 2026-10-18 config wipe).
+     * Only checks fields the request actually sent.
+     */
+    private void validate(ChatbotConfig config) {
+        Integer maxResults = config.maxSearchResultsIfSet();
+        if (maxResults != null && maxResults < 1) {
+            throw new IllegalArgumentException("maxSearchResults must be at least 1 (got " + maxResults + ")");
+        }
+    }
+
+    /**
      * Update entity fields from config DTO
      */
     private void updateEntityFromConfig(ChatbotConfigEntity entity, ChatbotConfig config) {
+        validate(config);
         if (config.getStoreName() != null) {
             entity.setStoreName(config.getStoreName());
         }
@@ -289,16 +308,32 @@ public class ChatbotConfigService {
         if (config.getOutOfScopeResponse() != null) {
             entity.setOutOfScopeResponse(config.getOutOfScopeResponse());
         }
-        entity.setRequireSearchBeforeRecommendation(config.isRequireSearchBeforeRecommendation());
-        entity.setEnableProductSearch(config.isEnableProductSearch());
-        entity.setMaxSearchResults(config.getMaxSearchResults());
+        // Boolean/number settings: only overwrite when the request sent them, so a
+        // partial PUT (e.g. just modelName) can't reset them to false/0.
+        if (config.requireSearchBeforeRecommendationIfSet() != null) {
+            entity.setRequireSearchBeforeRecommendation(config.requireSearchBeforeRecommendationIfSet());
+        }
+        if (config.enableProductSearchIfSet() != null) {
+            entity.setEnableProductSearch(config.enableProductSearchIfSet());
+        }
+        if (config.maxSearchResultsIfSet() != null) {
+            entity.setMaxSearchResults(config.maxSearchResultsIfSet());
+        }
         if (config.getToneOfVoice() != null) {
             entity.setToneOfVoice(config.getToneOfVoice());
         }
-        entity.setIncludeCartLinks(config.isIncludeCartLinks());
-        entity.setIncludeProductLinks(config.isIncludeProductLinks());
-        entity.setShowPrices(config.isShowPrices());
-        entity.setShowSkus(config.isShowSkus());
+        if (config.includeCartLinksIfSet() != null) {
+            entity.setIncludeCartLinks(config.includeCartLinksIfSet());
+        }
+        if (config.includeProductLinksIfSet() != null) {
+            entity.setIncludeProductLinks(config.includeProductLinksIfSet());
+        }
+        if (config.showPricesIfSet() != null) {
+            entity.setShowPrices(config.showPricesIfSet());
+        }
+        if (config.showSkusIfSet() != null) {
+            entity.setShowSkus(config.showSkusIfSet());
+        }
         if (config.getCustomInstructions() != null) {
             entity.setCustomInstructions(config.getCustomInstructions());
         }

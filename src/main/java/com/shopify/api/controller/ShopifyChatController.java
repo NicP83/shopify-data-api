@@ -5,6 +5,7 @@ import com.shopify.api.model.ChatRequest;
 import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.service.ChatAgentService;
 import com.shopify.api.service.ChatAnalyticsService;
+import com.shopify.api.service.ChatTurnMetrics;
 import com.shopify.api.service.ShopifyShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.SignalType;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * REST API for shop-scoped chat with AI assistant
@@ -45,6 +51,7 @@ public class ShopifyChatController {
     private final ChatAgentService chatAgentService;
     private final ShopifyShopService shopifyShopService;
     private final ChatAnalyticsService chatAnalyticsService;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     public ShopifyChatController(ChatAgentService chatAgentService,
@@ -115,15 +122,23 @@ public class ShopifyChatController {
                 shopConfig.getAiTemperatureValue(),
                 shopConfig.getAiMaxTokensValue());
 
+            ChatTurnMetrics metrics = new ChatTurnMetrics("blocking");
+
             // Process chat request with shop-specific settings
             return chatAgentService.processChat(request)
                 .map(chatMessage -> {
                     // Calculate response time
                     long responseTime = System.currentTimeMillis() - startTime;
+                    logTurn(metrics, "ok", responseTime);
 
-                    // Track successful interaction with token usage
+                    // Track successful interaction with token usage, summed over every
+                    // Claude call of the turn when available (else the final call's).
+                    boolean summed = metrics.hasUsage();
                     trackSuccessfulInteraction(shopConfig, request, chatMessage.getContent(),
-                        responseTime, chatMessage.getInputTokens(), chatMessage.getOutputTokens(),
+                        responseTime,
+                        summed ? Integer.valueOf(metrics.getInputTokens()) : chatMessage.getInputTokens(),
+                        summed ? Integer.valueOf(metrics.getOutputTokens()) : chatMessage.getOutputTokens(),
+                        metrics.getModel(), metrics.getToolCount(),
                         userAgent, xForwardedFor, xRealIp, referer);
 
                     Map<String, Object> response = new HashMap<>();
@@ -142,6 +157,7 @@ public class ShopifyChatController {
 
                     // Calculate response time for error case
                     long responseTime = System.currentTimeMillis() - startTime;
+                    logTurn(metrics, "error", responseTime);
 
                     // Track failed interaction with error details
                     trackFailedInteractionWithShop(shopConfig, request,
@@ -152,7 +168,8 @@ public class ShopifyChatController {
                     error.put("error", "Chat processing failed");
                     error.put("message", e.getMessage());
                     return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error));
-                });
+                })
+                .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, metrics));
 
         } catch (Exception e) {
             logger.error("Error in sendMessage: {}", e.getMessage(), e);
@@ -180,7 +197,11 @@ public class ShopifyChatController {
     @PostMapping(value = "/message/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> streamMessage(
             @RequestParam String shop,
-            @RequestBody ChatRequest request) {
+            @RequestBody ChatRequest request,
+            @RequestHeader(value = "User-Agent", required = false) String userAgent,
+            @RequestHeader(value = "X-Forwarded-For", required = false) String xForwardedFor,
+            @RequestHeader(value = "X-Real-IP", required = false) String xRealIp,
+            @RequestHeader(value = "Referer", required = false) String referer) {
         try {
             if (!shopifyShopService.isShopActive(shop)) {
                 logger.warn("Stream: shop not found or inactive: {}", shop);
@@ -207,6 +228,11 @@ public class ShopifyChatController {
             Flux<ServerSentEvent<String>> content = chatAgentService.streamChat(request);
             Flux<ServerSentEvent<String>> heartbeat = Flux.interval(Duration.ofSeconds(15))
                     .map(i -> ServerSentEvent.<String>builder().comment("hb").build());
+            // Observe-only: records the turn (analytics row + CHAT_TURN log) once it ends.
+            // Its hooks swallow every failure and the DB write runs off the stream thread,
+            // so it can't alter, delay or break what the shopper receives.
+            StreamTurnRecorder recorder = new StreamTurnRecorder(shopConfig, request,
+                    userAgent, xForwardedFor, xRealIp, referer);
             return content
                     .mergeWith(heartbeat)
                     .takeUntil(sse -> "done".equals(sse.event()) || "error".equals(sse.event()))
@@ -215,10 +241,116 @@ public class ShopifyChatController {
                         logger.error("Stream error for shop {}: {}", shop, e.getMessage());
                         chatAgentService.clearShopContext();
                         return Flux.just(sseError("Chat processing failed"));
-                    });
+                    })
+                    .doOnNext(recorder::observe)
+                    .doFinally(recorder::finish)
+                    .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, recorder.metrics));
         } catch (Exception e) {
             logger.error("Error in streamMessage: {}", e.getMessage(), e);
             return Flux.just(sseError("Internal server error"));
+        }
+    }
+
+    /** One CHAT_TURN log line per finished turn. Never throws. */
+    private void logTurn(ChatTurnMetrics metrics, String outcome, long totalMs) {
+        try {
+            logger.info(metrics.toLogLine(outcome, totalMs));
+        } catch (Exception e) {
+            logger.debug("Could not log chat turn: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Watches the frames of one streamed turn and, when it ends, logs a CHAT_TURN
+     * line and saves one ChatAnalytics row like the blocking path does. All hooks
+     * catch everything; the DB write is fire-and-forget on boundedElastic.
+     */
+    private final class StreamTurnRecorder {
+        final ChatTurnMetrics metrics = new ChatTurnMetrics("stream");
+        private final long startTime = System.currentTimeMillis();
+        private final ShopifyShop shopConfig;
+        private final ChatRequest request;
+        private final String userAgent;
+        private final String xForwardedFor;
+        private final String xRealIp;
+        private final String referer;
+        private final StringBuilder answer = new StringBuilder();
+        private final AtomicBoolean finished = new AtomicBoolean();
+        private volatile boolean sawDone;
+        private volatile String errorMessage;
+
+        StreamTurnRecorder(ShopifyShop shopConfig, ChatRequest request, String userAgent,
+                           String xForwardedFor, String xRealIp, String referer) {
+            this.shopConfig = shopConfig;
+            this.request = request;
+            this.userAgent = userAgent;
+            this.xForwardedFor = xForwardedFor;
+            this.xRealIp = xRealIp;
+            this.referer = referer;
+        }
+
+        void observe(ServerSentEvent<String> sse) {
+            try {
+                String event = sse.event();
+                if ("token".equals(event)) {
+                    metrics.markFirstToken();
+                    JsonNode data = objectMapper.readTree(sse.data());
+                    synchronized (answer) {
+                        answer.append(data.path("text").asText(""));
+                    }
+                } else if ("done".equals(event)) {
+                    sawDone = true;
+                } else if ("error".equals(event)) {
+                    JsonNode data = objectMapper.readTree(sse.data());
+                    errorMessage = data.path("message").asText("stream error");
+                }
+            } catch (Throwable t) {
+                logger.debug("Stream recorder: could not observe frame: {}", t.getMessage());
+            }
+        }
+
+        void finish(SignalType signal) {
+            try {
+                if (!finished.compareAndSet(false, true)) {
+                    return;
+                }
+                long responseTime = System.currentTimeMillis() - startTime;
+                boolean cancelled = signal == SignalType.CANCEL && !sawDone && errorMessage == null;
+                String outcome = sawDone ? "ok" : cancelled ? "cancelled" : "error";
+                logTurn(metrics, outcome, responseTime);
+
+                String text;
+                synchronized (answer) {
+                    text = answer.toString();
+                }
+                Runnable save = () -> {
+                    try {
+                        if (sawDone || cancelled) {
+                            // A disconnect still counts as answered, with what was streamed.
+                            trackStreamedInteraction(text, responseTime,
+                                cancelled ? "client disconnected" : null);
+                        } else {
+                            trackFailedInteractionWithShop(shopConfig, request,
+                                "Stream failed: " + (errorMessage != null ? errorMessage : signal),
+                                responseTime);
+                        }
+                    } catch (Throwable t) {
+                        logger.error("Failed to track streamed chat: {}", t.getMessage());
+                    }
+                };
+                Schedulers.boundedElastic().schedule(save);
+            } catch (Throwable t) {
+                logger.error("Stream recorder failed: {}", t.getMessage());
+            }
+        }
+
+        private void trackStreamedInteraction(String text, long responseTime, String note) {
+            boolean summed = metrics.hasUsage();
+            ChatAnalytics analytics = buildSuccessfulInteraction(shopConfig, request, text, responseTime,
+                summed ? metrics.getInputTokens() : null, summed ? metrics.getOutputTokens() : null,
+                metrics.getModel(), metrics.getToolCount(), userAgent, xForwardedFor, xRealIp, referer);
+            analytics.setErrorMessage(note);
+            chatAnalyticsService.trackInteraction(analytics);
         }
     }
 
@@ -236,41 +368,59 @@ public class ShopifyChatController {
     private void trackSuccessfulInteraction(ShopifyShop shop, ChatRequest request,
                                            String assistantResponse, long responseTimeMs,
                                            Integer inputTokens, Integer outputTokens,
+                                           String modelUsed, int toolCount,
                                            String userAgent, String xForwardedFor,
                                            String xRealIp, String referer) {
         try {
-            ChatAnalytics analytics = ChatAnalytics.builder()
-                .shop(shop)
-                .sessionId(request.getSessionId())
-                .userIdentifier(request.getUserIdentifier())
-                .userMessage(request.getMessage())
-                .assistantResponse(assistantResponse)
-                .modelUsed(shop.getAiModel())
-                .temperatureUsed(shop.getAiTemperature())
-                .maxTokensUsed(shop.getAiMaxTokens())
-                .responseTimeMs((int) responseTimeMs)
-                .wasSuccessful(true)
-                .userAgent(userAgent)
-                .ipAddress(extractClientIp(xForwardedFor, xRealIp))
-                .refererUrl(referer)
-                .build();
-
-            // Calculate and set token usage and API cost
-            if (inputTokens != null && outputTokens != null) {
-                analytics.setTokensUsed(inputTokens + outputTokens);
-                analytics.calculateApiCost(inputTokens, outputTokens);
-                logger.debug("Token usage - Input: {}, Output: {}, Total: {}, Cost: ${}",
-                    inputTokens, outputTokens, analytics.getTokensUsed(), analytics.getApiCostUsd());
-            } else {
-                logger.warn("Token usage not available from Claude API response");
-            }
-
+            ChatAnalytics analytics = buildSuccessfulInteraction(shop, request, assistantResponse,
+                responseTimeMs, inputTokens, outputTokens, modelUsed, toolCount,
+                userAgent, xForwardedFor, xRealIp, referer);
             chatAnalyticsService.trackInteraction(analytics);
             logger.debug("Analytics tracked for session: {}", request.getSessionId());
         } catch (Exception e) {
             // Don't fail the request if analytics tracking fails
             logger.error("Failed to track analytics: {}", e.getMessage());
         }
+    }
+
+    /**
+     * Build the analytics row for a successful turn (blocking or streamed).
+     * modelUsed is the model the turn actually called (chatbot config can override
+     * the shop's); falls back to the shop's model when unknown.
+     */
+    private ChatAnalytics buildSuccessfulInteraction(ShopifyShop shop, ChatRequest request,
+                                                     String assistantResponse, long responseTimeMs,
+                                                     Integer inputTokens, Integer outputTokens,
+                                                     String modelUsed, int toolCount,
+                                                     String userAgent, String xForwardedFor,
+                                                     String xRealIp, String referer) {
+        ChatAnalytics analytics = ChatAnalytics.builder()
+            .shop(shop)
+            .sessionId(request.getSessionId())
+            .userIdentifier(request.getUserIdentifier())
+            .userMessage(request.getMessage())
+            .assistantResponse(assistantResponse)
+            .modelUsed(modelUsed != null ? modelUsed : shop.getAiModel())
+            .temperatureUsed(shop.getAiTemperature())
+            .maxTokensUsed(shop.getAiMaxTokens())
+            .responseTimeMs((int) responseTimeMs)
+            .toolResultsCount(toolCount)
+            .wasSuccessful(true)
+            .userAgent(userAgent)
+            .ipAddress(extractClientIp(xForwardedFor, xRealIp))
+            .refererUrl(referer)
+            .build();
+
+        // Calculate and set token usage and API cost
+        if (inputTokens != null && outputTokens != null) {
+            analytics.setTokensUsed(inputTokens + outputTokens);
+            analytics.calculateApiCost(inputTokens, outputTokens);
+            logger.debug("Token usage - Input: {}, Output: {}, Total: {}, Cost: ${}",
+                inputTokens, outputTokens, analytics.getTokensUsed(), analytics.getApiCostUsd());
+        } else {
+            logger.warn("Token usage not available from Claude API response");
+        }
+        return analytics;
     }
 
     /**

@@ -227,6 +227,7 @@ public class ChatAgentService {
 
         ObjectNode requestBody = buildStreamingRequestBody(systemPrompt, messages, config);
         StreamState state = new StreamState();
+        state.model = requestBody.path("model").asText(null);
 
         Flux<ServerSentEvent<String>> live = webClient.post()
                 .uri("/messages")
@@ -238,7 +239,10 @@ public class ChatAgentService {
                 .bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<JsonNode>>() {})
                 .concatMap(sse -> handleAnthropicStreamEvent(sse.data(), state));
 
-        return live.concatWith(Flux.defer(() -> afterStream(systemPrompt, messages, iteration, config, state)));
+        return live.concatWith(Flux.deferContextual(ctx -> {
+            recordStreamedCall(ChatTurnMetrics.from(ctx), state);
+            return afterStream(systemPrompt, messages, iteration, config, state);
+        }));
     }
 
     /** Process one Anthropic stream event, mutating {@code state}; emit a token SSE for text deltas. */
@@ -289,10 +293,24 @@ public class ChatAgentService {
                 }
                 return Flux.empty();
             }
+            case "message_start": {
+                // Usage for turn metrics: input/cache counts arrive here...
+                JsonNode usage = data.path("message").path("usage");
+                state.inputTokens = usage.path("input_tokens").asInt(0);
+                state.cacheReadTokens = usage.path("cache_read_input_tokens").asInt(0);
+                state.cacheWriteTokens = usage.path("cache_creation_input_tokens").asInt(0);
+                state.outputTokens = usage.path("output_tokens").asInt(0);
+                return Flux.empty();
+            }
             case "message_delta": {
                 JsonNode delta = data.get("delta");
                 if (delta != null && delta.hasNonNull("stop_reason")) {
                     state.stopReason = delta.get("stop_reason").asText();
+                }
+                // ...and the final (cumulative) output count arrives here.
+                JsonNode usage = data.get("usage");
+                if (usage != null && usage.has("output_tokens")) {
+                    state.outputTokens = usage.get("output_tokens").asInt(state.outputTokens);
                 }
                 return Flux.empty();
             }
@@ -509,6 +527,43 @@ public class ChatAgentService {
         final Map<Integer, StringBuilder> toolJson = new HashMap<>();
         final Map<Integer, ObjectNode> otherBlock = new HashMap<>();
         String stopReason = null;
+        // Turn metrics only
+        final long startNanos = System.nanoTime();
+        String model;
+        int inputTokens;
+        int outputTokens;
+        int cacheReadTokens;
+        int cacheWriteTokens;
+    }
+
+    /** Add one finished streamed Claude call to the turn metrics. Never throws. */
+    private void recordStreamedCall(ChatTurnMetrics metrics, StreamState state) {
+        if (metrics == null) return;
+        try {
+            metrics.recordClaudeCall(state.model, (System.nanoTime() - state.startNanos) / 1_000_000,
+                    state.inputTokens, state.outputTokens, state.cacheReadTokens, state.cacheWriteTokens);
+        } catch (Exception e) {
+            logger.debug("Turn metrics: could not record streamed call: {}", e.getMessage());
+        }
+    }
+
+    /** Add one finished blocking Claude call (its JSON response) to the turn metrics. Never throws. */
+    private void recordBlockingCall(ChatTurnMetrics metrics, String model, long startNanos, JsonNode response) {
+        if (metrics == null) return;
+        try {
+            JsonNode usage = response == null ? null : response.get("usage");
+            int in = 0, out = 0, cacheRead = 0, cacheWrite = 0;
+            if (usage != null) {
+                in = usage.path("input_tokens").asInt(0);
+                out = usage.path("output_tokens").asInt(0);
+                cacheRead = usage.path("cache_read_input_tokens").asInt(0);
+                cacheWrite = usage.path("cache_creation_input_tokens").asInt(0);
+            }
+            metrics.recordClaudeCall(model, (System.nanoTime() - startNanos) / 1_000_000,
+                    in, out, cacheRead, cacheWrite);
+        } catch (Exception e) {
+            logger.debug("Turn metrics: could not record Claude call: {}", e.getMessage());
+        }
     }
 
     /**
@@ -565,6 +620,7 @@ public class ChatAgentService {
         }
 
         // Call Claude API
+        long callStart = System.nanoTime();
         return webClient.post()
                 .uri("/messages")
                 .header("x-api-key", anthropicApiKey)
@@ -573,7 +629,10 @@ public class ChatAgentService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .flatMap(response -> handleClaudeResponse(response, systemPrompt, messages, iteration, config))
+                .flatMap(response -> Mono.deferContextual(ctx -> {
+                    recordBlockingCall(ChatTurnMetrics.from(ctx), modelToUse, callStart, response);
+                    return handleClaudeResponse(response, systemPrompt, messages, iteration, config);
+                }))
                 .onErrorResume(error -> {
                     logger.error("Error calling Claude API: {}", error.getMessage());
                     return Mono.just(createErrorResponse());
@@ -680,7 +739,26 @@ public class ChatAgentService {
      */
     private Mono<String> executeToolCallReactive(String toolName, JsonNode input) {
         logger.info("=== EXECUTING TOOL: {} ===", toolName);
-        return chatToolRegistry.executeTool(toolName, input);
+        return Mono.deferContextual(ctx -> {
+            ChatTurnMetrics metrics = ChatTurnMetrics.from(ctx);
+            long start = System.nanoTime();
+            return chatToolRegistry.executeTool(toolName, input)
+                    .doOnSuccess(r -> recordTool(metrics, toolName, start, true))
+                    .doOnError(e -> recordTool(metrics, toolName, start, false));
+        });
+    }
+
+    /** Log one tool call's duration and add it to the turn metrics. Never throws. */
+    private void recordTool(ChatTurnMetrics metrics, String toolName, long startNanos, boolean ok) {
+        try {
+            long ms = (System.nanoTime() - startNanos) / 1_000_000;
+            logger.info("CHAT_TOOL tool={} ms={} ok={}", toolName, ms, ok);
+            if (metrics != null) {
+                metrics.recordTool(toolName, ms, ok);
+            }
+        } catch (Exception e) {
+            logger.debug("Turn metrics: could not record tool {}: {}", toolName, e.getMessage());
+        }
     }
 
     /**
@@ -720,6 +798,7 @@ public class ChatAgentService {
         requestBody.set("messages", messages);
         // No tools — forces a text-only response
 
+        long callStart = System.nanoTime();
         return webClient.post()
                 .uri("/messages")
                 .header("x-api-key", anthropicApiKey)
@@ -728,7 +807,10 @@ public class ChatAgentService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .map(this::extractAssistantMessage)
+                .flatMap(response -> Mono.deferContextual(ctx -> {
+                    recordBlockingCall(ChatTurnMetrics.from(ctx), modelToUse, callStart, response);
+                    return Mono.just(extractAssistantMessage(response));
+                }))
                 .onErrorResume(error -> {
                     logger.error("Error in fallback Claude call: {}", error.getMessage());
                     return Mono.just(createErrorResponse());

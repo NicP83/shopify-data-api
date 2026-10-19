@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../services/api'
+import { getAdminKey } from '../services/adminAuth'
 
 /**
  * WorkflowChatExecutor - Chat-based workflow execution
@@ -36,7 +37,9 @@ function WorkflowChatExecutor() {
   const loadWorkflow = async () => {
     try {
       setLoading(true)
-      const response = await api.getWorkflow(id)
+      const response = getAdminKey()
+        ? await api.getWorkflow(id)
+        : await api.getPublicWorkflow(id)
       setWorkflow(response.data)
 
       // Initialize chat with greeting

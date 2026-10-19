@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../services/api'
+import { getAdminKey } from '../services/adminAuth'
 
 /**
  * WorkflowFormExecutor - Dynamic form-based workflow execution
@@ -25,7 +26,9 @@ function WorkflowFormExecutor() {
   const loadWorkflow = async () => {
     try {
       setLoading(true)
-      const response = await api.getWorkflow(id)
+      const response = getAdminKey()
+        ? await api.getWorkflow(id)
+        : await api.getPublicWorkflow(id)
       setWorkflow(response.data)
 
       // Initialize form data with defaults from schema

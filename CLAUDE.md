@@ -44,6 +44,11 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 - `WorkflowOrchestratorService.java` — ordered workflow steps with shared context, approval steps (`ApprovalService`, resumed via `ApprovalController`), timeouts; cron scheduling via `SchedulerService` + `WorkflowSchedule`.
 - REST: `/api/agents`, `/api/workflows` (+ `/public/{id}/execute`), `/api/tools`, `/api/schedules`, `/api/approvals`. Spec: `docs/multi-agent/API_SPECIFICATION.md`; architecture: `docs/multi-agent/ARCHITECTURE.md`, `DATABASE_SCHEMA.md`.
 
+### Admin API auth (`filter/AdminAuthFilter`, Oct 2026)
+- All `/api/*` requires `X-API-Key` (an `api_keys` row or `ADMIN_BOOTSTRAP_KEY`) except `/api/shopify/chat/**`, `/api/workflows/public/**`, `/api/health`, and `/api/v1` + `/api/embed`, which `ApiKeyAuthFilter` guards. Scope is `admin`, except `POST /api/agents/{id}/execute` (`agents:run`, used by the HR app for agent 23) and `POST /api/workflows/{id}/execute` (`workflows:run`).
+- `ADMIN_AUTH_MODE` = `off` | `report` (default, logs only) | `enforce`. `ADMIN_AUTH_ENFORCE_PATHS` enforces chosen prefixes while in report mode. The SPA sends the key from `localStorage.hh_admin_key` (`frontend/src/services/adminAuth.js`). Audit and rollout: `docs/security/ADMIN_API_AUTH.md`.
+- New public routes must be added to the filter's allowlist, or they will 401 under enforce.
+
 ### Other modules
 - **Shopify data REST:** `ProductController`, `OrderController`, `CustomerController`, `InventoryController`, `FulfillmentController`, `AnalyticsController` → services → `ShopifyGraphQLClient` (rate limiting in `util/RateLimiter.java`).
 - **Inventory analysis:** `service/inventory/*` (velocity, alerts, order recommendations), `scheduler/InventoryAnalysisScheduler.java`, AI assistant at `POST /api/inventory-management/agent/chat`.

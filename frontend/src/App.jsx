@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navigation from './components/Navigation'
+import AdminKeyPrompt from './components/AdminKeyPrompt'
 import Dashboard from './pages/Dashboard'
 import ProductSearch from './pages/ProductSearch'
 import ChatAgent from './pages/ChatAgent'
@@ -31,6 +32,7 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
+        <AdminKeyPrompt />
         <Navigation />
         <main className="container mx-auto px-4 py-8">
           <Routes>

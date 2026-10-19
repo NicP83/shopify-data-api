@@ -34,6 +34,9 @@ import java.util.regex.Pattern;
  *   off     - filter does nothing
  *   report  - (default) never blocks; logs a WARN for each request that enforce would reject
  *   enforce - rejects with 401 (missing/invalid key) or 403 (missing scope)
+ * In report mode, paths under admin.auth.enforce-paths / ADMIN_AUTH_ENFORCE_PATHS
+ * (comma-separated prefixes, e.g. "/api/logs,/api/admin/activity") are enforced
+ * anyway, so the most sensitive routes can be locked before the rest.
  */
 @Slf4j
 public class AdminAuthFilter extends OncePerRequestFilter {
@@ -57,11 +60,39 @@ public class AdminAuthFilter extends OncePerRequestFilter {
     private final ApiKeyService apiKeyService;
     private final String bootstrapKey;
     private final Mode mode;
+    private final List<String> enforcePrefixes;
 
     public AdminAuthFilter(ApiKeyService apiKeyService, String bootstrapKey, Mode mode) {
+        this(apiKeyService, bootstrapKey, mode, List.of());
+    }
+
+    public AdminAuthFilter(ApiKeyService apiKeyService, String bootstrapKey, Mode mode,
+                           List<String> enforcePrefixes) {
         this.apiKeyService = apiKeyService;
         this.bootstrapKey = bootstrapKey;
         this.mode = mode;
+        this.enforcePrefixes = enforcePrefixes;
+        if (mode == Mode.REPORT && !enforcePrefixes.isEmpty()) {
+            log.info("admin-auth REPORT mode, but enforcing {}", enforcePrefixes);
+        }
+    }
+
+    /** Parse ADMIN_AUTH_ENFORCE_PATHS: comma-separated prefixes, trailing slashes dropped. */
+    public static List<String> parseEnforcePaths(String raw) {
+        if (raw == null || raw.isBlank()) return List.of();
+        return java.util.Arrays.stream(raw.split(","))
+            .map(String::trim)
+            .map(p -> p.endsWith("/") ? p.substring(0, p.length() - 1) : p)
+            .filter(p -> p.startsWith("/api/"))
+            .distinct()
+            .toList();
+    }
+
+    private boolean enforcedInReport(String path) {
+        for (String prefix : enforcePrefixes) {
+            if (path.equals(prefix) || path.startsWith(prefix + "/")) return true;
+        }
+        return false;
     }
 
     public static Mode parseMode(String raw) {
@@ -114,7 +145,7 @@ public class AdminAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (mode == Mode.REPORT) {
+        if (mode == Mode.REPORT && !enforcedInReport(path)) {
             log.warn("admin-auth REPORT would reject {} {} -> {} ({}); ua='{}' ip={}",
                 request.getMethod(), path, status, error,
                 request.getHeader("User-Agent"), clientIp(request));

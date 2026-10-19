@@ -177,6 +177,8 @@ admin:
   auth:
     # off | report (log would-be rejections, block nothing) | enforce (401/403)
     mode: ${ADMIN_AUTH_MODE:report}
+    # Comma-separated /api prefixes enforced even in report mode (e.g. /api/logs,/api/admin/activity)
+    enforce-paths: ${ADMIN_AUTH_ENFORCE_PATHS:}
 
 # Logging Configuration
 logging:

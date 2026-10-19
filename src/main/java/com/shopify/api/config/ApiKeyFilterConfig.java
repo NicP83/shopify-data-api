@@ -32,9 +32,11 @@ public class ApiKeyFilterConfig {
     public FilterRegistrationBean<AdminAuthFilter> adminAuthFilter(
             ApiKeyService apiKeyService,
             @Value("${admin.bootstrap-key:#{null}}") String bootstrapKey,
-            @Value("${admin.auth.mode:report}") String mode) {
+            @Value("${admin.auth.mode:report}") String mode,
+            @Value("${admin.auth.enforce-paths:}") String enforcePaths) {
         FilterRegistrationBean<AdminAuthFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new AdminAuthFilter(apiKeyService, bootstrapKey, AdminAuthFilter.parseMode(mode)));
+        registration.setFilter(new AdminAuthFilter(apiKeyService, bootstrapKey,
+            AdminAuthFilter.parseMode(mode), AdminAuthFilter.parseEnforcePaths(enforcePaths)));
         registration.addUrlPatterns("/api/*");
         registration.setOrder(2);
         return registration;

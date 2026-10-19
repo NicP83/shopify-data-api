@@ -60,13 +60,15 @@ class AdminAuthFilterTest {
     /** Result of one request through the filter: whether it reached the controller, and the status. */
     private record Outcome(boolean passed, int status) {}
 
+    private java.util.List<String> enforcePaths = java.util.List.of();
+
     private Outcome run(Mode mode, String method, String path, String apiKey) throws Exception {
         return run(mode, method, path, path, apiKey);
     }
 
     private Outcome run(Mode mode, String method, String servletPath, String requestUri, String apiKey)
             throws Exception {
-        AdminAuthFilter filter = new AdminAuthFilter(apiKeyService, BOOTSTRAP, mode);
+        AdminAuthFilter filter = new AdminAuthFilter(apiKeyService, BOOTSTRAP, mode, enforcePaths);
         MockHttpServletRequest request = new MockHttpServletRequest(method, requestUri);
         request.setServletPath(servletPath);
         if (apiKey != null) request.addHeader("X-API-Key", apiKey);
@@ -252,5 +254,38 @@ class AdminAuthFilterTest {
         assertThat(AdminAuthFilter.requiredScope("GET", "/api/agents/23/execute")).isEqualTo("admin");
         assertThat(AdminAuthFilter.requiredScope("POST", "/api/agents/23/executions")).isEqualTo("admin");
         assertThat(AdminAuthFilter.requiredScope("POST", "/api/agents/abc/execute")).isEqualTo("admin");
+    }
+
+    // ---- per-path enforcement while in report mode ----
+
+    @Test
+    void enforcePathsBlockInReportModeOnlyUnderThosePrefixes() throws Exception {
+        enforcePaths = AdminAuthFilter.parseEnforcePaths("/api/logs, /api/admin/activity/");
+
+        assertThat(run(Mode.REPORT, "GET", "/api/logs/chat", null).status()).isEqualTo(401);
+        assertThat(run(Mode.REPORT, "GET", "/api/logs", null).status()).isEqualTo(401);
+        assertThat(run(Mode.REPORT, "GET", "/api/admin/activity/logs", null).status()).isEqualTo(401);
+        assertThat(run(Mode.REPORT, "GET", "/api/logs/chat", ADMIN_KEY).passed()).isTrue();
+        // segment-safe: /api/logsXYZ is not under /api/logs
+        assertThat(run(Mode.REPORT, "GET", "/api/logsXYZ", null).passed()).isTrue();
+        // everything else still only reports
+        assertThat(run(Mode.REPORT, "PUT", "/api/config/chatbot", null).passed()).isTrue();
+        // public routes stay public even if listed by mistake
+        enforcePaths = AdminAuthFilter.parseEnforcePaths("/api/shopify/chat");
+        assertThat(run(Mode.REPORT, "POST", "/api/shopify/chat/message", null).passed()).isTrue();
+    }
+
+    @Test
+    void enforcePathsDoNothingWhenOff() throws Exception {
+        enforcePaths = AdminAuthFilter.parseEnforcePaths("/api/logs");
+        assertThat(run(Mode.OFF, "GET", "/api/logs/chat", null).passed()).isTrue();
+    }
+
+    @Test
+    void parseEnforcePathsIgnoresBlanksAndNonApiEntries() {
+        assertThat(AdminAuthFilter.parseEnforcePaths(null)).isEmpty();
+        assertThat(AdminAuthFilter.parseEnforcePaths(" ")).isEmpty();
+        assertThat(AdminAuthFilter.parseEnforcePaths("/api/logs/, ,logs,/shopify/x,/api/logs"))
+            .containsExactly("/api/logs");
     }
 }

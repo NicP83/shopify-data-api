@@ -78,6 +78,7 @@ even on GET.
   - `enforce`: returns 401 for a missing or invalid key and 403 for a missing scope.
   - `off`: does nothing.
   - An unrecognised value fails closed to `enforce` and logs an ERROR.
+  - `ADMIN_AUTH_ENFORCE_PATHS` (comma-separated `/api` prefixes) enforces just those routes while the mode is `report`, so the most sensitive ones can be locked first (Stage 2, step 8).
 - **New `GET /api/workflows/public/{id}`:** the public form and chat executor pages used to load `GET /api/workflows/{id}`, which is now admin-only.
 - **SPA:**
   - `services/adminAuth.js` adds `X-API-Key` from `localStorage.hh_admin_key` to every axios (`api.js`) and `fetch` call to our own `/api/**`. That covers `adminApi.js` and the pages that call `fetch` directly. It uses the same storage slot the API Keys page already uses.
@@ -108,11 +109,17 @@ Tests:
 ### Stage 2: hand out the credentials
 6. **HR app:** in Railway project *Hearns-HR*, set `AGENT_API_KEY=<hearns-hr-enrichment key>` on the staff-manager service. The code already sends it, so this is a config-only redeploy of the HR app. Run one product enrichment. Its line must drop out of the report log, and the key's "last used" should update.
 7. **Admin SPA:** open the admin site. Paste the `admin-spa` key into the yellow banner (or the API Keys page). This is once per browser/device.
-8. Leave report mode on for a few days. Railway only retains about 30 days of HTTP logs, so infrequent callers may not have shown up in the audit. Any `would reject` line from an unknown UA or IP is a caller to identify before Stage 3.
+8. **Lock the most sensitive routes first.** Do this as soon as the admin site has its key (step 7) and the report log shows no unknown callers on these paths. These routes return entities that embed `ShopifyShop`: chat transcripts, activity logs, config history, prompt-test results and shop prompts. Until hotfix dbbc021 they also leaked the shop's `shpat_` Admin API token, through `GET /api/logs/chat`. Only the admin site calls them. Set:
+   ```
+   ADMIN_AUTH_ENFORCE_PATHS=/api/logs,/api/analytics/chat,/api/admin,/api/shopify/config
+   ```
+   These prefixes are enforced (401/403) while everything else stays in report mode. Verify that `curl .../api/logs/chat?shop=hearnshobbies.myshopify.com` without a key returns 401, and that the admin Logs page still works. To undo, clear the variable. Prefixes are segment-safe: `/api/logs` covers `/api/logs/...`, not `/api/logsX`. Public routes stay public even if listed.
+   - **Separately, rotate the Shopify Admin API token.** It was readable by anyone until dbbc021, and hiding it now doesn't un-leak it. Generate a new token in the Shopify admin (custom app → API credentials), update `SHOPIFY_ACCESS_TOKEN` and the `shopify_shops.access_token` row, then revoke the old one.
+9. Leave report mode on for a few days. Railway only retains about 30 days of HTTP logs, so infrequent callers may not have shown up in the audit. Any `would reject` line from an unknown UA or IP is a caller to identify before Stage 3.
 
 ### Stage 3: enforce
-9. Set `ADMIN_AUTH_MODE=enforce` (variable change, restart).
-10. Verify:
+10. Set `ADMIN_AUTH_MODE=enforce` (variable change, restart). `ADMIN_AUTH_ENFORCE_PATHS` then no longer matters.
+11. Verify:
     - `curl -X PUT .../api/config/chatbot` with no key → 401.
     - The same call with the admin key → 200.
     - A storefront chat message → 200.
@@ -126,6 +133,7 @@ Pick the lightest option that fixes the problem.
 | Symptom | Action | Effect |
 |---|---|---|
 | A legitimate caller gets 401/403 after Stage 3 (admin site, HR app, an unknown integration) | Set `ADMIN_AUTH_MODE=report` in Railway | Nothing is blocked again; would-reject lines keep logging. One restart, no code change. |
+| A route listed in `ADMIN_AUTH_ENFORCE_PATHS` breaks a legitimate caller | Remove it from (or clear) `ADMIN_AUTH_ENFORCE_PATHS` | That route goes back to report-only. One restart. |
 | Anything odd from the filter itself, even in report mode (wrong log noise, slow admin calls) | Set `ADMIN_AUTH_MODE=off` | The admin filter does nothing. `/api/v1` and `/api/embed` keep their own key check. One restart. |
 | The deploy itself misbehaves (won't start, admin site or Assistants page broken, storefront chat errors) | Railway → service → Deployments → the previous deployment → **Redeploy** | Back to the build before this branch. No database step: this branch adds no migration. Keys minted in `api_keys` stay and are simply unused. |
 | A key leaks | API Keys page → revoke it, then mint a new one. For the bootstrap key, change `ADMIN_BOOTSTRAP_KEY` | The old key fails at once, and the bootstrap change takes effect after the restart. |

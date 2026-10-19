@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shopify.api.model.ChatbotConfig;
+import com.shopify.api.service.ChatbotConfigService;
 import com.shopify.api.service.tool.AgentDelegationToolHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * Chat tool handler for delegating tasks to specialist agents.
@@ -20,7 +23,15 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class DelegateToAgentChatToolHandler implements ChatToolHandler {
 
+    /**
+     * Reactor context key under which ChatAgentService puts the ChatbotConfig
+     * of the current turn (global or persona), so the gate below checks the
+     * same linked agents the bot was offered.
+     */
+    public static final String CHAT_CONFIG_CONTEXT_KEY = "chat.chatbotConfig";
+
     private final AgentDelegationToolHandler agentDelegationHandler;
+    private final ChatbotConfigService chatbotConfigService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -63,7 +74,14 @@ public class DelegateToAgentChatToolHandler implements ChatToolHandler {
 
     @Override
     public Mono<String> execute(JsonNode input) {
-        return agentDelegationHandler.execute(input)
+        return Mono.deferContextual(ctx -> {
+                    ChatbotConfig config = ctx.<ChatbotConfig>getOrEmpty(CHAT_CONFIG_CONTEXT_KEY)
+                            .orElseGet(chatbotConfigService::getConfig);
+                    // Only linked agents; null/empty list = nothing allowed.
+                    List<Long> allowed = config.getLinkedAgentIds() != null
+                            ? config.getLinkedAgentIds() : List.of();
+                    return agentDelegationHandler.execute(input, allowed);
+                })
                 .map(JsonNode::toString)
                 .onErrorResume(e -> {
                     log.error("Error delegating to agent: {}", e.getMessage(), e);

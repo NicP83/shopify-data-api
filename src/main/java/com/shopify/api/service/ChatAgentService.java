@@ -7,6 +7,7 @@ import com.shopify.api.model.ChatbotConfig;
 import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.model.SystemPrompt;
 import com.shopify.api.model.agent.Agent;
+import com.shopify.api.handler.tool.DelegateToAgentChatToolHandler;
 import com.shopify.api.repository.agent.AgentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -174,7 +175,8 @@ public class ChatAgentService {
         ArrayNode messages = buildMessagesArray(chatRequest);
 
         // Call Claude API with tool support
-        return callClaudeWithTools(systemPrompt, messages, 0, config);
+        return callClaudeWithTools(systemPrompt, messages, 0, config)
+                .contextWrite(ctx -> ctx.put(DelegateToAgentChatToolHandler.CHAT_CONFIG_CONTEXT_KEY, config));
     }
 
     // ==================================================================
@@ -204,7 +206,8 @@ public class ChatAgentService {
                 .onErrorResume(err -> {
                     logger.error("Error in streaming chat: {}", err.getMessage(), err);
                     return Flux.just(sseError(err.getMessage()));
-                });
+                })
+                .contextWrite(ctx -> ctx.put(DelegateToAgentChatToolHandler.CHAT_CONFIG_CONTEXT_KEY, config));
     }
 
     /**
@@ -779,7 +782,11 @@ public class ChatAgentService {
                     logger.info("Using dynamic system prompt: {} (version {})",
                         prompt.getPromptName(), prompt.getVersion());
                     basePrompt = prompt.getPromptText();
-                    return basePrompt + buildLinkInstructions(config) + buildBatchSearchGuidance()
+                    // The DB prompt text can't know the current linked agents (and may name
+                    // agents that were unlinked since), so append the authoritative list.
+                    String agents = buildLinkedAgentsSection(config);
+                    return basePrompt + (agents.isEmpty() ? "" : "\n\n" + agents)
+                            + buildLinkInstructions(config) + buildBatchSearchGuidance()
                             + buildStarterKitSummaryGuidance() + buildPreorderInstructions();
                 }
             } catch (Exception e) {
@@ -790,6 +797,40 @@ public class ChatAgentService {
         // Fall back to building prompt from ChatbotConfig
         logger.debug("Using ChatbotConfig-based system prompt");
         return buildSystemPromptFromConfig(config);
+    }
+
+    /**
+     * The specialist agents this turn may delegate to: exactly the config's linked
+     * agents. Empty when none are linked (the delegate tool is then not offered).
+     * Used by both prompt paths so the list is always the current one.
+     */
+    private String buildLinkedAgentsSection(ChatbotConfig config) {
+        if (config.getLinkedAgentIds() == null || config.getLinkedAgentIds().isEmpty()) {
+            return "";
+        }
+        StringBuilder section = new StringBuilder();
+        section.append("=== SPECIALIST AGENTS AVAILABLE ===\n");
+        section.append("You have access to the following specialist agents via the delegate_to_agent tool:\n\n");
+
+        for (Long agentId : config.getLinkedAgentIds()) {
+            try {
+                Optional<Agent> agentOpt = agentRepository.findById(agentId);
+                if (agentOpt.isPresent()) {
+                    Agent agent = agentOpt.get();
+                    section.append("- ").append(agent.getName());
+                    if (agent.getDescription() != null && !agent.getDescription().isEmpty()) {
+                        section.append(": ").append(agent.getDescription());
+                    }
+                    section.append("\n");
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to load agent ID {}: {}", agentId, e.getMessage());
+            }
+        }
+        section.append("\nThese are the ONLY agents you can delegate to. Any other agent name, even one ")
+               .append("mentioned elsewhere in these instructions or earlier in the conversation, will be refused. ")
+               .append("For anything else (stock, prices, specials, promotions), use your own tools.\n\n");
+        return section.toString();
     }
 
     /**
@@ -922,27 +963,7 @@ public class ChatAgentService {
         prompt.append("Store URL: https://").append(shopUrl).append("\n\n");
 
         // Specialist Agents (if any are linked)
-        if (config.getLinkedAgentIds() != null && !config.getLinkedAgentIds().isEmpty()) {
-            prompt.append("=== SPECIALIST AGENTS AVAILABLE ===\n");
-            prompt.append("You have access to the following specialist agents via the delegate_to_agent tool:\n\n");
-
-            for (Long agentId : config.getLinkedAgentIds()) {
-                try {
-                    Optional<Agent> agentOpt = agentRepository.findById(agentId);
-                    if (agentOpt.isPresent()) {
-                        Agent agent = agentOpt.get();
-                        prompt.append("- ").append(agent.getName());
-                        if (agent.getDescription() != null && !agent.getDescription().isEmpty()) {
-                            prompt.append(": ").append(agent.getDescription());
-                        }
-                        prompt.append("\n");
-                    }
-                } catch (Exception e) {
-                    logger.warn("Failed to load agent ID {}: {}", agentId, e.getMessage());
-                }
-            }
-            prompt.append("\n");
-        }
+        prompt.append(buildLinkedAgentsSection(config));
 
         // Tools FIRST - Make it crystal clear how to use them
         if (config.isEnableProductSearch()) {

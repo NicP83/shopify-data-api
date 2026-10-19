@@ -73,7 +73,8 @@ public class AgentDelegationToolHandler implements ToolHandler {
                     if (allowedAgentIds != null && !allowedAgentIds.contains(agent.getId())) {
                         log.warn("Agent {} ('{}') is not linked to this chat - refusing delegation",
                             agent.getId(), agentName);
-                        return createErrorResponse("Agent '" + agentName + "' is not available from chat");
+                        return createErrorResponse("Agent '" + agentName + "' is not available from chat. "
+                            + availableAgentsHint(allowedAgentIds));
                     }
 
                     // Check if agent is active
@@ -144,6 +145,21 @@ public class AgentDelegationToolHandler implements ToolHandler {
         }
 
         return true;
+    }
+
+    /** Names the agents the bot may use, so it can recover instead of retrying. */
+    private String availableAgentsHint(Collection<Long> allowedAgentIds) {
+        try {
+            String names = agentRepository.findAllById(allowedAgentIds).stream()
+                .filter(a -> Boolean.TRUE.equals(a.getIsActive()))
+                .map(Agent::getName)
+                .collect(java.util.stream.Collectors.joining(", "));
+            return names.isEmpty()
+                ? "No specialist agents are available; answer with your own tools."
+                : "Available agents: " + names + ". Otherwise answer with your own tools.";
+        } catch (Exception e) {
+            return "Answer with your own tools.";
+        }
     }
 
     /**

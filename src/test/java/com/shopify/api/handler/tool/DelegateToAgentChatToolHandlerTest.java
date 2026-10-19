@@ -57,6 +57,7 @@ class DelegateToAgentChatToolHandlerTest {
     private void stubAgent(long id, String name) {
         Agent agent = Agent.builder().id(id).name(name).isActive(true).build();
         when(agentRepository.findByName(name)).thenReturn(Optional.of(agent));
+        when(agentRepository.findAllById(List.of(id))).thenReturn(List.of(agent));
     }
 
     private JsonNode input(String agentName) {
@@ -85,6 +86,21 @@ class DelegateToAgentChatToolHandlerTest {
         assertThat(result.get("success").asBoolean()).isFalse();
         assertThat(result.get("error").asText()).contains("not available from chat");
         verify(executionService, never()).executeAgentForDelegation(eq(23L), any());
+    }
+
+    @Test
+    void unlinkedSpecialsFinderIsRefusedWithTheAllowedAgentsNamed() throws Exception {
+        // Production 2026-10-19: agent 19 was unlinked (linked = [15,...]) but still ran.
+        stubAgent(19L, "SPECIALS FINDER");
+        when(configService.getConfig()).thenReturn(linked(5L));
+
+        JsonNode result = run("SPECIALS FINDER", null);
+
+        assertThat(result.get("success").asBoolean()).isFalse();
+        assertThat(result.get("error").asText())
+            .contains("not available from chat")
+            .contains("Available agents: PAINT EXPERT");
+        verify(executionService, never()).executeAgentForDelegation(eq(19L), any());
     }
 
     @Test

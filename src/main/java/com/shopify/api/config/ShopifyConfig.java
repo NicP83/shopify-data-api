@@ -34,6 +34,11 @@ public class ShopifyConfig {
     private RateLimit rateLimit = new RateLimit();
 
     /**
+     * HTTP timeout configuration for Admin API calls
+     */
+    private Http http = new Http();
+
+    /**
      * Constructs the full GraphQL endpoint URL
      * Format: https://{shop-url}/admin/api/{api-version}/graphql.json
      */
@@ -97,5 +102,36 @@ public class ShopifyConfig {
          * Initial backoff delay in milliseconds
          */
         private long initialBackoffMs = 1000;
+    }
+
+    /**
+     * HTTP timeout configuration nested class
+     */
+    @Data
+    public static class Http {
+        /**
+         * Maximum time to establish the TCP/TLS connection
+         */
+        private long connectTimeoutMs = 5000;
+
+        /**
+         * Maximum gap between network reads while a response is arriving
+         */
+        private long readTimeoutMs = 15000;
+
+        /**
+         * Maximum time for one attempt (request sent to full body received)
+         */
+        private long responseTimeoutMs = 15000;
+
+        /**
+         * Maximum time for the whole call, including retries and backoff
+         */
+        private long totalTimeoutMs = 30000;
+
+        /**
+         * Pooled sockets idle longer than this are dropped before Shopify closes them
+         */
+        private long maxIdleMs = 20000;
     }
 }

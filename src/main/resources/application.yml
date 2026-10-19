@@ -86,6 +86,18 @@ shopify:
     max-retries: ${SHOPIFY_MAX_RETRIES:3}
     initial-backoff-ms: ${SHOPIFY_INITIAL_BACKOFF:1000}
 
+  # --- Lane 3 (reliability R1): Shopify HTTP timeouts ---
+  # A timed-out call returns the usual GraphQL error response ("Shopify call timed out
+  # after Nms (... timeout)" in the logs). Timeouts are not retried. To effectively
+  # disable them without a code change, set the env vars to a large value (e.g. 600000).
+  http:
+    connect-timeout-ms: ${SHOPIFY_CONNECT_TIMEOUT_MS:5000}    # TCP/TLS connect
+    read-timeout-ms: ${SHOPIFY_READ_TIMEOUT_MS:15000}         # max gap between reads of a response
+    response-timeout-ms: ${SHOPIFY_RESPONSE_TIMEOUT_MS:15000} # one attempt, request to full body
+    total-timeout-ms: ${SHOPIFY_TOTAL_TIMEOUT_MS:30000}       # whole call incl. retries and backoff
+    max-idle-ms: ${SHOPIFY_MAX_IDLE_MS:20000}                 # drop pooled sockets before Shopify does
+  # --- end Lane 3 block ---
+
   # Shopify App Configuration (OAuth)
   app:
     # Your Shopify App API Key (from Shopify Partners dashboard)

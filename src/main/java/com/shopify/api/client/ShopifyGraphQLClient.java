@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import io.netty.channel.ConnectTimeoutException;
+import io.netty.handler.ssl.SslHandshakeTimeoutException;
 import io.netty.handler.timeout.ReadTimeoutException;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -184,6 +185,7 @@ public class ShopifyGraphQLClient {
             if (t instanceof TimeoutException
                     || t instanceof ReadTimeoutException
                     || t instanceof ConnectTimeoutException
+                    || t instanceof SslHandshakeTimeoutException
                     || t instanceof java.net.SocketTimeoutException) {
                 return true;
             }
@@ -212,6 +214,10 @@ public class ShopifyGraphQLClient {
         for (Throwable t = throwable; t != null && t.getCause() != t; t = t.getCause()) {
             if (t instanceof ConnectTimeoutException) {
                 return timedOut(http.getConnectTimeoutMs(), "connect");
+            }
+            if (t instanceof SslHandshakeTimeoutException) {
+                // Reactor Netty's own TLS handshake limit (10s by default)
+                return "Shopify call timed out (TLS handshake): " + t.getMessage();
             }
             if (t instanceof ReadTimeoutException || t instanceof java.net.SocketTimeoutException) {
                 return timedOut(http.getReadTimeoutMs(), "read");

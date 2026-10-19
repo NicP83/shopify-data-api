@@ -16,18 +16,21 @@ public class ChatbotConfig {
     // ===== Behavior Rules =====
     private String scopeInstructions;  // What products we sell
     private String outOfScopeResponse;  // What to say when asked about other products
-    private boolean requireSearchBeforeRecommendation;
+    // Primitive-style settings are boxed so "not sent" (null) can be told apart
+    // from false/0: a partial PUT must not reset them. Getters keep returning
+    // primitives (same JSON shape); *IfSet() exposes the raw value for merges.
+    private Boolean requireSearchBeforeRecommendation;
 
     // ===== Tool Configuration =====
-    private boolean enableProductSearch;
-    private int maxSearchResults;
+    private Boolean enableProductSearch;
+    private Integer maxSearchResults;
 
     // ===== Response Style =====
     private String toneOfVoice;  // "professional", "friendly", "enthusiastic"
-    private boolean includeCartLinks;
-    private boolean includeProductLinks = true;
-    private boolean showPrices;
-    private boolean showSkus;
+    private Boolean includeCartLinks;
+    private Boolean includeProductLinks;  // null reads as true (previous default)
+    private Boolean showPrices;
+    private Boolean showSkus;
 
     // ===== Advanced =====
     private String customInstructions;  // Additional custom prompt instructions
@@ -92,27 +95,42 @@ public class ChatbotConfig {
     }
 
     public boolean isRequireSearchBeforeRecommendation() {
-        return requireSearchBeforeRecommendation;
+        return Boolean.TRUE.equals(requireSearchBeforeRecommendation);
     }
 
-    public void setRequireSearchBeforeRecommendation(boolean requireSearchBeforeRecommendation) {
+    public void setRequireSearchBeforeRecommendation(Boolean requireSearchBeforeRecommendation) {
         this.requireSearchBeforeRecommendation = requireSearchBeforeRecommendation;
     }
 
-    public boolean isEnableProductSearch() {
-        return enableProductSearch;
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean requireSearchBeforeRecommendationIfSet() {
+        return requireSearchBeforeRecommendation;
     }
 
-    public void setEnableProductSearch(boolean enableProductSearch) {
+    public boolean isEnableProductSearch() {
+        return Boolean.TRUE.equals(enableProductSearch);
+    }
+
+    public void setEnableProductSearch(Boolean enableProductSearch) {
         this.enableProductSearch = enableProductSearch;
     }
 
-    public int getMaxSearchResults() {
-        return maxSearchResults;
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean enableProductSearchIfSet() {
+        return enableProductSearch;
     }
 
-    public void setMaxSearchResults(int maxSearchResults) {
+    public int getMaxSearchResults() {
+        return maxSearchResults != null ? maxSearchResults : 0;
+    }
+
+    public void setMaxSearchResults(Integer maxSearchResults) {
         this.maxSearchResults = maxSearchResults;
+    }
+
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Integer maxSearchResultsIfSet() {
+        return maxSearchResults;
     }
 
     public String getToneOfVoice() {
@@ -124,35 +142,55 @@ public class ChatbotConfig {
     }
 
     public boolean isIncludeCartLinks() {
-        return includeCartLinks;
+        return Boolean.TRUE.equals(includeCartLinks);
     }
 
-    public void setIncludeCartLinks(boolean includeCartLinks) {
+    public void setIncludeCartLinks(Boolean includeCartLinks) {
         this.includeCartLinks = includeCartLinks;
     }
 
-    public boolean isIncludeProductLinks() {
-        return includeProductLinks;
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean includeCartLinksIfSet() {
+        return includeCartLinks;
     }
 
-    public void setIncludeProductLinks(boolean includeProductLinks) {
+    public boolean isIncludeProductLinks() {
+        return includeProductLinks == null || includeProductLinks;
+    }
+
+    public void setIncludeProductLinks(Boolean includeProductLinks) {
         this.includeProductLinks = includeProductLinks;
     }
 
-    public boolean isShowPrices() {
-        return showPrices;
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean includeProductLinksIfSet() {
+        return includeProductLinks;
     }
 
-    public void setShowPrices(boolean showPrices) {
+    public boolean isShowPrices() {
+        return Boolean.TRUE.equals(showPrices);
+    }
+
+    public void setShowPrices(Boolean showPrices) {
         this.showPrices = showPrices;
     }
 
-    public boolean isShowSkus() {
-        return showSkus;
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean showPricesIfSet() {
+        return showPrices;
     }
 
-    public void setShowSkus(boolean showSkus) {
+    public boolean isShowSkus() {
+        return Boolean.TRUE.equals(showSkus);
+    }
+
+    public void setShowSkus(Boolean showSkus) {
         this.showSkus = showSkus;
+    }
+
+    /** Raw value: null when not sent. Not a bean getter, so Jackson ignores it. */
+    public Boolean showSkusIfSet() {
+        return showSkus;
     }
 
     public String getCustomInstructions() {
@@ -336,14 +374,14 @@ public class ChatbotConfig {
                 ", storeCategories='" + storeCategories + '\'' +
                 ", scopeInstructions='" + scopeInstructions + '\'' +
                 ", outOfScopeResponse='" + outOfScopeResponse + '\'' +
-                ", requireSearchBeforeRecommendation=" + requireSearchBeforeRecommendation +
-                ", enableProductSearch=" + enableProductSearch +
-                ", maxSearchResults=" + maxSearchResults +
+                ", requireSearchBeforeRecommendation=" + isRequireSearchBeforeRecommendation() +
+                ", enableProductSearch=" + isEnableProductSearch() +
+                ", maxSearchResults=" + getMaxSearchResults() +
                 ", toneOfVoice='" + toneOfVoice + '\'' +
-                ", includeCartLinks=" + includeCartLinks +
-                ", includeProductLinks=" + includeProductLinks +
-                ", showPrices=" + showPrices +
-                ", showSkus=" + showSkus +
+                ", includeCartLinks=" + isIncludeCartLinks() +
+                ", includeProductLinks=" + isIncludeProductLinks() +
+                ", showPrices=" + isShowPrices() +
+                ", showSkus=" + isShowSkus() +
                 ", customInstructions='" + customInstructions + '\'' +
                 ", modelName='" + modelName + '\'' +
                 ", temperature=" + temperature +

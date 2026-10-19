@@ -119,7 +119,18 @@ Tests:
     - One HR app enrichment works.
     - The admin SPA works.
 
-**Rollback at any stage:** set `ADMIN_AUTH_MODE=report` (or `off`). That's a variable change, not a code revert. Reverting the branch is only needed if the deploy itself misbehaves.
+### Rollback
+
+Pick the lightest option that fixes the problem.
+
+| Symptom | Action | Effect |
+|---|---|---|
+| A legitimate caller gets 401/403 after Stage 3 (admin site, HR app, an unknown integration) | Set `ADMIN_AUTH_MODE=report` in Railway | Nothing is blocked again; would-reject lines keep logging. One restart, no code change. |
+| Anything odd from the filter itself, even in report mode (wrong log noise, slow admin calls) | Set `ADMIN_AUTH_MODE=off` | The admin filter does nothing. `/api/v1` and `/api/embed` keep their own key check. One restart. |
+| The deploy itself misbehaves (won't start, admin site or Assistants page broken, storefront chat errors) | Railway → service → Deployments → the previous deployment → **Redeploy** | Back to the build before this branch. No database step: this branch adds no migration. Keys minted in `api_keys` stay and are simply unused. |
+| A key leaks | API Keys page → revoke it, then mint a new one. For the bootstrap key, change `ADMIN_BOOTSTRAP_KEY` | The old key fails at once, and the bootstrap change takes effect after the restart. |
+
+After any rollback, send one storefront chat message (normal and stream) to confirm the chat still works. The HR app needs no change for any rollback: it keeps sending its key, and an unenforced server ignores it.
 
 ## 5. Risks and follow-ups
 

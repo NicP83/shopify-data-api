@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
@@ -274,6 +275,28 @@ public class AgentExecutionService {
         log.debug("Calling Claude API - iteration: {}, model: {}", iteration, agent.getModelName());
 
         // Call Claude API
+        return postMessages(webClient, requestBody)
+            .onErrorResume(WebClientResponseException.BadRequest.class, e -> {
+                // If Anthropic rejects the native web_search server tool (e.g. web search not
+                // enabled for the org, or unsupported by the model), drop server tools for the
+                // rest of this run and retry once, so the agent still answers without it.
+                if (!rejectsWebSearch(e) || !removeServerTools(tools)) {
+                    return Mono.error(e);
+                }
+                log.warn("Anthropic rejected native web_search for agent '{}'; retrying without server tools: {}",
+                    agent.getName(), e.getResponseBodyAsString());
+                if (tools.size() > 0) {
+                    requestBody.set("tools", tools);
+                } else {
+                    requestBody.remove("tools");
+                }
+                return postMessages(webClient, requestBody);
+            })
+            .flatMap(response -> handleClaudeResponse(
+                webClient, validatedModel, agent, systemPrompt, messages, tools, response, iteration, executionId));
+    }
+
+    private Mono<JsonNode> postMessages(WebClient webClient, ObjectNode requestBody) {
         return webClient.post()
             .uri("/messages")
             .header("x-api-key", anthropicApiKey)
@@ -281,9 +304,28 @@ public class AgentExecutionService {
             .header("Content-Type", "application/json")
             .bodyValue(requestBody)
             .retrieve()
-            .bodyToMono(JsonNode.class)
-            .flatMap(response -> handleClaudeResponse(
-                webClient, validatedModel, agent, systemPrompt, messages, tools, response, iteration, executionId));
+            .bodyToMono(JsonNode.class);
+    }
+
+    /** True if an Anthropic 400 is about the web_search server tool. */
+    static boolean rejectsWebSearch(WebClientResponseException e) {
+        String body = e.getResponseBodyAsString();
+        return body != null && body.contains("web_search");
+    }
+
+    /**
+     * Remove native server tools (entries with a "type", e.g. web_search_20250305) in place.
+     * Client tools have no "type" field. Returns true if anything was removed.
+     */
+    static boolean removeServerTools(ArrayNode tools) {
+        boolean removed = false;
+        for (int i = tools.size() - 1; i >= 0; i--) {
+            if (tools.get(i).hasNonNull("type")) {
+                tools.remove(i);
+                removed = true;
+            }
+        }
+        return removed;
     }
 
     /**

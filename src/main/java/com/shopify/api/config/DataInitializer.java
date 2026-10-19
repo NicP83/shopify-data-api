@@ -37,13 +37,18 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initializeTools() {
-        // Web Search Tool
+        // Web Search Tool: native Anthropic server tool (BUILTIN). The schema is the full
+        // server-tool definition, sent verbatim; Anthropic runs it (see V019 / V023).
+        ObjectNode webSearch = objectMapper.createObjectNode();
+        webSearch.put("type", "web_search_20250305");
+        webSearch.put("name", "web_search");
+        webSearch.put("max_uses", 5);
         createTool(
             "web_search",
-            "API",
-            "Search the web for information using a search API",
-            createSchema("query", "string", "Search query"),
-            "com.shopify.api.handler.tool.WebSearchToolHandler"
+            "BUILTIN",
+            "Native Anthropic web search. Researches real product details (brand, scale, specs, official description) and image URLs for products not found in the catalog.",
+            webSearch,
+            "native:web_search_20250305"
         );
 
         // Get Products Tool

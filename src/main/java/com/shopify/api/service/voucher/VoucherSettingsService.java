@@ -5,10 +5,12 @@ import com.shopify.api.repository.voucher.VoucherSettingsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.scheduler.Schedulers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Loads, validates and saves the voucher settings row. A missing row (fresh DB,
@@ -23,6 +25,7 @@ public class VoucherSettingsService {
     private final VoucherSettingsRepository repository;
     private volatile VoucherSettings cached;
     private volatile long cachedAt;
+    private final AtomicBoolean refreshing = new AtomicBoolean();
 
     public VoucherSettingsService(VoucherSettingsRepository repository) {
         this.repository = repository;
@@ -42,13 +45,29 @@ public class VoucherSettingsService {
         }
     }
 
-    /** Up to 15s stale; only for the per-turn "is the tool offered" check. Issuing re-reads. */
+    /**
+     * For the per-turn "is the tool offered" check only; issuing re-reads. Never touches
+     * the DB on the caller's thread (it may be a reactor event loop): a stale value is
+     * refreshed in the background, and until the first load it reads as disabled.
+     */
     public VoucherSettings cached() {
         VoucherSettings s = cached;
         if (s == null || System.currentTimeMillis() - cachedAt > CACHE_TTL_MS) {
-            s = current();
+            refreshInBackground();
         }
-        return s;
+        return s != null ? s : VoucherSettings.defaults();
+    }
+
+    private void refreshInBackground() {
+        if (refreshing.compareAndSet(false, true)) {
+            Schedulers.boundedElastic().schedule(() -> {
+                try {
+                    current();
+                } finally {
+                    refreshing.set(false);
+                }
+            });
+        }
     }
 
     /** Throws IllegalArgumentException naming every out-of-range field. */

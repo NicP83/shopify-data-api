@@ -54,7 +54,11 @@ import static org.assertj.core.api.Assertions.assertThat;
     "spring.jpa.hibernate.ddl-auto=create-drop",
     "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect",
     "shopify.shop-url=test-shop.myshopify.com",
-    "vouchers.feature-allowed=true"
+    "vouchers.feature-allowed=true",
+    // Other entities use Postgres-only types (jsonb, arrays) H2 can't create; irrelevant here.
+    "spring.jpa.show-sql=false",
+    "logging.level.org.hibernate.tool.schema=OFF",
+    "logging.level.org.hibernate.engine.jdbc.spi.SqlExceptionHelper=OFF"
 })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -572,6 +576,17 @@ class VoucherServiceIntegrationTest {
 
         clock.advance(Duration.ofDays(1));                  // raise ended at midnight
         assertThat(overrides.poolRaise(TODAY.plusDays(1))).isZero();
+    }
+
+    @Test
+    void poolRaisesCannotBeStackedPastTheHardCeiling() {
+        overrides.create(new VoucherOverrideService.Request(VoucherOverride.Type.POOL_RAISE, null, usd("400"), null, "a"),
+            "Nic", "127.0.0.1");
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> overrides.create(
+                new VoucherOverrideService.Request(VoucherOverride.Type.POOL_RAISE, null, usd("200"), null, "b"),
+                "Nic", "127.0.0.1"))
+            .isInstanceOf(IllegalArgumentException.class);
+        assertThat(overrides.poolRaise(TODAY)).isEqualByComparingTo("400");
     }
 
     @Test

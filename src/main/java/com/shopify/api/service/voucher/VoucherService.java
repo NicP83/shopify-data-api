@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import reactor.core.scheduler.Schedulers;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -68,6 +69,7 @@ public class VoucherService {
 
     private volatile boolean pausedCached;
     private volatile long pausedCheckedAt;
+    private final java.util.concurrent.atomic.AtomicBoolean pauseRefreshing = new java.util.concurrent.atomic.AtomicBoolean();
 
     public VoucherService(VoucherSettingsService settingsService, VoucherOverrideService overrideService,
                           VoucherStore store, VoucherShopifyGateway gateway, VoucherScopeMonitor scopeMonitor,
@@ -101,16 +103,23 @@ public class VoucherService {
         return VoucherRules.dollars(settingsService.cached().getMinSubtotal());
     }
 
+    /** Cached like the settings: refreshed off-thread, never a DB call on the chat turn's thread. */
     private boolean pausedCachedValue() {
-        if (System.currentTimeMillis() - pausedCheckedAt > 15_000) {
-            try {
-                pausedCached = overrideService.paused();
-            } catch (Exception e) {
-                pausedCached = true; // fail closed
-            }
-            pausedCheckedAt = System.currentTimeMillis();
+        if (System.currentTimeMillis() - pausedCheckedAt > 15_000 && pauseRefreshing.compareAndSet(false, true)) {
+            Schedulers.boundedElastic().schedule(this::refreshPaused);
         }
         return pausedCached;
+    }
+
+    private void refreshPaused() {
+        try {
+            pausedCached = overrideService.paused();
+        } catch (Exception e) {
+            pausedCached = true; // fail closed
+        } finally {
+            pausedCheckedAt = System.currentTimeMillis();
+            pauseRefreshing.set(false);
+        }
     }
 
     public OfferResult offer(OfferInput input, VoucherChatContext ctx) {

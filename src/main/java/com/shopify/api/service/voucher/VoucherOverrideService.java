@@ -51,6 +51,11 @@ public class VoucherOverrideService {
         switch (req.type()) {
             case POOL_RAISE -> {
                 BigDecimal v = requireValue(req.value(), VoucherRules.HARD_MAX_POOL_RAISE);
+                // The ceiling is per day, not per override: raises can't be stacked past it.
+                if (poolRaise(today).add(v).compareTo(VoucherRules.HARD_MAX_POOL_RAISE) > 0) {
+                    throw new IllegalArgumentException("today's pool raises would exceed "
+                        + VoucherRules.HARD_MAX_POOL_RAISE);
+                }
                 // Raises today's pool only; it ends at Melbourne midnight like the pool itself.
                 Instant end = clock.endOfDay(today);
                 if (req.durationMinutes() != null) {

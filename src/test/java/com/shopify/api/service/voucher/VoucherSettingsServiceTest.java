@@ -50,6 +50,26 @@ class VoucherSettingsServiceTest {
     }
 
     @Test
+    void perTurnCacheNeverBlocksOnTheDbAndStartsDisabled() throws Exception {
+        com.shopify.api.repository.voucher.VoucherSettingsRepository repo =
+            org.mockito.Mockito.mock(com.shopify.api.repository.voucher.VoucherSettingsRepository.class);
+        java.util.concurrent.CountDownLatch release = new java.util.concurrent.CountDownLatch(1);
+        org.mockito.Mockito.when(repo.findById(VoucherSettings.SINGLETON_ID)).thenAnswer(i -> {
+            release.await();                                   // a hung DB
+            return java.util.Optional.of(base.toBuilder().enabled(true).build());
+        });
+        VoucherSettingsService service = new VoucherSettingsService(repo);
+
+        long start = System.nanoTime();
+        assertThat(service.cached().isEnabled()).isFalse();   // fail closed until loaded
+        assertThat((System.nanoTime() - start) / 1_000_000).isLessThan(500);
+
+        release.countDown();
+        for (int i = 0; i < 50 && !service.cached().isEnabled(); i++) Thread.sleep(20);
+        assertThat(service.cached().isEnabled()).isTrue();
+    }
+
+    @Test
     void tighteningAndDisablingAreNotLoosening() {
         VoucherSettings on = base.toBuilder().enabled(true).build();
         VoucherSettings tighter = on.toBuilder().enabled(false).dailyPool(new BigDecimal("20"))

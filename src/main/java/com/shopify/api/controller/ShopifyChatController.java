@@ -6,6 +6,8 @@ import com.shopify.api.model.ShopifyShop;
 import com.shopify.api.service.ChatAgentService;
 import com.shopify.api.service.ChatAnalyticsService;
 import com.shopify.api.service.ChatTurnMetrics;
+import com.shopify.api.service.voucher.VoucherChatContext;
+import reactor.util.context.Context;
 import com.shopify.api.service.ShopifyShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -169,6 +171,7 @@ public class ShopifyChatController {
                     error.put("message", e.getMessage());
                     return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error));
                 })
+                .contextWrite(ctx -> withVoucherContext(ctx, request, xForwardedFor, xRealIp))
                 .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, metrics));
 
         } catch (Exception e) {
@@ -244,10 +247,27 @@ public class ShopifyChatController {
                     })
                     .doOnNext(recorder::observe)
                     .doFinally(recorder::finish)
+                    .contextWrite(ctx -> withVoucherContext(ctx, request, xForwardedFor, xRealIp))
                     .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, recorder.metrics));
         } catch (Exception e) {
             logger.error("Error in streamMessage: {}", e.getMessage(), e);
             return Flux.just(sseError("Internal server error"));
+        }
+    }
+
+    /**
+     * Who is chatting, for the offer_discount tool (session limits, customer/IP signals).
+     * Only these storefront endpoints set it, so no other chat surface can issue vouchers.
+     * No session id means no context (the tool then refuses).
+     */
+    private Context withVoucherContext(Context ctx, ChatRequest request, String xForwardedFor, String xRealIp) {
+        try {
+            String sessionId = request.getSessionId();
+            if (sessionId == null || sessionId.isBlank()) return ctx;
+            return ctx.put(VoucherChatContext.CONTEXT_KEY, new VoucherChatContext(sessionId,
+                request.getUserIdentifier(), extractClientIp(xForwardedFor, xRealIp)));
+        } catch (Exception e) {
+            return ctx;
         }
     }
 

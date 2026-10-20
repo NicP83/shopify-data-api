@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import api from '../services/api'
+import VoucherSettingsPanel from '../components/VoucherSettingsPanel'
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('ai')
@@ -283,6 +284,16 @@ function Settings() {
           >
             Chatbot Configuration
           </button>
+          <button
+            onClick={() => setActiveTab('vouchers')}
+            className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'vouchers'
+                ? 'border-primary-500 text-primary-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Vouchers
+          </button>
         </nav>
       </div>
 
@@ -296,6 +307,9 @@ function Settings() {
           {message.text}
         </div>
       )}
+
+      {/* Vouchers Tab (loads and saves itself) */}
+      {activeTab === 'vouchers' && <VoucherSettingsPanel />}
 
       {/* AI Parameters Tab */}
       {activeTab === 'ai' && (

@@ -114,6 +114,7 @@ export default function VoucherSettingsPanel() {
       validityMinutes: s.validityMinutes,
       holdoutPct: s.holdoutPct,
       maxPerIpPerDay: s.maxPerIpPerDay,
+      requireEmail: s.requireEmail,
     })
     setExclusions({
       vendors: toLines(s.exclusions?.vendors),
@@ -212,9 +213,14 @@ export default function VoucherSettingsPanel() {
       const r = await call('/scope-check', { method: 'POST' })
       const s = await call('/settings')
       applySettings(s)
+      const missing = []
+      if (!r.write_discounts) missing.push('write_discounts')
+      if (s.requireEmail && !r.write_customers) missing.push('write_customers')
       setMessage({
-        type: r.write_discounts ? 'success' : 'error',
-        text: r.write_discounts ? 'Shopify token has write_discounts.' : 'Shopify token is missing write_discounts (or the check failed).',
+        type: missing.length === 0 ? 'success' : 'error',
+        text: missing.length === 0
+          ? 'Shopify token has the scopes vouchers need.'
+          : `Shopify token is missing ${missing.join(' and ')} (or the check failed).`,
       })
     } catch (e) {
       setMessage({ type: 'error', text: e.message })
@@ -264,8 +270,9 @@ export default function VoucherSettingsPanel() {
             )}
           </div>
         </div>
-        <dl className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 text-sm">
+        <dl className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-6 text-sm">
           <div><dt className="text-gray-500">Shopify write_discounts</dt><dd className={status.writeDiscountsScope === false ? 'text-red-700 font-medium' : ''}>{scopeLabel} <button onClick={checkScope} className="text-primary-600 underline ml-1">check</button></dd></div>
+          <div><dt className="text-gray-500">Shopify write_customers</dt><dd className={status.writeCustomersScope === false && settings.requireEmail ? 'text-red-700 font-medium' : ''}>{status.writeCustomersScope === true ? 'granted' : status.writeCustomersScope === false ? 'MISSING' : 'not checked'}</dd></div>
           <div><dt className="text-gray-500">Owner key on server</dt><dd>{status.ownerKeyConfigured ? 'configured' : 'not set (overrides disabled)'}</dd></div>
           <div><dt className="text-gray-500">Paused by owner</dt><dd>{status.paused ? 'yes' : 'no'}</dd></div>
           <div><dt className="text-gray-500">Pool raise today</dt><dd>${status.poolRaiseToday ?? 0}</dd></div>
@@ -291,6 +298,22 @@ export default function VoucherSettingsPanel() {
             className="h-5 w-5"
           />
           <span className="font-medium">Vouchers enabled</span>
+        </label>
+
+        <label className="flex items-start gap-3 mb-6">
+          <input
+            type="checkbox"
+            checked={!!form.requireEmail}
+            onChange={(e) => setForm({ ...form, requireEmail: e.target.checked })}
+            className="h-5 w-5 mt-0.5"
+          />
+          <span>
+            <span className="font-medium">Require the customer's email</span>
+            <span className="block text-sm text-gray-600">
+              The bot asks which email they'll check out with, and the code only works for that customer in Shopify.
+              Needs the write_customers scope. Turning this off needs the owner key.
+            </span>
+          </span>
         </label>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -389,7 +412,7 @@ export default function VoucherSettingsPanel() {
                 {ledger.map((e) => (
                   <tr key={e.id} className="border-b last:border-0">
                     <td className="py-2 pr-4 whitespace-nowrap">{formatTime(e.issuedAt)}</td>
-                    <td className="py-2 pr-4 font-mono">{e.code}</td>
+                    <td className="py-2 pr-4 font-mono">{e.code}{e.lockedToCustomer && <span className="ml-1 text-xs text-gray-500" title="Only works for the customer's email">🔒</span>}</td>
                     <td className="py-2 pr-4">${money(e.amount)}</td>
                     <td className="py-2 pr-4">${money(e.cartSubtotal)}</td>
                     <td className="py-2 pr-4">

@@ -50,7 +50,7 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 - New public routes must be added to the filter's allowlist, or they will 401 under enforce.
 
 ### Closing vouchers (`service/voucher/`, V024, Oct 2026)
-- Chat tool `offer_discount` (`handler/tool/OfferDiscountChatToolHandler`) lets the storefront bot issue a small 1-hour Shopify code to close a $150+ cart. **Every limit is enforced in `VoucherService`/`VoucherStore`** (daily pool via conditional UPDATE, 10%/max-amount caps, subtotal recomputed from Shopify prices, one per session/customer via `voucher_claims`); the prompt section only covers when to offer.
+- Chat tool `offer_discount` (`handler/tool/OfferDiscountChatToolHandler`) lets the storefront bot issue a small 1-hour Shopify code to close a $150+ cart. **Every limit is enforced in `VoucherService`/`VoucherStore`** (daily pool via conditional UPDATE, 10%/max-amount caps, subtotal recomputed from Shopify prices, one per session/customer via `voucher_claims`, code locked to the customer's checkout email when `require_email` is on); the prompt section only covers when to offer.
 - Off by default (`voucher_settings.enabled=false`); while off, the prompt and tool list are unchanged. `VoucherReconcileScheduler` settles codes 5 min after expiry.
 - The storefront chat controller passes the session to the tool via the Reactor context (`VoucherChatContext`); other chat surfaces have none, so the tool refuses there.
 - `/api/vouchers/**` authenticates in the controller (`VoucherAuthGuard`) in every auth mode; enabling/loosening and `POST /api/vouchers/override` also need `X-Owner-Key` (`VOUCHER_OWNER_KEY`). Full doc: `docs/vouchers/VOUCHERS.md`.

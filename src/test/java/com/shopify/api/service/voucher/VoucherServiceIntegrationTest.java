@@ -109,9 +109,15 @@ class VoucherServiceIntegrationTest {
         voucherClock.setClock(clock);
 
         // Holdout 0 so tests are deterministic; holdout has its own tests.
-        settingsRepo.save(VoucherSettings.defaults().toBuilder().enabled(true).holdoutPct(0).maxPerIpPerDay(20).build());
+        // Email lock off for the general rules tests; it has its own tests below.
+        settingsRepo.save(VoucherSettings.defaults().toBuilder().enabled(true).holdoutPct(0).maxPerIpPerDay(20)
+            .requireEmail(false).build());
         settingsService.current();
-        scope.set(true);
+        scope.set(java.util.Set.of("write_discounts", "write_customers"));
+        shopify.scopes = java.util.Optional.of(java.util.Set.of("write_discounts", "write_customers"));
+        shopify.customers.clear();
+        shopify.customerCreates.set(0);
+        shopify.customerFails = false;
         shopify.codes.clear();
         shopify.orders.clear();
         shopify.deleted.clear();
@@ -480,15 +486,15 @@ class VoucherServiceIntegrationTest {
     void missingWriteDiscountsScopeDisablesTheTool() {
         shopify.createMode = FakeVoucherGateway.CreateMode.ACCESS_DENIED;
         service.offer(cart(usd("10"), 4, 1), chat("s1"));
-        assertThat(scope.ready()).isFalse();
+        assertThat(scope.ready(false)).isFalse();
         assertThat(service.toolAvailable()).isFalse();
         assertThat(service.offer(cart(usd("10"), 4, 1), chat("s2")).fields().get("reason_code")).isEqualTo("DISABLED");
         assertThat(reserved()).isZero();
 
-        shopify.scope = java.util.Optional.of(false);
+        shopify.scopes = java.util.Optional.of(java.util.Set.of("read_products"));
         scope.refresh();
-        assertThat(scope.ready()).isFalse();
-        shopify.scope = java.util.Optional.of(true);
+        assertThat(scope.ready(false)).isFalse();
+        shopify.scopes = java.util.Optional.of(java.util.Set.of("write_discounts", "write_customers"));
         scope.refresh();
         assertThat(service.toolAvailable()).isTrue();
     }
@@ -600,6 +606,88 @@ class VoucherServiceIntegrationTest {
             "Nic", "127.0.0.1");
         clock.advance(Duration.ofMinutes(61));
         assertThat(service.offer(cart(usd("25"), 4, 1), chat("vip2")).fields().get("amount")).isEqualTo("10.00");
+    }
+
+    // ----------------------------------------------------------------- email lock
+
+    void requireEmail() {
+        settingsRepo.save(settingsService.current().toBuilder().requireEmail(true).build());
+        settingsService.current();
+    }
+
+    static OfferInput withEmail(String email, Object... idQty) {
+        return new OfferInput(cart(usd("10"), idQty).lines(), usd("10"), "hesitating", email);
+    }
+
+    @Test
+    void emailRequiredMeansTheBotMustAskFirst() {
+        requireEmail();
+        for (String bad : new String[]{null, "", "not-an-email", "x\"@evil.com", "a b@c.com", "jo@example"}) {
+            OfferResult r = service.offer(withEmail(bad, 4, 1), chat("s-" + bad));
+            assertThat(r.fields().get("reason_code")).as(bad).isEqualTo("NEED_EMAIL");
+        }
+        assertThat(shopify.createCalls.get()).isZero();
+        assertThat(shopify.customerCreates.get()).isZero();
+        assertThat(reserved()).isZero();
+    }
+
+    @Test
+    void codeIsLockedToTheCustomersEmail() {
+        requireEmail();
+        OfferResult r = service.offer(withEmail(" Jo.Smith@Example.com ", 4, 1), chat("s1"));
+
+        assertThat(r.issued()).isTrue();
+        assertThat(r.fields().get("locked_to_email")).isEqualTo("jo.smith@example.com");
+        assertThat((String) r.fields().get("instructions")).contains("only works when checking out with jo.smith@example.com");
+        String customer = shopify.customers.get("jo.smith@example.com");
+        assertThat(customer).isNotNull();
+        assertThat(shopify.codes.get((String) r.fields().get("code")).spec.customerGid()).isEqualTo(customer);
+        assertThat(ledgerRepo.findAll().get(0).getShopifyCustomerId()).isEqualTo(customer);
+    }
+
+    @Test
+    void existingCustomerIsReusedNotDuplicated() {
+        requireEmail();
+        shopify.customers.put("regular@example.com", "gid://shopify/Customer/42");
+        OfferResult r = service.offer(withEmail("regular@example.com", 4, 1), chat("s1"));
+        assertThat(shopify.codes.get((String) r.fields().get("code")).spec.customerGid()).isEqualTo("gid://shopify/Customer/42");
+        assertThat(shopify.customerCreates.get()).isZero();
+    }
+
+    @Test
+    void emailAliasesCountAsOneCustomerPerDay() {
+        requireEmail();
+        assertThat(service.offer(withEmail("jo.smith@gmail.com", 4, 1), chat("s1")).issued()).isTrue();
+        for (String alias : new String[]{"josmith@gmail.com", "Jo.Smith+deal@gmail.com", "j.o.s.m.i.t.h@googlemail.com"}) {
+            OfferResult r = service.offer(withEmail(alias, 4, 1), new VoucherChatContext("s-" + alias, null, null));
+            assertThat(r.fields().get("reason_code")).as(alias).isEqualTo("ALREADY_ISSUED");
+        }
+        // +tags count as the same inbox on any domain; dots only on Gmail.
+        assertThat(service.offer(withEmail("sam@shop.com.au", 4, 1), chat("s2")).issued()).isTrue();
+        assertThat(service.offer(withEmail("sam+2@shop.com.au", 4, 1), chat("s3")).issued()).isFalse();
+        assertThat(service.offer(withEmail("s.am@shop.com.au", 4, 1), chat("s4")).issued()).isTrue();
+    }
+
+    @Test
+    void customerLookupFailureReturnsTheValueAndDisablesTheTool() {
+        requireEmail();
+        shopify.customerFails = true;
+        OfferResult r = service.offer(withEmail("jo@example.com", 4, 1), chat("s1"));
+        assertThat(r.fields().get("reason_code")).isEqualTo("CREATE_FAILED");
+        assertThat(shopify.createCalls.get()).isZero();
+        assertThat(reserved()).isZero();
+        assertThat(ledgerRepo.findAll().get(0).getStatus()).isEqualTo(VoucherStatus.FAILED);
+        assertThat(service.toolAvailable()).isFalse();          // access denied -> scope marked missing
+    }
+
+    @Test
+    void missingWriteCustomersOnlyMattersWhileEmailIsRequired() {
+        scope.set(java.util.Set.of("write_discounts"));
+        assertThat(service.toolAvailable()).isTrue();
+        requireEmail();
+        assertThat(service.toolAvailable()).isFalse();
+        assertThat(service.offer(withEmail("jo@example.com", 4, 1), chat("s1")).fields().get("reason_code"))
+            .isEqualTo("DISABLED");
     }
 
     @Test

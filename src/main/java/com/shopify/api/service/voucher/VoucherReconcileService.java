@@ -108,7 +108,7 @@ public class VoucherReconcileService {
             if (state.found()) {
                 if (state.usageCount() > 0) {
                     // Somehow used (the customer did get it): treat as spent.
-                    store.markIssued(e.getId(), state.discountId());
+                    store.markIssued(e.getId(), state.discountId(), null);
                     store.markRedeemed(e.getId(), null, null, clock.now());
                     return false;
                 }

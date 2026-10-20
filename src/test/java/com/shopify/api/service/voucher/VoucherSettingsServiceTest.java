@@ -16,6 +16,7 @@ class VoucherSettingsServiceTest {
     @Test
     void defaultsAreDisabledAndValid() {
         assertThat(base.isEnabled()).isFalse();
+        assertThat(base.isRequireEmail()).isTrue();
         VoucherSettingsService.validate(base);
     }
 
@@ -39,9 +40,9 @@ class VoucherSettingsServiceTest {
     void looseningIsDetectedPerField() {
         VoucherSettings looser = base.toBuilder().enabled(true).dailyPool(new BigDecimal("80"))
             .maxPct(new BigDecimal("0.12")).maxAmount(new BigDecimal("15")).minSubtotal(new BigDecimal("120"))
-            .validityMinutes(90).holdoutPct(10).maxPerIpPerDay(2).build();
+            .validityMinutes(90).holdoutPct(10).maxPerIpPerDay(2).requireEmail(false).build();
         assertThat(VoucherSettingsService.loosenings(base, looser)).containsExactly("enabled", "dailyPool", "maxPct",
-            "maxAmount", "minSubtotal", "validityMinutes", "holdoutPct", "maxPerIpPerDay");
+            "maxAmount", "minSubtotal", "validityMinutes", "holdoutPct", "maxPerIpPerDay", "requireEmail");
 
         VoucherSettings withExclusion = base.toBuilder()
             .exclusions(new VoucherExclusions(List.of("Bandai"), List.of(), List.of()).toJson()).build();

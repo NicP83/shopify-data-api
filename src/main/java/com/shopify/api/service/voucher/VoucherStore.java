@@ -125,8 +125,8 @@ public class VoucherStore {
     }
 
     @Transactional
-    public boolean markIssued(Long id, String discountId) {
-        return ledgerRepository.markIssued(id, discountId) == 1;
+    public boolean markIssued(Long id, String discountId, String customerGid) {
+        return ledgerRepository.markIssued(id, discountId, customerGid) == 1;
     }
 
     @Transactional

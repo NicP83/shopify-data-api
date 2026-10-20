@@ -41,7 +41,8 @@ public class VoucherService {
 
     public static final String VARIANT_GID_PREFIX = "gid://shopify/ProductVariant/";
     private static final Pattern VARIANT_ID = Pattern.compile("^(?:gid://shopify/ProductVariant/)?(\\d{1,20})$");
-    private static final Pattern EMAIL = Pattern.compile("^[^@\\s]{1,64}@[^@\\s]{1,255}\\.[^@\\s]{2,}$");
+    /** Deliberately strict (no quotes, spaces or backslashes): the value goes into a Shopify search query. */
+    private static final Pattern EMAIL = Pattern.compile("^[a-z0-9._%+'-]{1,64}@[a-z0-9-]{1,63}(\\.[a-z0-9-]{1,63})*\\.[a-z]{2,24}$");
     private static final DateTimeFormatter LOCAL_TIME = DateTimeFormatter.ofPattern("h:mm a z", Locale.ENGLISH);
 
     /** Raw tool input; every field is untrusted. */
@@ -93,9 +94,15 @@ public class VoucherService {
      */
     public boolean toolAvailable() {
         if (!featureAllowed) return false;
-        if (!settingsService.cached().isEnabled()) return false;
-        if (!scopeMonitor.ready()) return false;
+        VoucherSettings settings = settingsService.cached();
+        if (!settings.isEnabled()) return false;
+        if (!scopeMonitor.ready(settings.isRequireEmail())) return false;
         return !pausedCachedValue();
+    }
+
+    /** Cached settings: whether the bot must collect a checkout email first. */
+    public boolean requiresEmail() {
+        return settingsService.cached().isRequireEmail();
     }
 
     /** e.g. "$150" (cached settings). */
@@ -129,7 +136,7 @@ public class VoucherService {
 
         // 1. Switches. Re-read settings: the kill switch takes effect immediately here.
         VoucherSettings settings = settingsService.current();
-        if (!featureAllowed || !settings.isEnabled() || !scopeMonitor.ready()) {
+        if (!featureAllowed || !settings.isEnabled() || !scopeMonitor.ready(settings.isRequireEmail())) {
             return refuse("DISABLED", "No voucher is available right now. Carry on helping without mentioning discounts.",
                 sessionId, day, null, requested, false, false);
         }
@@ -207,6 +214,15 @@ public class VoucherService {
                 sessionId, day, eligibleSubtotal, requested, true, true);
         }
 
+        // 5b. Email: the code is locked to the customer who will check out with it.
+        String email = normaliseEmail(input.customerEmail());
+        if (settings.isRequireEmail() && email == null) {
+            return refuse("NEED_EMAIL", "Before a voucher can be created, ask which email the customer will use at "
+                + "checkout (the voucher only works with that email), then call offer_discount again with customer_email. "
+                + "Don't sign them up to anything.",
+                sessionId, day, eligibleSubtotal, requested, true, false);
+        }
+
         // 6. Amount: positive, $5 steps, capped by 10% (floored to $5), max amount and (later) the pool.
         if (requested == null || requested.compareTo(VoucherRules.STEP) < 0) {
             return refuse("BAD_AMOUNT", "The voucher amount must be at least $5, in $5 steps.",
@@ -232,7 +248,7 @@ public class VoucherService {
         }
 
         // 7. Reserve atomically (session/customer/IP limits + pool), then create in Shopify.
-        List<String> customerKeys = customerKeys(input.customerEmail(), ctx.customerId());
+        List<String> customerKeys = customerKeys(email, ctx.customerId());
         String ipHash = ipHash(ctx.clientIp());
         Instant now = clock.now();
         Instant expiresAt = now.plusSeconds(60L * settings.getValidityMinutes());
@@ -263,21 +279,24 @@ public class VoucherService {
 
         VoucherLedgerEntry entry = reservation.entry();
         CreateResult created = null;
+        String customerGid = null;
         String error;
         try {
+            if (settings.isRequireEmail()) customerGid = gateway.findOrCreateCustomer(email);
             created = gateway.createCode(new CodeSpec(code, "Chat voucher " + code, entry.getAmount(),
-                entry.getMinSubtotal(), eligibleGids, now, expiresAt));
+                entry.getMinSubtotal(), eligibleGids, now, expiresAt, customerGid));
             error = created.ok() ? null : created.error();
         } catch (GatewayException e) {
             error = e.getMessage();
+            if (isAccessDenied(error)) scopeMonitor.markMissing(error);
         }
 
-        if (created != null && created.ok() && store.markIssued(entry.getId(), created.discountId())) {
+        if (created != null && created.ok() && store.markIssued(entry.getId(), created.discountId(), customerGid)) {
             log.info("VOUCHER_ISSUED id={} code={} amount={} subtotal={} min={} session={} expires={}",
                 entry.getId(), mask(code), entry.getAmount(), eligibleSubtotal, entry.getMinSubtotal(),
                 sessionId, expiresAt);
             recordOffer(sessionId, day, eligibleSubtotal, requested, "ISSUED", true, false, entry.getId(), input.reason());
-            return issuedResult(entry, knownLines, requested, cap);
+            return issuedResult(entry, knownLines, requested, customerGid == null ? null : email);
         }
 
         if (created != null && created.accessDenied()) scopeMonitor.markMissing(error);
@@ -305,7 +324,12 @@ public class VoucherService {
         }
     }
 
-    private OfferResult issuedResult(VoucherLedgerEntry entry, List<Line> lines, BigDecimal requested, BigDecimal cap) {
+    private static boolean isAccessDenied(String error) {
+        String e = error == null ? "" : error.toLowerCase(Locale.ROOT);
+        return e.contains("access denied") || e.contains("write_customers") || e.contains("write_discounts");
+    }
+
+    private OfferResult issuedResult(VoucherLedgerEntry entry, List<Line> lines, BigDecimal requested, String lockedEmail) {
         String amount = VoucherRules.dollars(entry.getAmount());
         String until = LOCAL_TIME.format(clock.local(entry.getExpiresAt())).toLowerCase(Locale.ENGLISH)
             .replace(" am", "am").replace(" pm", "pm");
@@ -324,11 +348,16 @@ public class VoucherService {
         f.put("expires_local", until);
         f.put("minimum_spend", VoucherRules.money(entry.getMinSubtotal()));
         f.put("cart_link", cart.toString());
+        if (lockedEmail != null) f.put("locked_to_email", lockedEmail);
         StringBuilder note = new StringBuilder("Give the customer the code ").append(entry.getCode())
             .append(" (").append(amount).append(" off, single use, valid until ").append(until)
             .append(") and the cart link, which applies it automatically. It needs ")
             .append(VoucherRules.dollars(entry.getMinSubtotal()))
             .append(" of the full-price items in this cart and can't be combined with other discounts.");
+        if (lockedEmail != null) {
+            note.append(" It only works when checking out with ").append(lockedEmail)
+                .append(", so tell the customer to use that email at checkout.");
+        }
         if (requested != null && requested.compareTo(entry.getAmount()) > 0) {
             note.append(" You asked for ").append(VoucherRules.dollars(requested.setScale(2, RoundingMode.DOWN)))
                 .append(" but the most for this order is ").append(amount)
@@ -402,12 +431,32 @@ public class VoucherService {
         return out;
     }
 
+    /** Lower-cased, trimmed email if it passes the strict pattern, else null. */
+    static String normaliseEmail(String raw) {
+        if (raw == null) return null;
+        String e = raw.trim().toLowerCase(Locale.ROOT);
+        return e.length() <= 254 && EMAIL.matcher(e).matches() ? e : null;
+    }
+
+    /**
+     * The one-per-day key for an email: aliases of one inbox map to the same key
+     * ("+tag" suffixes anywhere; dots and googlemail.com for Gmail).
+     */
+    static String inboxKey(String email) {
+        int at = email.indexOf('@');
+        String local = email.substring(0, at);
+        String domain = email.substring(at + 1);
+        int plus = local.indexOf('+');
+        if (plus > 0) local = local.substring(0, plus);
+        if (domain.equals("googlemail.com")) domain = "gmail.com";
+        if (domain.equals("gmail.com")) local = local.replace(".", "");
+        return local + "@" + domain;
+    }
+
+    /** email must already be normalised (or null). */
     static List<String> customerKeys(String email, String customerId) {
         List<String> keys = new ArrayList<>();
-        if (email != null) {
-            String e = email.trim().toLowerCase(Locale.ROOT);
-            if (EMAIL.matcher(e).matches()) keys.add(VoucherRules.sha256("email:" + e));
-        }
+        if (email != null) keys.add(VoucherRules.sha256("email:" + inboxKey(email)));
         String id = trimToNull(customerId);
         if (id != null && id.length() <= 255) keys.add(VoucherRules.sha256("customer:" + id));
         return keys;

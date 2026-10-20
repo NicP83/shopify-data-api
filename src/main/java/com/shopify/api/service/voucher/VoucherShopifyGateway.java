@@ -21,8 +21,9 @@ public interface VoucherShopifyGateway {
         }
     }
 
+    /** customerGid null = any customer; otherwise only that customer can use the code. */
     record CodeSpec(String code, String title, BigDecimal amount, BigDecimal minSubtotal,
-                    List<String> variantGids, Instant startsAt, Instant endsAt) {}
+                    List<String> variantGids, Instant startsAt, Instant endsAt, String customerGid) {}
 
     /** ok: created. accessDenied: the token lacks write_discounts. */
     record CreateResult(boolean ok, String discountId, boolean accessDenied, String error) {}
@@ -49,8 +50,15 @@ public interface VoucherShopifyGateway {
     /** true when Shopify confirms the code discount is gone. */
     boolean deleteCode(String discountId);
 
-    /** true / false when known; empty when the check itself failed. */
-    Optional<Boolean> hasWriteDiscountsScope();
+    /**
+     * The Shopify customer with this email, creating one if needed (no marketing
+     * consent is set). Throws GatewayException when it can't be resolved; the result
+     * is never a different customer's id.
+     */
+    String findOrCreateCustomer(String email);
+
+    /** The token's granted access scopes; empty when the check itself failed. */
+    Optional<java.util.Set<String>> grantedScopes();
 
     /** Order totals created in [from, to), best-effort, capped at one page. */
     List<OrderInfo> ordersBetween(Instant from, Instant to);

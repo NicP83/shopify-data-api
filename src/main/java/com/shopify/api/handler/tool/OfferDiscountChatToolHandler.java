@@ -49,7 +49,8 @@ public class OfferDiscountChatToolHandler implements ChatToolHandler {
             + "full-price items, or after they add items that take it over. Never as an opener. Pass the exact cart items "
             + "(variant ids from search results, with quantities) and the amount you want to offer. The store "
             + "recalculates the cart and applies its own limits: it may give a smaller amount or say no, and "
-            + "its answer is final. On success, give the customer the code and the cart link it returns.";
+            + "its answer is final. The code is tied to the customer's checkout email, so ask for it first. "
+            + "On success, give the customer the code, the cart link and the email it works with.";
     }
 
     @Override
@@ -77,7 +78,8 @@ public class OfferDiscountChatToolHandler implements ChatToolHandler {
         props.set("reason", objectMapper.createObjectNode().put("type", "string")
             .put("description", "One line on why a voucher helps close this sale"));
         props.set("customer_email", objectMapper.createObjectNode().put("type", "string")
-            .put("description", "The customer's email, only if they gave it in this chat"));
+            .put("description", "The email the customer will use at checkout, as they typed it in this chat. "
+                + "The voucher only works with this email."));
 
         schema.set("properties", props);
         ArrayNode required = objectMapper.createArrayNode().add("cart_items").add("amount").add("reason");
@@ -92,6 +94,11 @@ public class OfferDiscountChatToolHandler implements ChatToolHandler {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /** Whether the code is locked to an email the bot must ask for (prompt guidance). */
+    public boolean requiresEmail() {
+        return voucherService.requiresEmail();
     }
 
     /** e.g. "$150": the current minimum spend, for the prompt guidance. */

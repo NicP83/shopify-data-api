@@ -52,6 +52,10 @@ public class VoucherSettings {
     @Column(name = "max_per_ip_per_day", nullable = false)
     private int maxPerIpPerDay;
 
+    /** Ask for the checkout email and lock the Shopify code to that customer. */
+    @Column(name = "require_email", nullable = false)
+    private boolean requireEmail;
+
     /** JSON {"vendors":[],"productTypes":[],"tags":[]}; parsed by VoucherExclusions. */
     @Column(nullable = false, columnDefinition = "TEXT")
     private String exclusions;
@@ -62,7 +66,7 @@ public class VoucherSettings {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    /** The defaults V024 seeds: disabled, AUD 50 pool, 10%, $10 max, $150 min, 60 min, 30% holdout. */
+    /** The defaults V024 seeds: disabled, AUD 50 pool, 10%, $10 max, $150 min, 60 min, 30% holdout, email required. */
     public static VoucherSettings defaults() {
         return VoucherSettings.builder()
                 .id(SINGLETON_ID)
@@ -74,6 +78,7 @@ public class VoucherSettings {
                 .validityMinutes(60)
                 .holdoutPct(30)
                 .maxPerIpPerDay(1)
+                .requireEmail(true)
                 .exclusions("{\"vendors\":[],\"productTypes\":[],\"tags\":[]}")
                 .updatedAt(Instant.now())
                 .build();

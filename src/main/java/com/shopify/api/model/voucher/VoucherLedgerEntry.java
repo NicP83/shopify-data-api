@@ -45,6 +45,10 @@ public class VoucherLedgerEntry {
     @Column(name = "customer_key", length = 128)
     private String customerKey;
 
+    /** The Shopify customer the code is locked to, when an email was required. */
+    @Column(name = "shopify_customer_id")
+    private String shopifyCustomerId;
+
     @Column(name = "ip_hash", length = 128)
     private String ipHash;
 

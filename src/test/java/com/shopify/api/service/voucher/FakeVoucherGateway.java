@@ -34,7 +34,11 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
     final AtomicInteger ids = new AtomicInteger();
     volatile CreateMode createMode = CreateMode.OK;
     volatile boolean deleteFails;
-    volatile Optional<Boolean> scope = Optional.of(true);
+    volatile Optional<java.util.Set<String>> scopes = Optional.of(java.util.Set.of("write_discounts", "write_customers"));
+    /** email -> customer gid; pre-existing customers go here too. */
+    final Map<String, String> customers = new ConcurrentHashMap<>();
+    final AtomicInteger customerCreates = new AtomicInteger();
+    volatile boolean customerFails;
 
     static String gid(long id) {
         return VoucherService.VARIANT_GID_PREFIX + id;
@@ -95,8 +99,17 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
     }
 
     @Override
-    public Optional<Boolean> hasWriteDiscountsScope() {
-        return scope;
+    public String findOrCreateCustomer(String email) {
+        if (customerFails) throw new GatewayException("Access denied for customerCreate field. Required access: write_customers");
+        return customers.computeIfAbsent(email, e -> {
+            customerCreates.incrementAndGet();
+            return "gid://shopify/Customer/" + (1000 + ids.incrementAndGet());
+        });
+    }
+
+    @Override
+    public Optional<java.util.Set<String>> grantedScopes() {
+        return scopes;
     }
 
     @Override

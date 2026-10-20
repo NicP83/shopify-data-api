@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS voucher_settings (
     validity_minutes     INTEGER       NOT NULL DEFAULT 60,
     holdout_pct          INTEGER       NOT NULL DEFAULT 30,
     max_per_ip_per_day   INTEGER       NOT NULL DEFAULT 1,
+    -- Ask for the checkout email and lock the Shopify code to that customer.
+    require_email        BOOLEAN       NOT NULL DEFAULT TRUE,
     -- {"vendors":[],"productTypes":[],"tags":[]} (case-insensitive match)
     exclusions           TEXT          NOT NULL DEFAULT '{"vendors":[],"productTypes":[],"tags":[]}',
     updated_at           TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,6 +44,8 @@ CREATE TABLE IF NOT EXISTS voucher_ledger (
     pool_date            DATE          NOT NULL,
     session_id           VARCHAR(255)  NOT NULL,
     customer_key         VARCHAR(128),
+    -- Shopify customer the code is locked to (null when require_email is off).
+    shopify_customer_id  VARCHAR(255),
     ip_hash              VARCHAR(128),
     cart_subtotal        NUMERIC(10,2) NOT NULL,
     min_subtotal         NUMERIC(10,2) NOT NULL,

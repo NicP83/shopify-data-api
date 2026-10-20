@@ -119,6 +119,7 @@ public class VoucherSettingsService {
         if (next.getValidityMinutes() > prev.getValidityMinutes()) out.add("validityMinutes");
         if (next.getHoldoutPct() < prev.getHoldoutPct()) out.add("holdoutPct");
         if (next.getMaxPerIpPerDay() > prev.getMaxPerIpPerDay()) out.add("maxPerIpPerDay");
+        if (prev.isRequireEmail() && !next.isRequireEmail()) out.add("requireEmail");
         VoucherExclusions a = VoucherExclusions.parse(prev.getExclusions());
         VoucherExclusions b = VoucherExclusions.parse(next.getExclusions());
         if (!b.vendors().containsAll(a.vendors()) || !b.productTypes().containsAll(a.productTypes())

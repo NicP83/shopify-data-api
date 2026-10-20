@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/** {@link VoucherShopifyGateway} over the Admin GraphQL API (needs read_products, read_orders, write_discounts). */
+/**
+ * {@link VoucherShopifyGateway} over the Admin GraphQL API. Needs read_products,
+ * read_orders, write_discounts, and read/write_customers when codes are locked to an email.
+ */
 @Component
 @Slf4j
 public class ShopifyVoucherGateway implements VoucherShopifyGateway {
@@ -55,6 +58,19 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
     private static final String DELETE = """
         mutation VoucherDelete($id: ID!) {
           discountCodeDelete(id: $id) { deletedCodeDiscountId userErrors { field code message } }
+        }""";
+
+    private static final String FIND_CUSTOMER = """
+        query VoucherCustomer($q: String!) {
+          customers(first: 5, query: $q) { edges { node { id email } } }
+        }""";
+
+    private static final String CREATE_CUSTOMER = """
+        mutation VoucherCustomerCreate($input: CustomerInput!) {
+          customerCreate(input: $input) {
+            customer { id email }
+            userErrors { field message }
+          }
         }""";
 
     private static final String SCOPES = "{ currentAppInstallation { accessScopes { handle } } }";
@@ -104,7 +120,9 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
         input.put("code", spec.code());
         input.put("startsAt", spec.startsAt().toString());
         input.put("endsAt", spec.endsAt().toString());
-        input.put("customerSelection", Map.of("all", true));
+        input.put("customerSelection", spec.customerGid() == null
+            ? Map.of("all", true)
+            : Map.of("customers", Map.of("add", List.of(spec.customerGid()))));
         input.put("customerGets", Map.of(
             "value", Map.of("discountAmount", Map.of(
                 "amount", VoucherRules.money(spec.amount()),
@@ -165,15 +183,46 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
     }
 
     @Override
-    public Optional<Boolean> hasWriteDiscountsScope() {
+    public String findOrCreateCustomer(String email) {
+        // VoucherService only passes emails matching a strict pattern (no quotes or spaces).
+        Optional<String> existing = findCustomer(email);
+        if (existing.isPresent()) return existing.get();
+        Map<String, Object> data = call(CREATE_CUSTOMER, Map.of("input", Map.of("email", email)));
+        Map<String, Object> payload = map(data.get("customerCreate"));
+        Map<String, Object> customer = payload == null ? null : map(payload.get("customer"));
+        if (customer != null && customer.get("id") != null) return String.valueOf(customer.get("id"));
+        // Most likely created concurrently ("Email has already been taken"): look again.
+        return findCustomer(email).orElseThrow(() -> new GatewayException("customer create failed: "
+            + (payload == null ? "no payload" : payload.get("userErrors"))));
+    }
+
+    private Optional<String> findCustomer(String email) {
+        Map<String, Object> data = call(FIND_CUSTOMER, Map.of("q", "email:\"" + email + "\""));
+        Map<String, Object> conn = map(data.get("customers"));
+        if (conn == null) return Optional.empty();
+        for (Object e : list(conn.get("edges"))) {
+            Map<String, Object> node = map(map(e).get("node"));
+            // Search is fuzzy: only accept an exact (case-insensitive) email match.
+            if (node != null && node.get("email") != null
+                    && email.equalsIgnoreCase(String.valueOf(node.get("email")))) {
+                return Optional.of(String.valueOf(node.get("id")));
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<java.util.Set<String>> grantedScopes() {
         try {
             Map<String, Object> data = call(SCOPES, Map.of());
             Map<String, Object> install = map(data.get("currentAppInstallation"));
             if (install == null) return Optional.empty();
+            java.util.Set<String> out = new java.util.HashSet<>();
             for (Object s : list(install.get("accessScopes"))) {
-                if ("write_discounts".equals(map(s).get("handle"))) return Optional.of(true);
+                Object handle = map(s) == null ? null : map(s).get("handle");
+                if (handle != null) out.add(String.valueOf(handle));
             }
-            return Optional.of(false);
+            return Optional.of(out);
         } catch (GatewayException e) {
             log.warn("voucher: scope check failed: {}", e.getMessage());
             return Optional.empty();
@@ -211,7 +260,7 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
         for (GraphQLResponse.GraphQLError err : response.getErrors()) {
             Object code = err.getExtensions() == null ? null : err.getExtensions().get("code");
             String msg = String.valueOf(err.getMessage()).toLowerCase();
-            if ("ACCESS_DENIED".equals(code) || msg.contains("access denied") || msg.contains("write_discounts")) {
+            if ("ACCESS_DENIED".equals(code) || msg.contains("access denied") || msg.contains("write_discounts") || msg.contains("write_customers")) {
                 return true;
             }
         }

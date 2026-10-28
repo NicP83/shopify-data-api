@@ -7,7 +7,7 @@
 ## Tech Stack
 
 - **Backend:** Java 17, Spring Boot 3.2 (Maven, `pom.xml`), reactive WebClient throughout
-- **Database:** PostgreSQL via JPA (`ddl-auto: none`) + Flyway migrations `src/main/resources/db/migration/` (V002–V020; `repair-on-migrate: true`)
+- **Database:** PostgreSQL via JPA (`ddl-auto: none`) + Flyway migrations `src/main/resources/db/migration/` (V002–V024; `repair-on-migrate: true`)
 - **AI:** Anthropic Claude API, default model `claude-sonnet-4-6` (env `ANTHROPIC_MODEL`; validated by `ModelValidationService` against `config/ModelConfig.java`)
 - **Integrations:** Shopify GraphQL Admin API (`client/ShopifyGraphQLClient.java`), external ERP MCP server over JSON-RPC (`client/MCPClient.java`, env `CRS_MCP_URL`)
 - **Frontend:** React 18 + Vite SPA in `frontend/` (Tailwind, react-router v6, axios, recharts, reactflow)
@@ -49,6 +49,12 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 - `ADMIN_AUTH_MODE` = `off` | `report` (default, logs only) | `enforce`. `ADMIN_AUTH_ENFORCE_PATHS` enforces chosen prefixes while in report mode. The SPA sends the key from `localStorage.hh_admin_key` (`frontend/src/services/adminAuth.js`). Audit and rollout: `docs/security/ADMIN_API_AUTH.md`.
 - New public routes must be added to the filter's allowlist, or they will 401 under enforce.
 
+### Closing vouchers (`service/voucher/`, V024, Oct 2026)
+- Chat tool `offer_discount` (`handler/tool/OfferDiscountChatToolHandler`) lets the storefront bot issue a small 1-hour Shopify code to close a $150+ cart. **Every limit is enforced in `VoucherService`/`VoucherStore`** (daily pool via conditional UPDATE, 10%/max-amount caps, subtotal recomputed from Shopify prices, one per session/customer via `voucher_claims`, code locked to the customer's checkout email when `require_email` is on); the prompt section only covers when to offer.
+- Off by default (`voucher_settings.enabled=false`); while off, the prompt and tool list are unchanged. `VoucherReconcileScheduler` settles codes 5 min after expiry.
+- The storefront chat controller passes the session to the tool via the Reactor context (`VoucherChatContext`); other chat surfaces have none, so the tool refuses there.
+- `/api/vouchers/**` authenticates in the controller (`VoucherAuthGuard`) in every auth mode; enabling/loosening and `POST /api/vouchers/override` also need `X-Owner-Key` (`VOUCHER_OWNER_KEY`). Full doc: `docs/vouchers/VOUCHERS.md`.
+
 ### Other modules
 - **Shopify data REST:** `ProductController`, `OrderController`, `CustomerController`, `InventoryController`, `FulfillmentController`, `AnalyticsController` → services → `ShopifyGraphQLClient` (rate limiting in `util/RateLimiter.java`).
 - **Inventory analysis:** `service/inventory/*` (velocity, alerts, order recommendations), `scheduler/InventoryAnalysisScheduler.java`, AI assistant at `POST /api/inventory-management/agent/chat`.
@@ -88,6 +94,7 @@ Package root: `com.shopify.api` under `src/main/java/`. Ignore `target/` (build 
 
 - `docs/multi-agent/` — multi-agent architecture, DB schema, API spec, workflow examples (most accurate doc set)
 - `docs/mcp/` — ERP MCP server tool reference (25 tools)
+- `docs/vouchers/VOUCHERS.md` — closing vouchers: rules, owner override, rollout, rollback, threat model
 - `docs/ai-search-implementation/` — storefront AI search spec
 - `docs/seo-agent/` — SEO agent plan
 - `docs/archive/` — historical status/checkpoint docs (superseded)

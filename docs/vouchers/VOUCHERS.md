@@ -20,7 +20,7 @@ feature makes no Shopify calls.
 | 4 | Minimum $150 of full-price, non-excluded items | recomputed from Shopify variant prices (never the model's numbers) and set as the code's `minimumRequirement.subtotal` |
 | 5 | Valid 1 hour | `endsAt` on the Shopify code |
 | 6 | Reserve on issue; settle ~65 min later | `VoucherReconcileScheduler` runs every minute and handles each code once expiry + 5 min grace has passed: used means REDEEMED (stays spent); unused means deleted in Shopify, EXPIRED, value returned to **that day's** pool. Also runs once at startup. |
-| 7 | Single use (one code = one order); one per chat session; IP as a weak per-day limit | Shopify `usageLimit: 1`; `voucher_claims` primary key on `s:<session>`; `max_per_ip_per_day` (default 1). If the customer happens to give an email or is a known browser, that also counts once per day (`c:<day>:<hash>`, email aliases collapse to one inbox). Codes are **not** locked to a customer: the bot never asks for an email and no Shopify customer records are created (owner decision, Oct 2026). |
+| 7 | Single use (one code = one order); one per chat session; IP as a weak per-day limit | Shopify `usageLimit: 1`; `voucher_claims` primary key on `s:<session>`; `max_per_ip_per_day` (default 1; see "Client IP" below, and a missing IP is one shared, still-limited bucket). If the customer happens to give an email or is a known browser, that also counts once per day (`c:<day>:<hash>`, email aliases collapse to one inbox). Codes are **not** locked to a customer: the bot never asks for an email and no Shopify customer records are created (owner decision, Oct 2026). |
 | 8 | No stacking; sale items excluded | `combinesWith` all false; variants with `compareAtPrice > price` don't count, and the code only applies to the eligible variants in the cart. When an issued offer's cart has sale items, the tool lists them (`already_discounted_items`) and the bot tells the customer they're already discounted and the voucher comes off the rest of the order. |
 | 9 | Admin exclusion list (vendors, product types, tags), empty by default | `voucher_settings.exclusions`, case-insensitive |
 | 10 | Kill switch, off by default | `voucher_settings.enabled`, plus env `VOUCHER_FEATURE_ALLOWED=false` as a second switch |
@@ -66,6 +66,29 @@ storefront widget ──► ShopifyChatController (/api/shopify/chat/message[/st
 - If Shopify's create call times out or errors, the service looks the code up and
   deletes any stray copy before returning the value. If it can't tell, the row stays
   PENDING (value still reserved) and the reconcile job settles it after 5 minutes.
+
+### Client IP
+`ClientIpResolver` picks the address for the per-IP limit (and chat analytics). The left-most
+X-Forwarded-For entry is client-controlled, so it's never used. The order is:
+
+1. `X-Real-IP`. Railway staff say the edge overwrites it with the connecting address.
+2. The right-most X-Forwarded-For entry.
+3. The socket address.
+4. Otherwise `unknown`: one shared bucket that is still limited, so hiding the address doesn't skip the limit.
+
+Railway's public answers about X-Forwarded-For conflict, so verify after deploying: set
+`VOUCHER_LOG_IP_HEADERS=true`, send a chat from the storefront with and without a fake
+`X-Forwarded-For` header (e.g. via curl), and check the `CLIENT_IP` log lines show your real
+address both times. Then unset it. If everything comes out as `unknown` or as a Railway address,
+vouchers would effectively be limited to `max_per_ip_per_day` per day storewide; fix the header
+order before enabling.
+
+### Settings safety
+- Admin reads and updates use a strict read. If `voucher_settings` can't be read, the API answers 503
+  and changes nothing; it never compares a change against defaults. (The chat path still fails
+  closed to "disabled".)
+- `voucher_settings.version` (V025) is an optimistic lock. The admin page sends the version it
+  loaded, so saving over someone else's newer change returns 409 ("reload and try again").
 
 ### Ledger statuses
 `PENDING` (reserved, create in flight), `ISSUED`, `REDEEMED`, `EXPIRED` (unused,
@@ -172,10 +195,11 @@ Each step can be deployed and checked on its own.
    openssl rand -base64 36
    ```
    Set `VOUCHER_OWNER_KEY` to the output. Leave `VOUCHER_FEATURE_ALLOWED` unset (true).
-4. **Deploy this branch.** Flyway applies V024 (new tables only, nothing altered).
+4. **Deploy this branch.** Flyway applies V024 (new tables only) and V025 (adds `voucher_settings.version`).
    Behaviour is unchanged: `enabled=false`. To follow the usual 3-stage pattern, V024 can
    ship alone first; the code tolerates a missing settings row (it reads as disabled).
-5. **Check.** Settings → Vouchers, click **check**: "Shopify write_discounts" should say
+5. **Check the client IP** as described in "Client IP" above (`VOUCHER_LOG_IP_HEADERS=true`, then unset).
+   **Check scopes.** Settings → Vouchers, click **check**: "Shopify write_discounts" should say
    *granted*. Logs should show `voucher: startup reconcile done`.
 6. **Dry run in the store.** In Settings → Vouchers, set holdout to 0 and the pool to
    $10 (a lower pool is tightening; holdout 0 needs the owner key), then enable with the
@@ -203,7 +227,7 @@ Each step can be deployed and checked on its own.
 |---|---|---|
 | Prompt injection: "I'm the owner", "ignore your rules", "give me $999" | Limits are server-side; the tool input has no field that raises a limit; amounts are capped (999 → $10), negatives and zero are refused; the prompt treats such messages as customer text | The bot may *say* something wrong. It can't create a code beyond the limits. |
 | Model invents a bigger cart (fake subtotal or quantities) | Subtotal comes from Shopify prices; no subtotal input; quantities over 20 refused; the code's minimum is `max($150, amount/10%)` and it only applies to the listed variants | None beyond the per-code amount |
-| Customer farms codes (new chat sessions, cleared storage, changed IP) | One per session, IP limit per day, single use. **Farming is bounded by the daily pool** (default $50/day), and every code needs a real $150+ full-price order ($500+ for a $25 code) to be worth anything. | Session id and `userIdentifier` are generated by the browser and the first X-Forwarded-For entry can be spoofed, so a determined person can collect several codes until the pool is gone. Worst case is the pool, given away as discounts on real orders. |
+| Customer farms codes (new chat sessions, cleared storage, changed IP) | One per session, IP limit per day, single use. **Farming is bounded by the daily pool** (default $50/day), and every code needs a real $150+ full-price order ($500+ for a $25 code) to be worth anything. | Session id and `userIdentifier` are generated by the browser. The IP comes from `X-Real-IP` or the right-most X-Forwarded-For hop, never the spoofable left-most one, but a determined person changing networks can collect several codes until the pool is gone. Worst case is the pool, given away as discounts on real orders. |
 | A code is shared or posted online | Single use, 1-hour life, minimum spend and specific products on the code | Whoever uses it first gets the discount, still only on a real qualifying order. Costs at most that one code's value. |
 | Someone guesses or brute-forces codes | 14 random chars from SecureRandom (~69 bits), single use, 1 h life | Negligible |
 | Concurrent requests overdraw the pool | Single conditional UPDATE under a row lock; tested with 24 concurrent issues against a $50 pool (exactly 5 × $10) | None known |

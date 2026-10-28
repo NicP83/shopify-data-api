@@ -7,11 +7,15 @@ import com.shopify.api.service.ChatAgentService;
 import com.shopify.api.service.ChatAnalyticsService;
 import com.shopify.api.service.ChatTurnMetrics;
 import com.shopify.api.service.voucher.VoucherChatContext;
+import com.shopify.api.util.ClientIpResolver;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import reactor.util.context.Context;
 import com.shopify.api.service.ShopifyShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +59,10 @@ public class ShopifyChatController {
     private final ChatAnalyticsService chatAnalyticsService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /** VOUCHER_LOG_IP_HEADERS=true logs the raw IP headers per chat request, to verify Railway's behaviour. */
+    @Value("${vouchers.log-ip-headers:false}")
+    private boolean logIpHeaders;
+
     @Autowired
     public ShopifyChatController(ChatAgentService chatAgentService,
                                   ShopifyShopService shopifyShopService,
@@ -81,6 +89,8 @@ public class ShopifyChatController {
 
         // Start timer for response time tracking
         final long startTime = System.currentTimeMillis();
+        // Resolved now, on the request thread, where the socket address is available.
+        final String clientIp = extractClientIp(xForwardedFor, xRealIp);
 
         try {
             // Validate shop is installed and active
@@ -171,7 +181,7 @@ public class ShopifyChatController {
                     error.put("message", e.getMessage());
                     return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error));
                 })
-                .contextWrite(ctx -> withVoucherContext(ctx, request, xForwardedFor, xRealIp))
+                .contextWrite(ctx -> withVoucherContext(ctx, request, clientIp))
                 .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, metrics));
 
         } catch (Exception e) {
@@ -205,6 +215,7 @@ public class ShopifyChatController {
             @RequestHeader(value = "X-Forwarded-For", required = false) String xForwardedFor,
             @RequestHeader(value = "X-Real-IP", required = false) String xRealIp,
             @RequestHeader(value = "Referer", required = false) String referer) {
+        final String clientIp = extractClientIp(xForwardedFor, xRealIp);
         try {
             if (!shopifyShopService.isShopActive(shop)) {
                 logger.warn("Stream: shop not found or inactive: {}", shop);
@@ -247,7 +258,7 @@ public class ShopifyChatController {
                     })
                     .doOnNext(recorder::observe)
                     .doFinally(recorder::finish)
-                    .contextWrite(ctx -> withVoucherContext(ctx, request, xForwardedFor, xRealIp))
+                    .contextWrite(ctx -> withVoucherContext(ctx, request, clientIp))
                     .contextWrite(ctx -> ctx.put(ChatTurnMetrics.CONTEXT_KEY, recorder.metrics));
         } catch (Exception e) {
             logger.error("Error in streamMessage: {}", e.getMessage(), e);
@@ -260,12 +271,12 @@ public class ShopifyChatController {
      * Only these storefront endpoints set it, so no other chat surface can issue vouchers.
      * No session id means no context (the tool then refuses).
      */
-    private Context withVoucherContext(Context ctx, ChatRequest request, String xForwardedFor, String xRealIp) {
+    private Context withVoucherContext(Context ctx, ChatRequest request, String clientIp) {
         try {
             String sessionId = request.getSessionId();
             if (sessionId == null || sessionId.isBlank()) return ctx;
             return ctx.put(VoucherChatContext.CONTEXT_KEY, new VoucherChatContext(sessionId,
-                request.getUserIdentifier(), extractClientIp(xForwardedFor, xRealIp)));
+                request.getUserIdentifier(), clientIp));
         } catch (Exception e) {
             return ctx;
         }
@@ -488,19 +499,24 @@ public class ShopifyChatController {
     }
 
     /**
-     * Extract client IP address from request headers
-     * Handles common proxy headers (X-Forwarded-For, X-Real-IP)
+     * Client IP for analytics and the per-IP voucher limit. Never the left-most
+     * X-Forwarded-For entry (client-controlled); see {@link ClientIpResolver}.
+     * The socket address comes from the current servlet request when there is one.
      */
     private String extractClientIp(String xForwardedFor, String xRealIp) {
-        if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
-            // X-Forwarded-For can contain multiple IPs, take the first one
-            return xForwardedFor.split(",")[0].trim();
+        String remoteAddr = null;
+        try {
+            if (RequestContextHolder.getRequestAttributes() instanceof ServletRequestAttributes attrs) {
+                remoteAddr = attrs.getRequest().getRemoteAddr();
+            }
+        } catch (Exception e) {
+            // no current request (tests, async thread): headers only
         }
-
-        if (xRealIp != null && !xRealIp.isEmpty()) {
-            return xRealIp;
+        String ip = ClientIpResolver.resolve(xRealIp, xForwardedFor, remoteAddr);
+        if (logIpHeaders) {
+            logger.info("CLIENT_IP resolved={} x-real-ip='{}' x-forwarded-for='{}' remote={}",
+                ip, xRealIp, xForwardedFor, remoteAddr);
         }
-
-        return "unknown";
+        return ip;
     }
 }

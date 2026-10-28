@@ -63,8 +63,23 @@ class ShopifyChatControllerVoucherContextTest {
 
     @Test
     void blockingEndpointSetsTheContext() {
-        controller.sendMessage(SHOP, request("sess-1"), "UA", "203.0.113.5, 10.0.0.1", null, null).block();
+        // "6.6.6.6" is what the client sent; the edge appended the real address.
+        controller.sendMessage(SHOP, request("sess-1"), "UA", "6.6.6.6, 203.0.113.5", null, null).block();
         assertThat(seen.get()).isEqualTo(new VoucherChatContext("sess-1", "cust-1", "203.0.113.5"));
+    }
+
+    @Test
+    void spoofedForwardedForCantRotateTheVoucherIp() {
+        controller.sendMessage(SHOP, request("sess-a"), "UA", "1.1.1.1, 203.0.113.5", "198.51.100.9", null).block();
+        String first = seen.get().clientIp();
+        controller.sendMessage(SHOP, request("sess-b"), "UA", "2.2.2.2, 203.0.113.5", "198.51.100.9", null).block();
+        assertThat(seen.get().clientIp()).isEqualTo(first).isEqualTo("198.51.100.9");
+    }
+
+    @Test
+    void noUsableIpIsTheSharedUnknownBucket() {
+        controller.sendMessage(SHOP, request("sess-u"), "UA", "garbage", null, null).block();
+        assertThat(seen.get().clientIp()).isEqualTo("unknown");
     }
 
     @Test

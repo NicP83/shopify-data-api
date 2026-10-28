@@ -272,3 +272,5 @@ vouchers:
   # Owner key for POST /api/vouchers/override and limit-loosening settings (>= 32 chars; unset = disabled).
   owner-key: ${VOUCHER_OWNER_KEY:}
   reconcile-interval-ms: ${VOUCHER_RECONCILE_INTERVAL_MS:60000}
+  # true logs X-Real-IP / X-Forwarded-For / socket address per chat request (verify Railway's headers).
+  log-ip-headers: ${VOUCHER_LOG_IP_HEADERS:false}

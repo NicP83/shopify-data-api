@@ -16,7 +16,9 @@ class VoucherSettingsServiceTest {
     @Test
     void defaultsAreDisabledAndValid() {
         assertThat(base.isEnabled()).isFalse();
-        assertThat(base.isRequireEmail()).isTrue();
+        assertThat(base.getMaxAmount()).isEqualByComparingTo("10");
+        assertThat(base.getHighTierSubtotal()).isEqualByComparingTo("500");
+        assertThat(base.getHighTierMaxAmount()).isEqualByComparingTo("25");
         VoucherSettingsService.validate(base);
     }
 
@@ -24,8 +26,14 @@ class VoucherSettingsServiceTest {
     void hardCeilingsCannotBeExceededEvenByTheOwner() {
         assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().dailyPool(new BigDecimal("501")).build()))
             .hasMessageContaining("dailyPool");
-        assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().maxPct(new BigDecimal("0.30")).build()))
+        assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().maxPct(new BigDecimal("0.21")).build()))
             .hasMessageContaining("maxPct");
+        assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().highTierMaxAmount(new BigDecimal("105")).build()))
+            .hasMessageContaining("highTierMaxAmount");
+        assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().highTierMaxAmount(new BigDecimal("5")).build()))
+            .hasMessageContaining("highTierMaxAmount");
+        assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().highTierSubtotal(new BigDecimal("100")).build()))
+            .hasMessageContaining("highTierSubtotal");
         assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().maxAmount(new BigDecimal("12")).build()))
             .hasMessageContaining("maxAmount");
         assertThatThrownBy(() -> VoucherSettingsService.validate(base.toBuilder().minSubtotal(new BigDecimal("10")).build()))
@@ -40,9 +48,11 @@ class VoucherSettingsServiceTest {
     void looseningIsDetectedPerField() {
         VoucherSettings looser = base.toBuilder().enabled(true).dailyPool(new BigDecimal("80"))
             .maxPct(new BigDecimal("0.12")).maxAmount(new BigDecimal("15")).minSubtotal(new BigDecimal("120"))
-            .validityMinutes(90).holdoutPct(10).maxPerIpPerDay(2).requireEmail(false).build();
+            .validityMinutes(90).holdoutPct(10).maxPerIpPerDay(2)
+            .highTierMaxAmount(new BigDecimal("30")).highTierSubtotal(new BigDecimal("400")).build();
         assertThat(VoucherSettingsService.loosenings(base, looser)).containsExactly("enabled", "dailyPool", "maxPct",
-            "maxAmount", "minSubtotal", "validityMinutes", "holdoutPct", "maxPerIpPerDay", "requireEmail");
+            "maxAmount", "minSubtotal", "validityMinutes", "holdoutPct", "maxPerIpPerDay",
+            "highTierMaxAmount", "highTierSubtotal");
 
         VoucherSettings withExclusion = base.toBuilder()
             .exclusions(new VoucherExclusions(List.of("Bandai"), List.of(), List.of()).toJson()).build();

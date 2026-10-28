@@ -34,6 +34,7 @@ public class VoucherStore {
     public record ReserveRequest(String code, BigDecimal desiredAmount, BigDecimal poolLimit, LocalDate day,
                                  String sessionId, List<String> customerKeys, String ipHash, int maxPerIp,
                                  BigDecimal eligibleSubtotal, BigDecimal pctForMinimum, BigDecimal minSubtotal,
+                                 BigDecimal baseMaxAmount, BigDecimal highTierSubtotal,
                                  String reason, Instant issuedAt, Instant expiresAt) {}
 
     public record Reservation(ReserveStatus status, VoucherLedgerEntry entry) {}
@@ -100,7 +101,8 @@ public class VoucherStore {
             .customerKey(r.customerKeys().isEmpty() ? null : r.customerKeys().get(0))
             .ipHash(r.ipHash())
             .cartSubtotal(r.eligibleSubtotal())
-            .minSubtotal(VoucherRules.codeMinSubtotal(amount, r.pctForMinimum(), r.minSubtotal()))
+            .minSubtotal(VoucherRules.codeMinSubtotal(amount, r.pctForMinimum(), r.minSubtotal(),
+                r.baseMaxAmount(), r.highTierSubtotal()))
             .reason(truncate(r.reason(), 500))
             .status(VoucherStatus.PENDING)
             .issuedAt(r.issuedAt())
@@ -125,8 +127,8 @@ public class VoucherStore {
     }
 
     @Transactional
-    public boolean markIssued(Long id, String discountId, String customerGid) {
-        return ledgerRepository.markIssued(id, discountId, customerGid) == 1;
+    public boolean markIssued(Long id, String discountId) {
+        return ledgerRepository.markIssued(id, discountId) == 1;
     }
 
     @Transactional

@@ -28,10 +28,9 @@ public interface VoucherLedgerRepository extends JpaRepository<VoucherLedgerEntr
 
     @Modifying
     @Query("update VoucherLedgerEntry e set e.status = com.shopify.api.model.voucher.VoucherStatus.ISSUED, "
-         + "e.shopifyDiscountId = :discountId, e.shopifyCustomerId = :customerId where e.id = :id "
+         + "e.shopifyDiscountId = :discountId where e.id = :id "
          + "and e.status = com.shopify.api.model.voucher.VoucherStatus.PENDING")
-    int markIssued(@Param("id") Long id, @Param("discountId") String discountId,
-                   @Param("customerId") String customerId);
+    int markIssued(@Param("id") Long id, @Param("discountId") String discountId);
 
     @Modifying
     @Query("update VoucherLedgerEntry e set e.status = com.shopify.api.model.voucher.VoucherStatus.REDEEMED, "

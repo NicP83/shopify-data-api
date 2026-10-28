@@ -6,9 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * Tracks the Shopify token's access scopes. Vouchers need write_discounts, and
- * write_customers while codes are locked to an email. Until a check has confirmed
- * them, the offer_discount tool stays hidden (fail closed). Checks run only while
+ * Tracks the Shopify token's access scopes. Vouchers need write_discounts. Until a
+ * check has confirmed it, the offer_discount tool stays hidden (fail closed). Checks run only while
  * vouchers are enabled, so a disabled feature makes no Shopify calls.
  */
 @Component
@@ -16,7 +15,6 @@ import java.util.Set;
 public class VoucherScopeMonitor {
 
     public static final String WRITE_DISCOUNTS = "write_discounts";
-    public static final String WRITE_CUSTOMERS = "write_customers";
 
     static final long RECHECK_OK_MS = 30 * 60_000L;
     static final long RECHECK_BAD_MS = 5 * 60_000L;
@@ -29,10 +27,10 @@ public class VoucherScopeMonitor {
         this.gateway = gateway;
     }
 
-    /** Whether the scopes needed right now are confirmed. */
-    public boolean ready(boolean customersNeeded) {
+    /** Whether write_discounts is confirmed. */
+    public boolean ready() {
         Set<String> g = granted;
-        return g != null && g.contains(WRITE_DISCOUNTS) && (!customersNeeded || g.contains(WRITE_CUSTOMERS));
+        return g != null && g.contains(WRITE_DISCOUNTS);
     }
 
     /** null = unknown, else whether the scope is granted. For the admin page. */
@@ -45,9 +43,8 @@ public class VoucherScopeMonitor {
     public void refreshIfDue() {
         long age = System.currentTimeMillis() - checkedAt;
         Set<String> g = granted;
-        boolean complete = g != null && g.contains(WRITE_DISCOUNTS) && g.contains(WRITE_CUSTOMERS);
         boolean due = g == null ? age > 60_000L || checkedAt == 0
-            : complete ? age > RECHECK_OK_MS : age > RECHECK_BAD_MS;
+            : g.contains(WRITE_DISCOUNTS) ? age > RECHECK_OK_MS : age > RECHECK_BAD_MS;
         if (due) refresh();
     }
 
@@ -57,14 +54,9 @@ public class VoucherScopeMonitor {
             Set<String> result = gateway.grantedScopes().orElse(null);
             if (result == null) {
                 log.warn("voucher: could not confirm Shopify scopes; offer_discount stays disabled");
-            } else {
-                if (!result.contains(WRITE_DISCOUNTS)) {
-                    log.error("voucher: Shopify token lacks write_discounts; offer_discount is DISABLED. "
-                        + "Reinstall the app with write_discounts (docs/vouchers/VOUCHERS.md).");
-                }
-                if (!result.contains(WRITE_CUSTOMERS)) {
-                    log.warn("voucher: Shopify token lacks write_customers; vouchers that require an email are DISABLED");
-                }
+            } else if (!result.contains(WRITE_DISCOUNTS)) {
+                log.error("voucher: Shopify token lacks write_discounts; offer_discount is DISABLED. "
+                    + "Reinstall the app with write_discounts (docs/vouchers/VOUCHERS.md).");
             }
             granted = result == null ? null : Set.copyOf(result);
         } catch (Exception e) {

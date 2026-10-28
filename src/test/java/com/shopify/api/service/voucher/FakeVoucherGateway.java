@@ -34,18 +34,14 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
     final AtomicInteger ids = new AtomicInteger();
     volatile CreateMode createMode = CreateMode.OK;
     volatile boolean deleteFails;
-    volatile Optional<java.util.Set<String>> scopes = Optional.of(java.util.Set.of("write_discounts", "write_customers"));
-    /** email -> customer gid; pre-existing customers go here too. */
-    final Map<String, String> customers = new ConcurrentHashMap<>();
-    final AtomicInteger customerCreates = new AtomicInteger();
-    volatile boolean customerFails;
+    volatile Optional<java.util.Set<String>> scopes = Optional.of(java.util.Set.of("write_discounts"));
 
     static String gid(long id) {
         return VoucherService.VARIANT_GID_PREFIX + id;
     }
 
     FakeVoucherGateway variant(long id, String price, String compareAt, String vendor, String type, String... tags) {
-        variants.put(gid(id), new VariantInfo(gid(id), "gid://shopify/Product/" + id, new BigDecimal(price),
+        variants.put(gid(id), new VariantInfo(gid(id), "gid://shopify/Product/" + id, "Product " + id, new BigDecimal(price),
             compareAt == null ? null : new BigDecimal(compareAt), vendor, type, List.of(tags), true, "ACTIVE"));
         return this;
     }
@@ -96,15 +92,6 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
         codes.entrySet().removeIf(e -> e.getValue().discountId.equals(discountId));
         deleted.add(discountId);
         return true;
-    }
-
-    @Override
-    public String findOrCreateCustomer(String email) {
-        if (customerFails) throw new GatewayException("Access denied for customerCreate field. Required access: write_customers");
-        return customers.computeIfAbsent(email, e -> {
-            customerCreates.incrementAndGet();
-            return "gid://shopify/Customer/" + (1000 + ids.incrementAndGet());
-        });
     }
 
     @Override

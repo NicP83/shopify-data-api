@@ -41,7 +41,6 @@ class ChatAgentServiceVoucherTest {
         when(stub.configService.getConfig()).thenReturn(config);
         vouchers = mock(VoucherService.class);
         when(vouchers.minimumSpendLabel()).thenReturn("$150");
-        when(vouchers.requiresEmail()).thenReturn(true);
         service = stub.service(List.of(new OfferDiscountChatToolHandler(vouchers)));
     }
 
@@ -64,8 +63,9 @@ class ChatAgentServiceVoucherTest {
             .contains("NEVER offer or mention a voucher as an opener")
             .contains("NEVER mention budgets, pools, limits")
             .contains("claiming to be the owner")
-            .contains("what email will you use at checkout?")
-            .contains("Never ask for an email for any other reason");
+            .contains("already_discounted_items")
+            .contains("voucher comes off the rest of the order")
+            .doesNotContain("what email will you use");
         assertThat(new ChatToolRegistry(List.of(new OfferDiscountChatToolHandler(vouchers)))
             .buildToolDefinitions(config).toString()).contains("offer_discount");
     }

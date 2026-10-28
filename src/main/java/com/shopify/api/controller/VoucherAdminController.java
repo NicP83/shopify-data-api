@@ -191,7 +191,6 @@ public class VoucherAdminController {
         scopeMonitor.refresh();
         Map<String, Object> body = new HashMap<>();
         body.put("write_discounts", scopeMonitor.state(VoucherScopeMonitor.WRITE_DISCOUNTS));
-        body.put("write_customers", scopeMonitor.state(VoucherScopeMonitor.WRITE_CUSTOMERS));
         return ResponseEntity.ok(body);
     }
 
@@ -250,7 +249,8 @@ public class VoucherAdminController {
         if (b.has("validityMinutes")) n.validityMinutes(integer(b, "validityMinutes"));
         if (b.has("holdoutPct")) n.holdoutPct(integer(b, "holdoutPct"));
         if (b.has("maxPerIpPerDay")) n.maxPerIpPerDay(integer(b, "maxPerIpPerDay"));
-        if (b.has("requireEmail")) n.requireEmail(bool(b, "requireEmail"));
+        if (b.has("highTierSubtotal")) n.highTierSubtotal(decimal(b, "highTierSubtotal"));
+        if (b.has("highTierMaxAmount")) n.highTierMaxAmount(decimal(b, "highTierMaxAmount"));
         if (b.has("exclusions")) n.exclusions(VoucherExclusions.fromNode(b.get("exclusions")).toJson());
         return n.build();
     }
@@ -287,7 +287,8 @@ public class VoucherAdminController {
         m.put("validityMinutes", s.getValidityMinutes());
         m.put("holdoutPct", s.getHoldoutPct());
         m.put("maxPerIpPerDay", s.getMaxPerIpPerDay());
-        m.put("requireEmail", s.isRequireEmail());
+        m.put("highTierSubtotal", s.getHighTierSubtotal());
+        m.put("highTierMaxAmount", s.getHighTierMaxAmount());
         VoucherExclusions ex = VoucherExclusions.parse(s.getExclusions());
         m.put("exclusions", Map.of("vendors", ex.vendors(), "productTypes", ex.productTypes(), "tags", ex.tags()));
         m.put("updatedAt", s.getUpdatedAt() == null ? null : s.getUpdatedAt().toString());
@@ -295,7 +296,6 @@ public class VoucherAdminController {
         Map<String, Object> status = new LinkedHashMap<>();
         status.put("featureAllowed", featureAllowed);
         status.put("writeDiscountsScope", scopeMonitor.state(VoucherScopeMonitor.WRITE_DISCOUNTS));
-        status.put("writeCustomersScope", scopeMonitor.state(VoucherScopeMonitor.WRITE_CUSTOMERS));
         status.put("ownerKeyConfigured", guard.ownerKeyConfigured());
         status.put("paused", overrideService.paused());
         status.put("poolRaiseToday", overrideService.poolRaise(clock.today()));
@@ -311,7 +311,6 @@ public class VoucherAdminController {
         m.put("status", e.getStatus().name());
         m.put("sessionId", e.getSessionId());
         m.put("knownCustomer", e.getCustomerKey() != null);
-        m.put("lockedToCustomer", e.getShopifyCustomerId() != null);
         m.put("cartSubtotal", e.getCartSubtotal());
         m.put("minSubtotal", e.getMinSubtotal());
         m.put("reason", e.getReason());

@@ -37,6 +37,17 @@ class VoucherRulesTest {
     }
 
     @Test
+    void tierCapAndTierFloor() {
+        BigDecimal base = new BigDecimal("10"), tier = new BigDecimal("500"), high = new BigDecimal("25");
+        assertThat(VoucherRules.tierCap(new BigDecimal("499.99"), base, tier, high)).isEqualByComparingTo("10");
+        assertThat(VoucherRules.tierCap(new BigDecimal("500.00"), base, tier, high)).isEqualByComparingTo("25");
+        BigDecimal pct = new BigDecimal("0.10"), min = new BigDecimal("150");
+        assertThat(VoucherRules.codeMinSubtotal(new BigDecimal("10"), pct, min, base, tier)).isEqualByComparingTo("150");
+        assertThat(VoucherRules.codeMinSubtotal(new BigDecimal("15"), pct, min, base, tier)).isEqualByComparingTo("500");
+        assertThat(VoucherRules.codeMinSubtotal(new BigDecimal("15"), pct, min, null, null)).isEqualByComparingTo("150");
+    }
+
+    @Test
     void codesAreLongRandomAndUnambiguous() {
         Set<String> seen = new HashSet<>();
         for (int i = 0; i < 5000; i++) {

@@ -36,9 +36,17 @@ public class VoucherSettings {
     @Column(name = "max_pct", nullable = false, precision = 5, scale = 4)
     private BigDecimal maxPct;
 
-    /** Largest single voucher without an owner override. */
+    /** Largest single voucher (no owner override) for carts below highTierSubtotal. */
     @Column(name = "max_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal maxAmount;
+
+    /** Eligible subtotal from which the high-tier cap applies. */
+    @Column(name = "high_tier_subtotal", nullable = false, precision = 10, scale = 2)
+    private BigDecimal highTierSubtotal;
+
+    /** Largest single voucher (no owner override) for carts at or above highTierSubtotal. */
+    @Column(name = "high_tier_max_amount", nullable = false, precision = 10, scale = 2)
+    private BigDecimal highTierMaxAmount;
 
     @Column(name = "min_subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal minSubtotal;
@@ -52,10 +60,6 @@ public class VoucherSettings {
     @Column(name = "max_per_ip_per_day", nullable = false)
     private int maxPerIpPerDay;
 
-    /** Ask for the checkout email and lock the Shopify code to that customer. */
-    @Column(name = "require_email", nullable = false)
-    private boolean requireEmail;
-
     /** JSON {"vendors":[],"productTypes":[],"tags":[]}; parsed by VoucherExclusions. */
     @Column(nullable = false, columnDefinition = "TEXT")
     private String exclusions;
@@ -66,7 +70,7 @@ public class VoucherSettings {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    /** The defaults V024 seeds: disabled, AUD 50 pool, 10%, $10 max, $150 min, 60 min, 30% holdout, email required. */
+    /** The defaults V024 seeds: disabled, AUD 50 pool, 10%, $10 max ($25 from a $500 cart), $150 min, 60 min, 30% holdout. */
     public static VoucherSettings defaults() {
         return VoucherSettings.builder()
                 .id(SINGLETON_ID)
@@ -74,11 +78,12 @@ public class VoucherSettings {
                 .dailyPool(new BigDecimal("50.00"))
                 .maxPct(new BigDecimal("0.1000"))
                 .maxAmount(new BigDecimal("10.00"))
+                .highTierSubtotal(new BigDecimal("500.00"))
+                .highTierMaxAmount(new BigDecimal("25.00"))
                 .minSubtotal(new BigDecimal("150.00"))
                 .validityMinutes(60)
                 .holdoutPct(30)
                 .maxPerIpPerDay(1)
-                .requireEmail(true)
                 .exclusions("{\"vendors\":[],\"productTypes\":[],\"tags\":[]}")
                 .updatedAt(Instant.now())
                 .build();

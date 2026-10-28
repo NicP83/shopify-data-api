@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public interface VoucherShopifyGateway {
 
-    record VariantInfo(String variantGid, String productGid, BigDecimal price, BigDecimal compareAtPrice,
+    record VariantInfo(String variantGid, String productGid, String title, BigDecimal price, BigDecimal compareAtPrice,
                        String vendor, String productType, List<String> tags,
                        boolean availableForSale, String productStatus) {
 
@@ -21,9 +21,8 @@ public interface VoucherShopifyGateway {
         }
     }
 
-    /** customerGid null = any customer; otherwise only that customer can use the code. */
     record CodeSpec(String code, String title, BigDecimal amount, BigDecimal minSubtotal,
-                    List<String> variantGids, Instant startsAt, Instant endsAt, String customerGid) {}
+                    List<String> variantGids, Instant startsAt, Instant endsAt) {}
 
     /** ok: created. accessDenied: the token lacks write_discounts. */
     record CreateResult(boolean ok, String discountId, boolean accessDenied, String error) {}
@@ -49,13 +48,6 @@ public interface VoucherShopifyGateway {
 
     /** true when Shopify confirms the code discount is gone. */
     boolean deleteCode(String discountId);
-
-    /**
-     * The Shopify customer with this email, creating one if needed (no marketing
-     * consent is set). Throws GatewayException when it can't be resolved; the result
-     * is never a different customer's id.
-     */
-    String findOrCreateCustomer(String email);
 
     /** The token's granted access scopes; empty when the check itself failed. */
     Optional<java.util.Set<String>> grantedScopes();

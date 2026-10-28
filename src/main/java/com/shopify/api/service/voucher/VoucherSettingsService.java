@@ -86,6 +86,17 @@ public class VoucherSettingsService {
                 || VoucherRules.floorToStep(s.getMaxAmount()).compareTo(s.getMaxAmount()) != 0) {
             errors.add("maxAmount must be a multiple of 5 between 5 and " + VoucherRules.HARD_MAX_AMOUNT);
         }
+        if (s.getHighTierMaxAmount() == null || s.getMaxAmount() == null
+                || s.getHighTierMaxAmount().compareTo(s.getMaxAmount()) < 0
+                || s.getHighTierMaxAmount().compareTo(VoucherRules.HARD_MAX_AMOUNT) > 0
+                || VoucherRules.floorToStep(s.getHighTierMaxAmount()).compareTo(s.getHighTierMaxAmount()) != 0) {
+            errors.add("highTierMaxAmount must be a multiple of 5, at least maxAmount and at most " + VoucherRules.HARD_MAX_AMOUNT);
+        }
+        if (s.getHighTierSubtotal() == null || s.getMinSubtotal() == null
+                || s.getHighTierSubtotal().compareTo(s.getMinSubtotal()) < 0
+                || s.getHighTierSubtotal().compareTo(new BigDecimal("100000")) > 0) {
+            errors.add("highTierSubtotal must be at least minSubtotal");
+        }
         if (s.getMinSubtotal() == null || s.getMinSubtotal().compareTo(VoucherRules.HARD_MIN_SUBTOTAL) < 0
                 || s.getMinSubtotal().compareTo(new BigDecimal("100000")) > 0) {
             errors.add("minSubtotal must be at least " + VoucherRules.HARD_MIN_SUBTOTAL);
@@ -119,7 +130,8 @@ public class VoucherSettingsService {
         if (next.getValidityMinutes() > prev.getValidityMinutes()) out.add("validityMinutes");
         if (next.getHoldoutPct() < prev.getHoldoutPct()) out.add("holdoutPct");
         if (next.getMaxPerIpPerDay() > prev.getMaxPerIpPerDay()) out.add("maxPerIpPerDay");
-        if (prev.isRequireEmail() && !next.isRequireEmail()) out.add("requireEmail");
+        if (next.getHighTierMaxAmount().compareTo(prev.getHighTierMaxAmount()) > 0) out.add("highTierMaxAmount");
+        if (next.getHighTierSubtotal().compareTo(prev.getHighTierSubtotal()) < 0) out.add("highTierSubtotal");
         VoucherExclusions a = VoucherExclusions.parse(prev.getExclusions());
         VoucherExclusions b = VoucherExclusions.parse(next.getExclusions());
         if (!b.vendors().containsAll(a.vendors()) || !b.productTypes().containsAll(a.productTypes())

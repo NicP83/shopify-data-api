@@ -18,12 +18,12 @@ public final class VoucherRules {
     /** Largest single voucher, even with an owner override. */
     public static final BigDecimal HARD_MAX_AMOUNT = new BigDecimal("100");
     /** A voucher is never more than this share of the eligible subtotal, even with an override. */
-    public static final BigDecimal HARD_MAX_PCT = new BigDecimal("0.5");
+    public static final BigDecimal HARD_MAX_PCT = new BigDecimal("0.20");
     /** Largest settings daily pool. */
     public static final BigDecimal HARD_MAX_POOL = new BigDecimal("500");
     /** Largest owner pool raise for one day. */
     public static final BigDecimal HARD_MAX_POOL_RAISE = new BigDecimal("500");
-    public static final BigDecimal HARD_MAX_SETTINGS_PCT = new BigDecimal("0.25");
+    public static final BigDecimal HARD_MAX_SETTINGS_PCT = HARD_MAX_PCT;
     public static final BigDecimal HARD_MIN_SUBTOTAL = new BigDecimal("50");
     public static final int HARD_MAX_VALIDITY_MINUTES = 240;
     public static final int MIN_VALIDITY_MINUTES = 15;
@@ -55,6 +55,26 @@ public final class VoucherRules {
     public static BigDecimal codeMinSubtotal(BigDecimal amount, BigDecimal pct, BigDecimal minSubtotal) {
         BigDecimal byPct = amount.divide(pct, 0, RoundingMode.CEILING);
         return minSubtotal.max(byPct).setScale(2, RoundingMode.UNNECESSARY);
+    }
+
+    /**
+     * As above, plus the tier rule: a voucher bigger than the base cap is only usable on
+     * a cart that reaches the high tier, so checkout enforces the tier too. A null
+     * highTierSubtotal (owner session override) skips the tier floor.
+     */
+    public static BigDecimal codeMinSubtotal(BigDecimal amount, BigDecimal pct, BigDecimal minSubtotal,
+                                             BigDecimal baseMaxAmount, BigDecimal highTierSubtotal) {
+        BigDecimal min = codeMinSubtotal(amount, pct, minSubtotal);
+        if (highTierSubtotal != null && baseMaxAmount != null && amount.compareTo(baseMaxAmount) > 0) {
+            min = min.max(highTierSubtotal.setScale(2, RoundingMode.CEILING));
+        }
+        return min;
+    }
+
+    /** Per-voucher cap for this eligible subtotal: the high tier from its threshold up. */
+    public static BigDecimal tierCap(BigDecimal eligibleSubtotal, BigDecimal baseMax, BigDecimal highTierSubtotal,
+                                     BigDecimal highTierMax) {
+        return eligibleSubtotal.compareTo(highTierSubtotal) >= 0 ? floorToStep(highTierMax) : floorToStep(baseMax);
     }
 
     public static BigDecimal min(BigDecimal a, BigDecimal b) {

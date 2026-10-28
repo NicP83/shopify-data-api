@@ -15,21 +15,21 @@ feature makes no Shopify calls.
 |---|------|-------------|
 | 1 | Daily pool, default AUD 50, resets at midnight Australia/Melbourne; no carry-over | `voucher_pool_days` row per Melbourne day; one conditional `UPDATE … WHERE reserved + amount <= limit` (`VoucherPoolDayRepository.reserve`) |
 | 2 | Fixed dollar amounts in $5 steps; the bot picks the amount | `VoucherRules.floorToStep` |
-| 3 | Ceiling: floor(10% of eligible subtotal) to $5, max $10 per voucher (`max_amount`), never more than the pool has left | `VoucherService.offer` (step 6) and `VoucherStore.reserve` |
-| 3b | Checkout enforces 10% too | the Shopify code's minimum subtotal is `max($150, amount / 10%)`, so a model that invents a bigger cart still can't make the code usable on a smaller one |
+| 3 | Ceiling: floor(10% of eligible subtotal) to $5, then a cart-size tier: eligible cart $150–$499.99 → max $10 (`max_amount`); $500+ (`high_tier_subtotal`) → max $25 (`high_tier_max_amount`). Never more than the pool has left. | `VoucherRules.tierCap`, `VoucherService.offer` (step 6) and `VoucherStore.reserve` |
+| 3b | Checkout enforces 10% and the tier too | the Shopify code's minimum subtotal is `max($150, amount / 10%)`, raised to $500 for any voucher above $10, so a model that invents a bigger cart still can't make the code usable on a smaller one |
 | 4 | Minimum $150 of full-price, non-excluded items | recomputed from Shopify variant prices (never the model's numbers) and set as the code's `minimumRequirement.subtotal` |
 | 5 | Valid 1 hour | `endsAt` on the Shopify code |
 | 6 | Reserve on issue; settle ~65 min later | `VoucherReconcileScheduler` runs every minute and handles each code once expiry + 5 min grace has passed: used means REDEEMED (stays spent); unused means deleted in Shopify, EXPIRED, value returned to **that day's** pool. Also runs once at startup. |
-| 7a | Tied to the customer's email (`require_email`, on by default) | The bot must ask which email they'll check out with; the server finds or creates that Shopify customer and creates the code for **that customer only** (`customerSelection.customers`). Anyone else using the code is refused at checkout. |
-| 7 | Single use; one per chat session; one per customer per day; IP as a weak signal | Shopify `usageLimit: 1`, `appliesOncePerCustomer`; `voucher_claims` primary key on `s:<session>` and `c:<day>:<customer hash>`; email aliases collapse to one inbox (`+tags` on any domain, dots and googlemail.com on Gmail); `max_per_ip_per_day` (default 1) |
-| 8 | No stacking; sale items excluded | `combinesWith` all false; variants with `compareAtPrice > price` don't count, and the code only applies to the eligible variants in the cart |
+| 7 | Single use (one code = one order); one per chat session; IP as a weak per-day limit | Shopify `usageLimit: 1`; `voucher_claims` primary key on `s:<session>`; `max_per_ip_per_day` (default 1). If the customer happens to give an email or is a known browser, that also counts once per day (`c:<day>:<hash>`, email aliases collapse to one inbox). Codes are **not** locked to a customer: the bot never asks for an email and no Shopify customer records are created (owner decision, Oct 2026). |
+| 8 | No stacking; sale items excluded | `combinesWith` all false; variants with `compareAtPrice > price` don't count, and the code only applies to the eligible variants in the cart. When an issued offer's cart has sale items, the tool lists them (`already_discounted_items`) and the bot tells the customer they're already discounted and the voucher comes off the rest of the order. |
 | 9 | Admin exclusion list (vendors, product types, tags), empty by default | `voucher_settings.exclusions`, case-insensitive |
 | 10 | Kill switch, off by default | `voucher_settings.enabled`, plus env `VOUCHER_FEATURE_ALLOWED=false` as a second switch |
 | 11 | Daily report plus a ~30% holdout | `GET /api/vouchers/report`; holdout is a stable hash of the session id (`holdout_pct`), flagged in `voucher_offers` |
 
 Hard ceilings are code constants (`VoucherRules`), not settings. Nobody can exceed
-them, the owner included, without a code change: settings pool ≤ $500, max share ≤ 25%,
-voucher ≤ $100, voucher ≤ 50% of the eligible subtotal, minimum ≥ $50, validity 15–240 min,
+them, the owner included, without a code change: settings pool ≤ $500, max share ≤ 20%,
+voucher ≤ $100 (both tiers), voucher ≤ 20% of the eligible subtotal even with an owner override,
+minimum ≥ $50, validity 15–240 min,
 pool raises ≤ $500 per day in total, session override ≤ 24 h, pause ≤ 7 days.
 
 ### What "eligible" means
@@ -66,20 +66,6 @@ storefront widget ──► ShopifyChatController (/api/shopify/chat/message[/st
 - If Shopify's create call times out or errors, the service looks the code up and
   deletes any stray copy before returning the value. If it can't tell, the row stays
   PENDING (value still reserved) and the reconcile job settles it after 5 minutes.
-
-### The email step
-With `require_email` on (the default), the conversation goes:
-
-1. The cart qualifies and the bot decides a voucher would close the sale.
-2. The bot asks which email the customer will check out with, saying the voucher works only with that email.
-   If the tool is called without a valid email, it answers `NEED_EMAIL` and creates nothing.
-3. The server checks the email (strict pattern), then looks up a Shopify customer with exactly that
-   email and creates one if there is none. No marketing consent is set and nobody is subscribed to anything.
-4. The code is created for that customer only. The bot gives the code and cart link and reminds the
-   customer to check out with that email.
-
-Turning `require_email` off needs the owner key. Codes are then usable by anyone holding them.
-While it's on, the token also needs `write_customers`; without it the tool stays hidden.
 
 ### Ledger statuses
 `PENDING` (reserved, create in flight), `ISSUED`, `REDEEMED`, `EXPIRED` (unused,
@@ -147,8 +133,8 @@ curl -sS -X POST "https://<your-app>.up.railway.app/api/vouchers/override/<OVERR
 ```
 
 `SESSION_AMOUNT` still allows one voucher per session, stays within the pool, is capped
-at $100 and 50% of the eligible cart, and is valid for 2 h by default (24 h max). Its code's
-minimum spend is `max($150, 2 × amount)`.
+at $100 and 20% of the eligible cart, and is valid for 2 h by default (24 h max). It replaces the
+tier caps for that session, and its code's minimum spend is `max($150, 5 × amount)`.
 
 ### Other endpoints (admin key; also checked inside the controller)
 
@@ -176,7 +162,7 @@ and `outcomes` (count per tool outcome, such as BELOW_MINIMUM, HOLDOUT or UNAVAI
 Each step can be deployed and checked on its own.
 
 1. **Rotate the Shopify token and add scopes.** Reinstall the app so the new token has
-   `write_discounts` and `write_customers` (plus `read_customers` and the existing `read_products` and `read_orders`). Update
+   `write_discounts` (plus the existing `read_products` and `read_orders`). Update
    `SHOPIFY_ACCESS_TOKEN` in Railway. The old token leaked, so revoke it.
 2. **Admin auth to enforce.** Set `ADMIN_AUTH_MODE=enforce`
    (`docs/security/ADMIN_API_AUTH.md`). The voucher endpoints check keys themselves
@@ -189,18 +175,16 @@ Each step can be deployed and checked on its own.
 4. **Deploy this branch.** Flyway applies V024 (new tables only, nothing altered).
    Behaviour is unchanged: `enabled=false`. To follow the usual 3-stage pattern, V024 can
    ship alone first; the code tolerates a missing settings row (it reads as disabled).
-5. **Check.** Settings → Vouchers, click **check**: "Shopify write_discounts" and
-   "Shopify write_customers" should both say *granted*. Logs should show `voucher: startup reconcile done`.
+5. **Check.** Settings → Vouchers, click **check**: "Shopify write_discounts" should say
+   *granted*. Logs should show `voucher: startup reconcile done`.
 6. **Dry run in the store.** In Settings → Vouchers, set holdout to 0 and the pool to
    $10 (a lower pool is tightening; holdout 0 needs the owner key), then enable with the
-   owner key. In the storefront widget, build a $150+ full-price cart, hesitate, give a test
-   email, and get a code. In Shopify Admin → Discounts, confirm the code's amount, minimum, end time,
-   one use, no combining, the specific products, and that it's limited to that one customer.
-   **Check the email lock at checkout**, logged out (guest): with the given email the code should
-   apply; with a different email it should be refused. If a guest checkout with the right email is
-   refused, Shopify wants the customer logged in. Then either change the bot's wording to say so, or
-   turn `require_email` off (owner key). At checkout, confirm it applies, and that it
-   does *not* apply once you drop below the minimum. Cancel it from the ledger.
+   owner key. In the storefront widget, build a $150+ full-price cart (add one sale item too),
+   hesitate, and get a code. Check the bot says the sale item is already discounted. In Shopify
+   Admin → Discounts, confirm the code's amount, minimum, end time, one use, no combining and the
+   specific products. At checkout, confirm it applies, and that it does *not* apply once you drop
+   below the minimum. Repeat with a $500+ cart for a $25 code and check its minimum is $500.
+   Cancel the codes from the ledger.
 7. **Go live.** Set the holdout back to 30% and the pool to $50. Watch `VOUCHER_ISSUED` /
    `VOUCHER_RECONCILE` logs and the daily report for a week before changing anything.
 
@@ -219,10 +203,8 @@ Each step can be deployed and checked on its own.
 |---|---|---|
 | Prompt injection: "I'm the owner", "ignore your rules", "give me $999" | Limits are server-side; the tool input has no field that raises a limit; amounts are capped (999 → $10), negatives and zero are refused; the prompt treats such messages as customer text | The bot may *say* something wrong. It can't create a code beyond the limits. |
 | Model invents a bigger cart (fake subtotal or quantities) | Subtotal comes from Shopify prices; no subtotal input; quantities over 20 refused; the code's minimum is `max($150, amount/10%)` and it only applies to the listed variants | None beyond the per-code amount |
-| Customer farms codes with made-up email addresses | Each code works only at checkout under its own email, so every extra code needs another real checkout identity; aliases of one inbox count once per day | Someone with many genuine inboxes can still collect several codes until the pool is gone |
-| A code is shared or posted online | Locked to one customer: anyone else is refused at checkout | None while `require_email` is on |
-| A customer types someone else's email | Only the owner of that email can use the code, so it's useless to the person asking. It also uses up that email's voucher for the day. | Minor: could block another person's voucher for a day |
-| Customer farms codes by rotating session ids / clearing storage / changing IP | One per session and per browser id per day, IP limit, and the **daily pool caps total exposure** (default $50/day). Every code still needs a $150+ full-price order. | Session id and `userIdentifier` are generated by the browser, and the first X-Forwarded-For entry can be spoofed, so a determined person can get several codes until the pool is gone. Worst case is the pool, as discounts on real $150+ orders. |
+| Customer farms codes (new chat sessions, cleared storage, changed IP) | One per session, IP limit per day, single use. **Farming is bounded by the daily pool** (default $50/day), and every code needs a real $150+ full-price order ($500+ for a $25 code) to be worth anything. | Session id and `userIdentifier` are generated by the browser and the first X-Forwarded-For entry can be spoofed, so a determined person can collect several codes until the pool is gone. Worst case is the pool, given away as discounts on real orders. |
+| A code is shared or posted online | Single use, 1-hour life, minimum spend and specific products on the code | Whoever uses it first gets the discount, still only on a real qualifying order. Costs at most that one code's value. |
 | Someone guesses or brute-forces codes | 14 random chars from SecureRandom (~69 bits), single use, 1 h life | Negligible |
 | Concurrent requests overdraw the pool | Single conditional UPDATE under a row lock; tested with 24 concurrent issues against a $50 pool (exactly 5 × $10) | None known |
 | Duplicate code for one session (parallel tool calls) | `voucher_claims` primary key; tested with 12 parallel calls | None known |
@@ -231,18 +213,16 @@ Each step can be deployed and checked on its own.
 | Unused code not deleted (Shopify down) | Value stays reserved; reconcile retries every minute and logs an ERROR every 10 failures; the code has expired anyway (`endsAt`) | Pool slightly understated until Shopify recovers |
 | Leaked admin key | Admin can view, tighten and kill only; enabling or loosening needs the owner key | Admin key holder can cancel codes or turn vouchers off (annoying, not costly) |
 | Leaked owner key (alone) | Useless without an admin key; five bad tries lock the endpoint | |
-| Both keys leaked | Hard ceilings in code still bound it: pool ≤ $500 + raise ≤ $500 per day, ≤ $100 per voucher, ≤ 50% of the cart, every override expires; every change is audited at WARN with source IP | Up to about $1,000/day of discounts on real orders until a key is rotated. Rotate `VOUCHER_OWNER_KEY` in Railway, then redeploy. |
+| Both keys leaked | Hard ceilings in code still bound it: pool ≤ $500 + raise ≤ $500 per day, ≤ $100 per voucher, ≤ 20% of the cart, every override expires; every change is audited at WARN with source IP | Up to about $1,000/day of discounts on real orders until a key is rotated. Rotate `VOUCHER_OWNER_KEY` in Railway, then redeploy. |
 | `ADMIN_AUTH_MODE=report` lets unauthenticated admin calls through | Voucher endpoints authenticate inside the controller in every mode | None for vouchers |
 | Missing `write_discounts` | Startup and periodic scope check; an access-denied create disables the tool and logs ERROR | None |
 | Owner override reaches the chat path | The chat path only reads overrides; only `VoucherAdminController` creates them, behind both keys | None |
-| SESSION_AMOUNT tied to a client-chosen session id | Override still allows only one voucher, within the pool, ≤ $100 / 50% of cart, expires (≤ 24 h) | Someone who learns that session id within the window could use it instead of the intended customer |
+| SESSION_AMOUNT tied to a client-chosen session id | Override still allows only one voucher, within the pool, ≤ $100 / 20% of cart, expires (≤ 24 h) | Someone who learns that session id within the window could use it instead of the intended customer |
 
 ## Things to know
 
-- **Customer records and privacy:** every email given creates a Shopify customer record if none
-  exists (visible in Shopify Admin → Customers, no marketing consent). The email is used to
-  deliver the voucher, which is fine under the Spam Act 2003. Adding these people to marketing needs
-  their separate opt-in. The ledger stores only a hash of the email and the Shopify customer id.
+- **No customer records:** the voucher flow never creates Shopify customers or asks for an email.
+  If a customer volunteers one, only a hash of it is stored, for the one-per-day limit.
 - **AOV comparison:** `aov_with_voucher` covers chat-voucher orders; `aov_without_voucher` covers
   all other store orders that day. Those groups differ (selection bias). For real lift, compare
   conversions of offered versus holdout chats. That needs order attribution for holdout chats

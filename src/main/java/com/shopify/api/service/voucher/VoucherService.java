@@ -96,13 +96,8 @@ public class VoucherService {
         if (!featureAllowed) return false;
         VoucherSettings settings = settingsService.cached();
         if (!settings.isEnabled()) return false;
-        if (!scopeMonitor.ready(settings.isRequireEmail())) return false;
+        if (!scopeMonitor.ready()) return false;
         return !pausedCachedValue();
-    }
-
-    /** Cached settings: whether the bot must collect a checkout email first. */
-    public boolean requiresEmail() {
-        return settingsService.cached().isRequireEmail();
     }
 
     /** e.g. "$150" (cached settings). */
@@ -136,7 +131,7 @@ public class VoucherService {
 
         // 1. Switches. Re-read settings: the kill switch takes effect immediately here.
         VoucherSettings settings = settingsService.current();
-        if (!featureAllowed || !settings.isEnabled() || !scopeMonitor.ready(settings.isRequireEmail())) {
+        if (!featureAllowed || !settings.isEnabled() || !scopeMonitor.ready()) {
             return refuse("DISABLED", "No voucher is available right now. Carry on helping without mentioning discounts.",
                 sessionId, day, null, requested, false, false);
         }
@@ -174,6 +169,7 @@ public class VoucherService {
         List<String> eligibleGids = new ArrayList<>();
         List<Line> knownLines = new ArrayList<>();
         int saleOrExcluded = 0;
+        List<Map<String, Object>> onSale = new ArrayList<>();
         for (Line line : lines) {
             VariantInfo v = byGid.get(line.variantGid());
             if (v == null) continue;
@@ -188,6 +184,7 @@ public class VoucherService {
                 eligibleGids.add(v.variantGid());
             } else {
                 saleOrExcluded++;
+                if (v.onSale()) onSale.add(saleItem(v, line));
             }
         }
         eligibleSubtotal = eligibleSubtotal.setScale(2, RoundingMode.HALF_UP);
@@ -214,16 +211,10 @@ public class VoucherService {
                 sessionId, day, eligibleSubtotal, requested, true, true);
         }
 
-        // 5b. Email: the code is locked to the customer who will check out with it.
+        // Optional, only for the one-per-customer-per-day limit. Codes aren't locked to it.
         String email = normaliseEmail(input.customerEmail());
-        if (settings.isRequireEmail() && email == null) {
-            return refuse("NEED_EMAIL", "Before a voucher can be created, ask which email the customer will use at "
-                + "checkout (the voucher only works with that email), then call offer_discount again with customer_email. "
-                + "Don't sign them up to anything.",
-                sessionId, day, eligibleSubtotal, requested, true, false);
-        }
 
-        // 6. Amount: positive, $5 steps, capped by 10% (floored to $5), max amount and (later) the pool.
+        // 6. Amount: positive, $5 steps, capped by 10% (floored to $5), the cart-size tier and (later) the pool.
         if (requested == null || requested.compareTo(VoucherRules.STEP) < 0) {
             return refuse("BAD_AMOUNT", "The voucher amount must be at least $5, in $5 steps.",
                 sessionId, day, eligibleSubtotal, requested, true, false);
@@ -231,15 +222,22 @@ public class VoucherService {
         Optional<BigDecimal> sessionOverride = overrideService.sessionAmount(sessionId);
         BigDecimal cap;
         BigDecimal pctForMinimum;
+        BigDecimal baseMaxForMinimum;
+        BigDecimal tierFloorForMinimum;
         if (sessionOverride.isPresent()) {
             // Owner-approved higher amount: still never over the hard caps.
             cap = VoucherRules.min(VoucherRules.min(sessionOverride.get(), VoucherRules.HARD_MAX_AMOUNT),
                 VoucherRules.pctCeiling(eligibleSubtotal, VoucherRules.HARD_MAX_PCT));
             pctForMinimum = VoucherRules.HARD_MAX_PCT;
+            baseMaxForMinimum = null;
+            tierFloorForMinimum = null;
         } else {
             cap = VoucherRules.min(VoucherRules.pctCeiling(eligibleSubtotal, settings.getMaxPct()),
-                VoucherRules.floorToStep(settings.getMaxAmount()));
+                VoucherRules.tierCap(eligibleSubtotal, settings.getMaxAmount(), settings.getHighTierSubtotal(),
+                    settings.getHighTierMaxAmount()));
             pctForMinimum = settings.getMaxPct();
+            baseMaxForMinimum = settings.getMaxAmount();
+            tierFloorForMinimum = settings.getHighTierSubtotal();
         }
         BigDecimal desired = VoucherRules.floorToStep(VoucherRules.min(requested, cap));
         if (desired.compareTo(VoucherRules.STEP) < 0) {
@@ -259,7 +257,7 @@ public class VoucherService {
         try {
             reservation = store.reserve(new VoucherStore.ReserveRequest(code, desired, poolLimit, day, sessionId,
                 customerKeys, ipHash, settings.getMaxPerIpPerDay(), eligibleSubtotal, pctForMinimum,
-                settings.getMinSubtotal(), input.reason(), now, expiresAt));
+                settings.getMinSubtotal(), baseMaxForMinimum, tierFloorForMinimum, input.reason(), now, expiresAt));
         } catch (DataIntegrityViolationException | jakarta.persistence.PersistenceException e) {
             // Lost a race with a concurrent issue for the same session or customer.
             return refuse("ALREADY_ISSUED", "This chat has already had its voucher.",
@@ -279,24 +277,22 @@ public class VoucherService {
 
         VoucherLedgerEntry entry = reservation.entry();
         CreateResult created = null;
-        String customerGid = null;
         String error;
         try {
-            if (settings.isRequireEmail()) customerGid = gateway.findOrCreateCustomer(email);
             created = gateway.createCode(new CodeSpec(code, "Chat voucher " + code, entry.getAmount(),
-                entry.getMinSubtotal(), eligibleGids, now, expiresAt, customerGid));
+                entry.getMinSubtotal(), eligibleGids, now, expiresAt));
             error = created.ok() ? null : created.error();
         } catch (GatewayException e) {
             error = e.getMessage();
             if (isAccessDenied(error)) scopeMonitor.markMissing(error);
         }
 
-        if (created != null && created.ok() && store.markIssued(entry.getId(), created.discountId(), customerGid)) {
+        if (created != null && created.ok() && store.markIssued(entry.getId(), created.discountId())) {
             log.info("VOUCHER_ISSUED id={} code={} amount={} subtotal={} min={} session={} expires={}",
                 entry.getId(), mask(code), entry.getAmount(), eligibleSubtotal, entry.getMinSubtotal(),
                 sessionId, expiresAt);
             recordOffer(sessionId, day, eligibleSubtotal, requested, "ISSUED", true, false, entry.getId(), input.reason());
-            return issuedResult(entry, knownLines, requested, customerGid == null ? null : email);
+            return issuedResult(entry, knownLines, requested, onSale);
         }
 
         if (created != null && created.accessDenied()) scopeMonitor.markMissing(error);
@@ -326,10 +322,21 @@ public class VoucherService {
 
     private static boolean isAccessDenied(String error) {
         String e = error == null ? "" : error.toLowerCase(Locale.ROOT);
-        return e.contains("access denied") || e.contains("write_customers") || e.contains("write_discounts");
+        return e.contains("access denied") || e.contains("write_discounts");
     }
 
-    private OfferResult issuedResult(VoucherLedgerEntry entry, List<Line> lines, BigDecimal requested, String lockedEmail) {
+    private static Map<String, Object> saleItem(VariantInfo v, Line line) {
+        Map<String, Object> m = new LinkedHashMap<>();
+        m.put("variant_id", line.numericId());
+        m.put("title", v.title());
+        m.put("quantity", line.quantity());
+        m.put("price", VoucherRules.money(v.price()));
+        m.put("compare_at_price", VoucherRules.money(v.compareAtPrice()));
+        return m;
+    }
+
+    private OfferResult issuedResult(VoucherLedgerEntry entry, List<Line> lines, BigDecimal requested,
+                                     List<Map<String, Object>> onSale) {
         String amount = VoucherRules.dollars(entry.getAmount());
         String until = LOCAL_TIME.format(clock.local(entry.getExpiresAt())).toLowerCase(Locale.ENGLISH)
             .replace(" am", "am").replace(" pm", "pm");
@@ -348,15 +355,15 @@ public class VoucherService {
         f.put("expires_local", until);
         f.put("minimum_spend", VoucherRules.money(entry.getMinSubtotal()));
         f.put("cart_link", cart.toString());
-        if (lockedEmail != null) f.put("locked_to_email", lockedEmail);
+        if (!onSale.isEmpty()) f.put("already_discounted_items", onSale);
         StringBuilder note = new StringBuilder("Give the customer the code ").append(entry.getCode())
             .append(" (").append(amount).append(" off, single use, valid until ").append(until)
             .append(") and the cart link, which applies it automatically. It needs ")
             .append(VoucherRules.dollars(entry.getMinSubtotal()))
             .append(" of the full-price items in this cart and can't be combined with other discounts.");
-        if (lockedEmail != null) {
-            note.append(" It only works when checking out with ").append(lockedEmail)
-                .append(", so tell the customer to use that email at checkout.");
+        if (!onSale.isEmpty()) {
+            note.append(" The items in already_discounted_items are already on sale, so the voucher doesn't apply to them:")
+                .append(" point that out, and that the voucher comes off the rest of the order.");
         }
         if (requested != null && requested.compareTo(entry.getAmount()) > 0) {
             note.append(" You asked for ").append(VoucherRules.dollars(requested.setScale(2, RoundingMode.DOWN)))

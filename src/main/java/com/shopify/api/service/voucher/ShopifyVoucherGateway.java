@@ -14,10 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * {@link VoucherShopifyGateway} over the Admin GraphQL API. Needs read_products,
- * read_orders, write_discounts, and read/write_customers when codes are locked to an email.
- */
+/** {@link VoucherShopifyGateway} over the Admin GraphQL API (needs read_products, read_orders, write_discounts). */
 @Component
 @Slf4j
 public class ShopifyVoucherGateway implements VoucherShopifyGateway {
@@ -26,8 +23,8 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
         query VoucherVariants($ids: [ID!]!) {
           nodes(ids: $ids) {
             ... on ProductVariant {
-              id price compareAtPrice availableForSale
-              product { id vendor productType tags status }
+              id title price compareAtPrice availableForSale
+              product { id title vendor productType tags status }
             }
           }
         }""";
@@ -60,19 +57,6 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
           discountCodeDelete(id: $id) { deletedCodeDiscountId userErrors { field code message } }
         }""";
 
-    private static final String FIND_CUSTOMER = """
-        query VoucherCustomer($q: String!) {
-          customers(first: 5, query: $q) { edges { node { id email } } }
-        }""";
-
-    private static final String CREATE_CUSTOMER = """
-        mutation VoucherCustomerCreate($input: CustomerInput!) {
-          customerCreate(input: $input) {
-            customer { id email }
-            userErrors { field message }
-          }
-        }""";
-
     private static final String SCOPES = "{ currentAppInstallation { accessScopes { handle } } }";
 
     private static final String ORDERS_BETWEEN = """
@@ -102,6 +86,7 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
             out.add(new VariantInfo(
                 String.valueOf(v.get("id")),
                 String.valueOf(p.get("id")),
+                title(str(p.get("title")), str(v.get("title"))),
                 decimal(v.get("price")),
                 decimal(v.get("compareAtPrice")),
                 str(p.get("vendor")),
@@ -120,9 +105,7 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
         input.put("code", spec.code());
         input.put("startsAt", spec.startsAt().toString());
         input.put("endsAt", spec.endsAt().toString());
-        input.put("customerSelection", spec.customerGid() == null
-            ? Map.of("all", true)
-            : Map.of("customers", Map.of("add", List.of(spec.customerGid()))));
+        input.put("customerSelection", Map.of("all", true));
         input.put("customerGets", Map.of(
             "value", Map.of("discountAmount", Map.of(
                 "amount", VoucherRules.money(spec.amount()),
@@ -130,8 +113,8 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
             "items", Map.of("products", Map.of("productVariantsToAdd", spec.variantGids()))));
         input.put("minimumRequirement", Map.of("subtotal",
             Map.of("greaterThanOrEqualToSubtotal", VoucherRules.money(spec.minSubtotal()))));
+        // One code = one order. Not locked to a customer (owner decision, Oct 2026).
         input.put("usageLimit", 1);
-        input.put("appliesOncePerCustomer", true);
         input.put("combinesWith", Map.of(
             "orderDiscounts", false, "productDiscounts", false, "shippingDiscounts", false));
 
@@ -183,35 +166,6 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
     }
 
     @Override
-    public String findOrCreateCustomer(String email) {
-        // VoucherService only passes emails matching a strict pattern (no quotes or spaces).
-        Optional<String> existing = findCustomer(email);
-        if (existing.isPresent()) return existing.get();
-        Map<String, Object> data = call(CREATE_CUSTOMER, Map.of("input", Map.of("email", email)));
-        Map<String, Object> payload = map(data.get("customerCreate"));
-        Map<String, Object> customer = payload == null ? null : map(payload.get("customer"));
-        if (customer != null && customer.get("id") != null) return String.valueOf(customer.get("id"));
-        // Most likely created concurrently ("Email has already been taken"): look again.
-        return findCustomer(email).orElseThrow(() -> new GatewayException("customer create failed: "
-            + (payload == null ? "no payload" : payload.get("userErrors"))));
-    }
-
-    private Optional<String> findCustomer(String email) {
-        Map<String, Object> data = call(FIND_CUSTOMER, Map.of("q", "email:\"" + email + "\""));
-        Map<String, Object> conn = map(data.get("customers"));
-        if (conn == null) return Optional.empty();
-        for (Object e : list(conn.get("edges"))) {
-            Map<String, Object> node = map(map(e).get("node"));
-            // Search is fuzzy: only accept an exact (case-insensitive) email match.
-            if (node != null && node.get("email") != null
-                    && email.equalsIgnoreCase(String.valueOf(node.get("email")))) {
-                return Optional.of(String.valueOf(node.get("id")));
-            }
-        }
-        return Optional.empty();
-    }
-
-    @Override
     public Optional<java.util.Set<String>> grantedScopes() {
         try {
             Map<String, Object> data = call(SCOPES, Map.of());
@@ -260,7 +214,7 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
         for (GraphQLResponse.GraphQLError err : response.getErrors()) {
             Object code = err.getExtensions() == null ? null : err.getExtensions().get("code");
             String msg = String.valueOf(err.getMessage()).toLowerCase();
-            if ("ACCESS_DENIED".equals(code) || msg.contains("access denied") || msg.contains("write_discounts") || msg.contains("write_customers")) {
+            if ("ACCESS_DENIED".equals(code) || msg.contains("access denied") || msg.contains("write_discounts")) {
                 return true;
             }
         }
@@ -275,6 +229,13 @@ public class ShopifyVoucherGateway implements VoucherShopifyGateway {
     @SuppressWarnings("unchecked")
     private static List<Object> list(Object o) {
         return o instanceof List<?> l ? (List<Object>) l : List.of();
+    }
+
+    /** "Product" or "Product - Variant" (Shopify's single-variant title is "Default Title"). */
+    private static String title(String product, String variant) {
+        if (product == null) return variant;
+        if (variant == null || variant.isBlank() || "Default Title".equals(variant)) return product;
+        return product + " - " + variant;
     }
 
     private static String str(Object o) {

@@ -69,7 +69,11 @@ storefront widget ──► ShopifyChatController (/api/shopify/chat/message[/st
 
 ### Client IP
 `ClientIpResolver` picks the address for the per-IP limit (and chat analytics). The left-most
-X-Forwarded-For entry is client-controlled, so it's never used. The order is:
+X-Forwarded-For entry is client-controlled, so it's never used. Forwarding headers are trusted only
+when the connection comes from a private, carrier-grade NAT (100.64.0.0/10) or loopback address,
+which is what Railway's edge looks like (Railway publishes no exact ranges). A connection from a
+public address is the client itself, and its address is used. Values must parse as IP literals,
+and IPv6 addresses count per /64. When the headers are trusted, the order is:
 
 1. `X-Real-IP`. Railway staff say the edge overwrites it with the connecting address.
 2. The right-most X-Forwarded-For entry.
@@ -79,7 +83,8 @@ X-Forwarded-For entry is client-controlled, so it's never used. The order is:
 Railway's public answers about X-Forwarded-For conflict, so verify after deploying: set
 `VOUCHER_LOG_IP_HEADERS=true`, send a chat from the storefront with and without a fake
 `X-Forwarded-For` header (e.g. via curl), and check the `CLIENT_IP` log lines show your real
-address both times. Then unset it. If everything comes out as `unknown` or as a Railway address,
+address both times. The `remote=` value should be a private or 100.64.x.x address; if it's
+a public Railway address instead, every customer would resolve to it. Then unset it. If everything comes out as `unknown` or as a Railway address,
 vouchers would effectively be limited to `max_per_ip_per_day` per day storewide; fix the header
 order before enabling.
 

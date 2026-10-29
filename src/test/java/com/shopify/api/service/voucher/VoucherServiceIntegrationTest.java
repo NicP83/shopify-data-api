@@ -151,6 +151,16 @@ class VoucherServiceIntegrationTest {
     // ----------------------------------------------------------------- issuing
 
     @Test
+    void amountGuidanceFollowsTheTierSettings() {
+        assertThat(service.amountGuidanceLabel())
+            .isEqualTo("$5 or $10 for carts under $500; for carts of $500 or more, $15 to $25");
+
+        settingsRepo.save(settingsService.current().toBuilder().highTierMaxAmount(usd("10")).build());
+        settingsService.current();
+        assertThat(service.amountGuidanceLabel()).isEqualTo("$5 or $10");
+    }
+
+    @Test
     void issuesAVoucherAndSetsEveryLimitOnTheShopifyCode() {
         OfferResult r = service.offer(cart(usd("10"), 1, 1, 2, 1), chat("s1"));
 

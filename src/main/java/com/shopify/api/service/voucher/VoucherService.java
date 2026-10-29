@@ -105,6 +105,26 @@ public class VoucherService {
         return VoucherRules.dollars(settingsService.cached().getMinSubtotal());
     }
 
+    /**
+     * Amount hint for the prompt guidance, built from the tier settings, e.g.
+     * "$5 or $10 for carts under $500; for carts of $500 or more, $15 to $25". Advisory only:
+     * the tool still recomputes the cart and applies every cap.
+     */
+    public String amountGuidanceLabel() {
+        VoucherSettings s = settingsService.cached();
+        String small = VoucherRules.dollars(s.getMaxAmount());
+        String threshold = VoucherRules.dollars(s.getHighTierSubtotal());
+        String high = VoucherRules.dollars(s.getHighTierMaxAmount());
+        String smallRange = s.getMaxAmount().compareTo(new java.math.BigDecimal("10")) >= 0 ? "$5 or " + small : small;
+        if (s.getHighTierMaxAmount().compareTo(s.getMaxAmount()) <= 0) {
+            return smallRange;
+        }
+        java.math.BigDecimal highLow = s.getMaxAmount().add(new java.math.BigDecimal("5")).min(s.getHighTierMaxAmount());
+        String highRange = highLow.compareTo(s.getHighTierMaxAmount()) < 0
+            ? VoucherRules.dollars(highLow) + " to " + high : high;
+        return smallRange + " for carts under " + threshold + "; for carts of " + threshold + " or more, " + highRange;
+    }
+
     /** Cached like the settings: refreshed off-thread, never a DB call on the chat turn's thread. */
     private boolean pausedCachedValue() {
         if (System.currentTimeMillis() - pausedCheckedAt > 15_000 && pauseRefreshing.compareAndSet(false, true)) {

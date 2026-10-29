@@ -1,11 +1,17 @@
+# Railway build (nixpacks). One Maven build; the start command overrides the Procfile.
+#
+# - No install phase: it used to run a full `mvn clean install` before the build
+#   phase ran `mvn clean package` again.
+# - /root/.m2/repository is a BuildKit cache mount, so dependencies are reused
+#   across deploys and are not baked into the image (the Spring Boot jar already
+#   contains them).
+
 [phases.setup]
 nixPkgs = ['maven', 'jdk17']
 
-[phases.install]
-cmds = ['mvn clean install -DskipTests']
-
 [phases.build]
-cmds = ['mvn clean package -DskipTests']
+cmds = ['mvn -B -DskipTests clean package']
+cacheDirectories = ['/root/.m2/repository']
 
 [start]
 cmd = 'java -Dserver.port=$PORT -jar target/*.jar'

@@ -1,0 +1,27 @@
+# Build context for Railway (nixpacks runs `docker build` over a copy of the repo).
+# Maven only needs pom.xml and src/main (incl. the committed SPA in
+# src/main/resources/static). Never exclude .nixpacks/ - nixpacks generates it.
+
+.git/
+.github/
+.claude/
+.idea/
+.vscode/
+target/
+
+# React sources: the built SPA is committed under src/main/resources/static
+frontend/
+
+docs/
+live-theme/
+shopify-theme-extension/
+scripts/
+src/test/
+
+*.md
+*.log
+check_tools.sql
+build-frontend.sh
+
+.env
+.env.*

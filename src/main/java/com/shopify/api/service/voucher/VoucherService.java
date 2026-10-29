@@ -469,10 +469,17 @@ public class VoucherService {
         return keys;
     }
 
+    /**
+     * A missing or unusable IP is one shared "unknown" bucket that is still limited,
+     * so hiding the address can't skip the per-IP limit.
+     */
     static String ipHash(String ip) {
         String v = trimToNull(ip);
-        if (v == null || "unknown".equalsIgnoreCase(v) || v.length() > 64) return null;
-        return VoucherRules.sha256("ip:" + v);
+        if (v == null || "unknown".equalsIgnoreCase(v) || v.length() > 64) {
+            return VoucherRules.sha256("ip:unknown");
+        }
+        // IPv6 counts per /64, so rotating within one subscriber's prefix doesn't help.
+        return VoucherRules.sha256("ip:" + com.shopify.api.util.ClientIpResolver.limitKey(v));
     }
 
     private static String trimToNull(String s) {

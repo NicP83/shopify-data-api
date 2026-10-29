@@ -118,6 +118,7 @@ export default function VoucherSettingsPanel() {
       maxPerIpPerDay: s.maxPerIpPerDay,
       highTierSubtotal: s.highTierSubtotal,
       highTierMaxAmount: s.highTierMaxAmount,
+      version: s.version,
     })
     setExclusions({
       vendors: toLines(s.exclusions?.vendors),
@@ -169,6 +170,7 @@ export default function VoucherSettingsPanel() {
     try {
       const body = { ...form }
       for (const f of NUMBER_FIELDS) body[f.key] = Number(body[f.key])
+      // body.version is what this page loaded: a save over someone else's newer change fails with 409.
       body.exclusions = {
         vendors: fromLines(exclusions.vendors),
         productTypes: fromLines(exclusions.productTypes),

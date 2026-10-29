@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -69,6 +70,11 @@ public class VoucherSettings {
 
     @Column(name = "updated_by")
     private String updatedBy;
+
+    /** Optimistic lock (V025): saving from a stale read fails instead of overwriting. */
+    @Version
+    @Column(nullable = false)
+    private Long version;
 
     /** The defaults V024 seeds: disabled, AUD 50 pool, 10%, $10 max ($25 from a $500 cart), $150 min, 60 min, 30% holdout. */
     public static VoucherSettings defaults() {

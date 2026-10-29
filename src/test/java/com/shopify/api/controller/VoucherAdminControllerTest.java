@@ -70,7 +70,7 @@ class VoucherAdminControllerTest {
         settings = mock(VoucherSettingsService.class);
         scope = mock(VoucherScopeMonitor.class);
         stored = VoucherSettings.defaults();
-        when(settings.current()).thenReturn(stored);
+        when(settings.currentStrict()).thenReturn(stored);
         when(settings.save(any())).thenAnswer(i -> i.getArgument(0));
         when(overrides.create(any(), anyString(), any())).thenAnswer(i -> VoucherOverride.builder().id(9L)
             .type(VoucherOverride.Type.POOL_RAISE).value(new BigDecimal("20")).reason("r").createdBy(i.getArgument(1))
@@ -164,6 +164,26 @@ class VoucherAdminControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content("{\"dailyPool\":5000}"))
             .andExpect(status().isBadRequest());
         verify(settings, never()).save(any());
+    }
+
+    @Test
+    void unreadableSettingsRefuseUpdatesInsteadOfComparingWithDefaults() throws Exception {
+        when(settings.currentStrict()).thenThrow(
+            new VoucherSettingsService.SettingsUnavailableException("db down", null));
+        mvc.perform(put("/api/vouchers/settings").header("X-API-Key", ADMIN).header("X-Owner-Key", OWNER)
+                .contentType(MediaType.APPLICATION_JSON).content("{\"dailyPool\":20}"))
+            .andExpect(status().isServiceUnavailable());
+        mvc.perform(get("/api/vouchers/settings").header("X-API-Key", ADMIN)).andExpect(status().isServiceUnavailable());
+        verify(settings, never()).save(any());
+    }
+
+    @Test
+    void staleSaveIsAConflict() throws Exception {
+        when(settings.save(any())).thenThrow(new org.springframework.orm.ObjectOptimisticLockingFailureException(
+            VoucherSettings.class, 1L));
+        mvc.perform(put("/api/vouchers/settings").header("X-API-Key", ADMIN)
+                .contentType(MediaType.APPLICATION_JSON).content("{\"dailyPool\":20,\"version\":3}"))
+            .andExpect(status().isConflict());
     }
 
     @Test

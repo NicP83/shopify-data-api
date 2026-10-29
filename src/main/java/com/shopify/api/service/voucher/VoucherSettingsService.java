@@ -31,7 +31,30 @@ public class VoucherSettingsService {
         this.repository = repository;
     }
 
-    /** Fresh from the DB; used wherever a decision is made (issuing, admin). */
+    /** The settings couldn't be read; admin changes must not proceed (HTTP 503). */
+    public static class SettingsUnavailableException extends RuntimeException {
+        public SettingsUnavailableException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
+
+    /**
+     * Fresh from the DB for the admin path. Unlike {@link #current()} it never falls
+     * back to defaults: comparing a change against defaults could let a loosening
+     * slip past the owner-key check, or overwrite the real row.
+     */
+    public VoucherSettings currentStrict() {
+        try {
+            return repository.findById(VoucherSettings.SINGLETON_ID).orElseThrow(() ->
+                new SettingsUnavailableException("voucher_settings row is missing (is V024 applied?)", null));
+        } catch (SettingsUnavailableException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new SettingsUnavailableException("voucher settings unreadable: " + e.getMessage(), e);
+        }
+    }
+
+    /** Fresh from the DB for the chat path; fails closed (disabled defaults) when unreadable. */
     public VoucherSettings current() {
         try {
             VoucherSettings s = repository.findById(VoucherSettings.SINGLETON_ID).orElseGet(VoucherSettings::defaults);
@@ -151,10 +174,10 @@ public class VoucherSettingsService {
         return saved;
     }
 
-    /** Kill switch: needs only the admin key. */
+    /** Kill switch: needs only the admin key. Strict read, so it never saves defaults over the real row. */
     @Transactional
     public VoucherSettings disable(String by) {
-        VoucherSettings s = current().toBuilder().enabled(false).updatedBy(by).updatedAt(java.time.Instant.now()).build();
+        VoucherSettings s = currentStrict().toBuilder().enabled(false).updatedBy(by).updatedAt(java.time.Instant.now()).build();
         return save(s);
     }
 }

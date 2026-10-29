@@ -293,6 +293,35 @@ class VoucherServiceIntegrationTest {
     }
 
     @Test
+    void missingIpIsOneSharedLimitedBucket() {
+        settingsRepo.save(settingsService.current().toBuilder().maxPerIpPerDay(1).build());
+        assertThat(service.offer(cart(usd("10"), 4, 1), new VoucherChatContext("u1", null, null)).issued()).isTrue();
+        assertThat(service.offer(cart(usd("10"), 4, 1), new VoucherChatContext("u2", null, "unknown")).issued()).isFalse();
+        assertThat(service.offer(cart(usd("10"), 4, 1), new VoucherChatContext("u3", null, " ")).issued()).isFalse();
+    }
+
+    @Test
+    void staleSettingsSaveFailsWithOptimisticLock() {
+        VoucherSettings a = settingsService.currentStrict();
+        VoucherSettings b = settingsService.currentStrict();
+        settingsService.save(a.toBuilder().dailyPool(usd("20")).build());
+        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
+                settingsService.save(b.toBuilder().dailyPool(usd("200")).build()))
+            .isInstanceOf(org.springframework.dao.OptimisticLockingFailureException.class);
+        assertThat(settingsService.currentStrict().getDailyPool()).isEqualByComparingTo("20");
+    }
+
+    @Test
+    void strictReadThrowsWhenTheRowIsMissing() {
+        settingsRepo.deleteAll();
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> settingsService.currentStrict())
+            .isInstanceOf(VoucherSettingsService.SettingsUnavailableException.class);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> settingsService.disable("test"))
+            .isInstanceOf(VoucherSettingsService.SettingsUnavailableException.class);
+        assertThat(settingsRepo.count()).isZero();             // nothing saved over it
+    }
+
+    @Test
     void poolCapsTheLastVoucherAndThenRunsDry() {
         for (int i = 0; i < 4; i++) {
             assertThat(service.offer(cart(usd("10"), 4, 1), chat("s" + i)).issued()).isTrue();

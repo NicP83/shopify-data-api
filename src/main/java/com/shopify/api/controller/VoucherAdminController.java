@@ -75,7 +75,11 @@ public class VoucherAdminController {
     public ResponseEntity<Map<String, Object>> getSettings(HttpServletRequest request) {
         VoucherAuthGuard.Result auth = guard.checkAdmin(request);
         if (!auth.ok()) return deny(auth);
-        return ResponseEntity.ok(settingsView(settingsService.current()));
+        try {
+            return ResponseEntity.ok(settingsView(settingsService.currentStrict()));
+        } catch (VoucherSettingsService.SettingsUnavailableException e) {
+            return error(503, "Voucher settings can't be read right now.");
+        }
     }
 
     /** Partial update. Fields that loosen a limit need X-Owner-Key too. */
@@ -83,7 +87,13 @@ public class VoucherAdminController {
     public ResponseEntity<Map<String, Object>> updateSettings(@RequestBody JsonNode body, HttpServletRequest request) {
         VoucherAuthGuard.Result auth = guard.checkAdmin(request);
         if (!auth.ok()) return deny(auth);
-        VoucherSettings prev = settingsService.current();
+        VoucherSettings prev;
+        try {
+            prev = settingsService.currentStrict();
+        } catch (VoucherSettingsService.SettingsUnavailableException e) {
+            log.error("voucher: settings update refused, settings unreadable: {}", e.getMessage());
+            return error(503, "Voucher settings can't be read right now; nothing was changed. Try again.");
+        }
         VoucherSettings next;
         try {
             next = merge(prev, body);
@@ -106,7 +116,12 @@ public class VoucherAdminController {
         }
         next.setUpdatedBy(by);
         next.setUpdatedAt(clock.now());
-        VoucherSettings saved = settingsService.save(next);
+        VoucherSettings saved;
+        try {
+            saved = settingsService.save(next);
+        } catch (org.springframework.dao.OptimisticLockingFailureException e) {
+            return error(409, "Voucher settings were changed by someone else since you loaded them. Reload and try again.");
+        }
         log.warn("VOUCHER_SETTINGS updated by='{}' loosened={} enabled={} pool={} maxPct={} maxAmount={} min={} validity={} holdout={}",
             by, loosened, saved.isEnabled(), saved.getDailyPool(), saved.getMaxPct(), saved.getMaxAmount(),
             saved.getMinSubtotal(), saved.getValidityMinutes(), saved.getHoldoutPct());
@@ -119,7 +134,15 @@ public class VoucherAdminController {
     public ResponseEntity<Map<String, Object>> kill(HttpServletRequest request) {
         VoucherAuthGuard.Result auth = guard.checkAdmin(request);
         if (!auth.ok()) return deny(auth);
-        VoucherSettings saved = settingsService.disable(auth.identity());
+        VoucherSettings saved;
+        try {
+            saved = settingsService.disable(auth.identity());
+        } catch (VoucherSettingsService.SettingsUnavailableException e) {
+            log.error("voucher: KILL SWITCH could not read settings: {}", e.getMessage());
+            return error(503, "Voucher settings can't be read right now. Use VOUCHER_FEATURE_ALLOWED=false to stop vouchers.");
+        } catch (org.springframework.dao.OptimisticLockingFailureException e) {
+            saved = settingsService.disable(auth.identity());   // lost a race with another save: retry once
+        }
         log.warn("VOUCHER_KILL_SWITCH by='{}'", auth.identity());
         return ResponseEntity.ok(settingsView(saved));
     }
@@ -241,6 +264,11 @@ public class VoucherAdminController {
     private static VoucherSettings merge(VoucherSettings prev, JsonNode b) {
         if (b == null || !b.isObject()) throw new IllegalArgumentException("JSON object body required");
         VoucherSettings.VoucherSettingsBuilder n = prev.toBuilder();
+        // The version the client loaded: a save from a stale page fails with 409.
+        if (b.hasNonNull("version")) {
+            if (!b.get("version").canConvertToLong()) throw new IllegalArgumentException("version must be a number");
+            n.version(b.get("version").asLong());
+        }
         if (b.has("enabled")) n.enabled(bool(b, "enabled"));
         if (b.has("dailyPool")) n.dailyPool(decimal(b, "dailyPool"));
         if (b.has("maxPct")) n.maxPct(decimal(b, "maxPct"));
@@ -293,6 +321,7 @@ public class VoucherAdminController {
         m.put("exclusions", Map.of("vendors", ex.vendors(), "productTypes", ex.productTypes(), "tags", ex.tags()));
         m.put("updatedAt", s.getUpdatedAt() == null ? null : s.getUpdatedAt().toString());
         m.put("updatedBy", s.getUpdatedBy());
+        m.put("version", s.getVersion());
         Map<String, Object> status = new LinkedHashMap<>();
         status.put("featureAllowed", featureAllowed);
         status.put("writeDiscountsScope", scopeMonitor.state(VoucherScopeMonitor.WRITE_DISCOUNTS));

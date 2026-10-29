@@ -107,7 +107,7 @@ class ShopifyChatControllerStreamTrackingTest {
         assertThat(row.getApiCostUsd()).isPositive();
         assertThat(row.getModelUsed()).isEqualTo("claude-sonnet-5-5");
         assertThat(row.getToolResultsCount()).isEqualTo(1);
-        assertThat(row.getIpAddress()).isEqualTo("1.2.3.4");
+        assertThat(row.getIpAddress()).isEqualTo("5.6.7.8");   // right-most hop, never the client-set left
         assertThat(row.getUserAgent()).isEqualTo("Mozilla");
         assertThat(row.getErrorMessage()).isNull();
     }

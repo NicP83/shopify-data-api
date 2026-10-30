@@ -34,6 +34,8 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
     final AtomicInteger ids = new AtomicInteger();
     volatile CreateMode createMode = CreateMode.OK;
     volatile boolean deleteFails;
+    /** Simulates a token without read_orders: the order search throws. */
+    volatile boolean ordersDenied;
     volatile Optional<java.util.Set<String>> scopes = Optional.of(java.util.Set.of("write_discounts"));
 
     static String gid(long id) {
@@ -83,6 +85,7 @@ class FakeVoucherGateway implements VoucherShopifyGateway {
 
     @Override
     public Optional<OrderInfo> findOrderByCode(String code) {
+        if (ordersDenied) throw new GatewayException("Access denied for orders field. Required access: `read_orders`");
         return Optional.ofNullable(orders.get(code));
     }
 

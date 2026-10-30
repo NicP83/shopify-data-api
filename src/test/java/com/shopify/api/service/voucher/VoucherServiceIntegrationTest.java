@@ -107,6 +107,7 @@ class VoucherServiceIntegrationTest {
         settingsRepo.deleteAll();
         clock = new MutableClock(START);
         voucherClock.setClock(clock);
+        shopify.ordersDenied = false;
 
         // Holdout 0 so tests are deterministic; holdout has its own tests.
         settingsRepo.save(VoucherSettings.defaults().toBuilder().enabled(true).holdoutPct(0).maxPerIpPerDay(20).build());
@@ -449,6 +450,22 @@ class VoucherServiceIntegrationTest {
         assertThat(e.getStatus()).isEqualTo(VoucherStatus.REDEEMED);
         assertThat(e.getOrderId()).isEqualTo("gid://shopify/Order/77");
         assertThat(shopify.deleted).isEmpty();
+        assertThat(reserved()).isEqualByComparingTo("10");
+    }
+
+    @Test
+    void withoutReadOrdersUnusedCodesStillExpireAndUsedOnesStillCount() {
+        shopify.ordersDenied = true;
+        String unused = (String) service.offer(cart(usd("10"), 4, 1), chat("s1")).fields().get("code");
+        String used = (String) service.offer(cart(usd("10"), 4, 1), chat("s2")).fields().get("code");
+        shopify.codes.get(used).usage = 1;
+
+        clock.advance(Duration.ofMinutes(66));
+        VoucherReconcileService.Summary s = reconcile.reconcile();
+
+        assertThat(s.expired()).isEqualTo(1);
+        assertThat(s.redeemed()).isEqualTo(1);
+        assertThat(shopify.codes).doesNotContainKey(unused);
         assertThat(reserved()).isEqualByComparingTo("10");
     }
 

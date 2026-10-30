@@ -78,14 +78,17 @@ public class VoucherReconcileService {
 
     private VoucherStatus settleIssued(VoucherLedgerEntry e) {
         try {
-            Optional<OrderInfo> order = gateway.findOrderByCode(e.getCode());
+            // The discount's own usage count needs only read_discounts, so it decides used-or-not.
+            // The order search (read_orders) only adds the order id and total, and is optional:
+            // without that scope, codes must still settle instead of staying ISSUED forever.
+            CodeState state = gateway.lookupCode(e.getCode());
+            Optional<OrderInfo> order = findOrderQuietly(e.getCode());
             if (order.isPresent()) {
                 store.markRedeemed(e.getId(), order.get().orderId(), order.get().total(), clock.now());
                 return VoucherStatus.REDEEMED;
             }
-            CodeState state = gateway.lookupCode(e.getCode());
             if (state.found() && state.usageCount() > 0) {
-                // Used, but the order isn't searchable yet: it stays spent.
+                // Used; the order isn't searchable (not yet, or no read_orders): it stays spent.
                 store.markRedeemed(e.getId(), null, null, clock.now());
                 return VoucherStatus.REDEEMED;
             }
@@ -98,6 +101,15 @@ public class VoucherReconcileService {
         } catch (Exception ex) {
             noteFailure(e, ex.getMessage());
             return VoucherStatus.ISSUED;
+        }
+    }
+
+    private Optional<OrderInfo> findOrderQuietly(String code) {
+        try {
+            return gateway.findOrderByCode(code);
+        } catch (Exception ex) {
+            log.debug("voucher: order lookup unavailable for a code ({}); using the usage count", ex.getMessage());
+            return Optional.empty();
         }
     }
 

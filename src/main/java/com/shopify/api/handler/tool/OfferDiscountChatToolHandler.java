@@ -73,7 +73,7 @@ public class OfferDiscountChatToolHandler implements ChatToolHandler {
         props.set("cart_items", items);
 
         props.set("amount", objectMapper.createObjectNode().put("type", "number")
-            .put("description", "Voucher amount in AUD you'd like to offer, in $5 steps (e.g. 5 or 10)"));
+            .put("description", "Voucher amount in AUD you'd like to offer, in $5 steps; bigger carts can get more (see your voucher guidance)"));
         props.set("reason", objectMapper.createObjectNode().put("type", "string")
             .put("description", "One line on why a voucher helps close this sale"));
         props.set("customer_email", objectMapper.createObjectNode().put("type", "string")
@@ -92,6 +92,11 @@ public class OfferDiscountChatToolHandler implements ChatToolHandler {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /** Tier-aware amount hint for the prompt guidance, from the current settings. */
+    public String amountGuidanceLabel() {
+        return voucherService.amountGuidanceLabel();
     }
 
     /** e.g. "$150": the current minimum spend, for the prompt guidance. */

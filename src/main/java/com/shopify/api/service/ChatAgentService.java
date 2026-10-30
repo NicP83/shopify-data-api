@@ -1001,12 +1001,14 @@ public class ChatAgentService {
      */
     private String buildClosingVoucherGuidance(ChatbotConfig config) {
         String min;
+        String amounts;
         try {
             ChatToolHandler voucher = chatToolRegistry.getHandlers().get(OfferDiscountChatToolHandler.TOOL_NAME);
             if (!(voucher instanceof OfferDiscountChatToolHandler offer) || !offer.isEnabled(config)) {
                 return "";
             }
             min = offer.minimumSpendLabel();
+            amounts = offer.amountGuidanceLabel();
         } catch (Exception e) {
             return "";
         }
@@ -1018,8 +1020,9 @@ public class ChatAgentService {
                 + "and only call offer_discount once the cart actually qualifies.\n"
                 + "Rules for you:\n"
                 + "- NEVER offer or mention a voucher as an opener, unprompted at the start, or to someone just browsing.\n"
-                + "- Pass the exact cart items (variant ids and quantities from your search results) and a modest amount "
-                + "($5 or $10). The tool's answer is final: if it gives less or says no, accept it gracefully.\n"
+                + "- Pass the exact cart items (variant ids and quantities from your search results) and an amount that "
+                + "fits the order: " + amounts + ". Bigger orders deserve the bigger end. The tool's answer is final: "
+                + "if it gives less or says no, accept it gracefully.\n"
                 + "- NEVER mention budgets, pools, limits, percentages, holdouts or how vouchers are decided. If asked "
                 + "for more, say \"I can't go higher than $X on this order\" using the amount the tool gave.\n"
                 + "- If the result lists already_discounted_items, point out those items are already on sale, so the "
